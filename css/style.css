@@ -1,0 +1,110 @@
+/******************************************
+/* CSS
+/*******************************************/
+
+/* Box Model Hack */
+*{
+  box-sizing: border-box;
+}
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+
+#search {
+  min-height: 10vh;
+}
+
+#results{
+  height: 80vh;
+  
+}
+
+nav{
+  height:10vh;
+}
+
+#search{
+  width: 100%;
+  
+  border: black 1px solid;
+  text-align: center;
+ 
+ 
+
+}
+    #search input{
+      vertical-align: middle;
+      width: 70%;
+      line-height: 50px;
+      border: red 1px solid;
+    }
+
+    #search button{
+      width: 20%;
+      vertical-align: middle;
+    }
+
+
+
+
+#results{
+  
+  width: 100%;
+  border: green solid 2px;
+  /* display: flex; */
+  
+  
+}
+  
+  .fixes{
+    height: 30%;
+    width: 100%;
+    border: 1px green solid;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+    .fixes .desc-cont{
+      width: 70%;
+      /* border:black 1px solid; */
+      background-color: rgb(170, 76, 76);
+      display: inline-block;    
+      height: 100%;
+      /* border-radius: 20px 0 0 20px; */
+    }
+
+    .fixes .desc-img{
+      width: 30%;
+    
+      /* border:rgb(223, 5, 5) 1px solid; */
+      /* background-color: aquamarine; */
+      display: inline-block;
+      vertical-align: top;
+      height:100%;    
+    }
+        .desc-img img{
+          height: 100%;
+          width: 100%;
+          /* border-radius: 0px 20px 20px 0; */
+          
+        }
+
+
+nav{
+  white-space: nowrap;
+  overflow: auto;
+  width: 100%;
+  text-align: center;
+  
+}
+
+  nav .model{
+    width: 30%;
+    border: gray solid 1px;
+    display: inline-block;
+    height: 100%;
+  }
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
