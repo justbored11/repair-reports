@@ -26,17 +26,28 @@ a{
 /* LAYOUT
 /*******************************************/
 
-#search {
+header {
   min-height: 10vh;
 }
 
-#results{
+#frame{
   height: 80vh;
   
 }
 
-nav{
+
+footer{
   height: 10vh;
+  /* border: solid red 1px; */
+  position: fixed;
+  bottom:0;
+  width: 100%;
+ 
+}
+nav{
+  /* height: 10vh; */
+  /* position:fixed;
+  bottom:0; */
 }
 
 #add{
@@ -50,6 +61,27 @@ nav{
 /******************************************
 /* styles
 /*******************************************/
+
+.button{
+  border-radius: 100%;
+  border:solid black 1px;
+  height: 80px;
+  width: 80px;
+  background-color: gray;
+  /* FLEXBOX */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+    .button span{
+      padding: 5px;
+      color:white;
+      font-weight: 900;
+      vertical-align: middle;
+      
+      
+    }
+
 
 #search{
   width: 100%;
@@ -71,7 +103,7 @@ nav{
       vertical-align: middle;
     }
 
-#results{
+#frame{
   
   width: 100%;
   /* border: green solid 2px; */
@@ -121,13 +153,14 @@ nav{
         
 nav{
   /* height: 20vh; */
+
   white-space: nowrap;
   overflow: auto;
   width: 100%;
   text-align: center;
   position: fixed;
-
-  background-color:var(--nav-bg) ;
+  height: 10vh;
+  /* background-color:var(--nav-bg) ; */
 
   
 }
@@ -138,17 +171,18 @@ nav{
   border:solid black 1px;
  
   display: flex;
-
+ 
   justify-content: flex-end;
   align-items: center;
  
 }
-
-    .button{
-      border:solid black 1px;
-      padding:20px;
-      border-radius: 100%;
+    #add div{
+      height: 100%;
     }
+
+ 
+
+        
 
 .model:hover{
   border: 5px solid black;

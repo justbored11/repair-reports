@@ -5,7 +5,7 @@
     	<meta name="description" content="This is where your description goes">
     	<meta name="keywords" content="one, two, three">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Repair Reports</title>
+		<title>Repair Search</title>
 
 		<!-- external CSS link -->
 		<link rel="stylesheet" href="css/normalize.css">
@@ -13,24 +13,29 @@
 	</head>
 	<body>
 		<!-- search bar -->
-		<section id="search">
-			<form action="">
-				<input type="text" placeholder="Search">
-				<button type="button"><img src="" alt="search-icon"></button>
-			</form>
-		</section>
+		<header>
+			<section id="search">
+				<form action="">
+					<input type="text" placeholder="Search">
+					<button type="button"><img src="" alt="search-icon"></button>
+				</form>
+			</section>
+		
+		</header>
+
 
 		<!-- results -->
-		<section id="results" >
+		<section id="frame" >
 
-			<!-- example result -->
+			
 			<section class="fix cummins-fix">
 				<div class="desc-cont">
 					<p>no 5 volt </p>
 				</div><!--
 				
-				--><div class="desc-img">
-					<img src="#" alt="fix-img">
+				
+				  --><div class="desc-img">
+					<img src="https://placekitten.com/g/200/300" alt="fix-img">
 				</div>
 			</section>
 
@@ -38,6 +43,7 @@
 				<div class="desc-cont">
 					<p>fan not working </p>
 				</div><!--
+				
 				
 				--><div class="desc-img">
 					<img src="#" alt="fix-img">
@@ -50,16 +56,6 @@
 					<p>no 100 volt </p>
 				</div><!--
 				
-				--><div class="desc-img">
-					<img src="#" alt="fix-img">
-				</div>
-			</section>
-
-
-			<section class="fix">
-				<div class="desc-cont">
-					<p>no 100 volt </p>
-				</div><!--
 				
 				--><div class="desc-img">
 					<img src="#" alt="fix-img">
@@ -71,7 +67,15 @@
 				<div class="desc-cont">
 					<p>no 100 volt </p>
 				</div><!--
-				
+				--><div class="desc-img">
+					<img src="#" alt="fix-img">
+				</div>
+			</section>
+
+			<section class="fix">
+				<div class="desc-cont">
+					<p>no 100 volt </p>
+				</div><!--
 				--><div class="desc-img">
 					<img src="#" alt="fix-img">
 				</div>
@@ -82,7 +86,6 @@
 				<div class="desc-cont">
 					<p>no 100 volt </p>
 				</div><!--
-				
 				--><div class="desc-img">
 					<img src="#" alt="fix-img">
 				</div>
@@ -95,31 +98,39 @@
 
 
 		<!-- pick model to search -->
-		<nav>
-			
-				<section id="" class="model caterpillar selected">
-					<img src="" alt="caterpillar">
-				</section>
-		
-
-			
-				<section id="" class="model detroit">
-					<img src="" alt="detroit">
-				</section>
-			
-		
-			
-				<section id="" class="model cummins">
-					<img src="" alt="cummins">
-				</section>
-
+		<footer>
+				<nav>
 				
+					<section id="" class="model caterpillar selected">
+						<img src="" alt="caterpillar">
+					</section>
 				
+					<section id="" class="model detroit">
+						<img src="" alt="detroit">
+					</section>
+				
+					<section id="" class="model cummins">
+						<img src="" alt="cummins">
+					</section>
+
 					
-		</nav>
-		<section id="add">
-			<a class="button" href="#">add</a>
-		</section>
+					
+						
+				</nav>
+			<section id="add">
+			
+					<a class="button" href="#">
+						<span>FIX <br> +</span>
+					</a>
+					<a class="button" href="#">
+						<span>LOG <br> +</span>
+					</a>
+				
+				
+			</section>
+
+		</footer>
+		
 	
 
 		<script type="text/javascript" src="js/main.js"></script>
