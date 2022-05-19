@@ -10,6 +10,7 @@
   --search-bg:white;
   --desc-bg: green;
   --selected:black;
+  --ecm-log-bg:gray;
 }
 
 /* Box Model Hack */
@@ -20,6 +21,12 @@
 a{
   text-decoration: none;
   color: inherit;
+}
+
+h2{
+  padding: 0;
+  margin: 0;
+  text-align: center;
 }
 
 /******************************************
@@ -116,7 +123,7 @@ nav{
   
   
 
-  .fix{
+  .entry{
     height: 200px;
     width: 100%;
     /* border: 1px green solid; */
@@ -124,7 +131,7 @@ nav{
     overflow: hidden;
   }
 
-    .fix .desc-cont{
+    .entry .desc-cont{
       width: 60%;
       /* border:black 1px solid; */
       
@@ -133,7 +140,7 @@ nav{
       border-radius: 20px 0 0 20px;
     }
 
-    .fix .desc-img{
+    .entry .desc-img{
       width: 40%;
     
       /* border:rgb(223, 5, 5) 1px solid; */
@@ -168,7 +175,7 @@ nav{
 #add{ 
   text-align: center;
   width: 100%;
-  border:solid black 1px;
+  /* border:solid black 1px; */
  
   display: flex;
  
@@ -180,16 +187,21 @@ nav{
       height: 100%;
     }
 
- 
+.clickable:active{
+  background-color: rgb(0, 130, 0);
+}
+.clickable:hover{
+  border: 5px solid black;
+}
 
         
 
-.model:hover{
+/* .model:hover{
   border: 5px solid black;
 }
 section.model:active{
   background-color: rgb(0, 130, 0);
-}
+} */
 
   nav .model{
     width: 30%;
@@ -202,8 +214,13 @@ section.model:active{
 /* ADDITIONAL STYLES
 /*******************************************/
 
+/* inspection ecm log event */
+.inspect-entry{
 
-.fix{
+
+}
+
+.entry{
   padding: 5px;
  
   border-radius: 20px;
