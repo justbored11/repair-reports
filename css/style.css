@@ -13,6 +13,9 @@
   --ecm-log-bg:gray;
 }
 
+body{
+  background-color: gray;
+}
 /* Box Model Hack */
 *{
   box-sizing: border-box;
@@ -204,9 +207,9 @@ nav{
   align-items: center;
  
 }
-    #add div{
+    /* #add div{
       height: 100%;
-    }
+    } */
 
 .clickable:active{
   background-color: rgb(0, 130, 0);
@@ -228,8 +231,30 @@ section.model:active{
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
+input{
+  display: inline-block;
+  border: 1px red solid;
+  font-size: 1.5rem;
+  text-align: center;
+}
+textarea{
+  width: 70%;
+}
+form{
+  text-align: center;
+  border: black 1px solid;
+}
 
+.rep-sect{
+  padding: 30px;
+}
 
+label{
+  display: block;
+}
+.tool{
+  cursor: pointer;
+}
 
 /* log entry */
 .entry{
@@ -267,6 +292,3 @@ section.model:active{
     background-color: var(--fix-bg-cat);
   }
 
-.selected{
-  /* border: 5px solid black; */
-}

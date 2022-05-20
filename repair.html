@@ -12,17 +12,42 @@
 
     <header>
         <h2>Document Repair</h2>
-        <section id="search">
-            
-        </section>
-    
     </header>
+
+
     <section class="frame">
 
+        <section>
+            <form id="repair-form" action="">
+                <section class="rep-sect">
+                    <input id="rep-title" type="text" placeholder="Title">
+                    
+                </section>
+                <section>
+                    <label for="cat">Caterpillar</label>
+                    <input id="cat" name="model" valu type="radio">
 
-        <form action="">
-            <input type="file" capture="enviroment">
-        </form>
+                    <label for="detroit">Detroit</label>
+                    <input id="detroit" name="model" type="radio">
+
+                    <label for="cummins">Cummins</label>
+                    <input id="cummins" name="model"  type="radio">
+                </section>
+               
+                <section class="rep-sect">
+                    <section>
+                        <img src="" alt="">
+                    </section>
+                    <input id="img1" class="rep-img" type="file" accept="image/*" capture="enviroment">
+                </section>
+               
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+                
+            </form>
+           
+        </section>
+       
+
 
        
 
@@ -32,8 +57,13 @@
 
 
     <footer>
+
+
+       
         <nav>
 			
+           
+
             <section id="" class="model clickable caterpillar">
                 <div>
                     <span>Caterpillar</span>
@@ -65,7 +95,12 @@
                 
     </nav>
     <section id="add">
-			
+		
+            <div class="button clickable tool">
+                <span>add image</span>
+            </div>
+        
+
         <a class="button clickable" href="repair.html">
             <span>Doc Repair <br> +</span>
         </a>
