@@ -20,25 +20,42 @@
         <section>
             <form id="repair-form" action="">
                 <section class="rep-sect">
+
                     <input id="rep-title" type="text" placeholder="Title">
                     
                 </section>
-                <section>
-                    <label for="cat">Caterpillar</label>
-                    <input id="cat" name="model" valu type="radio">
 
-                    <label for="detroit">Detroit</label>
-                    <input id="detroit" name="model" type="radio">
-
-                    <label for="cummins">Cummins</label>
-                    <input id="cummins" name="model"  type="radio">
+                <!-- pick model of engine -->
+                <section id="rep-model">
+                    <div class="clickable" >
+                        <label  for="cat">Caterpillar</label>
+                        <input  id="cat" name="model" valu type="radio">
+                    </div>
+                   
+                    <div class="clickable">
+                        <label for="detroit">Detroit</label>
+                        <input id="detroit" name="model" type="radio">
+                    </div>
+                    
+                    <div class="clickable">
+                        <label for="cummins">Cummins</label>
+                        <input id="cummins" name="model"  type="radio">
+                    </div>
+                   
                 </section>
                
+                <!-- attach picture and text -->
                 <section class="rep-sect">
                     <section>
+                        <!-- picture preview -->
                         <img src="" alt="">
                     </section>
-                    <input id="img1" class="rep-img" type="file" accept="image/*" capture="enviroment">
+
+                    <section>
+                        <!-- upload picture -->
+                        <input id="img1" class="rep-img" type="file" accept="image/*" capture="enviroment">
+                    </section>
+                   
                 </section>
                
                 <textarea name="" id="" cols="30" rows="10"></textarea>
@@ -57,13 +74,8 @@
 
 
     <footer>
-
-
        
         <nav>
-			
-           
-
             <section id="" class="model clickable caterpillar">
                 <div>
                     <span>Caterpillar</span>
@@ -96,10 +108,14 @@
     </nav>
     <section id="add">
 		
+        <section class="tool-area">
             <div class="button clickable tool">
                 <span>add image</span>
             </div>
         
+
+        </section>
+            
 
         <a class="button clickable" href="repair.html">
             <span>Doc Repair <br> +</span>

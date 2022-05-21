@@ -234,8 +234,9 @@ section.model:active{
 input{
   display: inline-block;
   border: 1px red solid;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   text-align: center;
+  max-width: 100%;
 }
 textarea{
   width: 70%;
@@ -252,9 +253,17 @@ form{
 label{
   display: block;
 }
-.tool{
-  cursor: pointer;
+
+.tool-area
+{
+  border:solid 1px black;
+  position: fixed;
+  left:0;
 }
+      .tool
+      {
+        cursor: pointer;
+      }
 
 /* log entry */
 .entry{
@@ -291,4 +300,44 @@ label{
   .caterpillar{
     background-color: var(--fix-bg-cat);
   }
+
+
+
+  /*=================================================
+   repair.html ===============================================
+   =====================================================*/
+
+  .rep-img{
+    width: 100%;
+    border:black solid 1px;
+  }
+  #rep-model {
+   
+  }
+
+      #rep-model div{
+        display:inline-block;
+        width: 32%;
+        height: 10vh;
+        background-color: aqua;
+        vertical-align: middle;
+        position: relative;
+
+      }
+      #rep-model input{
+        /* vertical-align: middle; */
+        /* width: 30%; */
+        /* display: inline-block; */
+        /* position: absolute; */
+        visibility: hidden;
+        
+        
+      }
+      #rep-model label{
+        width: 100%;
+        border: black 1px solid;
+        height: 100%;
+      }
+
+
 
