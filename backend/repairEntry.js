@@ -16,6 +16,7 @@ class RepairEntry{
         return JSON.stringify(this)
     }
 
+    //will accept RepairStep object
     addStep(step_){
         this.instructionsArr.push(step_)
     }
@@ -26,6 +27,4 @@ class RepairEntry{
 
 
 
-let a = new RepairEntry()
-
-console.log(a.makeJson())
+module.exports=RepairEntry

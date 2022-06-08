@@ -58,6 +58,7 @@ nav{
   /* height: 10vh; */
   /* position:fixed;
   bottom:0; */
+  position: fixed;
 }
 
 #add{
@@ -65,6 +66,10 @@ nav{
   bottom:10%;
   position:fixed;
  
+}
+
+#search{
+  position: fixed;
 }
 
 
@@ -97,6 +102,7 @@ nav{
   width: 100%;
   /* border: black 1px solid; */
   text-align: center;
+  
  
  
 
@@ -169,7 +175,7 @@ nav{
   width: 100%;
   text-align: center;
   
-  position: fixed;
+ 
   height: 10vh;
   /* background-color:var(--nav-bg) ; */
 
