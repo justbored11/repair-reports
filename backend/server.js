@@ -1,14 +1,12 @@
 // import modules
-const EXPRESS = require('express')
-const BODYPARSER= require('body-parser')
+const express = require('express');
+const DataBase = require('./database');
+const database = require('./database')
+
+
+
+const app = express();
 const PORT = 8000;
-const RepairEntry = require('./RepairEntry')
-
-
-//instance of express
-const app = EXPRESS();
-
-
 
 
 
@@ -19,19 +17,12 @@ app.get('/', (request, response)=>{
 })
 
 
-//get all reports
-app.get('/api/reports')
-
-
-
 
 
 
 app.listen(PORT)
 
 
-let a  = new RepairEntry;
+let test = new DataBase
 
-console.log(a)
-
-
+test.connect()
