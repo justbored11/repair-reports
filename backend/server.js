@@ -1,17 +1,22 @@
 // import modules
 const express = require('express');
-const DataBase = require('./database');
-require('dotenv').config(); // to use with enviroment variables
+const DataBase = require('./DataBase');
+const RepairEntry = require('./repairLogEntry');
+const RepairStep = require('./RepairStep');
+require('dotenv').config(); // to use with enviroment variables initializes enviroment vars
+
 
 
 
 const app = express();
 const PORT = 8000;
 
+let mongodb = new DataBase(process.env.connectStr,'Cata','repair-reports' )
 
 
 app.get('/', (request, response)=>{
 
+    mongodb.getAll();
     response.send('<h1>repair reports server </h1>')
 
 })
@@ -20,8 +25,10 @@ app.get('/', (request, response)=>{
 
 
 
-app.listen(PORT)
+app.listen(PORT,()=>{
+ 
+})
 
 
-let test = new DataBase(process.env.connectStr,'Cata','repair-reports' )
-test.connect()
+
+

@@ -13,29 +13,46 @@ class DataBase {
         this.collection
         this.db
 
-    }
+        this.connect() //test settings
 
+    }
+//test connection with settings
    async connect(){
+        try{  
+            const client = await MongoClient.connect(this.connectStr)
 
-    try{
-        
-        const client = await MongoClient.connect(this.connectStr)
+            console.log(this.dbName)
 
-        console.log(this.dbName)
-
-        this.db = await client.db(this.dbName)
-        this.collection = await this.db.collection(this.colName)
-        console.log(`connected to database`)
-
-        const all = await this.collection.find().toArray();
-        console.log(all)
+            this.db = await client.db(this.dbName)
+            this.collection = await this.db.collection(this.colName)
+            console.log(`connected to database`)  
+        }
+        catch(err){
+            console.error('dataBase.connect error:'+ err);
+            console.error(JSON.stringify(this))
+        }
     }
-    catch(err){
-        console.error('dataBase.connect error:'+ err);
-    }
-        
 
+
+//get all entries
+    async getAll(){
+        try{
+            const all = await this.collection.find().toArray();
+            console.log(all)
+        }
+        catch(err){
+            console.error('error at DataBase.getAll'+err)
+        }
     }
+
+
+
+    async insertLogEntry(logEntry_){
+        const result = await this.collection.insertOne(logEntry_)
+    }
+
+
+
 }
 
 module.exports=DataBase
