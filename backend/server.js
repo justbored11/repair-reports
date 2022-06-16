@@ -1,7 +1,7 @@
 // import modules
 const express = require('express');
 const DataBase = require('./database');
-const database = require('./database')
+require('dotenv').config(); // to use with enviroment variables
 
 
 
@@ -23,6 +23,5 @@ app.get('/', (request, response)=>{
 app.listen(PORT)
 
 
-let test = new DataBase
-
+let test = new DataBase(process.env.connectStr,'Cata','repair-reports' )
 test.connect()

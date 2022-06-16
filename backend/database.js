@@ -1,26 +1,39 @@
-const secrets = require('../secrets.js')
+
+require('dotenv').config(); // to use with enviroment variables
 
 
 const MongoClient = require('mongodb').MongoClient
-// const uri = `mongodb+srv://mongo:pass123456@cluster0.losdw.mongodb.net/?retryWrites=true&w=majority`
-const uri = `mongodb+srv://${secrets.cata_key}@cluster0.losdw.mongodb.net/?retryWrites=true&w=majority`
 
 class DataBase {
-    constructor(){
-        let db
-        let collection
-       
+    constructor(connectStr_='empty string', db_='empty database select', collection_='empty collection select'){
+        this.connectStr = connectStr_
+        this.dbName = db_
+        this.colName=collection_
+
+        this.collection
+        this.db
 
     }
 
    async connect(){
-        console.log(`connect at database`)
-        const client = await MongoClient.connect(uri,{useUnifiedTopology:true})
-        this.db = await client.db('Cata')
-        this.collection = await this.db.collection('repair-reports')
+
+    try{
+        
+        const client = await MongoClient.connect(this.connectStr)
+
+        console.log(this.dbName)
+
+        this.db = await client.db(this.dbName)
+        this.collection = await this.db.collection(this.colName)
+        console.log(`connected to database`)
 
         const all = await this.collection.find().toArray();
         console.log(all)
+    }
+    catch(err){
+        console.error('dataBase.connect error:'+ err);
+    }
+        
 
     }
 }

@@ -3,7 +3,7 @@
 class RepairEntry{
     constructor(title_='test title', tags_='test tags', instructionsArr_ =[]){
         this.title =title_;
-        this.tags=tags_;
+        this.tags=tags_; //to search as
         this.instructionsArr = instructionsArr_ // will be an array of objects containing steps for repair optional images and paragraphs 
         
     }
