@@ -1,0 +1,349 @@
+/******************************************
+/* CSS
+/*******************************************/
+
+:root{
+  --nav-bg:gray;
+  --fix-bg-cummins: rgb(209, 70, 70);
+  --fix-bg-detroit: rgb(68, 68, 219);
+  --fix-bg-cat:rgb(201, 201, 77);
+  --search-bg:white;
+  --desc-bg: green;
+  --selected:black;
+  --ecm-log-bg:gray;
+}
+
+body{
+  background-color: gray;
+}
+/* Box Model Hack */
+*{
+  box-sizing: border-box;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+h2{
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+
+header {
+  min-height: 10vh;
+}
+
+#frame{
+  height: 80vh;
+  
+}
+
+
+footer{
+  height: 10vh;
+  /* border: solid red 1px; */
+  position: fixed;
+  bottom:0;
+  width: 100%;
+ 
+}
+nav{
+  /* height: 10vh; */
+  /* position:fixed;
+  bottom:0; */
+  position: fixed;
+}
+
+#add{
+  
+  bottom:10%;
+  position:fixed;
+ 
+}
+
+#search{
+  position: fixed;
+}
+
+
+/******************************************
+/* styles
+/*******************************************/
+
+.button{
+  border-radius: 100%;
+  border:solid black 1px;
+  height: 80px;
+  width: 80px;
+  background-color: gray;
+  /* FLEXBOX */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+    .button span{
+      padding: 5px;
+      color:white;
+      font-weight: 900;
+      vertical-align: middle;
+      
+      
+    }
+
+
+#search{
+  width: 100%;
+  /* border: black 1px solid; */
+  text-align: center;
+  
+ 
+ 
+
+}
+    #search input{
+      vertical-align: middle;
+      width: 70%;
+      line-height: 50px;
+      /* border: red 1px solid; */
+    }
+
+    #search button{
+      width: 20%;
+      vertical-align: middle;
+    }
+
+#frame{
+  
+  width: 100%;
+  /* border: green solid 2px; */
+  /* display: flex; */
+
+
+  
+  
+}
+  
+  
+
+  .entry{
+    height: 200px;
+    width: 100%;
+    /* border: 1px green solid; */
+    /* border-radius: 20px; */
+    overflow: hidden;
+  }
+
+    .entry .desc-cont{
+      width: 60%;
+      /* border:black 1px solid; */
+      
+      display: inline-block;    
+      height: 100%;
+      border-radius: 20px 0 0 20px;
+    }
+
+    .entry .desc-img{
+      width: 40%;
+    
+      /* border:rgb(223, 5, 5) 1px solid; */
+      /* background-color: aquamarine; */
+      display: inline-block;
+      vertical-align: top;
+      height:100%;    
+    }
+        .desc-img img{
+          height: 100%;
+          width: 100%;
+          border-radius: 0px 20px 20px 0;
+          
+        }
+
+
+        
+nav{
+  /* height: 20vh; */
+
+  white-space: nowrap;
+  overflow: auto;
+  width: 100%;
+  text-align: center;
+  
+ 
+  height: 10vh;
+  /* background-color:var(--nav-bg) ; */
+
+  
+}
+
+  .model{
+    width: 30%;
+    vertical-align: middle;
+    display: inline-block;
+    height: 80%;
+    border-radius: 20px;
+    
+  }
+    .model div {
+        /* border: 1px solid black; */
+        vertical-align: middle;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        
+
+        
+    }
+
+#add{ 
+  text-align: center;
+  width: 100%;
+  /* border:solid black 1px; */
+ 
+  display: flex;
+ 
+  justify-content: flex-end;
+  align-items: center;
+ 
+}
+    /* #add div{
+      height: 100%;
+    } */
+
+.clickable:active{
+  background-color: rgb(0, 130, 0);
+}
+.clickable:hover{
+  border: 5px solid black;
+}
+
+        
+
+/* .model:hover{
+  border: 5px solid black;
+}
+section.model:active{
+  background-color: rgb(0, 130, 0);
+} */
+
+ 
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
+input{
+  display: inline-block;
+  border: 1px red solid;
+  font-size: 1.1rem;
+  text-align: center;
+  max-width: 100%;
+}
+textarea{
+  width: 70%;
+}
+form{
+  text-align: center;
+  border: black 1px solid;
+}
+
+.rep-sect{
+  padding: 30px;
+}
+
+label{
+  display: block;
+}
+
+.tool-area
+{
+  border:solid 1px black;
+  position: fixed;
+  left:0;
+}
+      .tool
+      {
+        cursor: pointer;
+      }
+
+/* log entry */
+.entry{
+  padding: 5px;
+ 
+  border-radius: 20px;
+  overflow: hidden;
+}
+  .desc-cont{
+    padding: 0 10px;
+    background-color: gray;
+    
+  }
+  .cat-fix {
+    background-color: var(--fix-bg-cat);
+  }
+  .cummins-fix{
+    background-color: var(--fix-bg-cummins);
+  }
+  .detroit-fix{
+    background-color: var(--fix-bg-detroit);
+  }
+
+
+  .cummins{
+    background-color: var(--fix-bg-cummins);
+    color: black;
+  }
+
+  .detroit{
+    background-color: var(--fix-bg-detroit);
+  }
+
+  .caterpillar{
+    background-color: var(--fix-bg-cat);
+  }
+
+
+
+  /*=================================================
+   repair.html ===============================================
+   =====================================================*/
+
+  .rep-img{
+    width: 100%;
+    border:black solid 1px;
+  }
+  #rep-model {
+   
+  }
+
+      #rep-model div{
+        display:inline-block;
+        width: 32%;
+        height: 10vh;
+        /* background-color: aqua; */
+        vertical-align: middle;
+        position: relative;
+
+      }
+      #rep-model input{
+        /* vertical-align: middle; */
+        /* width: 30%; */
+        /* display: inline-block; */
+        /* position: absolute; */
+        visibility: hidden;
+        
+        
+      }
+      #rep-model label{
+        width: 100%;
+        border: black 1px solid;
+        height: 100%;
+      }
+
+
+

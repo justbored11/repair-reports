@@ -11,13 +11,17 @@ require('dotenv').config(); // to use with enviroment variables initializes envi
 const app = express();
 const PORT = 8000;
 
-let mongodb = new DataBase(process.env.connectStr,'Cata','repair-reports' )
+// let mongodb = new DataBase(process.env.connectStr,'Cata','repair-reports' )
+
+
+app.set('view engine', 'ejs'); // for template
+app.use(express.static('public')) //use templates from folder
 
 
 app.get('/', (request, response)=>{
 
-    mongodb.getAll();
-    response.send('<h1>repair reports server </h1>')
+    // mongodb.getAll();
+    response.render('index.ejs')
 
 })
 
@@ -25,8 +29,8 @@ app.get('/', (request, response)=>{
 
 
 
-app.listen(PORT,()=>{
- 
+app.listen(process.env.PORT || PORT,()=>{
+    console.log(`server runing on port ${PORT}`)
 })
 
 
