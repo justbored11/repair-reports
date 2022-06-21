@@ -6,22 +6,23 @@ const RepairStep = require('./RepairStep');
 require('dotenv').config(); // to use with enviroment variables initializes enviroment vars
 
 
-
-
 const app = express();
 const PORT = 8000;
 
-// let mongodb = new DataBase(process.env.connectStr,'Cata','repair-reports' )
-
+let dataBase = new DataBase(process.env.connectStr,'Cata','repair-reports' )
+dataBase.connect()
 
 app.set('view engine', 'ejs'); // for template
 app.use(express.static('public')) //use templates from folder
 
 
-app.get('/', (request, response)=>{
+app.get('/', async (request, response)=>{
 
-    // mongodb.getAll();
-    response.render('index.ejs')
+    let result = await dataBase.getAll();
+
+    
+    console.log(result)
+    response.send(result)
 
 })
 
