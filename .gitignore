@@ -1,7 +1,3 @@
 node_modules/
 secrets.js
-<<<<<<< HEAD
 .env
-=======
-.env
->>>>>>> dc94cc4ba7c04f229676abb777452765f38b348e
