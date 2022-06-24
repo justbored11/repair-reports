@@ -38,7 +38,10 @@ class DataBase {
     async getAll(){
         try{
             const all = await this.collection.find().toArray();
-            console.log(all)
+            // console.log(all)
+            return new Promise((resolve, reject) => {
+                resolve(all)
+            })
         }
         catch(err){
             console.error('error at DataBase.getAll'+err)
@@ -48,11 +51,20 @@ class DataBase {
 
 
     async insertLogEntry(logEntry_){
+
+
         const result = await this.collection.insertOne(logEntry_)
+
+        return result;
     }
 
 
 
 }
+
+// TESTS
+
+
+
 
 module.exports=DataBase
