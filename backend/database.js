@@ -5,17 +5,21 @@ require('dotenv').config(); // to use with enviroment variables
 const MongoClient = require('mongodb').MongoClient
 
 class DataBase {
-    constructor(connectStr_='empty string', db_='empty database select', collection_='empty collection select'){
+     constructor(connectStr_='empty string', db_='empty database select', collection_='empty collection select'){
         this.connectStr = connectStr_
         this.dbName = db_
         this.colName=collection_
+        this.client
+        this.collection = 'empty'
+        this.db = 'empty'
 
-        this.collection
-        this.db
-
-        this.connect() //test settings
+        // this.connect() //test settings
+        
 
     }
+
+
+    
 //test connection with settings
    async connect(){
         try{  
@@ -26,6 +30,9 @@ class DataBase {
             this.db = await client.db(this.dbName)
             this.collection = await this.db.collection(this.colName)
             console.log(`connected to database`)  
+            // console.log(this.collection)
+            // return this.collection
+            return 'ok'
         }
         catch(err){
             console.error('dataBase.connect error:'+ err);
@@ -37,11 +44,11 @@ class DataBase {
 //get all entries
     async getAll(){
         try{
-            const all = await this.collection.find().toArray();
-            // console.log(all)
-            return new Promise((resolve, reject) => {
-                resolve(all)
-            })
+            const cursor = await this.collection.find().toArray();
+            console.log(cursor)
+   
+            // this.collection.find().close()
+            return cursor;
         }
         catch(err){
             console.error('error at DataBase.getAll'+err)
@@ -52,18 +59,19 @@ class DataBase {
 
     async insertLogEntry(logEntry_){
 
+        try {
+            const result = await this.collection.insertOne(logEntry_)
+            return result;
 
-        const result = await this.collection.insertOne(logEntry_)
-
-        return result;
+        } catch (error) {
+            console.error('error at insertLogEngtry'+error)
+        }
+        
     }
 
 
 
 }
-
-// TESTS
-
 
 
 

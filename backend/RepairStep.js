@@ -4,12 +4,12 @@ class RepairStep{
 
     constructor(heading_='heading here',images_=[], description_ = 'text detailing description'){
         this.heading=heading_
-        this.imagesLinks=images_; // contain urls of images for this particular repair step
+        this.images=images_; // contain urls of images for this particular repair step
         this.description= description_;
     }
 
     addImage(imageUrl_){
-        this.imagesLinks.push(imageUrl_)
+        this.images.push(imageUrl_)
     }
 
     addHeading(heading_){
@@ -23,7 +23,7 @@ class RepairStep{
 
     print(){
         console.log(`Headings: `); console.log(this.heading)
-        console.log(`image urls: `); console.log(this.imagesLinks)
+        console.log(`image urls: `); console.log(this.images)
         console.log(`description: `); console.log(this.description)
     }
 

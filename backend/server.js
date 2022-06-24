@@ -35,12 +35,9 @@ let testobj={
     }
 
 
-
-
 const app = express();
 const PORT = 8000;
 
-let mongodb = new DataBase(process.env.connectStr,'Cata','repair-reports' )
 
 app.use(fileUpload({
     createParentPath: true
@@ -50,9 +47,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true})); //get body data
 
-
 app.set('view engine', 'ejs'); // for template
 app.use(express.static('public')) //use templates from folder
+
+let dataBase = new DataBase(process.env.connectStr,'Cata','repair-reports' )
+dataBase.connect()
+
 
 
 app.get('/', async (request, response)=>{
@@ -68,11 +68,12 @@ app.get('/', async (request, response)=>{
 app.post('/',(request, response)=>{
     console.log(`post at /`)
    
-    const image = request.body
+    let result = await dataBase.getAll();
 
-    console.log(request.files)
-    response.send(image)
-   
+    
+    console.log(result)
+
+    response.send(result)
 
 })
 
