@@ -4,6 +4,7 @@ require('dotenv').config(); // to use with enviroment variables
 
 const MongoClient = require('mongodb').MongoClient
 
+
 class DataBase {
      constructor(connectStr_='empty string', db_='empty database select', collection_='empty collection select'){
         this.connectStr = connectStr_

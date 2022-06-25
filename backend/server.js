@@ -1,14 +1,13 @@
 // import modules
-const express = require('express');
 const DataBase = require('./database.js');
 const RepairEntry = require('./repairLogEntry');
 const RepairStep = require('./RepairStep');
+
+const express = require('express');
+
 require('dotenv').config(); // to use with enviroment variables initializes enviroment vars
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
-
-
-
 
 let testobj={
     
@@ -50,7 +49,10 @@ app.use(express.urlencoded({extended:true})); //get body data
 app.set('view engine', 'ejs'); // for template
 app.use(express.static('public')) //use templates from folder
 
-let dataBase = new DataBase(process.env.connectStr,'Cata','repair-reports' )
+
+
+
+let dataBase = new DataBase(process.env.connectStr_,'Cata','repair-reports' )
 dataBase.connect()
 
 
@@ -65,15 +67,17 @@ app.get('/', async (request, response)=>{
 
 })
 
-app.post('/',(request, response)=>{
+
+
+ app.post('/',async (request, response)=>{
     console.log(`post at /`)
    
-    let result = await dataBase.getAll();
-
+    // let result = await dataBase.getAll();
+    console.log(request.files);
     
-    console.log(result)
+    
 
-    response.send(result)
+    response.send('read')
 
 })
 

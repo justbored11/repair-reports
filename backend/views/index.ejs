@@ -64,7 +64,7 @@
 
 		<!-- FILE UPLOAD TEST -->
 		<section>
-            <form id="repair-form" action="/" method="POST">
+            <form id="repair-form" action="/" method="post" encType="multipart/form-data">
                 <label for="rep-title" class="rep-sect">Enter Title Here
                     <input id="rep-title" type="text" placeholder="Title"> 
                 </label>
@@ -98,7 +98,7 @@
 
                     <section>
                         <!-- upload picture -->
-                        <input id="img1" class="rep-img" type="file" name="picture" accept="image/*" capture="enviroment">
+                        <input id="img1" class="rep-img" type="file" name="picture1" accept="image/*" >
 						<button type="submit">send it</button>
                     </section>
                    
