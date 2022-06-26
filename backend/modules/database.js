@@ -1,7 +1,7 @@
 
 require('dotenv').config(); // to use with enviroment variables
 const MongoClient = require('mongodb').MongoClient
-const ImageUpload = require('./imageupload')
+// const ImageUpload = require('./imageupload')
 
 
 //cludinary config
@@ -86,7 +86,7 @@ class DataBase {
 }
 
 
-let imageDatabase = new ImageUpload
+// let imageDatabase = new ImageUpload
 
 
 

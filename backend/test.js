@@ -1,9 +1,12 @@
 
 
 const express = require('express');
-const DataBase = require('./DataBase');
-const RepairEntry = require('./repairLogEntry');
-const RepairStep = require('./RepairStep');
+const DataBase = require('./modules/database');
+const RepairEntry = require('./modules/repairLogEntry');
+const RepairStep = require('./modules/RepairStep');
+
+const signature = require('./modules/signuploadform');
+
 require('dotenv').config(); // to use with enviroment variables initializes enviroment vars
 
 require('dotenv').config(); // to use with enviroment variables
@@ -15,22 +18,16 @@ require('dotenv').config(); // to use with enviroment variables
 
 
 
- async function getAll() {
-    let database =  new DataBase(process.env.connectStr,'Cata','repair-reports' )
-    let result = await database.connect()
+ async function test() {
+    // let database =  new DataBase(process.env.connectStr,'Cata','repair-reports' )
+    // let result = await database.connect()
 
+    console.log(signature.signuploadform());
 
-    // database.connect()
-
-
-    const items = await database.getAll();
-
-    
-    console.log(items)
     }
 
 
 
     
-getAll()
+test()
 

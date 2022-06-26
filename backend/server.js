@@ -1,7 +1,8 @@
 // import modules
-const DataBase = require('./database.js');
-const RepairEntry = require('./repairLogEntry');
-const RepairStep = require('./RepairStep');
+const DataBase = require('./modules/database.js');
+const RepairEntry = require('./modules/repairLogEntry');
+const RepairStep = require('./modules/RepairStep');
+const signature = require('./modules/signuploadform')
 
 const express = require('express');
 
@@ -67,6 +68,43 @@ app.get('/', async (request, response)=>{
     
 
 })
+
+// repair form page
+app.get('/repairform', async (request, response)=>{
+
+    response.render('repairform.ejs');
+
+    
+    
+
+})
+
+//get signature for upload form
+app.get('/signform',async (request, response)=>{
+    console.log(`signform get `)
+    const sig = signature.signuploadform();
+    response.json({
+        signature: sig.signature,
+        timestamp: sig.timestamp,
+        cloudname: process.env.cloud_name,
+        apikey: process.env.cloud_key
+    })
+
+    
+    
+
+})
+
+
+
+
+
+//ecm logs page
+app.get('/ecm-logs', async (request, response)=>{
+
+    response.render('ecm-logs.ejs');
+})
+
 
 
 
