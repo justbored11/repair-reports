@@ -34,6 +34,7 @@ let testobj={
     }
 
 
+
 const app = express();
 const PORT = 8000;
 
@@ -73,7 +74,8 @@ app.get('/', async (request, response)=>{
     console.log(`post at /`)
    
     // let result = await dataBase.getAll();
-    console.log(request.files);
+    // console.log(request.files);
+
     
     
 

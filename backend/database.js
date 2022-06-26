@@ -1,10 +1,21 @@
 
 require('dotenv').config(); // to use with enviroment variables
-
-
 const MongoClient = require('mongodb').MongoClient
+const ImageUpload = require('./imageupload')
 
 
+//cludinary config
+// cloudinary.config({ 
+//     cloud_name: process.env.cloud_name, 
+//     api_key: process.env.cloud_key, 
+//     api_secret:process.env.cloud_secret,
+//     secure: true
+//   });
+
+
+
+
+//mongo config
 class DataBase {
      constructor(connectStr_='empty string', db_='empty database select', collection_='empty collection select'){
         this.connectStr = connectStr_
@@ -73,6 +84,9 @@ class DataBase {
 
 
 }
+
+
+let imageDatabase = new ImageUpload
 
 
 
