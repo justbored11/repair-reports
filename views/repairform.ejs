@@ -12,7 +12,7 @@
     
 		<!-- FILE UPLOAD TEST -->
 		<section>
-            <form id="repair-form" action="/" method="post" encType="multipart/form-data">
+            <form id="repair-form" action="/" method="post" encType="multipart/form-data" onchange="previewImage(event)" >
                 <label for="rep-title" class="rep-sect">Enter Title Here
                     <input id="rep-title" type="text" placeholder="Title"> 
                 </label>
@@ -38,6 +38,9 @@
                 </section>
                
                 <!-- attach picture and text -->
+                <section id="image-preview">
+                   
+                </section>
                 <section class="rep-sect">
                     <section>
                         <!-- picture preview -->
@@ -64,6 +67,6 @@
         <section id="formdata">
 
         </section>
-        <script type="text/javascript" src="./js/signuploadformclient.js"></script>
+        <script type="text/javascript" src="./js/repairformclient.js"></script>
 </body>
 </html>

@@ -1,21 +1,45 @@
+
+
+function previewImage(event){
+
+    console.log(`preview image`)
+    const previewArea = document.getElementById('image-preview');
+    let image = document.createElement('img')
+    image.src = URL.createObjectURL(event.target.files[0]);
+
+    previewArea.appendChild(image)
+}
+
+
+
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     console.log(`doc loaded repair form`)
 
     const signResponse = await fetch('/signform'); //fetch signature from server
 
-    console.log(`response is: `,signResponse)
+    // console.log(`response is: `,signResponse)
 
 
     const signData = await signResponse.json();
 
-    console.log(signData)
+    // console.log(signData)
 
     //build url to upload
     const url = "https://api.cloudinary.com/v1_1/" + signData.cloudname + "/auto/upload";
     
-    console.log(`url is :`, url)
+    // console.log(`url is :`, url)
+
+
     //get form from document
     const form = document.querySelector("form");
+
+    
 
     //submit event
     form.addEventListener("submit", (event) => {
