@@ -17,6 +17,7 @@ body{
   background-color: gray;
 }
 /* Box Model Hack */
+
 *{
   box-sizing: border-box;
 }
@@ -78,6 +79,7 @@ nav{
 /*******************************************/
 
 .button{
+  cursor: pointer;;
   border-radius: 100%;
   border:solid black 1px;
   height: 80px;
@@ -188,6 +190,7 @@ nav{
     display: inline-block;
     height: 80%;
     border-radius: 20px;
+    border: 5px solid gray;
     
   }
     .model div {
@@ -221,6 +224,7 @@ nav{
   background-color: rgb(0, 130, 0);
 }
 .clickable:hover{
+  cursor: pointer;
   border: 5px solid black;
 }
 
@@ -307,43 +311,6 @@ label{
     background-color: var(--fix-bg-cat);
   }
 
-
-
-  /*=================================================
-   repair.html ===============================================
-   =====================================================*/
-
-  .rep-img{
-    width: 100%;
-    border:black solid 1px;
-  }
-  #rep-model {
-   
-  }
-
-      #rep-model div{
-        display:inline-block;
-        width: 32%;
-        height: 10vh;
-        /* background-color: aqua; */
-        vertical-align: middle;
-        position: relative;
-
-      }
-      #rep-model input{
-        /* vertical-align: middle; */
-        /* width: 30%; */
-        /* display: inline-block; */
-        /* position: absolute; */
-        visibility: hidden;
-        
-        
-      }
-      #rep-model label{
-        width: 100%;
-        border: black 1px solid;
-        height: 100%;
-      }
 
 
 

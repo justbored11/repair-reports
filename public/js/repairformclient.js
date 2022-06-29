@@ -1,11 +1,18 @@
 
-
+//preview image on page locally
 function previewImage(event){
 
+    //get event target
+    //get event closest parent
+    //subselect the image preview
+    //change source of image to image we uploaded
+
     console.log(`preview image`)
-    const previewArea = document.getElementById('image-preview');
+    const previewArea = document.querySelector('.image-preview');
     let image = document.createElement('img')
     image.src = URL.createObjectURL(event.target.files[0]);
+    image.alt='image preview'
+    image.classList.add('img-mini')
 
     previewArea.appendChild(image)
 }
@@ -33,7 +40,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     //build url to upload
     const url = "https://api.cloudinary.com/v1_1/" + signData.cloudname + "/auto/upload";
     
-    // console.log(`url is :`, url)
 
 
     //get form from document
@@ -57,9 +63,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             formData.append("api_key", signData.apikey);
             formData.append("timestamp", signData.timestamp);
             formData.append("signature", signData.signature);
-            // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260");
-            formData.append("folder", "cata");
-    
+            // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260"); //some form of transformation dont need
+            formData.append("folder", "cata"); //put this file in folder named cata
+            
+            //send post to cloudinary to upload picture
             fetch(url, {
                 method: "POST",
                 body: formData
@@ -68,6 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return response.text();
             })
             .then((data) => {
+                //response from server will contain url of image hosted on cloudinary
                 console.log(JSON.parse(data))
                 var str = JSON.stringify(JSON.parse(data), null, 4);
                 document.getElementById("formdata").innerHTML += str;
