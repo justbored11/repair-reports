@@ -42,10 +42,43 @@
 
 
 		<!-- results -->
-		<section id="frame" >
+		<section id="results-frame" >
 			<h2>Latest Documented Repairs</h2>
 
 			
+			<section class="entry clickable cummins-fix">
+				<div class="desc-cont">
+					<p>no 5 volt </p>
+				</div><!--
+				
+				
+				  --><div class="desc-img">
+					<img src="https://placekitten.com/g/200/300" alt="fix-img">
+				</div>
+			</section>
+
+			<section class="entry clickable cummins-fix">
+				<div class="desc-cont">
+					<p>no 5 volt </p>
+				</div><!--
+				
+				
+				  --><div class="desc-img">
+					<img src="https://placekitten.com/g/200/300" alt="fix-img">
+				</div>
+			</section>
+
+			<section class="entry clickable cummins-fix">
+				<div class="desc-cont">
+					<p>no 5 volt </p>
+				</div><!--
+				
+				
+				  --><div class="desc-img">
+					<img src="https://placekitten.com/g/200/300" alt="fix-img">
+				</div>
+			</section>
+
 			<section class="entry clickable cummins-fix">
 				<div class="desc-cont">
 					<p>no 5 volt </p>
@@ -61,111 +94,25 @@
 
 		</section>
 
-
-		<!-- FILE UPLOAD TEST -->
-		<section>
-            <form id="repair-form" action="/" method="post" encType="multipart/form-data">
-                <label for="rep-title" class="rep-sect">Enter Title Here
-                    <input id="rep-title" type="text" placeholder="Title"> 
-                </label>
-
-                <!-- pick model of engine -->
-                
-                <section id="rep-model">
-                    <div class="clickable model caterpillar" >
-                        <label  for="cat">Caterpillar</label>
-                        <input  id="cat" name="model" valu type="radio">
-                    </div>
-                   
-                    <div class="clickable">
-                        <label for="detroit">Detroit</label>
-                        <input id="detroit" name="model" type="radio">
-                    </div>
-                    
-                    <div class="clickable">
-                        <label for="cummins">Cummins</label>
-                        <input id="cummins" name="model"  type="radio">
-                    </div>
-                   
-                </section>
-               
-                <!-- attach picture and text -->
-                <section class="rep-sect">
-                    <section>
-                        <!-- picture preview -->
-                        <img src="" alt="">
-                    </section>
-
-                    <section>
-                        <!-- upload picture -->
-                        <input id="img1" class="rep-img" type="file" name="picture1" accept="image/*" >
-						<button type="submit">send it</button>
-                    </section>
-                   
-                </section>
-               
-                <textarea name="" id="" cols="30" rows="10"></textarea>
-                
-				
-
-            </form>
-           
-        </section>
-
 		<!-- pick model to search -->
-		<footer>
+		<footer>			
 			<nav>
-<!-- 				
-				<section id="" class="model clickable caterpillar">
-					<div>
-						<span>Caterpillar</span>
-					</div>
-					
-				</section>
-		 -->
-		
-			
-				<!-- <section id="" class="model clickable detroit">
-					 <img src="" alt="detroit">
-					<div>
-						<span>Detroit</span>
-					</div>
-					
-				</section> -->
-			
-		
-<!-- 			
-				<section id="" class="model clickable cummins">
-					<div>
-						<span>Cummins</span>
-					</div>
-					
-				</section>
-		 -->
+				<section id="menu" class="hidden-menu">
+					<details >
+						<summary> MENU</summary> 
+					<a class="button clickable" href="/repairform">
+						<span>Doc Repair <br> +</span>
+					</a>
+					<a class="button clickable" href="/ecm-logs">
+						<span> ECM LOG <br> +</span>
+					</a>
+					<!-- <a class="button clickable" href="#">
+						<span> Repair <br> Search</span>
+					</a> -->
+				</details>
 				
-				
-					
-		</nav>
-		
-		
-			<section id="add" class="hidden-menu">
-				<details >
-					<summary> MENU</summary> 
-				<a class="button clickable" href="/repairform">
-					<span>Doc Repair <br> +</span>
-				</a>
-				<a class="button clickable" href="/ecm-logs">
-					<span> ECM LOG <br> +</span>
-				</a>
-				<!-- <a class="button clickable" href="#">
-					<span> Repair <br> Search</span>
-				</a> -->
-			</details>
-			
-			</section>
-		
-		
-	
+				</section>
+			</nav>
 		</footer>
 		
 	

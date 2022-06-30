@@ -33,50 +33,97 @@ h2{
   text-align: center;
 }
 
+
+
+
+
+/* =========================================
+TYPOGRAPHY
+=========================================== */
+
+
+
+
+
+#menu{
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /******************************************
 /* LAYOUT
 /*******************************************/
 
 header {
-  min-height: 10vh;
+  height: 20vh;
+  /* border: black solid 10px; */
+  
 }
 
-#frame{
+
+#results-frame{
   height: 80vh;
+  width: 100%;
+  border: 4px solid red;
   
 }
 
 
 footer{
-  height: 10vh;
-  /* border: solid red 1px; */
+  /* height: 10vh; */
+  border: solid red 1px;
   position: fixed;
   bottom:0;
   width: 100%;
  
 }
 nav{
-  /* height: 10vh; */
-  /* position:fixed;
-  bottom:0; */
+  border: orange solid 3px;
   position: fixed;
 }
 
-#add{
+
+
+  #menu{
+    
+    bottom:10%;
+    position:fixed;
+    /* border: 3px orange solid; */
+    background-color: orange;
+    display: flex;
+    right: 0;
+    justify-content: flex-end;
+    align-items: center;
   
-  bottom:10%;
-  position:fixed;
- 
-}
+    border-radius: 30px;
+  }
+
 
 #search{
   position: fixed;
 }
 
 
-/******************************************
-/* styles
-/*******************************************/
+
+
+
+
+
 
 .button{
   cursor: pointer;;
@@ -104,6 +151,7 @@ nav{
   width: 100%;
   /* border: black 1px solid; */
   text-align: center;
+  background-color: green;
   
  
  
@@ -121,16 +169,7 @@ nav{
       vertical-align: middle;
     }
 
-#frame{
-  
-  width: 100%;
-  /* border: green solid 2px; */
-  /* display: flex; */
 
-
-  
-  
-}
   
   
 
@@ -169,20 +208,7 @@ nav{
 
 
         
-nav{
-  /* height: 20vh; */
 
-  white-space: nowrap;
-  overflow: auto;
-  width: 100%;
-  text-align: center;
-  
- 
-  height: 10vh;
-  /* background-color:var(--nav-bg) ; */
-
-  
-}
 
   .model{
     width: 30%;
@@ -205,20 +231,8 @@ nav{
         
     }
 
-#add{ 
-  text-align: center;
-  width: 100%;
-  /* border:solid black 1px; */
+
  
-  display: flex;
- 
-  justify-content: flex-end;
-  align-items: center;
- 
-}
-    /* #add div{
-      height: 100%;
-    } */
 
 .clickable:active{
   background-color: rgb(0, 130, 0);
@@ -228,15 +242,7 @@ nav{
   border: 5px solid black;
 }
 
-        
-
-/* .model:hover{
-  border: 5px solid black;
-}
-section.model:active{
-  background-color: rgb(0, 130, 0);
-} */
-
+      
  
 /******************************************
 /* ADDITIONAL STYLES
