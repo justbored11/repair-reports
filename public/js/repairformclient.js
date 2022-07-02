@@ -122,11 +122,9 @@ function removeImage(event){
     //img tag that is holding preview
     const preview = procedure.querySelector(`img[data-uploadnum="${imagenum}"]`);
     console.log('preview',`img[data-uploadnum="${imagenum}"]`)
-  
-    
+
     imageListItem.remove();
 
-    preview.remove();
 
 }
 
