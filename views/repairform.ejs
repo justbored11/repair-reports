@@ -47,38 +47,37 @@
                     
                
                
-                <ol>
+                <ol class="instructions">
                     <!-- repair instructions -->
-                    <li>
-                        <section class="">
+                    <li class="procedure">
+                        <fieldset class="">
                             
                             <!-- picture preview -->
-                            <section  class="rep-img image-preview">
-                                <h3>Uploaded images</h3>
-                                <img src="" alt="repair image" class="img-mini">
-                            </section>
+                            <fieldset  class="rep-img image-preview">
+                                <legend>uploaded images</legend>
+                                
+                                <!-- <img src="" alt="repair image" class="img-mini"> -->
+                            </fieldset>
         
                             
                             <section>
-                                <h3>Repair Procedures</h3>
-                                <ol id="procedure">
-                                    <li data-step="1" class="repair-step">
-                                        <section>
-                                            <h4>images</h4>
-                                            <input  data-step="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
-                                        </section>
-                                        
-                                        <button class="add-img" data-action="add-image">add another image</button>
-                                        <textarea name="" id="" cols="30" rows="10"></textarea>
-                                    </li>
-                                </ol>
+                                <h3>Repair Procedure</h3>
+                                <button class="add-img" data-action="add-image">add another image</button>
+                                <fieldset>
+                                   <legend>Images</legend>
+                                    <input  data-step="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
+                                    <textarea name="" id="" cols="10" rows="10"></textarea>
+                                </fieldset>
                                 
+                                
+                                
+                                 
                                 
                             </section>
                             <!-- text description area -->
                        
                            
-                        </section>
+                        </fieldset>
                        
                         
 
