@@ -15,13 +15,13 @@ function previewImage(event){
     //change source of image to image we uploaded
 
     console.log(`preview image`)
-    const previewArea = document.querySelector('.image-preview');
-    let image = document.createElement('img')
+    const previewArea = document.querySelector('.img-preview');
+    let image = document.createElement('img');
     image.src = URL.createObjectURL(event.target.files[0]);
-    image.alt='image preview'
-    image.classList.add('img-mini')
+    image.alt='image preview';
+    image.classList.add('img-mini');
 
-    previewArea.appendChild(image)
+    previewArea.appendChild(image);
 }
 
 
@@ -36,55 +36,54 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log(`doc loaded repair form`)
 
     const signResponse = await fetch('/signform'); //fetch signature from server
-
-    // console.log(`response is: `,signResponse)
-
-
     const signData = await signResponse.json();
 
-    // console.log(signData)
-
-    //build url to upload
+    //upload url
     const url = "https://api.cloudinary.com/v1_1/" + signData.cloudname + "/auto/upload";
     
-
-
-    //get form from document
     const form = document.querySelector("form");
-
-        // subelement in form
-        const procedure =form.querySelector('#procedure')
-
-    
-
-
-
-
-
-
-
+    const instructions =form.querySelector('#instructions')
 
 
     // =========================================================
     //event listeners
     // =========================================================
 
-    //inside procedure
-    procedure.addEventListener('click',(event)=>{
+    instructions.addEventListener('click',(event)=>{
         
 
         
         const action = event.target.dataset.action
-        const step = event.target.closest('.repair-step')
 
+        //parent of target
+        const procedure = event.target.closest('.procedure')
 
+        console.log(action)
         switch (action) {
+           
             case 'add-image':
+                addImageProcedure(procedure)
+                // const uploadList = procedure.querySelector('.uploads');
+                // uploadList.dataset.totalfiles++;
+                // let numOfUploads =uploadList.dataset.totalfiles;
+
+                // const input = document.createElement('input');
+                // input.dataset.uploadnum = numOfUploads;
+                // input.name=`picture${numOfUploads}`
+                // input.type='file';
+                // input.accept="image/*"
+                // input.onchange=(event)=>{previewImage(event)}
+                // const li = document.createElement('li');
+                
                
-                const input = document.createElement('input')
-                img.type='file'
-                console.log(`step number is: `,step.dataset.step)
-                step
+               
+
+
+                // li.appendChild(input);
+                // uploadList.appendChild(li);
+                // console.log(input)
+                // // console.log(`step number is: `,step.dataset.step)
+                
                 break;
         
             default:
@@ -133,4 +132,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 })
+
+
+
+function addImageProcedure(procedure){
+    const uploadList = procedure.querySelector('.uploads');
+    uploadList.dataset.totalfiles++;
+    let numOfUploads =uploadList.dataset.totalfiles;
+
+    const input = document.createElement('input');
+        input.dataset.uploadnum = numOfUploads;
+        input.name=`picture${numOfUploads}`
+        input.type='file';
+        input.accept="image/*"
+        input.onchange=(event)=>{previewImage(event)}
+
+    const li = document.createElement('li');
+        li.appendChild(input);
+   
+   
+
+
+   
+    uploadList.appendChild(li);
+
+    console.log(input)
+    // console.log(`step number is: `,step.dataset.step)
+}
 

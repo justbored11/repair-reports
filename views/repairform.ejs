@@ -25,7 +25,7 @@
                 <!-- pick model of engine -->
                 
                     
-                    <fieldset>
+                    <fieldset class="engine-models">
                         <legend>Choose Engine</legend>
                         <label class="clickable model caterpillar"  for="cat">Caterpillar
                             <input  id="cat" name="model" valu type="radio">
@@ -47,27 +47,42 @@
                     
                
                
-                <ol class="instructions">
+                <ol id="instructions">
+                    
                     <!-- repair instructions -->
                     <li class="procedure">
-                        <fieldset class="">
+                       
                             
                             <!-- picture preview -->
-                            <fieldset  class="rep-img image-preview">
-                                <legend>uploaded images</legend>
+                            <h3>uploaded images preview</h3>
+                            <section  class="img-preview">
+                              
                                 
                                 <!-- <img src="" alt="repair image" class="img-mini"> -->
-                            </fieldset>
+                            </section>
         
                             
                             <section>
                                 <h3>Repair Procedure</h3>
-                                <button class="add-img" data-action="add-image">add another image</button>
+                    
+                                
+                                <!-- images uploaded -->
                                 <fieldset>
-                                   <legend>Images</legend>
-                                    <input  data-step="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
-                                    <textarea name="" id="" cols="10" rows="10"></textarea>
+                                    <legend>Images
+                                        <div class="add-img button clickable " data-action="add-image">add another image</div>
+                                    </legend>
+
+                                    <ol class="uploads" data-totalfiles="1">
+                                        <li class="imageuploaded">
+                                            <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
+                                            <span class="button clickable">remove item</span>
+                                        </li>
+                                    
+                                    </ol>
+                                
                                 </fieldset>
+                                
+                                <textarea name="" id="" cols="10" rows="10"></textarea>
                                 
                                 
                                 
@@ -77,7 +92,7 @@
                             <!-- text description area -->
                        
                            
-                        </fieldset>
+               
                        
                         
 
@@ -88,7 +103,7 @@
                 
                 
                 <!-- submit the repair form to server -->
-                <button class="clickable" type="submit">send it</button>
+                <button class="clickable" type="submit">Submit Repair</button>
 
             </form>
            
