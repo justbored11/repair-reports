@@ -6,24 +6,6 @@
 
 
 
-//preview image on page locally
-function previewImage(event){
-
-    //get event target
-    //get event closest parent
-    //subselect the image preview
-    //change source of image to image we uploaded
-
-    console.log(`preview image`)
-    const previewArea = document.querySelector('.img-preview');
-    let image = document.createElement('img');
-    image.src = URL.createObjectURL(event.target.files[0]);
-    image.alt='image preview';
-    image.classList.add('img-mini');
-
-    previewArea.appendChild(image);
-}
-
 
 
 
@@ -59,33 +41,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         const procedure = event.target.closest('.procedure')
 
         console.log(action)
+
         switch (action) {
            
             case 'add-image':
-                addImageProcedure(procedure)
-                // const uploadList = procedure.querySelector('.uploads');
-                // uploadList.dataset.totalfiles++;
-                // let numOfUploads =uploadList.dataset.totalfiles;
-
-                // const input = document.createElement('input');
-                // input.dataset.uploadnum = numOfUploads;
-                // input.name=`picture${numOfUploads}`
-                // input.type='file';
-                // input.accept="image/*"
-                // input.onchange=(event)=>{previewImage(event)}
-                // const li = document.createElement('li');
-                
-               
-               
-
-
-                // li.appendChild(input);
-                // uploadList.appendChild(li);
-                // console.log(input)
-                // // console.log(`step number is: `,step.dataset.step)
-                
+                addImageProcedure(event)
                 break;
-        
+            
+            case 'remove-image':
+                removeImage(event)
+
+                break;
             default:
                 break;
         }
@@ -134,26 +100,84 @@ document.addEventListener('DOMContentLoaded', async () => {
 })
 
 
+// ==========================================================================
+// FUNCTIONS
+// ==========================================================================
 
-function addImageProcedure(procedure){
+
+function removeImage(event){
+
+    //image number i want to target
+    const imagenum=event.target.dataset.uploadnum;
+    console.log('imgnum',imagenum)
+
+    //parent 
+    const procedure = event.target.closest('.procedure');
+    console.log(`proce`, procedure)
+
+    //li the image input is in
+    const imageListItem = event.target.closest('li');
+    console.log('imageListitem',imageListItem)
+
+    //img tag that is holding preview
+    const preview = procedure.querySelector(`img[data-uploadnum="${imagenum}"]`);
+    console.log('preview',`img[data-uploadnum="${imagenum}"]`)
+  
+    
+    imageListItem.remove();
+
+    preview.remove();
+
+}
+
+//preview image on page locally
+function previewImage(event){
+
+    const uploadnum= event.target.closest('.uploads').dataset.totalfiles    
+
+
+
+    console.log(`preview image`)
+    const previewArea = document.querySelector('.img-preview');
+
+    let image = document.createElement('img');
+        image.src = URL.createObjectURL(event.target.files[0]);
+        image.alt='image preview';
+        image.classList.add('img-mini');
+        image.dataset.uploadnum=uploadnum;
+
+    previewArea.appendChild(image);
+}
+
+
+
+
+
+function addImageProcedure(event){
+    const procedure = event.target.closest('.procedure')
     const uploadList = procedure.querySelector('.uploads');
     uploadList.dataset.totalfiles++;
     let numOfUploads =uploadList.dataset.totalfiles;
 
     const input = document.createElement('input');
         input.dataset.uploadnum = numOfUploads;
-        input.name=`picture${numOfUploads}`
+        input.name=`picture${numOfUploads}`;
         input.type='file';
-        input.accept="image/*"
+        input.accept="image/*";
         input.onchange=(event)=>{previewImage(event)}
 
+    const removeButton = document.createElement('span');
+        removeButton.classList.add('button', 'clickable');
+        removeButton.innerText='remove item';
+        removeButton.dataset.action='remove-image';
+        removeButton.dataset.uploadnum = numOfUploads;
+        
     const li = document.createElement('li');
+        li.classList.add('imageuploaded');
         li.appendChild(input);
-   
-   
+        li.appendChild(removeButton);
+    
 
-
-   
     uploadList.appendChild(li);
 
     console.log(input)
