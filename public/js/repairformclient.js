@@ -1,4 +1,11 @@
 
+
+
+
+
+
+
+
 //preview image on page locally
 function previewImage(event){
 
@@ -45,7 +52,46 @@ document.addEventListener('DOMContentLoaded', async () => {
     //get form from document
     const form = document.querySelector("form");
 
+        // subelement in form
+        const procedure =form.querySelector('#procedure')
+
     
+
+
+
+
+
+
+
+
+
+    // =========================================================
+    //event listeners
+    // =========================================================
+
+    //inside procedure
+    procedure.addEventListener('click',(event)=>{
+        
+
+        
+        const action = event.target.dataset.action
+        const step = event.target.closest('.repair-step')
+
+
+        switch (action) {
+            case 'add-image':
+               
+                const input = document.createElement('input')
+                img.type='file'
+                console.log(`step number is: `,step.dataset.step)
+                step
+                break;
+        
+            default:
+                break;
+        }
+
+    })
 
     //submit event
     form.addEventListener("submit", (event) => {
@@ -82,6 +128,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
     });
+
+
+
 
 })
 

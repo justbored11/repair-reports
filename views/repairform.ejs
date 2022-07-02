@@ -11,20 +11,22 @@
 </head>
 <body>
     
-		<!-- FILE UPLOAD TEST -->
+	
 		<section>
 
             <!-- on change of form state mostly from image upload preview the image -->
             <form id="repair-form" action="/" method="post" encType="multipart/form-data" >
-                <label for="rep-title" class="rep-sect">Enter Title Here
+
+                <!-- title -->
+                <label for="rep-title" class="">Enter Title Here
                     <input id="rep-title" type="text" placeholder="Title"> 
                 </label>
 
                 <!-- pick model of engine -->
                 
-                <section id="rep-model ">
-                    <h2>What engine is this for?</h2>
-                   
+                    
+                    <fieldset>
+                        <legend>Choose Engine</legend>
                         <label class="clickable model caterpillar"  for="cat">Caterpillar
                             <input  id="cat" name="model" valu type="radio">
                         </label>
@@ -40,31 +42,41 @@
                         <label class="clickable model" for="other">Other
                             <input id="other" name="model"  type="radio">
                         </label>
+                    </fieldset>
+                     
                     
-                   
-                </section>
                
-                <!-- attach picture and text -->
-
+               
                 <ol>
+                    <!-- repair instructions -->
                     <li>
-                        <h3>Repair Step</h3>
-                        <!-- preview uploaded image -->
-                       
-                        <section class="rep-sect ">
-                            <section  class="rep-img image-preview">
-                                <!-- picture preview -->
-                                <img src="" alt="repair image" class="img-mini">
+                        <section class="">
                             
+                            <!-- picture preview -->
+                            <section  class="rep-img image-preview">
+                                <h3>Uploaded images</h3>
+                                <img src="" alt="repair image" class="img-mini">
                             </section>
         
-                            <section>
-                                <!-- upload picture -->
-                                <input id="img1"  type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
                             
+                            <section>
+                                <h3>Repair Procedures</h3>
+                                <ol id="procedure">
+                                    <li data-step="1" class="repair-step">
+                                        <section>
+                                            <h4>images</h4>
+                                            <input  data-step="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
+                                        </section>
+                                        
+                                        <button class="add-img" data-action="add-image">add another image</button>
+                                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                                    </li>
+                                </ol>
+                                
+                                
                             </section>
                             <!-- text description area -->
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                       
                            
                         </section>
                        
