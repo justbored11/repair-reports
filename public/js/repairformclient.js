@@ -130,23 +130,19 @@ function removeImage(event){
 
 }
 
-//preview image on page locally
+//preview image on page locally when input for image is changed
 function previewImage(event){
 
     const uploadnum= event.target.closest('.uploads').dataset.totalfiles    
 
 
+    const currentUpload = event.target.closest('.imageuploaded') 
+        const image = currentUpload.querySelector('img');
+            image.src = URL.createObjectURL(event.target.files[0]);
+            image.alt='image preview';
+            image.classList.add('img-mini');
 
-    console.log(`preview image`)
-    const previewArea = document.querySelector('.img-preview');
-
-    let image = document.createElement('img');
-        image.src = URL.createObjectURL(event.target.files[0]);
-        image.alt='image preview';
-        image.classList.add('img-mini');
-        image.dataset.uploadnum=uploadnum;
-
-    previewArea.appendChild(image);
+        
 }
 
 
@@ -158,6 +154,10 @@ function addImageProcedure(event){
     const uploadList = procedure.querySelector('.uploads');
     uploadList.dataset.totalfiles++;
     let numOfUploads =uploadList.dataset.totalfiles;
+
+    const image = document.createElement('img')
+        image.alt='image preview';
+        image.classList.add('img-mini');
 
     const input = document.createElement('input');
         input.dataset.uploadnum = numOfUploads;
@@ -174,6 +174,7 @@ function addImageProcedure(event){
         
     const li = document.createElement('li');
         li.classList.add('imageuploaded');
+        li.appendChild(image)
         li.appendChild(input);
         li.appendChild(removeButton);
     
