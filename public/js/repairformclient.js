@@ -2,15 +2,40 @@
 
 
 
-// TEST
-let test = document.querySelector('.procedure')
-let signDatat 
-// TEST
+
+
+class Procedure {
+    constructor(imagesArr=[],procedureNum=1,instructions='default instructions'){
+        this.images = imagesArr
+        this.procedureNum=procedureNum
+        this.instructions=instructions
+    }
+}
+
+class Repair{
+    constructor(procedures=[],searchtags='blank tags',title='blank title', board='no board type', engine='no engine make'){
+        this.procedureArr=procedures;
+        this.searchtags=searchtags;
+        this.title=title;
+        this.boardType=board;
+        this.engineMake=engine;
+    }
+
+    addProcedure(proc) {
+        this.procedureArr.push(proc);
+        this.getObj()
+    }
+
+    getObj(){
+        return this;
+    }
+}
+
 
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log(`doc loaded repair form`)
-/// testing
+    
     const signResponse = await fetch('/signform'); //fetch signature from server
     const signData = await signResponse.json();
     signDatat=signData
@@ -59,17 +84,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     form.addEventListener("submit", (event) => {
         event.preventDefault();
 
+
+
+        
+
+
         //all steps needed for repair
         const allProcedures = document.querySelectorAll('.procedure')
 
         //for each procedure upload its images 
         allProcedures.forEach(async (proc)=>{
+
             //get images in these procedure
-            // const imagesToUpload=getImages(proc)
             const imageLinks = await uploadImages(proc, signData)
+
             console.log(`links for procedure`)
             console.log(imageLinks)
-            test = imageLinks;
 
         })
         
@@ -80,6 +110,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 })
+
+
 
 
 // ==========================================================================
@@ -122,60 +154,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return response.json();
             })
             .then((data) => {
-                //response from server will contain url of image hosted on cloudinary
-                // var str = JSON.stringify(JSON.parse(data), null, 4);
-                // let str = data
-                // console.log(data)
-                // console.log(data.type)
                 imageLinks.push(data.url)
-                
-        
             });
         }
-
-        
-        
     })
 
     return imageLinks
-
-    // for (let i = 0; i < files.length; i++) {
-       
-    //     let file = files[i];
-
-    //     formData.append("file", file);
-    //     formData.append("api_key", signData.apikey);
-    //     formData.append("timestamp", signData.timestamp);
-    //     formData.append("signature", signData.signature);
-    //     // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260"); //some form of transformation dont need
-    //     formData.append("folder", "cata"); //put this file in folder named cata
-        
-    //     //send post to cloudinary to upload picture
-    //     fetch(url, {
-    //         method: "POST",
-    //         body: formData
-    //     })
-    //     .then((response) => {
-    //         return response.json();
-    //     })
-    //     .then((data) => {
-    //         //response from server will contain url of image hosted on cloudinary
-    //         // var str = JSON.stringify(JSON.parse(data), null, 4);
-    //         let str = data
-    //         console.log(data)
-    //         console.log(data.type)
-    
-    //     });
-    // }
-
 }
 
 
 //get images if any and return them
 function getImages(element){
-
-    //upload url
-    // const url = "https://api.cloudinary.com/v1_1/" + signData.cloudname + "/auto/upload";
     let files = []
 
     // get all elements with files
@@ -187,50 +176,9 @@ function getImages(element){
             if(element.files.length >0){
                 files.push(element.files)
             }
-            
-            // console.log(element.files)
         })
 
 return files;
-    // const files = document.querySelector("[type=file]").files;
-    // const filesss = document.querySelector("[type=file]").files;
-
-    
-    // const formData = new FormData();
-
-    // Append parameters to the form data. The parameters that are signed using 
-    // the signing function (signuploadform) need to match these.
-    // for (let i = 0; i < files.length; i++) {
-       
-    //     let file = files[i];
-
-    //     formData.append("file", file);
-    //     formData.append("api_key", signData.apikey);
-    //     formData.append("timestamp", signData.timestamp);
-    //     formData.append("signature", signData.signature);
-    //     // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260"); //some form of transformation dont need
-    //     formData.append("folder", "cata"); //put this file in folder named cata
-        
-    //     //send post to cloudinary to upload picture
-    //     fetch(url, {
-    //         method: "POST",
-    //         body: formData
-    //     })
-    //     .then((response) => {
-    //         return response.json();
-    //     })
-    //     .then((data) => {
-    //         //response from server will contain url of image hosted on cloudinary
-    //         // var str = JSON.stringify(JSON.parse(data), null, 4);
-    //         let str = data
-    //         console.log(data)
-    //         console.log(data.type)
-    
-    //     });
-    // }
-
-
-   
 }
 
 
@@ -238,23 +186,13 @@ return files;
 
 function removeImage(event){
 
-   
-
-    //image number i want to target
-    const imagenum=event.target.dataset.uploadnum;
-    // console.log('imgnum',imagenum)
-
-    //parent 
     const procedure = event.target.closest('.procedure');
-    // console.log(`proce`, procedure)
 
         const uploadList = procedure.querySelector('.uploads');
         uploadList.dataset.totalfiles--;
 
     //li the image input is in
     const imageListItem = event.target.closest('li');
-    // console.log('imageListitem',imageListItem)
-
 
     imageListItem.remove();
 

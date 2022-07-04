@@ -21,6 +21,10 @@
                 <label for="rep-title" class="">Enter Title Here
                     <input id="rep-title" type="text" placeholder="Title"> 
                 </label>
+                <label for="search-tags">
+                    keywords seperated by , here
+                    <input type="text" name="searchtags" id="search-tags" placeholder="Search Tags">
+                </label>
 
                 <!-- pick model of engine -->
                 
@@ -47,10 +51,10 @@
                     
                
                
-                <ol id="instructions">
+                <ol id="instructions" data-currentProcId="1">
                     
                     <!-- repair instructions -->
-                    <li class="procedure">
+                    <li class="procedure" data-procedureId="1">
                        
                             <section>
                                 <h3>Repair Procedure</h3>
@@ -82,14 +86,9 @@
                                 
                             </section>
                             <!-- text description area -->
-                       
-                           
-               
-                       
-                        
-
-
                     </li>
+
+                    
 
                 </ol>
                 
