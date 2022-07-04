@@ -2,19 +2,10 @@
 
 
 
-
+// TEST
 let test = document.querySelector('.procedure')
-
-
 let signDatat 
-
-
-
-
-
-
-
-
+// TEST
 
 
 document.addEventListener('DOMContentLoaded', async () => {
