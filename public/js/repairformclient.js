@@ -10,6 +10,10 @@ class Procedure {
         this.procedureNum=procedureNum
         this.instructions=instructions
     }
+    json(){
+        return this
+
+    }
 }
 
 class Repair{
@@ -84,26 +88,55 @@ document.addEventListener('DOMContentLoaded', async () => {
     form.addEventListener("submit", (event) => {
         event.preventDefault();
 
+        // class Procedure {
+        //     constructor(imagesArr=[],procedureNum=1,instructions='default instructions'){
+        //         this.images = imagesArr
+        //         this.procedureNum=procedureNum
+        //         this.instructions=instructions
+        //     }
+        // }
 
-
-        
+        // TESTING NEW REPAIR CLASS*****************************
+        let repair = new Repair()
+        // TESTING NEW REPAIR CLASS****************************
 
 
         //all steps needed for repair
         const allProcedures = document.querySelectorAll('.procedure')
 
         //for each procedure upload its images 
-        allProcedures.forEach(async (proc)=>{
+        allProcedures.forEach(async (proc,index)=>{
+
+         
 
             //get images in these procedure
-            const imageLinks = await uploadImages(proc, signData)
+            const imageLinksArr = []// await uploadImages(proc, signData)
 
-            console.log(`links for procedure`)
-            console.log(imageLinks)
+
+            //TESTING FORMATTING***************************************
+            let procedure = new Procedure();
+            procedure.images=imageLinksArr;
+            procedure.procedureNum=index
+            procedure.instructions = proc.querySelector('.instructions').value
+
+            
+            repair.addProcedure(procedure)
+             //TESTING FORMATTING**************************************
+
+
+            // console.log(`links for procedure`)
+            // console.log(imageLinksArr)
+
 
         })
         
-       
+        repair.boardType=document.querySelector('#board-type').value;
+        repair.searchtags= document.querySelector('#search-tags').value;
+        repair.title =  document.querySelector('#rep-title').value;
+        repair.engineMake = document.querySelector('.model input:checked').value;
+
+     console.log(repair)
+
     });
 
 

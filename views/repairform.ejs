@@ -23,7 +23,11 @@
                 </label>
                 <label for="search-tags">
                     keywords seperated by , here
-                    <input type="text" name="searchtags" id="search-tags" placeholder="Search Tags">
+                    <input id="search-tags" type="text" name="searchtags"  placeholder="Search Tags">
+                </label>
+                <label for="board-type">
+                    Board Type
+                    <input id="board-type" type="text" name="boardtype" placeholder="4473 KA ...">
                 </label>
 
                 <!-- pick model of engine -->
@@ -32,19 +36,19 @@
                     <fieldset class="engine-models">
                         <legend>Choose Engine</legend>
                         <label class="clickable model caterpillar"  for="cat">Caterpillar
-                            <input  id="cat" name="model" valu type="radio">
+                            <input  id="cat" name="model" value="cat" type="radio">
                         </label>
                    
                         <label class="clickable model " for="detroit">Detroit
-                            <input id="detroit" name="model" type="radio">
+                            <input id="detroit" name="model" value="detroit" type="radio">
                         </label>
                     
                         <label class="clickable model" for="cummins">Cummins
-                            <input id="cummins" name="model"  type="radio">
+                            <input id="cummins" name="model" value="cummins"  type="radio">
                         </label>
 
                         <label class="clickable model" for="other">Other
-                            <input id="other" name="model"  type="radio">
+                            <input id="other" name="model"  value="other" type="radio">
                         </label>
                     </fieldset>
                      
@@ -78,7 +82,7 @@
                                 
                                 </fieldset>
                                 
-                                <textarea name="" id="" cols="10" rows="10"></textarea>
+                                <textarea name="instructions1" id="instructions1" class="instructions" cols="10" rows="10"></textarea>
                                 
                                 
                                 
