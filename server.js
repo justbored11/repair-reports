@@ -8,7 +8,7 @@ const express = require('express');
 
 require('dotenv').config(); // to use with enviroment variables initializes enviroment vars
 const cors = require('cors');
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 
 let testobj={
     
@@ -40,9 +40,9 @@ const app = express();
 const PORT = 8000;
 
 
-app.use(fileUpload({
-    createParentPath: true
-}));
+// app.use(fileUpload({
+//     createParentPath: true
+// }));
 
 app.use(cors());
 app.use(express.json());
@@ -64,10 +64,9 @@ app.get('/', async (request, response)=>{
   
     response.render('index.ejs');
 
-    
-    
-
 })
+
+
 
 // repair form page
 app.get('/repairform', async (request, response)=>{
@@ -108,16 +107,18 @@ app.get('/ecm-logs', async (request, response)=>{
 
 
 
- app.post('/',async (request, response)=>{
+app.post('/',async (request, response)=>{
     console.log(`post at /`)
    
     // let result = await dataBase.getAll();
-    // console.log(request.files);
+    // console.log(request.body.repair);
 
+    let repair = (request.body)
+    // dataBase.insertLogEntry(repair)
     
     
-
-    response.send('read')
+    console.log(`repair at server`,repair.procedureArr[0].images)
+    response.send('ok')
 
 })
 

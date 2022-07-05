@@ -1,6 +1,31 @@
 // const { resolveInclude } = require("ejs");
 
 
+    const form = document.querySelector("form");
+
+let testobj={
+    
+    "tags": ['search this'],
+    "title": "cummins no 100v",
+    "board": "model 4473",
+    "engine": "cummins engine model",
+    "procedure": [
+    {
+    "images": [
+    "wwww url",
+    "wwww url2"
+    ],
+    "description": "this is how to fix it step 1"
+    },
+    {
+    "images": [
+    "wwww url",
+    "wwww url2"
+    ],
+    "description": "this is how to fix it step 2"
+    }
+    ]
+    }
 
 
 
@@ -42,13 +67,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     const signResponse = await fetch('/signform'); //fetch signature from server
     const signData = await signResponse.json();
-    signDatat=signData
+
 
 
     //upload url
     const url = "https://api.cloudinary.com/v1_1/" + signData.cloudname + "/auto/upload";
     
-    const form = document.querySelector("form");
+    // const form = document.querySelector("form");
     const instructions =form.querySelector('#instructions')
 
 
@@ -65,7 +90,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         //parent of target
         const procedure = event.target.closest('.procedure')
 
-        console.log(action)
 
         switch (action) {
            
@@ -84,65 +108,53 @@ document.addEventListener('DOMContentLoaded', async () => {
     })
 
 
-    //submit form event
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
+    // //submit form event
+    // form.addEventListener("submit",async (event) => {
+    //     event.preventDefault();
+    //     const allProcedures = Array.from( document.querySelectorAll('.procedure'))
+      
 
-        // class Procedure {
-        //     constructor(imagesArr=[],procedureNum=1,instructions='default instructions'){
-        //         this.images = imagesArr
-        //         this.procedureNum=procedureNum
-        //         this.instructions=instructions
-        //     }
-        // }
-
-        // TESTING NEW REPAIR CLASS*****************************
-        let repair = new Repair()
-        // TESTING NEW REPAIR CLASS****************************
-
-
-        //all steps needed for repair
-        const allProcedures = document.querySelectorAll('.procedure')
-
-        //for each procedure upload its images 
-        allProcedures.forEach(async (proc,index)=>{
-
-         
-
-            //get images in these procedure
-            const imageLinksArr = []// await uploadImages(proc, signData)
-
-
-            //TESTING FORMATTING***************************************
-            let procedure = new Procedure();
-            procedure.images=imageLinksArr;
-            procedure.procedureNum=index
-            procedure.instructions = proc.querySelector('.instructions').value
-
-            
-            repair.addProcedure(procedure)
-             //TESTING FORMATTING**************************************
-
-
-            // console.log(`links for procedure`)
-            // console.log(imageLinksArr)
-
-
-        })
+    //     const procArr = await buildProcedures(allProcedures, signData)
+    //     const repair = await buildRepair(procArr);
+      
+    // //    console.log(`proc`,procArr)
         
-        repair.boardType=document.querySelector('#board-type').value;
-        repair.searchtags= document.querySelector('#search-tags').value;
-        repair.title =  document.querySelector('#rep-title').value;
-        repair.engineMake = document.querySelector('.model input:checked').value;
+    
 
-     console.log(repair)
+    // // console.log(`before post`,repair)
+    
+    // // postToServer( allProcedures, signData);'
+    // postToServer(repair,procArr)
+    // // console.log()
+    
 
-    });
+    // });
 
-
+  
 
 
 })
+
+ //submit form event
+ form.addEventListener("submit",async (event) => {
+    event.preventDefault();
+    const allProcedures = Array.from( document.querySelectorAll('.procedure'))
+    const signResponse = await fetch('/signform'); //fetch signature from server
+    const signData = await signResponse.json();
+  
+
+   
+
+  
+
+    const procArr = await  buildProcedures(allProcedures, signData)
+    const repair = buildRepair(procArr);
+  
+    postToServer(repair,procArr)
+
+
+});
+
 
 
 
@@ -153,7 +165,98 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 
-//TESTING TO REPLACE BIG FUNCTION ABOVE
+
+
+async function postToServer(repairObj){
+     
+  
+
+    // const procArr = await buildProcedures(allProcedures, signData)
+//     const repair= await buildRepair( procArr)
+//     console.log(`repair`, repair)
+
+   
+
+    
+
+    // const repair=JSON.stringify(repairObj)
+   console.log(`sent to server already`,repairObj)
+
+    // formData.append('repair',repairObj)
+
+    fetch(`/`,{
+        method: 'post',
+        headers: {'Content-Type':'application/json'},
+        body:JSON.stringify(repairObj)
+
+        
+    })
+    .then((res)=>res.text())
+    .then(result => {
+       
+    }) 
+    .catch(err=> console.log(`error ${err}`));
+    
+    
+}
+
+
+
+ function buildRepair (procArr){
+    const repair =  new Repair()
+    console.log(procArr)
+        repair.procedureArr = procArr;
+        repair.boardType=document.querySelector('#board-type').value;
+        repair.searchtags= document.querySelector('#search-tags').value;
+        repair.title =  document.querySelector('#rep-title').value;
+        repair.engineMake = document.querySelector('.model input:checked').value;
+    
+    return repair
+}
+
+
+async function buildProcedures(allProcedures, signData){
+    let procArr=[];
+    //for each procedure upload its images 
+    
+    procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
+        let procedure = new Procedure();
+
+            procedure.images= await uploadImages(proc, signData)
+            procedure.procedureNum=index
+            procedure.instructions = proc.querySelector('.instructions').value
+            
+            // console.log(procedure.images)
+        return (procedure)
+       
+    })
+
+    procArr = await Promise.all(procedurePromises)
+    
+    // allProcedures.forEach( async(proc,index)=>{
+    //     let procedure = new Procedure();
+
+    //         procedure.images= await uploadImages(proc, signData)
+    //         procedure.procedureNum=index
+    //         procedure.instructions = proc.querySelector('.instructions').value
+            
+    //         // console.log(procedure.images)
+    //     procArr.push(procedure)
+       
+    // })
+    return procArr
+    
+    
+    
+
+
+}
+
+
+
+
+
+//return image links
  async function uploadImages(element, signData){
 
     // const files=element
@@ -163,36 +266,80 @@ document.addEventListener('DOMContentLoaded', async () => {
     //get images
     const imagesToUpload=getImages(element);
 
-    let imageLinks=[];
-    
-    imagesToUpload.forEach((filesList)=>{
-        // console.log(filesList[0])
-        for (let i = 0; i < filesList.length; i++) {
-       
-            let file = filesList[i];
-    
-            formData.append("file", file);
-            formData.append("api_key", signData.apikey);
-            formData.append("timestamp", signData.timestamp);
-            formData.append("signature", signData.signature);
-            // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260"); //some form of transformation dont need
-            formData.append("folder", "cata"); //put this file in folder named cata
+//    let imageLinks=[]
+            let imageLinksPromise = Array.from(imagesToUpload).map(async (filesList)=>{
+ 
+                for (let i = 0; i < filesList.length; i++) {
             
-            //send post to cloudinary to upload picture
-            fetch(url, {
-                method: "POST",
-                body: formData
-            })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                imageLinks.push(data.url)
-            });
-        }
-    })
+                    let file = filesList[i];
+            
+                    formData.append("file", file);
+                    formData.append("api_key", signData.apikey);
+                    formData.append("timestamp", signData.timestamp);
+                    formData.append("signature", signData.signature);
+                    // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260"); //some form of transformation dont need
+                    formData.append("folder", "cata"); //put this file in folder named cata
+                    
+    
+                    const response = await fetch(url, {
+                            method: "POST",
+                            body: formData
+                        }).then(data => data.json());
+                    
+                    // imageLinks.push(response.url)
+                    console.log(`link`,response.url)
+                    return response.url
+                        
+                
+                    
+                        
+    
+                }
+    
+                
 
-    return imageLinks
+                
+            })
+
+            console.log(`images promises`,imageLinksPromise)
+            let linksResolved = await Promise.all(imageLinksPromise)
+            console.log(`resolved links`,linksResolved)
+
+            return linksResolved
+    
+
+    // imagesToUpload.forEach(async (filesList)=>{
+    //     // console.log(filesList[0])
+       
+
+    //     for (let i = 0; i < filesList.length; i++) {
+       
+    //         let file = filesList[i];
+    
+    //         formData.append("file", file);
+    //         formData.append("api_key", signData.apikey);
+    //         formData.append("timestamp", signData.timestamp);
+    //         formData.append("signature", signData.signature);
+    //         // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260"); //some form of transformation dont need
+    //         formData.append("folder", "cata"); //put this file in folder named cata
+            
+
+    //         const response = await fetch(url, {
+    //                 method: "POST",
+    //                 body: formData
+    //             }).then(data => data.json());
+            
+    //         imageLinks.push(response.url)
+           
+               
+                
+
+    //     }
+
+    //     console.log(`mages`,imageLinks)
+        
+    // })
+    
 }
 
 
