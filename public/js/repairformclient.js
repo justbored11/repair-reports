@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         switch (action) {
            
             case 'add-image':
-                addImageProcedure(event)
+                addImageToProcedure(event)
                 break;
             
             case 'remove-image':
@@ -216,7 +216,7 @@ async function postToServer(repairObj){
 
 
 async function buildProcedures(allProcedures, signData){
-    let procArr=[];
+    // let procArr=[];
     //for each procedure upload its images 
     
     procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
@@ -231,24 +231,9 @@ async function buildProcedures(allProcedures, signData){
        
     })
 
-    procArr = await Promise.all(procedurePromises)
-    
-    // allProcedures.forEach( async(proc,index)=>{
-    //     let procedure = new Procedure();
+   const procArr = await Promise.all(procedurePromises) 
 
-    //         procedure.images= await uploadImages(proc, signData)
-    //         procedure.procedureNum=index
-    //         procedure.instructions = proc.querySelector('.instructions').value
-            
-    //         // console.log(procedure.images)
-    //     procArr.push(procedure)
-       
-    // })
     return procArr
-    
-    
-    
-
 
 }
 
@@ -279,8 +264,7 @@ async function buildProcedures(allProcedures, signData){
                     formData.append("signature", signData.signature);
                     // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260"); //some form of transformation dont need
                     formData.append("folder", "cata"); //put this file in folder named cata
-                    
-    
+                
                     const response = await fetch(url, {
                             method: "POST",
                             body: formData
@@ -288,17 +272,9 @@ async function buildProcedures(allProcedures, signData){
                     
                     // imageLinks.push(response.url)
                     console.log(`link`,response.url)
-                    return response.url
-                        
-                
-                    
-                        
-    
+                    return response.url    
                 }
     
-                
-
-                
             })
 
             console.log(`images promises`,imageLinksPromise)
@@ -306,39 +282,6 @@ async function buildProcedures(allProcedures, signData){
             console.log(`resolved links`,linksResolved)
 
             return linksResolved
-    
-
-    // imagesToUpload.forEach(async (filesList)=>{
-    //     // console.log(filesList[0])
-       
-
-    //     for (let i = 0; i < filesList.length; i++) {
-       
-    //         let file = filesList[i];
-    
-    //         formData.append("file", file);
-    //         formData.append("api_key", signData.apikey);
-    //         formData.append("timestamp", signData.timestamp);
-    //         formData.append("signature", signData.signature);
-    //         // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260"); //some form of transformation dont need
-    //         formData.append("folder", "cata"); //put this file in folder named cata
-            
-
-    //         const response = await fetch(url, {
-    //                 method: "POST",
-    //                 body: formData
-    //             }).then(data => data.json());
-            
-    //         imageLinks.push(response.url)
-           
-               
-                
-
-    //     }
-
-    //     console.log(`mages`,imageLinks)
-        
-    // })
     
 }
 
@@ -397,8 +340,9 @@ function previewImage(event){
 
 
 
+// add extra image to repair procedure
 
-function addImageProcedure(event){
+function addImageToProcedure(event){
     //parent line item
     const procedure = event.target.closest('.procedure')
 
@@ -434,7 +378,6 @@ function addImageProcedure(event){
 
     uploadList.appendChild(li);
 
-    // console.log(input);
-    // console.log(`step number is: `,step.dataset.step)
+   
 }
 
