@@ -1,7 +1,7 @@
 // const { resolveInclude } = require("ejs");
 
-
-    const form = document.querySelector("form");
+// const Procedure = require('./Procedure')
+const form = document.querySelector("form");
 
 let testobj={
     
@@ -29,17 +29,13 @@ let testobj={
 
 
 
-class Procedure {
-    constructor(imagesArr=[],procedureNum=1,instructions='default instructions'){
-        this.images = imagesArr
-        this.procedureNum=procedureNum
-        this.instructions=instructions
-    }
-    json(){
-        return this
-
-    }
-}
+// class Procedure {
+//     constructor(imagesArr=[],procedureNum=1,instructions='default instructions'){
+//         this.images = imagesArr
+//         this.procedureNum=procedureNum
+//         this.instructions=instructions
+//     }
+// }
 
 class Repair{
     constructor(procedures=[],searchtags='blank tags',title='blank title', board='no board type', engine='no engine make'){
@@ -94,13 +90,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         switch (action) {
            
             case 'add-image':
-                addImageToProcedure(event)
+                addImageToProcedure(event);
                 break;
             
             case 'remove-image':
-                removeImage(event)
-
+                removeImage(event);
                 break;
+            case 'add-procedure':
+                addProcedureToInstructions(event);
+                break;
+
             default:
                 break;
         }
@@ -135,6 +134,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 })
 
+
+
+
  //submit form event
  form.addEventListener("submit",async (event) => {
     event.preventDefault();
@@ -167,6 +169,32 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 
+
+
+//add another procedure to instructions
+function addProcedureToInstructions(event){
+    const procedure = new Procedure()
+    console.log(`add procedure`)
+
+    const instructions = event.target.closest('#instructions');
+        instructions.dataset.currentprocid++;
+        
+    const parentProcedure = event.target.closest('.procedure')//new
+    
+
+    const li = document.createElement('li');
+        li.dataset.procedureid=instructions.dataset.currentprocid;
+        li.classList.add('procedure')
+        li.innerHTML=procedure.procedureHtml();
+    
+
+    // instructions.appendChild(li);
+    parentProcedure.insertAdjacentElement("afterend",li)
+}
+
+
+
+
 async function postToServer(repairObj){
      
   
@@ -184,7 +212,7 @@ async function postToServer(repairObj){
 
     // formData.append('repair',repairObj)
 
-    fetch(`/`,{
+    fetch(`/repairform`,{
         method: 'post',
         headers: {'Content-Type':'application/json'},
         body:JSON.stringify(repairObj)

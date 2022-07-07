@@ -77,6 +77,21 @@ app.get('/repairform', async (request, response)=>{
     
 
 })
+// repair form page
+app.post('/repairform',async (request, response)=>{
+    console.log(`post at /repairform`)
+   
+    // let result = await dataBase.getAll();
+    // console.log(request.body.repair);
+
+    let repair = (request.body)
+    dataBase.insertLogEntry(repair)
+    
+    
+    console.log(`repair at server`,repair.procedureArr[0].images)
+    response.send('ok')
+
+})
 
 //get signature for upload form
 app.get('/signform',async (request, response)=>{
@@ -107,20 +122,7 @@ app.get('/ecm-logs', async (request, response)=>{
 
 
 
-app.post('/',async (request, response)=>{
-    console.log(`post at /`)
-   
-    // let result = await dataBase.getAll();
-    // console.log(request.body.repair);
 
-    let repair = (request.body)
-    // dataBase.insertLogEntry(repair)
-    
-    
-    console.log(`repair at server`,repair.procedureArr[0].images)
-    response.send('ok')
-
-})
 
 
 
