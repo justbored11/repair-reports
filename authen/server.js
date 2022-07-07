@@ -4,6 +4,8 @@ const app = express();
 const PORT = 8000;
 const connect = require('./db')
 
+app.use(express.json());
+
 
 try {
     connect();
