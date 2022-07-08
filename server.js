@@ -66,13 +66,13 @@ dataBase.connect()
 
 
 //get a specified repair from database
-app.get('/repair/:repairId', async (request, response)=>{
+app.get('/repairinfo/:repairId', async (request, response)=>{
     // get paremeter from url
     const repairId = request.params.repairId
     const repairObj = await dataBase.findRepair(repairId)
 
     console.log(repairObj)
-    response.render('repair.ejs',{repair:repairObj})
+    response.render('repairinfo.ejs',{repair:repairObj})
 })
 
 
