@@ -58,6 +58,25 @@ let dataBase = new DataBase(process.env.connectStr_,'Cata','repair-reports' )
 dataBase.connect()
 
 
+// 
+// =============================================================
+// ROUTES
+
+
+
+
+//get a specified repair from database
+app.get('/repair/:repairId', async (request, response)=>{
+    // get paremeter from url
+    const repairId = request.params.repairId
+    const repairObj = await dataBase.findRepair(repairId)
+
+    console.log(repairObj)
+    response.render('repair.ejs',{repair:repairObj})
+})
+
+
+
 
 app.get('/', async (request, response)=>{
 
@@ -86,9 +105,6 @@ app.post('/repairform',async (request, response)=>{
 
     let repair = (request.body)
     dataBase.insertLogEntry(repair)
-    
-    
-    console.log(`repair at server`,repair.procedureArr[0].images)
     response.send('ok')
 
 })
@@ -108,8 +124,6 @@ app.get('/signform',async (request, response)=>{
     
 
 })
-
-
 
 
 

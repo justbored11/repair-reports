@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+const RepairEntry = require('./repairLogEntry');
 
 require('dotenv').config(); // to use with enviroment variables
 const MongoClient = require('mongodb').MongoClient
@@ -28,6 +30,15 @@ class DataBase {
         // this.connect() //test settings
         
 
+    }
+
+
+    //get single specified document from database by ID
+    async findRepair(repairId){
+        const id = new ObjectId(repairId)
+        let repair = await this.collection.findOne({_id:id})
+
+        return repair
     }
 
 
