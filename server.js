@@ -10,29 +10,7 @@ require('dotenv').config(); // to use with enviroment variables initializes envi
 const cors = require('cors');
 // const fileUpload = require('express-fileupload');
 
-let testobj={
-    
-    "tags": ['search this'],
-    "title": "cummins no 100v",
-    "board": "model 4473",
-    "engine": "cummins engine model",
-    "procedure": [
-    {
-    "images": [
-    "wwww url",
-    "wwww url2"
-    ],
-    "description": "this is how to fix it step 1"
-    },
-    {
-    "images": [
-    "wwww url",
-    "wwww url2"
-    ],
-    "description": "this is how to fix it step 2"
-    }
-    ]
-    }
+
 
 
 
@@ -71,9 +49,11 @@ app.get('/repairinfo/:repairId', async (request, response)=>{
     const repairId = request.params.repairId
     const repairObj = await dataBase.findRepair(repairId)
 
-    console.log(repairObj)
+    console.log(`getting repair for render`,repairObj)
     response.render('repairinfo.ejs',{repair:repairObj})
 })
+
+
 
 
 
@@ -87,25 +67,33 @@ app.get('/', async (request, response)=>{
 
 
 
+
+
 // repair form page
 app.get('/repairform', async (request, response)=>{
 
     response.render('repairform.ejs');
-
-    
-    
-
 })
+
+
+
+
 // repair form page
 app.post('/repairform',async (request, response)=>{
-    console.log(`post at /repairform`)
    
-    // let result = await dataBase.getAll();
-    // console.log(request.body.repair);
+    try {
+        
+        let entry = (request.body)
+        console.log(`post at /repairform`,entry)
 
-    let repair = (request.body)
-    dataBase.insertLogEntry(repair)
-    response.send('ok')
+        const result = await dataBase.insertLogEntry(entry)
+        response.send(result)
+
+
+    } catch (error) {
+        
+    }
+  
 
 })
 

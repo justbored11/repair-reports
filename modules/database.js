@@ -81,13 +81,14 @@ class DataBase {
 
 
     async insertLogEntry(logEntry_){
-
         try {
+            console.log(`inserting`)
             const result = await this.collection.insertOne(logEntry_)
             return result;
 
         } catch (error) {
-            console.error('error at insertLogEngtry'+error)
+            console.error('error at insertLogEngtry'+ error)
+            return error;
         }
         
     }
