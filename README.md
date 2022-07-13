@@ -9,9 +9,10 @@ Logic overview ![DrawIO](https://github.com/jesusdoza/diagrams/blob/main/repair-
 ## How It's Made:
 
 
-**Tech used:** HTML, CSS, JavaScript, nodeJs, express
+**Tech used:** HTML, CSS, JavaScript, nodeJs, express, MongoDb, cloudinary
 
 
 
 
 ## Lessons Learned:
+uploading can be delegated to client side with only having signature from server
