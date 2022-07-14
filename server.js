@@ -1,15 +1,21 @@
+// import packages
+const express = require('express');
+require('dotenv').config(); // to use with enviroment variables initializes enviroment vars
+const cors = require('cors');
+
 // import modules
 const DataBase = require('./modules/database.js');
 const RepairEntry = require('./modules/repairLogEntry');
 const RepairStep = require('./modules/RepairStep');
 const signature = require('./modules/signuploadform')
 
-const express = require('express');
 
-require('dotenv').config(); // to use with enviroment variables initializes enviroment vars
-const cors = require('cors');
-// const fileUpload = require('express-fileupload');
 
+
+
+
+// routes
+const repairInfoRoutes = require('./routes/repairInfoRoutes')
 
 
 
@@ -17,10 +23,6 @@ const cors = require('cors');
 const app = express();
 const PORT = 8000;
 
-
-// app.use(fileUpload({
-//     createParentPath: true
-// }));
 
 app.use(cors());
 app.use(express.json());
@@ -36,25 +38,14 @@ let dataBase = new DataBase(process.env.connectStr_,'Cata','repair-reports' )
 dataBase.connect()
 
 
-// 
+
 // =============================================================
 // ROUTES
 
 
-
-
-//get a specified repair from database
-app.get('/repairinfo/:repairId', async (request, response)=>{
-    // get paremeter from url
-    const repairId = request.params.repairId
-    const repairObj = await dataBase.findRepair(repairId)
-
-    console.log(`getting repair for render`,repairObj)
-    response.render('repairinfo.ejs',{repair:repairObj})
-})
-
-
-
+//repair info routes NEW
+//test repair ID 62c747111face0e18e1f76e4
+app.use(repairInfoRoutes)
 
 
 
@@ -87,6 +78,7 @@ app.post('/repairform',async (request, response)=>{
         console.log(`post at /repairform`,entry)
 
         const result = await dataBase.insertLogEntry(entry)
+        console.log(`done uploading at server`)
         response.send(result)
 
 

@@ -56,7 +56,14 @@
                                 <% for (let a= 0 ; repair.procedureArr[i].images.length > a ; a++){ %>
                                     <li class="imageuploaded">
                                         <a href="<%= repair.procedureArr[i].images[a] %>">
-                                            <img src=" <%= repair.procedureArr[i].thumbs[a] %>" alt="repair image" class="img-mini">
+
+                                            <%if (repair.procedureArr[i].thumbs){%>
+                                                <img src=" <%= repair.procedureArr[i].thumbs[a]%>" alt="repair image" class="img-mini">
+                                               
+                                                <%}else{%>
+                                                    <img src=" <%= repair.procedureArr[i].images[a]%>" alt="repair image" class="img-mini">
+                                                <%}%>
+                                           
                                         </a>
                                        
                                     </li>

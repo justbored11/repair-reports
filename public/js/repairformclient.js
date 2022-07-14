@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const repairId = await postToServer(repair);
 
-
+    console.log(repairId)
     // statusIcons.classList.toggle("hidden");
     location.assign(`/repairinfo/${repairId}`);
 
