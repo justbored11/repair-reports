@@ -11,24 +11,33 @@
 </head>
 <body>
     
-	
-		<section>
+	<h1>Repair Form</h1>
+    
+		<main>
+            <section class="status-icons hidden ">
+                <div class="loading"></div>
+                <div class="loading-text">Loading</div>
+            </section>
+       
 
             <!-- on change of form state mostly from image upload preview the image -->
             <form id="repair-form" action="/" method="post" encType="multipart/form-data" >
-
-                <!-- title -->
-                <label for="rep-title" class="">
-                    <input id="rep-title" type="text" placeholder="Title"  value=""> 
-                </label>
-                <label for="search-tags">
-                   
-                    <input id="search-tags" type="text" name="searchtags"  placeholder="Search Tags" value="">
-                </label>
-                <label for="board-type">
-                  
-                    <input id="board-type" type="text" name="boardtype" placeholder="4473 KA ..." value="">
-                </label>
+                <section class="center">
+                        <!-- title -->
+                    <label for="rep-title" class="">
+                        <h2>Title</h2>
+                        <input id="rep-title" type="text" placeholder=" ex: no 100v"  value=""> 
+                    </label>
+                    <label for="search-tags">
+                         <h2>Search Tags</h2>
+                        <input id="search-tags" type="text" name="searchtags"  placeholder="Search Tags" value="">
+                    </label>
+                    <label for="board-type">
+                        <h2>Board Type</h2>
+                        <input id="board-type" type="text" name="boardtype" placeholder="4473 KA ..." value="">
+                    </label>
+                </section>
+               
 
                 <!-- pick model of engine -->
                     
@@ -52,9 +61,9 @@
                     </fieldset>
                      
                     
-               
-               
+                   
                 <ol id="instructions" data-currentProcId="1">
+                 
                     
                     <!-- repair instructions -->
                     <li class="procedure" data-procedureId="1">
@@ -64,7 +73,7 @@
                     
                                 
                                 <!-- images uploaded -->
-                                <fieldset>
+                                <fieldset class="images-list">
                                     <legend>Images
                                         <!-- add another image button -->
                                         <div class="add-img button clickable " data-action="add-image">add another image</div>
@@ -81,7 +90,7 @@
                                 
                                 </fieldset>
                                 
-                                <textarea name="instructions1" id="instructions1" class="instructions" cols="10" rows="10" value="test dfafamongo"></textarea>
+                                <textarea name="instructions1" id="instructions1" class="instructions" cols="5" rows="5" value="test dfafamongo"></textarea>
                                 
                                 
                                 
@@ -103,7 +112,7 @@
 
             </form>
            
-        </section>
+        </main>
 
 
         <section id="formdata">
@@ -129,7 +138,8 @@
 				</section>
 			</nav>
 		</footer>
-        <script type="text/javascript" src="./js/repairformclient.js"></script>
         <script type="text/javascript" src="./js/Procedure.js"></script>
+        <script type="text/javascript" src="./js/repairformclient.js"></script>
+       
 </body>
 </html>

@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         switch (action) {
            
             case 'add-image':
+                console.log(`add image`)
                 addImageToProcedure(event);
                 break;
             
@@ -116,12 +117,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const allProcedures = Array.from( document.querySelectorAll('.procedure'))
     const signResponse = await fetch('/signform'); //fetch signature from server
     const signData = await signResponse.json();
-  
+    
+    const statusIcons = document.querySelector('.status-icons')
+        statusIcons.classList.toggle("hidden");
+    const statusMessage = document.querySelector('.loading-text')
 
-    //OLD working
-    // const procArr = await  buildProcedures(allProcedures, signData)
-    // const repair = buildRepair(procArr);
-  
 
     procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
 
@@ -136,17 +136,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         return (procedure)
        
     })
+
+    //display status at this point
+        statusMessage.innerHTML+="<br>Uploading images"
+
     const procArr = await Promise.all(procedurePromises) 
 
     console.log(procArr)
 
+        statusMessage.innerHTML+="<br>Uploading Done";
+
     const repair = new Repair
         repair.buildRepair(procArr)
 
-    
 
-    postToServer(repair)
+        statusMessage.innerHTML+="<br>Saving Report"
 
+    const repairId = await postToServer(repair);
+
+
+    // statusIcons.classList.toggle("hidden");
+    location.assign(`/repairinfo/${repairId}`);
 
 });
 
@@ -222,11 +232,12 @@ async function postToServer(repairObj){
      
      
          
-         const repairId = response.insertedId
+         const repairId = await response.insertedId
          console.log(`post serv respons`,response)
          console.log(`post serv respons`,repairId)
      
-         location.assign(`/repairinfo/${repairId}`)
+         return repairId;
+        //  location.assign(`/repairinfo/${repairId}`)
     }
    
     catch(error){
