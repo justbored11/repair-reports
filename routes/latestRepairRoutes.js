@@ -17,7 +17,7 @@ router.get('/latestrepairs',async (request,response)=>{
 
     const results = await dataBase.latest();
 
-    console.log(results)
+    // console.log(results)
     response.status(200).json({repairs:results})
 
 })

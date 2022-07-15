@@ -32,8 +32,9 @@ class DataBase {
 
 
 async latest(){
-    const results = await this.collection.find({$query: {}, $orderby: {$natural : -1}}).limit(yournumber)
-
+    // const results = await this.collection.find({$query: {}, $orderby: {$natural : -1}}).limit(6)
+    const results = await this.collection.find({}).sort({_id:-1}).limit(6).toArray();
+    
     return results;
 
     }
