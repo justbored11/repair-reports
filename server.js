@@ -4,7 +4,7 @@ require('dotenv').config(); // to use with enviroment variables initializes envi
 const cors = require('cors');
 
 // import modules
-const DataBase = require('./modules/database.js');
+// const DataBase = require('./modules/database.js');
 const RepairEntry = require('./modules/repairLogEntry');
 const RepairStep = require('./modules/RepairStep');
 const signature = require('./modules/signuploadform')
@@ -16,7 +16,7 @@ const signature = require('./modules/signuploadform')
 
 // routes
 const repairInfoRoutes = require('./routes/repairInfoRoutes')
-
+const latestRepairRoutes = require('./routes/latestRepairRoutes')
 
 
 
@@ -34,8 +34,6 @@ app.use(express.static('public')) //use templates from folder
 
 
 
-let dataBase = new DataBase(process.env.connectStr_,'Cata','repair-reports' )
-dataBase.connect()
 
 
 
@@ -46,6 +44,7 @@ dataBase.connect()
 //repair info routes NEW
 //test repair ID 62c747111face0e18e1f76e4
 app.use(repairInfoRoutes)
+app.use(latestRepairRoutes)
 
 
 

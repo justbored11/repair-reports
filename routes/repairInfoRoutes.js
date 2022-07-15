@@ -2,17 +2,14 @@
 const express = require('express')
 
 //modules
-const DataBase = require('../modules/database.js');
+const dataBase = require('../modules/database.js');
 
 
 
 // create router instance
 const router = express.Router();
 
-//database instance
-const dataBase = new DataBase(process.env.connectStr_,'Cata','repair-reports' )
-    dataBase.connect()
-
+// test ID 62cdbb3b08a07c547dca5505
 
 
 // ROUTES

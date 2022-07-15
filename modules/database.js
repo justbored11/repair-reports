@@ -17,6 +17,7 @@ const MongoClient = require('mongodb').MongoClient
 
 
 
+
 //mongo config
 class DataBase {
      constructor(connectStr_='empty string', db_='empty database select', collection_='empty collection select'){
@@ -26,22 +27,30 @@ class DataBase {
         this.client
         this.collection = 'empty'
         this.db = 'empty'
+    }
 
-        // this.connect() //test settings
-        
+
+
+async latest(){
+    const results = await this.collection.find({$query: {}, $orderby: {$natural : -1}}).limit(yournumber)
+
+    return results;
 
     }
 
 
-    //get single specified document from database by ID
-    async findRepair(repairId){
-        const id = new ObjectId(repairId)
-        let repair = await this.collection.findOne({_id:id})
-
-        return repair
-    }
 
 
+//get single specified document from database by ID
+async findRepair(repairId){
+    const id = new ObjectId(repairId)
+    let repair = await this.collection.findOne({_id:id})
+
+    return repair
+}
+
+
+ 
     
 //test connection with settings
    async connect(){
@@ -98,8 +107,8 @@ class DataBase {
 }
 
 
-// let imageDatabase = new ImageUpload
+//instance of database
+let dataBase = new DataBase(process.env.connectStr_,'Cata','repair-reports' )
+dataBase.connect()
 
-
-
-module.exports=DataBase
+module.exports=dataBase
