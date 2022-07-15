@@ -4,7 +4,7 @@ require('dotenv').config(); // to use with enviroment variables initializes envi
 const cors = require('cors');
 
 // import modules
-// const DataBase = require('./modules/database.js');
+const dataBase = require('./modules/database.js');
 const RepairEntry = require('./modules/repairLogEntry');
 const RepairStep = require('./modules/RepairStep');
 const signature = require('./modules/signuploadform')
@@ -82,7 +82,7 @@ app.post('/repairform',async (request, response)=>{
 
 
     } catch (error) {
-        
+        response.status(400).json({message:'failed to save repair', "error":error})
     }
   
 
