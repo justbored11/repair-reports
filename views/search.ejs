@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<meta charset="utf-8">
+    	<meta name="description" content="This is where your description goes">
+    	<meta name="keywords" content="one, two, three">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Repair Search</title>
+		<script src="https://kit.fontawesome.com/2d20c3d5a8.js" crossorigin="anonymous"></script>
+
+		<!-- external CSS link -->
+		<link rel="stylesheet" href="./stylesheets/normalize.css">
+		<link rel="stylesheet" href="./stylesheets/style.css">
+		<!-- <link rel="stylesheet" href="./stylesheets/index.css"> -->
+	</head>
+	<body class="search-page">
+		<!-- search bar -->
+		<header>
+			<section class="search">
+				<h1>Latest Documented Repairs</h1>
+				<form action="">
+					<input class="search_input" type="text" placeholder="Search for Fault code / issue">
+					<button class="search_button" type="button">Search</button>
+					<details>
+						<summary>
+							Engine Models
+						</summary>
+						<label for="cat">Caterpillar
+							<input type="radio" name="model" value="cat" id="cat" >
+						</label>
+
+						<label for="cummins">Cummins
+							<input type="radio" name="model" value="cummins" id="cummins" >
+						</label>
+							
+						<label for="detroit">Detroit
+							<input type="radio" name="model" value="detroit" id="detroit" >
+						</label>
+
+					</details>
+				</form>
+			</section>
+			
+		</header>
+
+
+		<!-- results -->
+		<section id="results-frame" >
+			
+            <% for(let i =0; i<repairs.length; i++){ %>
+				<a href="/repairinfo/<%= repairs[i]._id%>">
+					
+					<section class="entry bounce-anim animated cummins-fix">
+                    
+						<div class="entry__description">
+							<h2><%= repairs[i].title %></h2>
+							<!-- <h3><%= repairs[i].searchtags %></h3> -->
+							<p><%= repairs[i].procedureArr[0].instructions %></p>
+						  
+						</div>
+						<div class="desc-img">
+							<%if (repairs[i].procedureArr[0].thumbs){%>
+								<img src=" <%= repairs[i].procedureArr[0].thumbs[0]%>" alt="repair image" class="img-mini">
+							   
+								<%}else{%>
+									<img src=" <%= repairs[i].procedureArr[0].images[0]%>" alt="repair image" class="img-mini">
+								<%}%>
+						</div>
+	
+						
+					</section>
+				</a>
+                
+    
+
+            <%}%>
+			
+			
+
+
+
+		</section>
+
+		<!-- pick model to search -->
+		<footer>			
+			<nav>
+				<section id="menu" class="hidden-menu">
+					<details >
+						<summary> MENU</summary> 
+					<a class="button clickable" href="/repairform">
+						<span>Doc Repair <br> +</span>
+					</a>
+					<a class="button clickable" href="/ecm-logs">
+						<span> ECM LOG <br> +</span>
+					</a>
+					<!-- <a class="button clickable" href="#">
+						<span> Repair <br> Search</span>
+					</a> -->
+				</details>
+				
+				</section>
+			</nav>
+		</footer>
+		
+	
+
+		<script type="text/javascript" src="./js/index.js"></script>
+	</body>
+</html>

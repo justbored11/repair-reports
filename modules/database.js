@@ -33,13 +33,26 @@ class DataBase {
 
 async latest(){
     // const results = await this.collection.find({$query: {}, $orderby: {$natural : -1}}).limit(6)
-    const results = await this.collection.find({}).sort({_id:-1}).limit(6).toArray();
+    const results = await this.collection.find().sort({_id:-1}).limit(6).toArray();
     
     return results;
 
     }
 
 
+//get all entries
+async getAll(){
+    try{
+        const cursor = await this.collection.find().toArray();
+        console.log(cursor)
+
+        // this.collection.find().close()
+        return cursor;
+    }
+    catch(err){
+        console.error('error at DataBase.getAll'+err)
+    }
+}
 
 
 //get single specified document from database by ID
@@ -74,19 +87,6 @@ async findRepair(repairId){
     }
 
 
-//get all entries
-    async getAll(){
-        try{
-            const cursor = await this.collection.find().toArray();
-            console.log(cursor)
-   
-            // this.collection.find().close()
-            return cursor;
-        }
-        catch(err){
-            console.error('error at DataBase.getAll'+err)
-        }
-    }
 
 
 

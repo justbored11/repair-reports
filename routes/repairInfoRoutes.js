@@ -43,7 +43,10 @@ router.get('/repairinfo/:repairId', async (request, response)=>{
     const repairObj = await dataBase.findRepair(repairId)
 
     console.log(`getting repair for render`,repairObj)
+
+    //render 
     response.render('repairinfo.ejs',{repair:repairObj})
+    
     }catch(err){
         response.status(400).json({message:`ID: ${request.params.repairId}  NOT FOUND`, error:err} )
     }

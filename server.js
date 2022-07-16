@@ -4,7 +4,7 @@ require('dotenv').config(); // to use with enviroment variables initializes envi
 const cors = require('cors');
 
 // import modules
-const dataBase = require('./modules/database.js');
+
 const RepairEntry = require('./modules/repairLogEntry');
 const RepairStep = require('./modules/RepairStep');
 const signature = require('./modules/signuploadform')
@@ -31,8 +31,8 @@ app.use(express.urlencoded({extended:true})); //get body data
 app.set('view engine', 'ejs'); // for template
 app.use(express.static('public')) //use templates from folder
 
-
-
+//database collection connection
+const dataBase = require('./modules/database.js');
 
 
 
@@ -49,9 +49,9 @@ app.use(latestRepairRoutes)
 
 
 app.get('/', async (request, response)=>{
-
-  
-    response.render('index.ejs');
+    const results  = await dataBase.latest()
+    console.log(results)
+    response.render('search.ejs',{repairs:results});
 
 })
 

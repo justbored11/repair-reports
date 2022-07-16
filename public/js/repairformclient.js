@@ -4,27 +4,6 @@
 const form = document.querySelector("form");
 
 
-
-// class Procedure {
-//     constructor(imagesArr=[],procedureNum=1,instructions='default instructions'){
-//         this.images = imagesArr
-//         this.procedureNum=procedureNum
-//         this.instructions=instructions
-//     }
-
-//     async buildProcedures(procedureElement, signData){
-
-//         // this.images= await uploadImages(procedureElement, signData)
-//         this.procedureNum=index
-//         this.instructions = proc.querySelector('.instructions').value
-        
-//             console.log(`procedure build from inside class`,this)
-//         return (this)
-
-    
-//     }
-// }
-
 class Repair{
     constructor(procedures=[],searchtags='blank tags',title='blank title', board='no board type', engine='no engine make'){
         this.procedureArr=procedures;
