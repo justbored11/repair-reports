@@ -9,7 +9,7 @@
     <title>Repair Information  </title>
     <link rel="stylesheet" href="/stylesheets/normalize.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/stylesheets/repairinfo.css">
+    <!-- <link rel="stylesheet" href="/stylesheets/repairinfo.css"> -->
 </head>
 <body>
     
@@ -49,21 +49,14 @@
                 <% for (let i= 0 ; repair.procedureArr.length > i ; i++){ %>
 
                     
-                    <li class="procedure">
+                    <li class="procedure ">
                         <section>
                             <!-- images list -->
-                            <ol class="uploads" data-totalfiles="0" data-uploadId="0">
+                            <ol class="" data-totalfiles="0" data-uploadId="0">
                                 <% for (let a= 0 ; repair.procedureArr[i].images.length > a ; a++){ %>
                                     <li class="imageuploaded">
                                         <a href="<%= repair.procedureArr[i].images[a] %>">
-
-                                            <%if (repair.procedureArr[i].thumbs){%>
-                                                <img src=" <%= repair.procedureArr[i].thumbs[a]%>" alt="repair image" class="img-mini">
-                                               
-                                                <%}else{%>
-                                                    <img src=" <%= repair.procedureArr[i].images[a]%>" alt="repair image" class="img-mini">
-                                                <%}%>
-                                           
+                                            <img src=" <%= repair.procedureArr[i].images[a].replace('/upload/','/upload/c_scale,w_300/') %>" alt="repair image" class="img-mini">
                                         </a>
                                        
                                     </li>
@@ -71,8 +64,9 @@
                             </ol>
                         </section>
                         <!-- descriptiong -->
-                        <section>
-                           <%= repair.procedureArr[i].instructions %>
+                        <section class="instructions">
+                            <p ><%= repair.procedureArr[i].instructions %></p>
+                           
                         </section> 
                     </li>
                 <% } %>

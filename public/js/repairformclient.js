@@ -305,7 +305,13 @@ async function postToServer(repairObj){
             // console.log(`images promises`,imageLinksPromise)
             let linksResolved = await Promise.all(imageLinksPromise)
             let thumbsLinks = linksResolved.map((link)=>{
-                return link.replace('/upload/','/upload/t_media_lib_thumb/')
+
+                //small thumb
+                // return link.replace('/upload/','/upload/t_media_lib_thumb/')
+                //larger thumb
+                return link.replace('/upload/','/upload/c_scale,w_400/')
+
+                // https://res.cloudinary.com/da6jwh1id/image/upload/c_scale,w_400/v1657981954/cata/hkzv8i0p6ghwfktk8ah8.jpg
             })
             // console.log(`resolved links`,linksResolved)
 

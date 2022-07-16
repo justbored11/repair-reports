@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -50,9 +54,9 @@
             <% for(let i =0; i<repairs.length; i++){ %>
 				<a href="/repairinfo/<%= repairs[i]._id%>">
 					
-					<section class="entry bounce-anim animated cummins-fix">
+					<section class="entry cummins-fix">
                     
-						<div class="entry__description">
+						<div class="entry__description text-overflow">
 							<h2><%= repairs[i].title %></h2>
 							<!-- <h3><%= repairs[i].searchtags %></h3> -->
 							<p><%= repairs[i].procedureArr[0].instructions %></p>
@@ -63,8 +67,9 @@
 								<img src=" <%= repairs[i].procedureArr[0].thumbs[0]%>" alt="repair image" class="img-mini">
 							   
 								<%}else{%>
-									<img src=" <%= repairs[i].procedureArr[0].images[0]%>" alt="repair image" class="img-mini">
+									<img src=" <%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>" alt="repair image" class="img-mini">
 								<%}%>
+		
 						</div>
 	
 						
