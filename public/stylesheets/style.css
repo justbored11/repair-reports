@@ -22,6 +22,18 @@
 
   /* Search page */
   --searchbar-bg:green;
+
+  /* repair page */
+  --repair-bg:#385E72;
+  --repair-cat:#e6ea7e;
+  --repair-det:#5fc1f6;
+  --repair-cummins:#ba675c;
+  --repair-img:#B7CFDC;
+  --repair-instructions:#D9E4EC;
+  --repair-info:#6AABD2;
+
+
+
 }
 
 body{
@@ -73,9 +85,51 @@ TYPOGRAPHY
 h2{
   margin: 0;
 }
+
+h6{
+  text-align: center;
+}
 header {
   min-height: 20vh;
 }
+
+.image-list{
+  list-style: none;
+  
+  padding: 0;
+}
+
+.image-link{
+  text-align: center;
+  
+}
+
+.center{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.instructions{
+  white-space: pre-line;
+  background-color: var(--repair-instructions);
+  text-indent: 0;
+  
+}
+
+.small-padding{
+  padding: 1% 2%;
+}
+
+.procedure-list{
+  padding: 0;
+}
+
+.procedure-item{
+  list-style-position: inside;
+}
+
+
 
 
 
@@ -177,6 +231,9 @@ SEARCH.HTML TYPOGRAPHY
 =====================================================
 */
 
+.title{
+  text-align: center;
+}
 .search-page h1{
   margin:0;
 }
@@ -193,6 +250,8 @@ SEARCH.HTML TYPOGRAPHY
   height: 90px;
 
 }
+
+
   /*===================================================== 
   SEARCH.HTML layout
   ======================================================= */
@@ -333,6 +392,29 @@ SEARCH.HTML TYPOGRAPHY
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
+
+
+/* repair page */
+.repair-page{
+  background-color:var(--repair-bg);
+}
+
+.repair-info{
+  background-color: var(--repair-info);
+  
+}
+
+.repair-img{
+  background-color: var(--repair-img);
+}
+
+
+
+
+
+
+
+
 input{
   display: inline-block;
   background-color: var(--input-bg);
