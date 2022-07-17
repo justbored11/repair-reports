@@ -22,6 +22,8 @@
 
   /* Search page */
   --searchbar-bg:green;
+
+
 }
 
 body{
@@ -49,23 +51,13 @@ TYPOGRAPHY
   
 }
 
-
-
+.text-overflow{
+  overflow: hidden;
+}
 
 .instructions{
   white-space: pre;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -110,14 +102,6 @@ nav{
     min-height: 10%;
     border-radius: 10px;
   }
-
-
-
-
-
-
-
-
 
 
 .button{
@@ -195,6 +179,8 @@ SEARCH.HTML TYPOGRAPHY
   height: 90px;
 
 }
+
+
   /*===================================================== 
   SEARCH.HTML layout
   ======================================================= */
@@ -237,9 +223,6 @@ SEARCH.HTML TYPOGRAPHY
     .entry:hover{
         cursor: pointer;
     }
-
-    
-      }
       .desc-img{
         width: 30%;
         display: inline-block;
@@ -253,23 +236,11 @@ SEARCH.HTML TYPOGRAPHY
             
           }
 
-/* ========================================== */
-   
-     
-         
-/*===================================================  */
-
- 
-
-
   /*===================================================== 
   SEARCH.HTML styles
   ======================================================= */
 
 /* ==================================== */
-.text-overflow{
-  overflow: hidden;
-}
 
 
 /* log entry */
