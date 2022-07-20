@@ -9,64 +9,72 @@
     <title>Repair Information  </title>
     <link rel="stylesheet" href="/stylesheets/normalize.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
-    <!-- <link rel="stylesheet" href="/stylesheets/repairinfo.css"> -->
+  
 </head>
 <body>
     
 	
-		<section>  
+		<section class="repair-page">  
 
             Repair ID:<%= repair._id %>
             <section> 
-                <section>
+                <section class="repair-info">
                     <!-- title -->
-                    <h2 class="rep-title" class="">Title: </h2>
-                    <span><%= repair.title %></span>
+                    <h2 class="title" ><%= repair.title %></h2>
+                    <span></span>
                     
                 </section>
                 
-                <section>
+                <section class="repair-info">
                     <h3 class="search-tags">Search Tags: </h3>
                     <span><%= repair.searchtags %></span>
                     
                 </section>
                 
-                <section>
+                <section class="repair-info">
                     <h3 class="board-type">Board Type: </h3> 
                     <span><%= repair.boardType %></span> 
                     
                 </section>
                 
-                <section>
-                    <h3>Engine Make: </h3>
+                <section class="repair-info">
+                    <h3 class="">Engine Make: </h3>
                     <span><%= repair.engineMake %></span>
                 </section>
                 
             </section> 
                 
-            <ol id="instructions" data-currentProcId="1">   
+            <ol class="procedure-list" data-currentProcId="1">   
                 
                 <% for (let i= 0 ; repair.procedureArr.length > i ; i++){ %>
 
                     
-                    <li class="procedure ">
+                    <li class="procedure-item small-padding">
                         <section>
                             <!-- images list -->
-                            <ol class="" data-totalfiles="0" data-uploadId="0">
+                            <ol class="image-list center" data-totalfiles="0" data-uploadId="0">
                                 <% for (let a= 0 ; repair.procedureArr[i].images.length > a ; a++){ %>
-                                    <li class="imageuploaded">
-                                        <a href="<%= repair.procedureArr[i].images[a] %>">
-                                            <img src=" <%= repair.procedureArr[i].images[a].replace('/upload/','/upload/c_scale,w_300/') %>" alt="repair image" class="img-mini">
+                                    <li class="repair-img small-padding ">
+                                        
+                                        <a class="image-link center" href="<%= repair.procedureArr[i].images[a] %>">
+
+                                            <%if (repair.procedureArr[i].thumbs){%>
+                                                <img src=" <%= repair.procedureArr[i].thumbs[a]%>" alt="repair image" class="img-mini">
+                                               
+                                                <%}else{%>
+                                                    <img src=" <%= repair.procedureArr[i].images[a]%>" alt="repair image" class="img-mini">
+                                                <%}%>
+                                           
                                         </a>
+                                        <h6>click to view full image</h6>
                                        
                                     </li>
                                 <% } %>
                             </ol>
                         </section>
                         <!-- descriptiong -->
-                        <section class="instructions">
-                            <p ><%= repair.procedureArr[i].instructions %></p>
-                           
+                        <section class="instructions small-padding">
+                           <%= repair.procedureArr[i].instructions %>
                         </section> 
                     </li>
                 <% } %>
