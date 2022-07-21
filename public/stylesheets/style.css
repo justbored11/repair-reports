@@ -104,12 +104,13 @@ header {
 .image-link{
   text-align: center;
   /* border: red solid 4px; */
-  height: 80%;
+  height: 70%;
   
 }
 
 .img-mini{
   height: 100%;
+  width: 100%;
   /* border: green solid 5px; */
 }
 
