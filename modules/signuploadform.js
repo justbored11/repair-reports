@@ -13,12 +13,14 @@ const signuploadform = () => {
     folder: 'cata'  //has to match on client side too
   }, apiSecret);
 
-    // console.log(`module/signuploadform.js`, apiSecret)
+   
 
     
   return { timestamp, signature }
 }
 
+
+//exporting this particular function
 module.exports = {
   signuploadform
 }
