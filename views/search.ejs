@@ -66,7 +66,7 @@
 							<!-- thumbnail for repair -->
 							<%if (repairs[i].procedureArr[0].images){%>
 								
-								<img src=" <%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>" alt="repair image" class="img-mini">
+								<img src=" <%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>" data-url="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>" alt="repair image" class="img-mini">
 								<%}else{%>
 									<img src="https://img.icons8.com/ios-filled/100/000000/automatic-gearbox-warning--v2.png" alt="repair image not available" class="img-mini">
 								<%}%>
