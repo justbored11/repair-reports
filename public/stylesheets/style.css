@@ -97,11 +97,27 @@ header {
   list-style: none;
   
   padding: 0;
+  /* border: green solid 5px; */
+  height: 300px;
 }
 
 .image-link{
   text-align: center;
+  /* border: red solid 4px; */
+  height: 70%;
   
+}
+
+.img-mini{
+  height: 70%;
+  width: 100%;
+  /* border: green solid 5px; */
+}
+
+.repair-img{
+ height:100%;
+ width: 25%;
+
 }
 
 .center{

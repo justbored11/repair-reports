@@ -7,17 +7,17 @@ const cors = require('cors');
 
 const RepairEntry = require('./modules/repairLogEntry');
 const RepairStep = require('./modules/RepairStep');
-const signature = require('./modules/signuploadform')
+const signature = require('./modules/signuploadform');
 
 
 
 
 
 
-// routes
+// routes files
 const repairInfoRoutes = require('./routes/repairInfoRoutes')
 const latestRepairRoutes = require('./routes/latestRepairRoutes')
-
+// const signformRoutes = require('./routes/signformRoutes')
 
 
 const app = express();
@@ -39,10 +39,6 @@ const dataBase = require('./modules/database.js');
 
 // =============================================================
 // ROUTES
-
-
-//repair info routes NEW
-//test repair ID 62c747111face0e18e1f76e4
 app.use(repairInfoRoutes)
 app.use(latestRepairRoutes)
 
@@ -92,7 +88,7 @@ app.post('/repairform',async (request, response)=>{
 app.get('/signform',async (request, response)=>{
     console.log(`signform get `)
     const sig = signature.signuploadform();
-    response.json({
+    response.status(200).json({
         signature: sig.signature,
         timestamp: sig.timestamp,
         cloudname: process.env.cloud_name,
