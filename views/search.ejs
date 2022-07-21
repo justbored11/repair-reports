@@ -21,7 +21,7 @@
 		<!-- search bar -->
 		<header>
 			<section class="search">
-				<h1>Latest Documented Repairs</h1>
+				<h1 class="title">Latest Repairs</h1>
 				<form action="">
 					<input class="search_input" type="text" placeholder="Search for Fault code / issue">
 					<button class="search_button" type="button">Search</button>
@@ -49,12 +49,12 @@
 
 
 		<!-- results -->
-		<section id="results-frame" >
+		<section class="results" >
 			
             <% for(let i =0; i<repairs.length; i++){ %>
 				<a href="/repairinfo/<%= repairs[i]._id%>">
 					
-					<section class="entry cummins-fix">
+					<section class="entry clickable cummins-fix">
                     
 						<div class="entry__description text-overflow">
 							<h2><%= repairs[i].title %></h2>
@@ -63,11 +63,12 @@
 						  
 						</div>
 						<div class="desc-img">
-							<%if (repairs[i].procedureArr[0].thumbs){%>
-								<img src=" <%= repairs[i].procedureArr[0].thumbs[0]%>" alt="repair image" class="img-mini">
-							   
+							<!-- thumbnail for repair -->
+							<%if (repairs[i].procedureArr[0].images){%>
+								
+								<img src=" <%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>" alt="repair image" class="img-mini">
 								<%}else{%>
-									<img src=" <%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>" alt="repair image" class="img-mini">
+									<img src="https://img.icons8.com/ios-filled/100/000000/automatic-gearbox-warning--v2.png" alt="repair image not available" class="img-mini">
 								<%}%>
 		
 						</div>
@@ -86,27 +87,27 @@
 
 		</section>
 
-		<!-- pick model to search -->
-		<footer>			
-			<nav>
-				<section id="menu" class="hidden-menu">
-					<details >
-						<summary> MENU</summary> 
-					<a class="button clickable" href="/repairform">
-						<span>Doc Repair <br> +</span>
-					</a>
-					<a class="button clickable" href="/ecm-logs">
-						<span> ECM LOG <br> +</span>
-					</a>
-					<!-- <a class="button clickable" href="#">
-						<span> Repair <br> Search</span>
-					</a> -->
-				</details>
 				
+			<nav>
+				<section class="menu">
+					<details class="menu-expanded">
+						<summary> MENU</summary> 
+						<a class="button button--menu clickable" href="/repairform">
+							<span>Doc Repair <br> +</span>
+						</a>
+						<a class="button button--menu clickable" href="/ecm-logs">
+							<span> ECM LOG <br> +</span>
+						</a>
+						<!-- <a class="button clickable" href="#">
+							<span> Repair <br> Search</span>
+						</a> -->
+					</details>
 				</section>
 			</nav>
+
+		<footer>
+			Footer
 		</footer>
-		
 	
 
 		<script type="text/javascript" src="./js/index.js"></script>

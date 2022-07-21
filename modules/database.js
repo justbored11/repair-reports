@@ -1,22 +1,9 @@
+const { json } = require('express');
 const { ObjectId } = require('mongodb');
 const RepairEntry = require('./repairLogEntry');
 
 require('dotenv').config(); // to use with enviroment variables
 const MongoClient = require('mongodb').MongoClient
-// const ImageUpload = require('./imageupload')
-
-
-//cludinary config
-// cloudinary.config({ 
-//     cloud_name: process.env.cloud_name, 
-//     api_key: process.env.cloud_key, 
-//     api_secret:process.env.cloud_secret,
-//     secure: true
-//   });
-
-
-
-
 
 //mongo config
 class DataBase {
@@ -71,14 +58,11 @@ async findRepair(repairId){
         try{  
             const client = await MongoClient.connect(this.connectStr)
 
-            console.log(this.dbName)
-
             this.db = await client.db(this.dbName)
             this.collection = await this.db.collection(this.colName)
-            console.log(`connected to database`)  
-            // console.log(this.collection)
-            // return this.collection
-            return 'ok'
+            console.log(`connected to database ${this.dbName}`)  
+ 
+            return {status:"ok"}
         }
         catch(err){
             console.error('dataBase.connect error:'+ err);
@@ -87,12 +71,10 @@ async findRepair(repairId){
     }
 
 
-
-
-
+    
     async insertLogEntry(logEntry_){
         try {
-            console.log(`inserting`)
+            console.log(`inserting`,logEntry_)
             const result = await this.collection.insertOne(logEntry_)
             return result;
 
@@ -100,16 +82,12 @@ async findRepair(repairId){
             console.error('error at insertLogEngtry'+ error)
             return error;
         }
-        
     }
-
-
-
 }
 
 
 //instance of database
-let dataBase = new DataBase(process.env.connectStr_,'Cata','repair-reports' )
+const dataBase = new DataBase(process.env.connectStr_,'Cata','repair-reports' )
 dataBase.connect()
 
 module.exports=dataBase
