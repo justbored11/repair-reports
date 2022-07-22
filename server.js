@@ -25,13 +25,7 @@ const PORT = 8000;
 
 //midleware
 
-    //force https
-    app.use(function(request, response, next) {
-        if (process.env.NODE_ENV != 'development' && !request.secure) {
-           return response.redirect("https://" + request.headers.host + request.url);
-        }
-        next();
-    })
+ 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true})); //get body data
@@ -47,6 +41,13 @@ const dataBase = require('./modules/database.js');
 
 // =============================================================
 // ROUTES
+   //force https
+   app.use(function(request, response, next) {
+    if (process.env.NODE_ENV != 'development' && !request.secure) {
+       return response.redirect("https://" + request.headers.host + request.url);
+    }
+    next();
+})
 app.use(repairInfoRoutes)
 app.use(latestRepairRoutes)
 
