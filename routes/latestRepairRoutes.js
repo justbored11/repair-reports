@@ -13,7 +13,7 @@ const router = express.Router();
 
 
     //routes
-router.get('/latestrepairs',async (request,response)=>{
+router.get('/repairs',async (request,response)=>{
 
     const results = await dataBase.latest();
 
