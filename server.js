@@ -55,7 +55,9 @@ app.use(latestRepairRoutes)
 
 app.get('/', async (request, response)=>{
     const results  = await dataBase.latest()
-    console.log(results)
+    // console.log(results)
+    console.log(request.headers["x-forwarded-proto"])
+    
     response.render('search.ejs',{repairs:results});
 
 })
