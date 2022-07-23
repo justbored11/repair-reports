@@ -93,12 +93,19 @@ header {
   height: 20vh;
 }
 
+nav{
+  /* border: orange solid 3px;
+  position: fixed; */
+ 
+}
+
+
 .image-list{
   list-style: none;
   
   padding: 0;
   /* border: green solid 5px; */
-  height: 300px;
+  height: 40vh;
 }
 
 .image-link{
@@ -115,16 +122,11 @@ header {
 }
 
 .repair-img{
- height:100%;
- width: 25%;
+ height:70%;
+ width: 40%;
 
 }
 
-.center{
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
 
 .instructions{
   white-space: pre-line;
@@ -169,10 +171,6 @@ footer{
   bottom:0;
   width: 100%;
  
-}
-nav{
-  border: orange solid 3px;
-  position: fixed;
 }
 
 
@@ -262,7 +260,7 @@ nav{
   /*===================================================== 
   SEARCH.HTML layout
   ======================================================= */
-  .results{
+  .content{
     height: 80vh;
     width: 100%;
     /* border: 4px solid red; */
@@ -364,7 +362,9 @@ nav{
     }
   
 
-
+    .repair-info{
+      margin: 3%;
+    }
 
 
 
@@ -372,6 +372,20 @@ nav{
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
+.procedure-item{
+ background-color: var(--repair-info);
+}
+
+
+.rounded{
+  border-radius: 20px;
+}
+
+.center{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
 
 
 /* repair page */
@@ -394,8 +408,6 @@ nav{
 
 .menu{
     
-  
-  /* border: 3px orange solid; */
   background-color: orange;
 
 

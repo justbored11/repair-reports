@@ -14,32 +14,32 @@
 <body>
     
 	
-		<section class="repair-page">  
+		<section class=" content repair-page">  
 
             Repair ID:<%= repair._id %>
             <section> 
-                <section class="repair-info">
+                <section class=" rounded repair-info">
                     <!-- title -->
-                    <h2 class="title" ><%= repair.title %></h2>
+                    <h2 class="center title" ><%= repair.title %></h2>
                     <span></span>
                     
                 </section>
                 
-                <section class="repair-info">
-                    <h3 class="search-tags">Search Tags: </h3>
-                    <span><%= repair.searchtags %></span>
+                <section class=" rounded repair-info">
+                    <h3 class="title center search-tags">Search Tags: </h3>
+                    <span class="center"><%= repair.searchtags %></span>
                     
                 </section>
                 
-                <section class="repair-info">
-                    <h3 class="board-type">Board Type: </h3> 
-                    <span><%= repair.boardType %></span> 
+                <section class=" rounded repair-info">
+                    <h3 class="title center board-type">Board Type: </h3> 
+                    <span class="center"><%= repair.boardType %></span> 
                     
                 </section>
                 
-                <section class="repair-info">
-                    <h3 class="">Engine Make: </h3>
-                    <span><%= repair.engineMake %></span>
+                <section class="rounded repair-info">
+                    <h3 class="title center ">Engine Make: </h3>
+                    <span class="center"><%= repair.engineMake %></span>
                 </section>
                 
             </section> 
@@ -49,20 +49,20 @@
                 <% for (let i= 0 ; repair.procedureArr.length > i ; i++){ %>
 
                     
-                    <li class="procedure-item small-padding">
+                    <li class="rounded procedure-item small-padding">
                         <section>
                             <!-- images list -->
                             <ol class="image-list center" data-totalfiles="0" data-uploadId="0">
                                 <% for (let a= 0 ; repair.procedureArr[i].images.length > a ; a++){ %>
-                                    <li class="repair-img small-padding ">
+                                    <li class="repair-img rounded small-padding ">
                                         
                                         <a class="image-link center" href="<%= repair.procedureArr[i].images[a] %>">
 
                                             <%if (repair.procedureArr[i].thumbs){%>
-                                                <img src=" <%= repair.procedureArr[i].thumbs[a]%>" alt="repair image" class="img-mini">
+                                                <img src=" <%= repair.procedureArr[i].thumbs[a]%>" alt="repair image" class="rounded img-mini">
                                                
                                                 <%}else{%>
-                                                    <img src=" <%= repair.procedureArr[i].images[a]%>" alt="repair image" class="img-mini">
+                                                    <img src=" <%= repair.procedureArr[i].images[a]%>" alt="repair image" class="rounded img-mini">
                                                 <%}%>
                                            
                                         </a>
@@ -94,28 +94,24 @@
         </section>
 
 
-        <section id="formdata">
-
-        </section>
-
+        <nav>
+            <section class="menu">
+                <details class="menu-expanded">
+                    <summary> MENU</summary> 
+                    <a class="button button--menu clickable" href="/repairform">
+                        <span>Doc Repair <br> +</span>
+                    </a>
+                    <a class="button button--menu clickable" href="/ecm-logs">
+                        <span> ECM LOG <br> +</span>
+                    </a>
+                    <!-- <a class="button clickable" href="#">
+                        <span> Repair <br> Search</span>
+                    </a> -->
+                </details>
+            </section>
+        </nav>
         <footer>			
-			<nav>
-				<section id="menu" class="hidden-menu">
-					<details >
-						<summary> MENU</summary> 
-					<a class="button clickable" href="/">
-						<span>Search</span>
-					</a>
-					<a class="button clickable" href="/ecm-logs">
-						<span> ECM LOG <br> +</span>
-					</a>
-					<!-- <a class="button clickable" href="#">
-						<span> Repair <br> Search</span>
-					</a> -->
-				</details>
-				
-				</section>
-			</nav>
+			
 		</footer>
        
 </body>

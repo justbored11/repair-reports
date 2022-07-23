@@ -66,8 +66,6 @@ app.use(latestRepairRoutes)
 app.get('/', async (request, response)=>{
     const results  = await dataBase.latest()
     // console.log(results)
-    console.log(request.protocol)
-    
     response.render('search.ejs',{repairs:results});
 
 })
@@ -115,10 +113,6 @@ app.get('/signform',async (request, response)=>{
         cloudname: process.env.cloud_name,
         apikey: process.env.cloud_key
     })
-
-    
-    
-
 })
 
 
@@ -128,14 +122,6 @@ app.get('/ecm-logs', async (request, response)=>{
 
     response.render('ecm-logs.ejs');
 })
-
-
-
-
-
-
-
-
 
 
 app.listen(process.env.PORT || PORT,()=>{
