@@ -17,6 +17,7 @@ const signature = require('./modules/signuploadform');
 const repairInfoRoutes = require('./routes/repairInfoRoutes')
 const latestRepairRoutes = require('./routes/latestRepairRoutes')
 // const signformRoutes = require('./routes/signformRoutes')
+const repairRoutes = require('./routes/repairRoutes')
 
 
 const app = express();
@@ -24,7 +25,7 @@ const PORT = 8000;
 
 
 //midleware
-
+//redirect to HTTPS
 app.use((req, res, next) => {
     if (process.env.NODE_ENV !== 'development') {
         if (req.headers['x-forwarded-proto'] !== 'https')
@@ -51,15 +52,11 @@ const dataBase = require('./modules/database.js');
 
 // =============================================================
 // ROUTES
-   //force https
-//    app.use(function(request, response, next) {
-//     if (process.env.NODE_ENV != 'development' && !request.secure) {
-//        return response.redirect("https://" + request.headers.host + request.url);
-//     }
-//     next();
-// })
 app.use(repairInfoRoutes)
 app.use(latestRepairRoutes)
+
+//new consolidated repair routes
+app.use(repairRoutes)
 
 
 
