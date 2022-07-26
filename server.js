@@ -60,6 +60,7 @@ app.use(repairFormRoutes)
 app.use(signformRoutes)
 
 
+//root route gets latest repairs
 app.get('/', async (request, response)=>{
     const results  = await dataBase.latest()
     console.log(results)
