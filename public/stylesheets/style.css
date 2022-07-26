@@ -38,7 +38,7 @@
 /* clickable items */
 --clickable-border: black;
 --active-border:green;
---hover-border:rgb(211, 192, 16);
+--hover-border:rgb(13, 128, 19);
 
 }
 
@@ -206,15 +206,15 @@ footer{
     border: 5px solid gray;
     
   }
-    .model div {
-        /* border: 1px solid black; */
+    /* .model div {
+        
         vertical-align: middle;
         display: flex;
         height: 100%;
         justify-content: center;
         align-items: center;
       
-    }
+    } */
 
 .clickable{
   border: 5px solid var(--clickable-border);
