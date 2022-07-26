@@ -15,26 +15,6 @@ const router = express.Router();
 // ROUTES
 // ======================================================
 
-
-//get a specified repair from database
-router.get('/repairid/:repairId', async (request, response)=>{
-   
-    try{
-         // get paremeter from url
-        const repairId = request.params.repairId
-        const repairObj = await dataBase.findRepair(repairId)
-
-        console.log(`getting repair for render`,repairObj)
-        response.status(200).json(repairObj)
-     }
-     catch(err){
-        response.status(400).json({message:`ID: ${request.params.repairId}  NOT FOUND`, error:err})
-    }
-})
-
-
-
-
 //get a specified repair from database
 router.get('/repairinfo/:repairId', async (request, response)=>{
     // get paremeter from url

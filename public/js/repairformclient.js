@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const repairId = await postToServer(repair);
 
     console.log(repairId)
-    // statusIcons.classList.toggle("hidden");
+    
     location.assign(`/repairinfo/${repairId}`);
 
 });
@@ -203,7 +203,7 @@ async function postToServer(repairObj){
     try{
         // let repair = JSON.stringify({repairObj})
 
-        const response = await fetch(`/repairform`,{
+        const response = await fetch(`/repair`,{
              method: 'post',
              headers: {'Content-Type':'application/json'},
              body:JSON.stringify(repairObj)
@@ -216,7 +216,7 @@ async function postToServer(repairObj){
          console.log(`post serv respons`,repairId)
      
          return repairId;
-        //  location.assign(`/repairinfo/${repairId}`)
+       
     }
    
     catch(error){

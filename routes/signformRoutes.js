@@ -1,5 +1,5 @@
 const router =  require('express').Router()
-const signature = require('./modules/signuploadform')
+const signature = require('../modules/signuploadform')
 
 
 
@@ -18,13 +18,7 @@ router.get('/signform',async (request, response)=>{
             apikey: process.env.cloud_key
         })
     }catch(error){
-
-    }
-       
-
-    
-    
-
+    } 
 })
 
 module.exports= router;

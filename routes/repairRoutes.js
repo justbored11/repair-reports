@@ -14,10 +14,13 @@ const router = express.Router();
 
 
 
-// retrieve latest repairs
+
+
+// retrieve latest repairs with limit 
 router.get('/repair/latest/:num',async (request,response)=>{
-    const numRepairs =   request.params.num ? +request.params.num : 1;
-    //how many repairs to retrieve newest to oldest
+
+    const numRepairs =   request.params.num > 0 ? +request.params.num : 1;
+   
   
     //retrieve latest repairs
     const results = await dataBase.latest(numRepairs);
@@ -28,8 +31,8 @@ router.get('/repair/latest/:num',async (request,response)=>{
 })
 
 
-
-router.get('/repair/info/:id', async (request,response)=>{
+//details of single repair by ID
+router.get('/repair/:id', async (request,response)=>{
   
     try{
         // get paremeter from url
@@ -48,6 +51,20 @@ router.get('/repair/info/:id', async (request,response)=>{
 
 
 
+//post repair to database
+router.post('/repair', async (request, response)=>{
+    try {
+        let entry = (request.body)
+        console.log(`post at /repairform`,entry)
+
+        const result = await dataBase.insertLogEntry(entry)
+        console.log(`done uploading at server`)
+        response.send(result)
+
+    } catch (error) {
+        response.status(400).json({message:'failed to save repair', "error":error})
+    }
+})
 
 module.exports = router;
 
