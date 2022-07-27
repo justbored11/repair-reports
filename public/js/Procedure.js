@@ -1,10 +1,11 @@
 
 
 class Procedure {
-    constructor(imagesArr=[],procedureNum=1,instructions='default instructions'){
+    constructor(thumbs=[],imagesArr=[],procedureNum=1,instructions='default instructions'){
         this.images = imagesArr
         this.procedureNum=procedureNum
         this.instructions=instructions
+        this.thumbs = thumbs
     }
     procedureHtml(){
         const element = ` 
@@ -38,5 +39,6 @@ class Procedure {
    return element;
     }
 
+    
 
 }

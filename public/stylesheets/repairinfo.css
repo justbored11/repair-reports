@@ -1,0 +1,32 @@
+
+
+h2,h3{
+    text-align: center;
+    display: inline-block;
+}
+
+
+ol{
+    list-style-type: none;
+    padding: 0;
+}
+
+
+
+.uploads {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    list-style:decimal;
+   
+}
+    .imageuploaded {
+        flex-basis: 1;
+        border-radius: 20px;
+        margin: 0 5%;
+    }
+        .imageuploaded img{
+            width: 100%;
+            border-radius: 20px;
+        }

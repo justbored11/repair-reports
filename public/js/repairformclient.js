@@ -1,41 +1,8 @@
-// const { resolveInclude } = require("ejs");
+
 
 // const Procedure = require('./Procedure')
 const form = document.querySelector("form");
 
-let testobj={
-    
-    "tags": ['search this'],
-    "title": "cummins no 100v",
-    "board": "model 4473",
-    "engine": "cummins engine model",
-    "procedure": [
-    {
-    "images": [
-    "wwww url",
-    "wwww url2"
-    ],
-    "description": "this is how to fix it step 1"
-    },
-    {
-    "images": [
-    "wwww url",
-    "wwww url2"
-    ],
-    "description": "this is how to fix it step 2"
-    }
-    ]
-    }
-
-
-
-// class Procedure {
-//     constructor(imagesArr=[],procedureNum=1,instructions='default instructions'){
-//         this.images = imagesArr
-//         this.procedureNum=procedureNum
-//         this.instructions=instructions
-//     }
-// }
 
 class Repair{
     constructor(procedures=[],searchtags='blank tags',title='blank title', board='no board type', engine='no engine make'){
@@ -54,6 +21,18 @@ class Repair{
     getObj(){
         return this;
     }
+
+    buildRepair (procArr){
+        // console.log(procArr)
+            this.procedureArr = procArr;
+            this.boardType=document.querySelector('#board-type').value;
+            this.searchtags= document.querySelector('#search-tags').value;
+            this.title =  document.querySelector('#rep-title').value;
+            this.engineMake = document.querySelector('.model input:checked').value;
+        
+        return this
+    }
+    
 }
 
 
@@ -90,6 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         switch (action) {
            
             case 'add-image':
+                console.log(`add image`)
                 addImageToProcedure(event);
                 break;
             
@@ -105,33 +85,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
     })
-
-
-    // //submit form event
-    // form.addEventListener("submit",async (event) => {
-    //     event.preventDefault();
-    //     const allProcedures = Array.from( document.querySelectorAll('.procedure'))
-      
-
-    //     const procArr = await buildProcedures(allProcedures, signData)
-    //     const repair = await buildRepair(procArr);
-      
-    // //    console.log(`proc`,procArr)
-        
-    
-
-    // // console.log(`before post`,repair)
-    
-    // // postToServer( allProcedures, signData);'
-    // postToServer(repair,procArr)
-    // // console.log()
-    
-
-    // });
-
-  
-
-
 })
 
 
@@ -143,17 +96,46 @@ document.addEventListener('DOMContentLoaded', async () => {
     const allProcedures = Array.from( document.querySelectorAll('.procedure'))
     const signResponse = await fetch('/signform'); //fetch signature from server
     const signData = await signResponse.json();
-  
+    
+    const statusIcons = document.querySelector('.status-icons')
+        statusIcons.classList.toggle("hidden");
+    const statusMessage = document.querySelector('.loading-text')
 
-   
 
-  
+    procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
 
-    const procArr = await  buildProcedures(allProcedures, signData)
-    const repair = buildRepair(procArr);
-  
-    postToServer(repair,procArr)
+        //upload images if any
+        const images= await uploadImages(proc, signData)
 
+        const procedure = new Procedure();
+           procedure.images= images.links; // add images urls Array
+           procedure.thumbs = images.thumbs;
+           procedure.procedureNum = index; //identifying sequence number
+           procedure.instructions = proc.querySelector('.instructions').value
+        return (procedure)
+       
+    })
+
+    //display status at this point
+        statusMessage.innerHTML+="<br>Uploading images"
+
+    const procArr = await Promise.all(procedurePromises) 
+
+    console.log(procArr)
+
+        statusMessage.innerHTML+="<br>Uploading Done";
+
+    const repair = new Repair
+        repair.buildRepair(procArr)
+
+
+        statusMessage.innerHTML+="<br>Saving Report"
+
+    const repairId = await postToServer(repair);
+
+    console.log(repairId)
+    
+    location.assign(`/repairinfo/${repairId}`);
 
 });
 
@@ -166,6 +148,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ==========================================================================
 
 
+//new with class methods
+// async function buildProcedures(allProcedures, signData){
+//     //for each procedure upload its images 
+    
+//     procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
+//         let procedure = new Procedure();
+
+//             procedure.images= await uploadImages(proc, signData)
+//             procedure.procedureNum=index
+//             procedure.instructions = proc.querySelector('.instructions').value
+            
+//             // console.log(procedure.images)
+//         return (procedure)
+       
+//     })
+
+//    const procArr = await Promise.all(procedurePromises) 
+
+//     return procArr
+
+// }
 
 
 
@@ -174,7 +177,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 //add another procedure to instructions
 function addProcedureToInstructions(event){
     const procedure = new Procedure()
-    console.log(`add procedure`)
+    // console.log(`add procedure`)
 
     const instructions = event.target.closest('#instructions');
         instructions.dataset.currentprocid++;
@@ -196,43 +199,39 @@ function addProcedureToInstructions(event){
 
 
 async function postToServer(repairObj){
+
+    try{
+        // let repair = JSON.stringify({repairObj})
+
+        const response = await fetch(`/repair`,{
+             method: 'post',
+             headers: {'Content-Type':'application/json'},
+             body:JSON.stringify(repairObj)
+         }).then(data=>data.json())
      
-  
-
-    // const procArr = await buildProcedures(allProcedures, signData)
-//     const repair= await buildRepair( procArr)
-//     console.log(`repair`, repair)
-
-   
-
-    
-
-    // const repair=JSON.stringify(repairObj)
-   console.log(`sent to server already`,repairObj)
-
-    // formData.append('repair',repairObj)
-
-    fetch(`/repairform`,{
-        method: 'post',
-        headers: {'Content-Type':'application/json'},
-        body:JSON.stringify(repairObj)
-
-        
-    })
-    .then((res)=>res.text())
-    .then(result => {
+     
+         
+         const repairId = await response.insertedId
+         console.log(`post serv respons`,response)
+         console.log(`post serv respons`,repairId)
+     
+         return repairId;
        
-    }) 
-    .catch(err=> console.log(`error ${err}`));
-    
+    }
+   
+    catch(error){
+        console.error(`post error`)
+    }
     
 }
 
 
 
+
+
  function buildRepair (procArr){
     const repair =  new Repair()
-    console.log(procArr)
+    // console.log(procArr)
         repair.procedureArr = procArr;
         repair.boardType=document.querySelector('#board-type').value;
         repair.searchtags= document.querySelector('#search-tags').value;
@@ -243,27 +242,26 @@ async function postToServer(repairObj){
 }
 
 
-async function buildProcedures(allProcedures, signData){
-    // let procArr=[];
-    //for each procedure upload its images 
+// async function buildProcedures(allProcedures, signData){
+//     //for each procedure upload its images 
     
-    procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
-        let procedure = new Procedure();
+//     procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
+//         let procedure = new Procedure();
 
-            procedure.images= await uploadImages(proc, signData)
-            procedure.procedureNum=index
-            procedure.instructions = proc.querySelector('.instructions').value
+//             procedure.images= await uploadImages(proc, signData)
+//             procedure.procedureNum=index
+//             procedure.instructions = proc.querySelector('.instructions').value
             
-            // console.log(procedure.images)
-        return (procedure)
+//             // console.log(procedure.images)
+//         return (procedure)
        
-    })
+//     })
 
-   const procArr = await Promise.all(procedurePromises) 
+//    const procArr = await Promise.all(procedurePromises) 
 
-    return procArr
+//     return procArr
 
-}
+// }
 
 
 
@@ -279,7 +277,6 @@ async function buildProcedures(allProcedures, signData){
     //get images
     const imagesToUpload=getImages(element);
 
-//    let imageLinks=[]
             let imageLinksPromise = Array.from(imagesToUpload).map(async (filesList)=>{
  
                 for (let i = 0; i < filesList.length; i++) {
@@ -305,11 +302,21 @@ async function buildProcedures(allProcedures, signData){
     
             })
 
-            console.log(`images promises`,imageLinksPromise)
+            // console.log(`images promises`,imageLinksPromise)
             let linksResolved = await Promise.all(imageLinksPromise)
-            console.log(`resolved links`,linksResolved)
+            let thumbsLinks = linksResolved.map((link)=>{
 
-            return linksResolved
+                //small thumb
+                // return link.replace('/upload/','/upload/t_media_lib_thumb/')
+                //larger thumb
+                return link.replace('/upload/','/upload/c_scale,w_400/')
+
+                // https://res.cloudinary.com/da6jwh1id/image/upload/c_scale,w_400/v1657981954/cata/hkzv8i0p6ghwfktk8ah8.jpg
+            })
+            // console.log(`resolved links`,linksResolved)
+
+
+            return {links:linksResolved,thumbs:thumbsLinks}
     
 }
 

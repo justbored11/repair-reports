@@ -1,9 +1,37 @@
+
+:root{
+  --imageuploaded-bg:orange;
+  --image-list-bg:lightgreen;
+  --procedure-bg:lightblue;
+} 
   /*=================================================
-   repair.html ===============================================
+   repairformclient.html ===============================================
    =====================================================*/
    /* .rep-sect{
     padding: 30px;
   } */
+main{
+  position: relative;
+  width: 100%;
+}
+  .status-icons{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+  }
+    .loading{
+      position: absolute;
+     
+    }
+    .loading-text{
+      z-index: 2;
+      text-align: center;
+    }
+
 
 ol{
  margin: 0;
@@ -11,6 +39,9 @@ ol{
   list-style: none;
 }
 
+h2{
+  display: inline-block;
+}
 h3{
   display: block;
 }
@@ -19,46 +50,79 @@ h3{
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  /* border: green solid 1px; */
 }
   
     .model{
       margin: 0 1%
     }
 
-#instructions{
-  width: 90%;
-  border: red 10px solid;
-  margin: 0 auto;
+.center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-
-
-   .img-preview{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-
-    width: 100%;
-    border:black solid 1px;
+  label *{
+    width: 50%;
   }
-    .img-mini{
-        width: 25%;
+
+#instructions{
+  width: 90%;
+  margin: 0 auto;
+}
+  .procedure{
+    width: 100%;
+  }
+    .procedure > section{
+      width: 100%;
     }
 
-      #rep-model div{
-        display:inline-block;
-        width: 32%;
-        height: 10vh;
-        /* background-color: aqua; */
-        vertical-align: middle;
-        position: relative;
-
-      }
-      #rep-model label{
+    .images-list{
+      width: 100%;
+    }
+      .uploads{
         width: 100%;
-        border: black 1px solid;
-        height: 100%;
+        /* border: black 1px solid; */
       }
+      .uploads input{
+        width: 100%;
+      }
+        .imageuploaded {
+          margin-top:1%;
+          border-radius: 20px;
+          width: 100%
+        }
+    
+          .img-preview{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+
+            width: 100%;
+           
+          }
+            .img-mini{
+                width: 25%;
+            }
+
+#rep-model div{
+  display:inline-block;
+  width: 32%;
+  height: 10vh;
+  /* background-color: aqua; */
+  vertical-align: middle;
+  position: relative;
+
+}
+#rep-model label{
+  width: 100%;
+  border: black 1px solid;
+  height: 100%;
+}
 
 
 
@@ -71,3 +135,71 @@ h3{
 .uploads span{
   display: inline-block;
 }
+
+ 
+
+
+
+
+
+/*======================================================
+ STYLES
+====================================================== */
+
+
+
+
+
+main{
+
+}
+  .status-icons{
+    background-color: gray;
+  }
+
+
+
+
+
+
+
+
+
+
+#instructions{
+
+}
+  .procedure{
+    
+    background-color: var(--procedure-bg);
+    box-shadow: 3px 3px 3px black;
+    border-radius: 20px;
+  }
+    .procedure > section{
+  
+    }
+
+    .images-list{
+     
+      background-color: var(--image-list-bg);
+    }
+      .uploads{
+       
+      }
+      .uploads input{
+      
+      }
+        .imageuploaded {
+          border-radius: 20px;
+          box-shadow: 1px 1px 1px black;
+          background-color: var(--imageuploaded-bg);
+          
+        }
+    
+          .img-preview{
+          
+            border:black solid 1px;
+          }
+            .img-mini{
+              
+            }
