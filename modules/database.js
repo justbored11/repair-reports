@@ -18,6 +18,52 @@ class DataBase {
 
 
 
+//search documents
+async search(term, limit=6){
+
+
+const searchTerm = '\"' + term + '\"'
+
+console.log(searchTerm)
+
+    const query = {
+        $text:{
+            $search:{query},
+            
+            
+        }
+    };
+    
+    const query2 = [
+        {
+          '$search': {
+            'index': 'repairs_search',
+            'text': {
+              'query': 'no 100',
+              'path': {
+                'wildcard': '*'
+              }
+            }
+          }
+        }
+      ]
+
+    try{
+        const results = await this.collection.find(query).limit(limit).toArray();
+    
+        return results;
+    }catch(error){
+        console.error(`error at database search`, error)
+        return error
+    }
+  
+
+}
+
+
+
+
+
 async latest(limitNum=6){
     // const results = await this.collection.find({$query: {}, $orderby: {$natural : -1}}).limit(6)
     const results = await this.collection.find().sort({_id:-1}).limit(limitNum).toArray();

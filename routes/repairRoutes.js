@@ -14,6 +14,36 @@ const router = express.Router();
 
 
 
+//post repair to database
+router.post('/repair', async (request, response)=>{
+    try {
+        let entry = (request.body)
+        console.log(`post at /repairform`,entry)
+
+        const result = await dataBase.insertLogEntry(entry)
+        console.log(`done uploading at server`)
+        response.send(result)
+
+    } catch (error) {
+        response.status(400).json({message:'failed to save repair', "error":error})
+    }
+})
+
+
+router.get('/repair/search/',async (request,response)=>{
+
+    
+    const searchTerm = request.body.searchPhrase//
+    console.log(`request`,searchTerm )
+    const results = await dataBase.search(searchTerm);
+
+    // console.log(results)
+    // response.status(200).json({repairs:results})
+    response.status(200).json(results)
+
+})
+
+
 
 
 // retrieve latest repairs with limit 
@@ -51,20 +81,10 @@ router.get('/repair/:id', async (request,response)=>{
 
 
 
-//post repair to database
-router.post('/repair', async (request, response)=>{
-    try {
-        let entry = (request.body)
-        console.log(`post at /repairform`,entry)
 
-        const result = await dataBase.insertLogEntry(entry)
-        console.log(`done uploading at server`)
-        response.send(result)
 
-    } catch (error) {
-        response.status(400).json({message:'failed to save repair', "error":error})
-    }
-})
+
+
 
 module.exports = router;
 
