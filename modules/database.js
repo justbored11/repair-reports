@@ -19,16 +19,17 @@ class DataBase {
 
 
 //search documents
-async search(term, limit=6){
+async search(term='celect engine', limit=6){
 
 
 const searchTerm = '\"' + term + '\"'
 
-console.log(searchTerm)
+// console.log(searchTerm)
+console.log(this.collection.indexes())
 
     const query = {
         $text:{
-            $search:{query},
+            $search:searchTerm,
             
             
         }
@@ -36,20 +37,33 @@ console.log(searchTerm)
     
     const query2 = [
         {
-          '$search': {
-            'index': 'repairs_search',
-            'text': {
-              'query': 'no 100',
-              'path': {
+          $search: {
+            index: 'repairs_search',
+            phrase: {
+              query: term,
+              path: {
                 'wildcard': '*'
-              }
+              },
+              slop:3,
             }
           }
         }
       ]
 
+      const query3 = [
+        {
+          $search: {
+            index: 'repairs_search',
+            text: {
+              query: term,
+              path:["title","searchtags","procedureArr"],
+              fuzzy:{maxEdits:2,prefixLength:2}
+            }
+          }
+        }
+      ]
     try{
-        const results = await this.collection.find(query).limit(limit).toArray();
+        const results = await this.collection.aggregate(query3).limit(limit).toArray();
     
         return results;
     }catch(error){
@@ -134,6 +148,17 @@ async findRepair(repairId){
 
 //instance of database
 const dataBase = new DataBase(process.env.connectStr_,'Cata','repair-reports' )
-dataBase.connect()
 
-module.exports=dataBase
+async function d(){
+    await dataBase.connect()
+    
+    console.log(await dataBase.search('cummins'))
+    // console.log(dataBase)
+}
+// dataBase.connect()
+// console.log(dataBase)
+
+d()
+
+
+// module.exports=dataBase
