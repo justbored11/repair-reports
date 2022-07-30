@@ -8,10 +8,38 @@ const dataBase = require('../modules/database.js'); //database interface
 
 // create router instance
 const router = express.Router();
-
 // test ID 62cdbb3b08a07c547dca5505
 
 
+
+
+//post repair to database
+router.post('/repair', async (request, response)=>{
+    try {
+        let entry = (request.body)
+        console.log(`post at /repairform`,entry)
+
+        const result = await dataBase.insertLogEntry(entry)
+        console.log(`done uploading at server`)
+        response.send(result)
+
+    } catch (error) {
+        response.status(400).json({message:'failed to save repair', "error":error})
+    }
+})
+
+//search for repairs containing terms
+router.get('/repair/search/',async (request,response)=>{
+
+    console.log(request.query)
+    const searchStr = request.query.searchPhrase
+    // console.log(`request search`,searchStr )
+    const results = await dataBase.search(searchStr);
+
+    // console.log(results)
+    response.render('search.ejs',{repairs:results});
+
+})
 
 
 
@@ -51,20 +79,10 @@ router.get('/repair/:id', async (request,response)=>{
 
 
 
-//post repair to database
-router.post('/repair', async (request, response)=>{
-    try {
-        let entry = (request.body)
-        console.log(`post at /repairform`,entry)
 
-        const result = await dataBase.insertLogEntry(entry)
-        console.log(`done uploading at server`)
-        response.send(result)
 
-    } catch (error) {
-        response.status(400).json({message:'failed to save repair', "error":error})
-    }
-})
+
+
 
 module.exports = router;
 

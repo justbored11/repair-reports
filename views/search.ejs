@@ -10,39 +10,23 @@
     	<meta name="keywords" content="one, two, three">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Repair Search</title>
-		<script src="https://kit.fontawesome.com/2d20c3d5a8.js" crossorigin="anonymous"></script>
+		
 
 		<!-- external CSS link -->
-		<link rel="stylesheet" href="./stylesheets/normalize.css">
-		<link rel="stylesheet" href="./stylesheets/style.css">
+		<link rel="stylesheet" href="/stylesheets/normalize.css">
+		<link rel="stylesheet" href="/stylesheets/style.css">
 		<!-- <link rel="stylesheet" href="./stylesheets/index.css"> -->
 	</head>
 	<body class="search-page">
 		<!-- search bar -->
 		<header>
 			<section class="search">
-				<h1 class="title">Latest Repairs</h1>
-				<form action="">
-					<input class="search_input" type="text" placeholder="Search for Fault code / issue">
-					<button class="search_button" type="button">Search</button>
-					<details>
-						<summary>
-							Engine Models
-						</summary>
-						<label for="cat">Caterpillar
-							<input type="radio" name="model" value="cat" id="cat" >
-						</label>
-
-						<label for="cummins">Cummins
-							<input type="radio" name="model" value="cummins" id="cummins" >
-						</label>
-							
-						<label for="detroit">Detroit
-							<input type="radio" name="model" value="detroit" id="detroit" >
-						</label>
-
-					</details>
+				<h1 class="title">Search Results</h1>
+				<form action="/repair/search" method="get">
+					<input class="search_input" type="text" name="searchPhrase" placeholder="Search for Fault code / issue">
+					<button class="search_button" type="submit">Search</button>
 				</form>
+			
 			</section>
 			
 		</header>

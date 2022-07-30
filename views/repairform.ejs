@@ -10,10 +10,35 @@
     <link rel="stylesheet" href="/stylesheets/repairformclient.css">
 </head>
 <body>
+    <header>
+        <nav>
+       
+            <details class="menu--mobile  menu--mobile-title clickable">
+                <summary> MENU</summary> 
+                <section class="flex-row">
+                    <a class=" clickable button--mobile  rounded" href="/">
+                        Search
+                     </a>
+                     <a class=" clickable button--mobile  rounded" href="/ecm-logs">
+                         ECM LOG
+                     </a>
+                     <!-- <a class=" clickable button--mobile  rounded" href="#">
+                       Repair
+                     </a> -->
+                </section>
+            
+        </details>
+        
+      
+    </nav>
+    </header>
+  
     
-	<h1>Repair Form</h1>
+	
     
 		<main>
+            <h1 class="title">Repair Form</h1>
+            <!-- loading screen -->
             <section class="status-icons hidden ">
                 <div class="loading"></div>
                 <div class="loading-text">Loading</div>
@@ -44,7 +69,7 @@
                     <fieldset class="engine-models">
                         <legend>Choose Engine</legend>
 
-                        <label class="clickable  caterpillar"  for="cat">Caterpillar
+                        <label class="clickable rounded caterpillar"  for="cat">Caterpillar
                             <input  id="cat" name="model" value="cat" type="radio">
                         </label>
                    
@@ -99,7 +124,7 @@
                                 
                             </section>
                            <section>
-                                <div class="add-proc button clickable " data-action="add-procedure">add another step after this one</div>
+                                <div class="add-proc button clickable button--medium  " data-action="add-procedure">add another step after this one</div>
                            </section> 
                     </li>
 
@@ -109,7 +134,7 @@
                 
                 
                 <!-- submit the repair form to server -->
-                <button class="clickable" type="submit">Submit Repair</button>
+                <button class="clickable button--medium rounded" type="submit">Submit Repair</button>
 
             </form>
            
@@ -121,7 +146,7 @@
         </section>
 
         <footer>			
-			<nav>
+			<!-- <nav>
 				<section class="hidden-menu menu">
 					<details >
 						<summary> MENU</summary> 
@@ -131,13 +156,13 @@
 					<a class="button clickable" href="/ecm-logs">
 						<span> ECM LOG <br> +</span>
 					</a>
-					<!-- <a class="button clickable" href="#">
+					<a class="button clickable" href="#">
 						<span> Repair <br> Search</span>
-					</a> -->
+					</a>
 				</details>
 				
 				</section>
-			</nav>
+			</nav> -->
 		</footer>
         <script type="text/javascript" src="./js/Procedure.js"></script>
         <script type="text/javascript" src="./js/repairformclient.js"></script>
