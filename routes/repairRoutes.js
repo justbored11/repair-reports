@@ -8,7 +8,6 @@ const dataBase = require('../modules/database.js'); //database interface
 
 // create router instance
 const router = express.Router();
-
 // test ID 62cdbb3b08a07c547dca5505
 
 
@@ -29,17 +28,16 @@ router.post('/repair', async (request, response)=>{
     }
 })
 
-
+//search for repairs containing terms
 router.get('/repair/search/',async (request,response)=>{
 
-    
-    const searchTerm = request.body.searchPhrase//
-    console.log(`request`,searchTerm )
-    const results = await dataBase.search(searchTerm);
+    console.log(request.query)
+    const searchStr = request.query.searchPhrase
+    // console.log(`request search`,searchStr )
+    const results = await dataBase.search(searchStr);
 
     // console.log(results)
-    // response.status(200).json({repairs:results})
-    response.status(200).json(results)
+    response.render('search.ejs',{repairs:results});
 
 })
 

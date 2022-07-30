@@ -22,33 +22,33 @@ class DataBase {
 async search(term='celect engine', limit=6){
 
 
-const searchTerm = '\"' + term + '\"'
+// const searchTerm = '\"' + term + '\"'
 
 // console.log(searchTerm)
-console.log(this.collection.indexes())
+// console.log(this.collection.indexes())
 
-    const query = {
-        $text:{
-            $search:searchTerm,
+    // const query = {
+    //     $text:{
+    //         $search:searchTerm,
             
             
-        }
-    };
+    //     }
+    // };
     
-    const query2 = [
-        {
-          $search: {
-            index: 'repairs_search',
-            phrase: {
-              query: term,
-              path: {
-                'wildcard': '*'
-              },
-              slop:3,
-            }
-          }
-        }
-      ]
+    // const query2 = [
+    //     {
+    //       $search: {
+    //         index: 'repairs_search',
+    //         phrase: {
+    //           query: term,
+    //           path: {
+    //             'wildcard': '*'
+    //           },
+    //           slop:3,
+    //         }
+    //       }
+    //     }
+    //   ]
 
       const query3 = [
         {
@@ -148,17 +148,17 @@ async findRepair(repairId){
 
 //instance of database
 const dataBase = new DataBase(process.env.connectStr_,'Cata','repair-reports' )
+dataBase.connect()
 
-async function d(){
-    await dataBase.connect()
+module.exports=dataBase
+
+
+//testing
+// d()
+
+// async function d(){
+//     await dataBase.connect()
     
-    console.log(await dataBase.search('cummins'))
-    // console.log(dataBase)
-}
-// dataBase.connect()
-// console.log(dataBase)
-
-d()
-
-
-// module.exports=dataBase
+//     console.log(await dataBase.search('cummins'))
+//     // console.log(dataBase)
+// }
