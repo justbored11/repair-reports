@@ -37,6 +37,56 @@ class Repair{
 
 
 
+
+class Procedure {
+    constructor(thumbs=[],imagesArr=[],procedureNum=1,instructions='default instructions'){
+        this.images = imagesArr
+        this.procedureNum=procedureNum
+        this.instructions=instructions
+        this.thumbs = thumbs
+    }
+    procedureHtml(){
+        const element = ` 
+        <section class="procedure--details small-padding">
+        <h3>Repair Procedure</h3>
+
+        
+        <!-- images uploaded -->
+        <fieldset class=" procedure--images-list ">
+            <legend>Images
+                <!-- add another image button -->
+                
+            </legend>
+
+            <ol class="uploads" data-totalfiles="0" data-uploadId="0">
+                <li class="imageuploaded small-padding ">
+                    <img src="" alt="repair image" class="img-mini">
+                    <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
+                    <span class="button--mobile rounded clickable">remove item</span>
+                </li>
+            
+            </ol>
+            <div class="add-img button--mobile rounded center-self clickable " data-action="add-image">add another image</div>
+        
+        </fieldset>
+        
+        <textarea name="instructions1" id="instructions1" class="instructions" cols="5" rows="5" value="test dfafamongo"></textarea>
+  
+    </section>
+   <section>
+        <div class="add-proc clickable button--mobile center-self  rounded" data-action="add-procedure">add another step after this one</div>
+   </section>  `;
+
+   return element;
+    }
+
+    
+
+}
+
+
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     console.log(`doc loaded repair form`)
     
@@ -187,7 +237,7 @@ function addProcedureToInstructions(event){
 
     const li = document.createElement('li');
         li.dataset.procedureid=instructions.dataset.currentprocid;
-        li.classList.add('procedure')
+        li.classList.add('procedure',  'small-padding')
         li.innerHTML=procedure.procedureHtml();
     
 
@@ -399,13 +449,13 @@ function addImageToProcedure(event){
         input.onchange=(event)=>{previewImage(event)}
 
     const removeButton = document.createElement('span');
-        removeButton.classList.add('button', 'clickable');
+        removeButton.classList.add('button--mobile', 'clickable','rounded');
         removeButton.innerText='remove item';
         removeButton.dataset.action='remove-image';
         removeButton.dataset.uploadId = uploadId;
         
     const li = document.createElement('li');
-        li.classList.add('imageuploaded');
+        li.classList.add('imageuploaded','small-padding');
         li.appendChild(image)
         li.appendChild(input);
         li.appendChild(removeButton);
