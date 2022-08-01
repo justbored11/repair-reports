@@ -54,14 +54,14 @@
 		<main>
            
             <!-- loading screen -->
-            <section class="status-icons hidden ">
+            <section class="status-icons hidden  ">
                 <div class="loading"></div>
-                <div class="loading-text">Loading</div>
+                <div id="status" class="loading-text">Loading</div>
             </section>
        
 
             <!-- on change of form state mostly from image upload preview the image -->
-            <form class="repair-form" action="/" method="post" encType="multipart/form-data" >
+            <form class="repair-form" action="#" encType="multipart/form-data" >
                 <section class="center--column">
                         <!-- title -->
                     <label for="rep-title" class="form-input">
@@ -150,7 +150,10 @@
                 
                 
                 <!-- submit the repair form to server -->
-                <button class="clickable button--medium rounded" type="submit">Submit Repair</button>
+                <button class="clickable button--medium rounded" type="submit">
+                   <!-- <a id="submit" href="#status">Submit Repair</a>  -->
+                   submit
+                </button>
 
             </form>
            

@@ -19,7 +19,7 @@ class DataBase {
 
 
 //search documents
-async search(term='celect engine', limit=6){
+async search(term_='celect engine', limit=6, matchParams={}){
 
 
 // const searchTerm = '\"' + term + '\"'
@@ -27,14 +27,6 @@ async search(term='celect engine', limit=6){
 // console.log(searchTerm)
 // console.log(this.collection.indexes())
 
-    // const query = {
-    //     $text:{
-    //         $search:searchTerm,
-            
-            
-    //     }
-    // };
-    
     // const query2 = [
     //     {
     //       $search: {
@@ -51,17 +43,33 @@ async search(term='celect engine', limit=6){
     //   ]
 
       const query3 = [
-        {
+        { 
           $search: {
             index: 'repairs_search',
             text: {
-              query: term,
+              query: term_,
               path:["title","searchtags","procedureArr"],
               fuzzy:{maxEdits:2,prefixLength:2}
             }
           }
         }
       ]
+
+      //will include filters using match mongo stage
+    //   const query4 = [
+    //     { $match:matchParams,
+    //       $search: {
+    //         index: 'repairs_search',
+    //         text: {
+    //           query: term_,
+    //           path:["title","searchtags","procedureArr"],
+    //           fuzzy:{maxEdits:2,prefixLength:2}
+    //         }
+    //       }
+    //     }
+    //   ]
+
+
     try{
         const results = await this.collection.aggregate(query3).limit(limit).toArray();
     

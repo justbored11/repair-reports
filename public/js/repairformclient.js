@@ -3,7 +3,6 @@
 // const Procedure = require('./Procedure')
 const form = document.querySelector("form");
 
-
 class Repair{
     constructor(procedures=[],searchtags='blank tags',title='blank title', board='no board type', engine='no engine make'){
         this.procedureArr=procedures;
@@ -141,6 +140,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
  //submit form event
+//  form.addEventListener("submit",async (event) => event.preventDefault());// for testing what happens after submit 
  form.addEventListener("submit",async (event) => {
     event.preventDefault();
     const allProcedures = Array.from( document.querySelectorAll('.procedure'))
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         statusIcons.classList.toggle("hidden");
     const statusMessage = document.querySelector('.loading-text')
 
-
+//build map of promises for uploading images
     procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
 
         //upload images if any
@@ -196,33 +196,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ==========================================================================
 // FUNCTIONS
 // ==========================================================================
-
-
-//new with class methods
-// async function buildProcedures(allProcedures, signData){
-//     //for each procedure upload its images 
-    
-//     procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
-//         let procedure = new Procedure();
-
-//             procedure.images= await uploadImages(proc, signData)
-//             procedure.procedureNum=index
-//             procedure.instructions = proc.querySelector('.instructions').value
-            
-//             // console.log(procedure.images)
-//         return (procedure)
-       
-//     })
-
-//    const procArr = await Promise.all(procedurePromises) 
-
-//     return procArr
-
-// }
-
-
-
-
 
 //add another procedure to instructions
 function addProcedureToInstructions(event){
@@ -292,32 +265,9 @@ async function postToServer(repairObj){
 }
 
 
-// async function buildProcedures(allProcedures, signData){
-//     //for each procedure upload its images 
-    
-//     procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
-//         let procedure = new Procedure();
-
-//             procedure.images= await uploadImages(proc, signData)
-//             procedure.procedureNum=index
-//             procedure.instructions = proc.querySelector('.instructions').value
-            
-//             // console.log(procedure.images)
-//         return (procedure)
-       
-//     })
-
-//    const procArr = await Promise.all(procedurePromises) 
-
-//     return procArr
-
-// }
 
 
-
-
-
-//return image links
+//return image links after uploading
  async function uploadImages(element, signData){
 
     // const files=element
@@ -369,6 +319,9 @@ async function postToServer(repairObj){
             return {links:linksResolved,thumbs:thumbsLinks}
     
 }
+
+
+
 
 
 //get images if any and return them
