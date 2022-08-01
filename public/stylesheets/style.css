@@ -43,7 +43,6 @@
 }
 
 
-
 fieldset{
   margin:0;
   /* padding:0; */
@@ -58,10 +57,13 @@ body{
   box-sizing: border-box;
 }
 
-ol{
+ol, 
+ul{
   margin: 0;
   padding: 0;
-   list-style: none;
+  list-style: none;
+  list-style-type :none;
+  
  }
 
 a{
@@ -77,7 +79,10 @@ nav{
   display: flex;
   flex-direction: row-reverse ;
 }
-
+header{
+  width: 100%;
+  margin: 0 auto;
+}
 
 /*============================================ 
 TYPOGRAPHY
@@ -120,7 +125,7 @@ h6{
 }
 header {
   min-height: 10vh;
-  border: black solid 2px;
+
   
 }
 .form-input{
@@ -173,7 +178,7 @@ main{
 }
 
 .img-mini{
-  height: 70%;
+  height: 100%;
   width: 100%;
   /* border: green solid 5px; */
 }
@@ -263,22 +268,19 @@ main{
           width: 100%;
          
         }
-          .img-mini{
-              width: 50%;
-          }
-
+       
 
 
 /* ===================== */
 .menu{
-  bottom:10%;
+  /* bottom:10%;
   position:fixed;
   display: flex;
   right: 0;
   min-height: 10%;
   border-radius: 10px;
   justify-content: flex-end;
-  align-items: center;
+  align-items: center; */
 /* width: 100%; */
 }
 
@@ -404,6 +406,7 @@ footer{
   min-height: 10%;
   text-align: center;
   background-color:var(--searchbar-bg);
+  margin: 0 auto;
   }
 
   .search_input{
@@ -447,16 +450,11 @@ footer{
   }
       .desc-img{
         width: 40%;
+        height: 100%;
         display: inline-block;
         vertical-align: top;
-        /* height:100%;     */
+
       }
-          .desc-img img{
-            height: 100%;
-            width: 100%;
-            border-radius: 0px 20px 20px 0;
-            
-          }
 
           
         
@@ -588,7 +586,7 @@ footer{
 
 .menu{
     
-  background-color: orange;
+  background-color: rgb(56, 86, 96);
 
 
   
@@ -610,7 +608,7 @@ textarea{
 }
 form{
   text-align: center;
-  border: black 1px solid;
+  /* border: black 1px solid; */
 }
 
 
@@ -618,17 +616,6 @@ label{
   display: block;
 }
 
-/* .tool-area
-{
-  border:solid 1px black;
-  position: fixed;
-  left:0;
-}
-      .tool
-      {
-        cursor: pointer;
-      }
- */
 
 
 
@@ -662,3 +649,35 @@ label{
 
 
   
+  @media screen and (max-width:600px ){
+
+    header{
+      height: 20vh;
+    }
+    .menu{
+      display: none;
+    }
+  }
+
+  @media screen and (min-width:601px ){
+
+    .menu--mobile{
+      display: none;
+    }
+    .menu{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      width: 100%;
+      border:green solid 3px
+    }
+    header{
+      height: 11vh;
+      
+    }
+    nav{
+      width: 100%;
+      display: block;
+    }
+  
+  }

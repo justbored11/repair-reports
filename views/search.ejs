@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -8,7 +12,7 @@
 		<title>Repair Search</title>
 		
 
-		
+		<!-- external CSS link -->
 		<link rel="stylesheet" href="/stylesheets/normalize.css">
 		<link rel="stylesheet" href="/stylesheets/style.css">
 		<!-- <link rel="stylesheet" href="./stylesheets/index.css"> -->
@@ -16,13 +20,44 @@
 	<body class="search-page">
 		<!-- search bar -->
 		<header>
+			
 			<section class="search">
 				<h1 class="title">Search Results</h1>
 				<form action="/repair/search" method="get">
 					<input class="search_input" type="text" name="searchPhrase" placeholder="Search for Fault code / issue">
 					<button class="search_button" type="submit">Search</button>
 				</form>
-			
+				<nav>
+					<section >
+					 <ul class=" menu">
+						<li>
+							<a class=" clickable button--mobile  rounded" href="/">
+								Search
+							 </a>
+						 </li>
+						 <li>
+							 <a class=" clickable button--mobile  rounded" href="/repairform">
+								Repair
+							  </a>
+						 </li>
+					 </ul>
+		 
+					</section>
+					 <details class="menu--mobile  menu--mobile-title clickable">
+						 <summary> MENU</summary> 
+						 <section class="flex-row">
+							<a class=" clickable button--mobile  rounded" href="/">
+								Search
+							 </a>
+							 <a class=" clickable button--mobile  rounded" href="/repairform">
+								 Repair
+							 </a>
+						 </section>
+					 
+				 </details>
+				 
+			   
+			 </nav>
 			</section>
 			
 		</header>
@@ -32,7 +67,7 @@
 		<section class="results" >
 			
             <% for(let i =0; i<repairs.length; i++){ %>
-				<a href="/repairinfo/<%= repairs[i]._id%>">
+				<a class="" href="/repairinfo/<%= repairs[i]._id%>">
 					
 					<section class="entry clickable cummins-fix">
                     
@@ -42,7 +77,7 @@
 							<p><%= repairs[i].procedureArr[0].instructions %></p>
 						  
 						</div>
-						<div class="desc-img">
+						<div class="desc-img small-padding">
 							<!-- thumbnail for repair -->
 							<%if (repairs[i].procedureArr[0].images){%>
 								
@@ -68,22 +103,7 @@
 		</section>
 
 				
-			<nav>
-				<section class="menu">
-					<details class="menu-expanded">
-						<summary> MENU</summary> 
-						<a class="button button--menu clickable" href="/repairform">
-							<span>Doc Repair <br> +</span>
-						</a>
-						<a class="button button--menu clickable" href="/ecm-logs">
-							<span> ECM LOG <br> +</span>
-						</a>
-						<!-- <a class="button clickable" href="#">
-							<span> Repair <br> Search</span>
-						</a> -->
-					</details>
-				</section>
-			</nav>
+			
 
 		<footer>
 			Footer
