@@ -3,7 +3,6 @@
 // const Procedure = require('./Procedure')
 const form = document.querySelector("form");
 
-
 class Repair{
     constructor(procedures=[],searchtags='blank tags',title='blank title', board='no board type', engine='no engine make'){
         this.procedureArr=procedures;
@@ -34,6 +33,56 @@ class Repair{
     }
     
 }
+
+
+
+
+class Procedure {
+    constructor(thumbs=[],imagesArr=[],procedureNum=1,instructions='default instructions'){
+        this.images = imagesArr
+        this.procedureNum=procedureNum
+        this.instructions=instructions
+        this.thumbs = thumbs
+    }
+    procedureHtml(){
+        const element = ` 
+        <section class="procedure--details small-padding">
+        <h3>Repair Procedure</h3>
+
+        
+        <!-- images uploaded -->
+        <fieldset class=" procedure--images-list ">
+            <legend>Images
+                <!-- add another image button -->
+                
+            </legend>
+
+            <ol class="uploads" data-totalfiles="0" data-uploadId="0">
+                <li class="imageuploaded small-padding ">
+                    <img src="" alt="repair image" class="img-mini">
+                    <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
+                    <span class="button--mobile rounded clickable">remove item</span>
+                </li>
+            
+            </ol>
+            <div class="add-img button--mobile rounded center-self clickable " data-action="add-image">add another image</div>
+        
+        </fieldset>
+        
+        <textarea name="instructions1" id="instructions1" class="instructions" cols="5" rows="5" value="test dfafamongo"></textarea>
+  
+    </section>
+   <section>
+        <div class="add-proc clickable button--mobile center-self  rounded" data-action="add-procedure">add another step after this one</div>
+   </section>  `;
+
+   return element;
+    }
+
+    
+
+}
+
 
 
 
@@ -91,6 +140,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
  //submit form event
+//  form.addEventListener("submit",async (event) => event.preventDefault());// for testing what happens after submit 
  form.addEventListener("submit",async (event) => {
     event.preventDefault();
     const allProcedures = Array.from( document.querySelectorAll('.procedure'))
@@ -101,7 +151,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         statusIcons.classList.toggle("hidden");
     const statusMessage = document.querySelector('.loading-text')
 
-
+//build map of promises for uploading images
     procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
 
         //upload images if any
@@ -147,33 +197,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 // FUNCTIONS
 // ==========================================================================
 
-
-//new with class methods
-// async function buildProcedures(allProcedures, signData){
-//     //for each procedure upload its images 
-    
-//     procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
-//         let procedure = new Procedure();
-
-//             procedure.images= await uploadImages(proc, signData)
-//             procedure.procedureNum=index
-//             procedure.instructions = proc.querySelector('.instructions').value
-            
-//             // console.log(procedure.images)
-//         return (procedure)
-       
-//     })
-
-//    const procArr = await Promise.all(procedurePromises) 
-
-//     return procArr
-
-// }
-
-
-
-
-
 //add another procedure to instructions
 function addProcedureToInstructions(event){
     const procedure = new Procedure()
@@ -187,7 +210,7 @@ function addProcedureToInstructions(event){
 
     const li = document.createElement('li');
         li.dataset.procedureid=instructions.dataset.currentprocid;
-        li.classList.add('procedure')
+        li.classList.add('procedure',  'small-padding')
         li.innerHTML=procedure.procedureHtml();
     
 
@@ -242,32 +265,9 @@ async function postToServer(repairObj){
 }
 
 
-// async function buildProcedures(allProcedures, signData){
-//     //for each procedure upload its images 
-    
-//     procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
-//         let procedure = new Procedure();
-
-//             procedure.images= await uploadImages(proc, signData)
-//             procedure.procedureNum=index
-//             procedure.instructions = proc.querySelector('.instructions').value
-            
-//             // console.log(procedure.images)
-//         return (procedure)
-       
-//     })
-
-//    const procArr = await Promise.all(procedurePromises) 
-
-//     return procArr
-
-// }
 
 
-
-
-
-//return image links
+//return image links after uploading
  async function uploadImages(element, signData){
 
     // const files=element
@@ -319,6 +319,9 @@ async function postToServer(repairObj){
             return {links:linksResolved,thumbs:thumbsLinks}
     
 }
+
+
+
 
 
 //get images if any and return them
@@ -399,13 +402,13 @@ function addImageToProcedure(event){
         input.onchange=(event)=>{previewImage(event)}
 
     const removeButton = document.createElement('span');
-        removeButton.classList.add('button', 'clickable');
+        removeButton.classList.add('button--mobile', 'clickable','rounded');
         removeButton.innerText='remove item';
         removeButton.dataset.action='remove-image';
         removeButton.dataset.uploadId = uploadId;
         
     const li = document.createElement('li');
-        li.classList.add('imageuploaded');
+        li.classList.add('imageuploaded','small-padding');
         li.appendChild(image)
         li.appendChild(input);
         li.appendChild(removeButton);

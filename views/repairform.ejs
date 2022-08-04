@@ -7,59 +7,74 @@
     <title>Repair Form</title>
     <link rel="stylesheet" href="/stylesheets/normalize.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/stylesheets/repairformclient.css">
+
 </head>
 <body>
     <header>
+        <h1 class="title">Repair Form</h1>
         <nav>
-       
-            <details class="menu--mobile  menu--mobile-title clickable">
-                <summary> MENU</summary> 
-                <section class="flex-row">
+            <section >
+             <ul class=" menu">
+                <li>
                     <a class=" clickable button--mobile  rounded" href="/">
                         Search
                      </a>
-                     <a class=" clickable button--mobile  rounded" href="/ecm-logs">
-                         ECM LOG
+                 </li>
+                 <li>
+                     <a class=" clickable button--mobile  rounded" href="/repairform">
+                        Repair
+                      </a>
+                 </li>
+             </ul>
+ 
+            </section>
+             <details class="menu--mobile  menu--mobile-title clickable">
+                 <summary> MENU</summary> 
+                 <section class="flex-row">
+                    <a class=" clickable button--mobile  rounded" href="/">
+                        Search
                      </a>
-                     <!-- <a class=" clickable button--mobile  rounded" href="#">
-                       Repair
-                     </a> -->
-                </section>
-            
-        </details>
-        
-      
-    </nav>
+                     <a class=" clickable button--mobile  rounded" href="/repairform">
+                         Repair
+                     </a>
+                      <!-- <a class=" clickable button--mobile  rounded" href="#">
+                        Repair
+                      </a> -->
+                 </section>
+             
+         </details>
+         
+       
+     </nav>
     </header>
   
     
 	
     
 		<main>
-            <h1 class="title">Repair Form</h1>
+           
             <!-- loading screen -->
-            <section class="status-icons hidden ">
+            <section class="status-icons hidden  ">
                 <div class="loading"></div>
-                <div class="loading-text">Loading</div>
+                <div id="status" class="loading-text">Loading</div>
             </section>
        
 
             <!-- on change of form state mostly from image upload preview the image -->
-            <form id="repair-form" action="/" method="post" encType="multipart/form-data" >
-                <section class="center">
+            <form class="repair-form" action="#" encType="multipart/form-data" >
+                <section class="center--column">
                         <!-- title -->
-                    <label for="rep-title" class="">
+                    <label for="rep-title" class="form-input">
                         <h2>Title</h2>
-                        <input id="rep-title" type="text" placeholder=" ex: no 100v"  value=""> 
+                        <input id="rep-title" type="text" placeholder=" ex: no 100v"  value="" required> 
                     </label>
-                    <label for="search-tags">
+                    <label for="search-tags" class="form-input">
                          <h2>Search Tags</h2>
-                        <input id="search-tags" type="text" name="searchtags"  placeholder="Search Tags" value="">
+                        <input id="search-tags" type="text" name="searchtags"  placeholder="Search Tags" value="" required>
                     </label>
-                    <label for="board-type">
+                    <label for="board-type" class="form-input">
                         <h2>Board Type</h2>
-                        <input id="board-type" type="text" name="boardtype" placeholder="4473 KA ..." value="">
+                        <input id="board-type" type="text" name="boardtype" placeholder="4473 KA ..." value="" required>
                     </label>
                 </section>
                
@@ -92,27 +107,28 @@
                  
                     
                     <!-- repair instructions -->
-                    <li class="procedure" data-procedureId="1">
+                    <li class="procedure small-padding" data-procedureId="1">
                        
-                            <section>
+                            <section class="procedure--details small-padding">
                                 <h3>Repair Procedure</h3>
                     
                                 
                                 <!-- images uploaded -->
-                                <fieldset class="images-list">
+                                <fieldset class=" procedure--images-list ">
                                     <legend>Images
                                         <!-- add another image button -->
-                                        <div class="add-img button clickable " data-action="add-image">add another image</div>
+                                        
                                     </legend>
 
                                     <ol class="uploads" data-totalfiles="0" data-uploadId="0">
-                                        <!-- <li class="imageuploaded">
+                                        <!-- <li class="imageuploaded small-padding ">
                                             <img src="" alt="repair image" class="img-mini">
                                             <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
-                                            <span class="button clickable">remove item</span>
+                                            <span class="button--mobile rounded clickable">remove item</span>
                                         </li> -->
                                     
                                     </ol>
+                                    <div class="add-img button--mobile rounded center-self clickable " data-action="add-image">add another image</div>
                                 
                                 </fieldset>
                                 
@@ -124,7 +140,7 @@
                                 
                             </section>
                            <section>
-                                <div class="add-proc button clickable button--medium  " data-action="add-procedure">add another step after this one</div>
+                                <div class="add-proc clickable button--mobile center-self  rounded" data-action="add-procedure">add another step after this one</div>
                            </section> 
                     </li>
 
@@ -134,7 +150,10 @@
                 
                 
                 <!-- submit the repair form to server -->
-                <button class="clickable button--medium rounded" type="submit">Submit Repair</button>
+                <button class="clickable button--medium rounded" type="submit">
+                   <!-- <a id="submit" href="#status">Submit Repair</a>  -->
+                   submit
+                </button>
 
             </form>
            
@@ -164,7 +183,7 @@
 				</section>
 			</nav> -->
 		</footer>
-        <script type="text/javascript" src="./js/Procedure.js"></script>
+        <!-- <script type="text/javascript" src="./js/Procedure.js"></script> -->
         <script type="text/javascript" src="./js/repairformclient.js"></script>
        
 </body>
