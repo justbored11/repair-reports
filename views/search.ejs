@@ -20,68 +20,81 @@
 	<body class="search-page">
 		<!-- search bar -->
 		<header>
-			
-			<section class="search">
+			<section class="">
 				<h1 class="title">Search Results</h1>
 				<form action="/repair/search" method="get">
 					<input class="search_input" type="text" name="searchPhrase" placeholder="Search for Fault code / issue">
 					<button class="search_button" type="submit">Search</button>
 				</form>
-				<nav>
-					<section >
-					 <ul class=" menu">
-						<li>
-							<a class=" clickable button--mobile  rounded" href="/">
-								Search
-							 </a>
-						 </li>
-						 <li>
-							 <a class=" clickable button--mobile  rounded" href="/repairform">
-								Repair
-							  </a>
-						 </li>
-					 </ul>
-		 
-					</section>
-					 <details class="menu--mobile  menu--mobile-title clickable">
-						 <summary> MENU</summary> 
-						 <section class="flex-row">
-							<a class=" clickable button--mobile  rounded" href="/">
-								Search
-							 </a>
-							 <a class=" clickable button--mobile  rounded" href="/repairform">
-								 Repair
-							 </a>
-						 </section>
-					 
-				 </details>
-				 
-			   
-			 </nav>
 			</section>
+			<nav>
+				<section >
+				 <ul class=" menu">
+					<li>
+						<a class=" clickable button--mobile  rounded" href="/">
+							Search
+						 </a>
+					 </li>
+					 <li>
+						 <a class=" clickable button--mobile  rounded" href="/repairform">
+							Submit Repair
+						  </a>
+					 </li>
+				 </ul>
+	 
+				</section>
+				 <details class="menu--mobile  menu--mobile-title clickable">
+					 <summary> MENU</summary> 
+					 <section class="flex-row">
+						<a class=" clickable button--mobile  rounded" href="/">
+							Search
+						 </a>
+						 <a class=" clickable button--mobile  rounded" href="/repairform">
+							Submit Repair
+						 </a>
+						  <!-- <a class=" clickable button--mobile  rounded" href="#">
+							Repair
+						  </a> -->
+					 </section>
+				 
+			 </details>
+			 
+		   
+		 </nav>
 			
 		</header>
-
-
-		<!-- results -->
+		
+		<main>
+			<!-- results -->
 		<section class="results" >
 			
             <% for(let i =0; i<repairs.length; i++){ %>
 				<a class="" href="/repairinfo/<%= repairs[i]._id%>">
 					
-					<section class="entry clickable cummins-fix">
+
+					<%if (repairs[i].engineMake == "cummins"){%>
+						<section class="entry  small-padding clickable cummins-fix">
+					<%}%>
+					<% if (repairs[i].engineMake == "cat"){%>
+						<section class="entry  small-padding clickable cat-fix">
+					<%}%>
+					<% if (repairs[i].engineMake == "detroit"){%>
+						<section class="entry  small-padding clickable detroit-fix">
+					<%}%>
+					
                     
-						<div class="entry__description text-overflow">
-							<h2><%= repairs[i].title %></h2>
+						<div class="entry__description entry__descriptionborder small-padding text-overflow">
+							<h2 class="entry__title"><%= repairs[i].title %></h2>
 							<!-- <h3><%= repairs[i].searchtags %></h3> -->
-							<p><%= repairs[i].procedureArr[0].instructions %></p>
+							<p class="small-padding"><%= repairs[i].procedureArr[0].instructions %></p>
+							<span><%=repairs[i].engineMake%></span>
 						  
 						</div>
-						<div class="desc-img small-padding">
+						<div class="entry__imgcont ">
 							<!-- thumbnail for repair -->
 							<%if (repairs[i].procedureArr[0].images){%>
 								
-								<img src=" <%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>" data-url="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>" alt="repair image" class="img-mini">
+								<img class="img-mini img-mini--repairborder " src=" <%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>" data-url="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>" alt="repair image" >
 								<%}else{%>
 									<img src="https://img.icons8.com/ios-filled/100/000000/automatic-gearbox-warning--v2.png" alt="repair image not available" class="img-mini">
 								<%}%>
@@ -102,11 +115,13 @@
 
 		</section>
 
+		</main>
+		
 				
 			
 
 		<footer>
-			Footer
+	
 		</footer>
 	
 

@@ -80,8 +80,12 @@ nav{
   flex-direction: row-reverse ;
 }
 header{
-  width: 100%;
+  /* width: 100%;
   margin: 0 auto;
+  display: block; */
+}
+p{
+  margin: 0;
 }
 
 /*============================================ 
@@ -124,7 +128,7 @@ h6{
   text-align: center;
 }
 header {
-  min-height: 10vh;
+  /* min-height: 10vh; */
 
   
 }
@@ -138,6 +142,7 @@ header {
 
 
 main{
+  display: block;
   position: relative;
   width: 100%;
 }
@@ -183,6 +188,9 @@ main{
   height: 100%;
   width: 100%;
   /* border: green solid 5px; */
+}
+.img-mini--repairborder{
+  border-radius: 0 20px 20px 0;
 }
 
 .repair-img{
@@ -384,7 +392,7 @@ footer{
 
 .search-page h2{
   font-size: 1rem;
-  overflow: hidden;
+
 
 }
 
@@ -436,21 +444,31 @@ footer{
   }
  
   .entry__description{
-    padding: 0 10px;
     background-color: gray;
     width: 60%;
     height: 100%;
     
+  }
+  .entry__descriptionborder{
+    border-radius: 15px 0 0 15px;
   }
 
   .entry__description p{
     /* white-space: nowrap; */
     overflow:hidden;
     text-overflow: ellipsis;
-    height: 90px;
-  
+    height: 40%;
+    vertical-align: middle;
+
+    margin-top: 10%;
+    /* border: green solid 3px; */
   }
-      .desc-img{
+  .entry__title{
+    max-height: 40%;
+    overflow: hidden;
+   
+  }
+      .entry__imgcont{
         width: 40%;
         height: 100%;
         display: inline-block;
@@ -468,7 +486,7 @@ footer{
   justify-content: space-evenly;
   align-items: center;
 
-  padding: 5px;
+
   border-radius: 20px;
  
   
@@ -485,20 +503,6 @@ footer{
   }
 
 
-
-
-  .cummins{
-      background-color: var(--fix-bg-cummins);
-      color: black;
-    }
-  
-    .detroit{
-      background-color: var(--fix-bg-detroit);
-    }
-  
-    .caterpillar{
-      background-color: var(--fix-bg-cat);
-    }
   
 
     .repair-info{
@@ -654,7 +658,7 @@ label{
   @media screen and (max-width:600px ){
 
     header{
-      height: 20vh;
+      /* height: 20vh; */
     }
     .menu{
       display: none;
@@ -673,10 +677,7 @@ label{
       width: 100%;
       border:green solid 3px
     }
-    header{
-      height: 11vh;
-      
-    }
+
     nav{
       width: 100%;
       display: block;

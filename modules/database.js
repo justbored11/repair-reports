@@ -14,6 +14,8 @@ class DataBase {
         this.client
         this.collection = 'empty'
         this.db = 'empty'
+
+        this.connect()
     }
 
 
@@ -156,7 +158,7 @@ async findRepair(repairId){
 
 //instance of database
 const dataBase = new DataBase(process.env.connectStr_,'Cata','repair-reports' )
-dataBase.connect()
+// dataBase.connect() //moved to constructor
 
 module.exports=dataBase
 
