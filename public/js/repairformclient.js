@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         repair.buildRepair(procArr)
 
 
-        statusMessage.innerHTML+="<br>Saving Report"
+    statusMessage.innerHTML+="<br>Saving Report"
 
     const repairId = await postToServer(repair);
 

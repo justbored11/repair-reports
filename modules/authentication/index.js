@@ -2,7 +2,7 @@ const http = require("http");
 const app = require("./app");
 const server = http.createServer(app);
 
-const { API_PORT } = process.env;
+const API_PORT  = 8000;
 const port = process.env.PORT || API_PORT;
 
 // server listening 

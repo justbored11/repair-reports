@@ -1,18 +1,13 @@
 const mongoose=  require('mongoose');
-
-const databaseUri = process.env.databaseUri;
+require("dotenv").config();
+const databaseUri = process.env.connectStrU_;
 
 
 
 exports.connect =async ()=>{
 
 try {
-    const result = await mongoose.connect(databaseUri,{
-        useNewUrlParser:true,
-        useUnifiedTopology:true,
-        useCreateIndex:true,
-        useFindAndModify:false,
-    })
+    const result = await mongoose.connect(databaseUri)
 
     console.log(`database connected auth`)
 
