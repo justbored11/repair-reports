@@ -35,6 +35,7 @@ app.post("/register", async (req, res) => {
 
         const {user_name,first_name, last_name, email, password}= req.body;
 
+        console.log(`body`,req.body)
         //validate input
         if( !(first_name && last_name && password && user_name ) ){
             console.log(`missing info`)
@@ -42,36 +43,41 @@ app.post("/register", async (req, res) => {
         }
 
         //look for an already existing user
-        const entry = await User.findOne({email});
+        const entry = await User.findOne({user_name});
+        // console.log(`entry`,entry)
 
         if(entry){
             return res.status(400).send("User Already in use. Please Login")
         }
 
-
+       
         //hash password 
-       const passHash = await bcrypt.hash(password,10)
+       const salt = await bcrypt.genSalt(10);
+       const passHash = await bcrypt.hash(password, salt);
+       
 
        //create user in database
        const user = await User.create({
+        user_name,
         first_name,
         last_name,
         email,
         password: passHash,
        })
 
-       await user.save()
+       console.log(`user`,user)
+   
 
 
        //create token
-       const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+    //    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
        
 
     //    res.json({accessToken: accessToken});
        res.json({"end":"end"})
     } 
     catch (error) {
-        
+        console.log(error)
     }
 
 });
