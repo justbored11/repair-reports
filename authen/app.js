@@ -17,6 +17,8 @@ const User = require('./models/user');
 app.use(express.json());
 
 
+const expTimeTokens = '2h';
+
 
 
 
@@ -63,18 +65,22 @@ app.post("/register", async (req, res) => {
         last_name,
         email,
         password: passHash,
+        role:'basic'
        })
 
        console.log(`user`,user)
    
+       const credentials = {
+            user:user.user_name, //username from database entry
+            role:user.role
+        }
 
-
+        console.log(`creds`,credentials)
        //create token
-    //    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+       const accessToken = jwt.sign({user:user_name,role:user.role}, process.env.ACCESS_TOKEN_SECRET, {expiresIn:expTimeTokens})
        
-
-    //    res.json({accessToken: accessToken});
-       res.json({"end":"end"})
+       console.log(`token`,accessToken)
+       res.json({accessToken: accessToken});
     } 
     catch (error) {
         console.log(error)
@@ -89,45 +95,49 @@ app.post("/register", async (req, res) => {
     
 // Login
 app.post("/login", async(req, res) => {
-// our login logic goes here
 
-    const {user_name, password}= req.body;
+    try {
+            //user input from request
+        const {user_name, password}= req.body;
 
-    const passHash = await bcrypt.hash(password,10)
-
-    //validate input
-    if( !(user_name && password ) ){
-        res.status(4000).send(`all input is required`)
-    }
-
-    //look for an already existing user
-    const user = await User.findOne({user_name});
-
-
-
-
-    //if user was found compare database password with local hash
-    if(user.password === passHash){
-       
-        const credentials = {
-            user:user_name,
-            role:user.role
+        //validate input must contain username and password
+        //if not end request
+        if( !(user_name && password ) ){
+            res.status(4000).send(`all input is required`)
         }
 
 
-        // jwt.sign({
-        //     data: 'foobar'
-        //   }, 'secret', { expiresIn: '1h' });
+        //look for an already existing user in database
+        const user = await User.findOne({user_name});
 
-       //create token {data to encrypt, key to use to encrypt, {OPTIONS expiration} }
-       const accessToken = jwt.sign(credentials, process.env.ACCESS_TOKEN_SECRET, {expiresIn:'2h'});
-    
-       res.json({accessToken: accessToken});
 
-    }else{
-        //else user does not exist
-        res.status(400).json({message:" not authorized"})
+
+
+        //if user was found compare hash
+        if(user && ( await bcrypt.compare(password, user.password) ) ){
+        
+
+            //token will contain username and role
+            const credentials = {
+                user:user.user_name, //username from database entry
+                role:user.role
+            }
+
+
+        //create token {data to encrypt, key to use to encrypt, {OPTIONS expiration} }
+        const accessToken = jwt.sign(credentials, process.env.ACCESS_TOKEN_SECRET, {expiresIn:expTimeTokens});
+        console.log(`token sent `)
+
+        res.status(200).json({accessToken: accessToken});
+
+        }else{
+            //else user does not exist
+            res.status(400).json({message:"not authorized"})
+        }
+    } catch (error) {
+        console.error(`error login`, error)    
     }
+    
 
 
 
