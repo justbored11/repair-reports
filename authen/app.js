@@ -49,7 +49,7 @@ app.post("/register", async (req, res) => {
         // console.log(`entry`,entry)
 
         if(entry){
-            return res.status(400).send("User Already in use. Please Login")
+            return res.status(400).send("User creation failed")
         }
 
        
