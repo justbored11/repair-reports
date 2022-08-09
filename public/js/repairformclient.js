@@ -187,12 +187,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     location.assign(`/repairinfo/${repairId}`);\
 
-    try {
-        
-    } catch (error) {
-        console.log(`error on submit `, error)
-        
-    }
 
 });
 
