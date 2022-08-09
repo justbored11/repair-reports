@@ -3,9 +3,12 @@ require("dotenv").config();
 //modules
 const express = require("express");
 const app = express();
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const cors = require('cors')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+
+const authenticate = require('./middleware/auth')
 
 //database management
 require("./mongoose_database").connect();
@@ -14,10 +17,29 @@ require("./mongoose_database").connect();
 const User = require('./models/user');
 
 //middleware
+app.use(cookieParser);
 app.use(express.json());
 
 
-const expTimeTokens = '2h';
+
+const expTimeTokens =  30 * 60; //'.5h'; //in seconds
+const tokenSecret = process.env.ACCESS_TOKEN_SECRET; //key to hash tokens
+
+
+// process
+// at login or register a token will generate and be hashed
+// token will be sent back to client
+// client will use authorization headers to provide token
+// server wil use middleware to validate token sent in authorization header
+// if valid pass to reqested route 
+// else redirect to login / register for token
+
+
+
+//
+
+
+
 
 
 
@@ -27,9 +49,19 @@ const expTimeTokens = '2h';
 // ======================================
 
 
+//root route '/' will use middleware authenticate then respond with credentials
+app.get('/',authenticate, (req,res)=>{
+
+   
+    res.status(200).json({message:" req.credentials"})
+})
+
+
+
 //register
 // =================================
-app.post("/register", async (req, res) => {
+app.post("/users/register", async (req, res) => {
+
 
     try {
         console.log(`register route`)
@@ -59,7 +91,7 @@ app.post("/register", async (req, res) => {
        
 
        //create user in database
-       const user = await User.create({
+       const newUser = await User.create({
         user_name,
         first_name,
         last_name,
@@ -67,23 +99,36 @@ app.post("/register", async (req, res) => {
         password: passHash,
         role:'basic'
        })
-
-       console.log(`user`,user)
    
        const credentials = {
-            user:user.user_name, //username from database entry
-            role:user.role
+            userId:newUser._id,
+            user:newUser.user_name, //username from database entry
+            role:newUser.role
         }
 
         console.log(`creds`,credentials)
+
        //create token
-       const accessToken = jwt.sign({user:user_name,role:user.role}, process.env.ACCESS_TOKEN_SECRET, {expiresIn:expTimeTokens})
+       const accessToken = jwt.sign(credentials, tokenSecret, {expiresIn:expTimeTokens})
        
        console.log(`token`,accessToken)
-       res.json({accessToken: accessToken});
+
+       //maxAge in millis cookies bad idea to use for authen gets sent with all requests
+    //    res.cookie('jwt',accessToken,{
+    //     httpOnly:true,
+    //     maxAge:expTimeTokens * 1000,
+    //    })
+
+       res.status(200).json({
+        // accessToken: accessToken
+        message:"success registering",
+        user:user._id,
+       });
     } 
     catch (error) {
         console.log(error)
+        res.status(401).json({message:"registration failed", error:error.message})
+
     }
 
 });
@@ -94,7 +139,7 @@ app.post("/register", async (req, res) => {
 
     
 // Login
-app.post("/login", async(req, res) => {
+app.post("/users/login", async(req, res) => {
 
     try {
             //user input from request
@@ -103,15 +148,12 @@ app.post("/login", async(req, res) => {
         //validate input must contain username and password
         //if not end request
         if( !(user_name && password ) ){
-            res.status(4000).send(`all input is required`)
+            res.status(400).send(`all input is required`)
         }
 
 
         //look for an already existing user in database
         const user = await User.findOne({user_name});
-
-
-
 
         //if user was found compare hash
         if(user && ( await bcrypt.compare(password, user.password) ) ){
@@ -125,17 +167,30 @@ app.post("/login", async(req, res) => {
 
 
         //create token {data to encrypt, key to use to encrypt, {OPTIONS expiration} }
-        const accessToken = jwt.sign(credentials, process.env.ACCESS_TOKEN_SECRET, {expiresIn:expTimeTokens});
+        const accessToken = jwt.sign(credentials, tokenSecret, {expiresIn:expTimeTokens});
         console.log(`token sent `)
 
-        res.status(200).json({accessToken: accessToken});
+        //maxAge in millis
+        // res.cookie('jwt',accessToken,{
+        //     httpOnly:true,
+        //     maxAge:expTimeTokens * 1000,
+        // })
+
+        
+        res.status(200).json({
+            // accessToken: accessToken
+            message:"success login",
+            user:user._id,
+        });
 
         }else{
             //else user does not exist
             res.status(400).json({message:"not authorized"})
         }
     } catch (error) {
-        console.error(`error login`, error)    
+        console.log(error)
+        res.status(401).json({message:"login failed", error:error.message})  
+    
     }
     
 

@@ -12,6 +12,4 @@ server.listen(port, () => {
 
 
 
-
-
-/// not using express used in app.js but this is the server?????
+// not using express used in app.js but this is the server?????

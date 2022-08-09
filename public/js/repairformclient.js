@@ -167,25 +167,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     })
 
     //display status at this point
-        statusMessage.innerHTML+="<br>Uploading images"
+    statusMessage.innerHTML+="<br>Uploading images"
 
     const procArr = await Promise.all(procedurePromises) 
 
     console.log(procArr)
 
         statusMessage.innerHTML+="<br>Uploading Done";
-
+//! problem starts here
     const repair = new Repair
         repair.buildRepair(procArr)
 
 
-    statusMessage.innerHTML+="<br>Saving Report"
+    statusMessage.innerHTML+="<br>Saving Report";
 
     const repairId = await postToServer(repair);
 
     console.log(repairId)
     
-    location.assign(`/repairinfo/${repairId}`);
+    location.assign(`/repairinfo/${repairId}`);\
+
+    try {
+        
+    } catch (error) {
+        console.log(`error on submit `, error)
+        
+    }
 
 });
 
