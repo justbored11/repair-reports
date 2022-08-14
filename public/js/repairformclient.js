@@ -79,8 +79,6 @@ class Procedure {
    return element;
     }
 
-    
-
 }
 
 
@@ -89,15 +87,6 @@ class Procedure {
 document.addEventListener('DOMContentLoaded', async () => {
     console.log(`doc loaded repair form`)
     
-    const signResponse = await fetch('/signform'); //fetch signature from server
-    const signData = await signResponse.json();
-
-
-
-    //upload url
-    const url = "https://api.cloudinary.com/v1_1/" + signData.cloudname + "/auto/upload";
-    
-    // const form = document.querySelector("form");
     const instructions =form.querySelector('#instructions')
 
 
@@ -106,9 +95,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // =========================================================
 
     instructions.addEventListener('click',(event)=>{
-        
-
-        
+   
         const action = event.target.dataset.action
 
         //parent of target
@@ -147,9 +134,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const signResponse = await fetch('/signform'); //fetch signature from server
     const signData = await signResponse.json();
     
+    //status message overlay
     const statusIcons = document.querySelector('.status-icons')
-        statusIcons.classList.toggle("hidden");
-    const statusMessage = document.querySelector('.loading-text')
+    statusIcons.classList.toggle("hidden");//show loading message
+
+    const form = document.querySelector('form');
+    form.classList.toggle("hidden");//hide form 
+
+    let procArr = [] //array with all the procedures for this repair
+    const repair = new Repair // actual object to submit to server
+
 
 //build map of promises for uploading images
     procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
@@ -166,26 +160,35 @@ document.addEventListener('DOMContentLoaded', async () => {
        
     })
 
-    //display status at this point
-        statusMessage.innerHTML+="<br>Uploading images"
+    // todo add try blcok when submitting
+    try {
+        //update progress
+        statusMessage('<br>Uploading images...')
 
-    const procArr = await Promise.all(procedurePromises) 
+        procArr = await Promise.all(procedurePromises) 
 
-    console.log(procArr)
+        console.log(procArr)
 
-        statusMessage.innerHTML+="<br>Uploading Done";
+        statusMessage('Done')
 
-    const repair = new Repair
-        repair.buildRepair(procArr)
+        repair.buildRepair(procArr) // build repair using procedure array 
 
+        statusMessage('<br>Saving Report...')
 
-        statusMessage.innerHTML+="<br>Saving Report"
+        const repairId = await postToServer(repair);
 
-    const repairId = await postToServer(repair);
-
-    console.log(repairId)
+        statusMessage('Done')
     
-    location.assign(`/repairinfo/${repairId}`);
+        console.log(repairId)
+        
+        location.assign(`/repairinfo/${repairId}`);
+    } catch (error) {
+        // todo if error do not refresh and show form again with message failed to submit
+        statusIcons.classList.toggle("hidden");//hide loading message
+        form.classList.toggle("hidden");//show form 
+        console.error(`error submiting`,error)
+    }
+    
 
 });
 
@@ -196,6 +199,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ==========================================================================
 // FUNCTIONS
 // ==========================================================================
+
+// display status message
+function statusMessage(text){
+    
+    
+    const statusMessage = document.querySelector('.loading-text')
+
+    statusMessage.innerHTML+=`${text}`
+
+}
+
+
 
 //add another procedure to instructions
 function addProcedureToInstructions(event){
@@ -238,6 +253,7 @@ async function postToServer(repairObj){
          console.log(`post serv respons`,response)
          console.log(`post serv respons`,repairId)
      
+         
          return repairId;
        
     }
