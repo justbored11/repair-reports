@@ -144,9 +144,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     let procArr = [] //array with all the procedures for this repair
     const repair = new Repair // actual object to submit to server
 
+    
 
 //build map of promises for uploading images
-    procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
+   const procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
 
         //upload images if any
         const images= await uploadImages(proc, signData)
@@ -186,7 +187,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // todo if error do not refresh and show form again with message failed to submit
         statusIcons.classList.toggle("hidden");//hide loading message
         form.classList.toggle("hidden");//show form 
-        console.error(`error submiting`,error)
+        console.error(`Submit error`,error);
+        window.confirm('Submit error')
     }
     
 
