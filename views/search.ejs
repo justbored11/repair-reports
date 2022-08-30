@@ -6,72 +6,98 @@
 <html lang="en">
 	<head>
     	<meta charset="utf-8">
-    	<meta name="description" content="This is where your description goes">
-    	<meta name="keywords" content="one, two, three">
+    	<meta name="description" content="Search results">
+    	<meta name="keywords" content="reapirs">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Repair Search</title>
+		<title>Search Results</title>
 		
 
 		<!-- external CSS link -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 		<link rel="stylesheet" href="/stylesheets/normalize.css">
-		<link rel="stylesheet" href="/stylesheets/style.css">
+		<link rel="stylesheet" href="/stylesheets/style1.css">
 		<!-- <link rel="stylesheet" href="./stylesheets/index.css"> -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	</head>
-	<body class="search-page">
+	<body class="search-page  blue-grey darken-4">
 		<!-- search bar -->
 		<header>
-			<section class="">
+			<section class="card   blue lighten-3 rounded">
 				<h1 class="title">Search Results</h1>
 				<form action="/repair/search" method="get">
-					<input class="search_input" type="text" name="searchPhrase" placeholder="Search for Fault code / issue">
-					<button class="search_button" type="submit">Search</button>
+					
+					<!-- <label for="search">Search
+						<input class="search_input" type="text" id="search" name="searchPhrase" placeholder="Search for Fault code / issue">
+					</label> -->
+					
+					<div class="input-field">
+						<input type="text" id="search" name="searchPhrase">
+						<label for="search">Search</label>
+					</div>
+					
+					<button class=" rounded search_button" type="submit">Search</button>
 				</form>
 			</section>
-			<nav>
-				<section >
-				 <ul class=" menu">
-					<li>
-						<a class=" clickable button--mobile  rounded" href="/">
-							Search
-						 </a>
-					 </li>
-					 <li>
-						 <a class=" clickable button--mobile  rounded" href="/repairform">
-							Submit Repair
-						  </a>
-					 </li>
-				 </ul>
-	 
-				</section>
-				 <details class="menu--mobile  menu--mobile-title clickable">
-					 <summary> MENU</summary> 
-					 <section class="flex-row">
-						<a class=" clickable button--mobile  rounded" href="/">
-							Search
-						 </a>
-						 <a class=" clickable button--mobile  rounded" href="/repairform">
-							Submit Repair
-						 </a>
-						  <!-- <a class=" clickable button--mobile  rounded" href="#">
-							Repair
-						  </a> -->
-					 </section>
-				 
-			 </details>
-			 
-		   
-		 </nav>
+			
 			
 		</header>
 		
 		<main>
 			<!-- results -->
-		<section class="results" >
-			
-            <% for(let i =0; i<repairs.length; i++){ %>
-				<a class="" href="/repairinfo/<%= repairs[i]._id%>">
-					
+		<section class="results entry-list" >
 
+
+            <% for(let i =0; i<repairs.length; i++){ %>
+				<!-- large card -->
+				<a class="entry" href="/repairinfo/<%= repairs[i]._id%>">
+
+					<div class=" small-padding">
+						<div class="col s12 m7">
+						<div class="card large grey">
+							<div class="card-image">
+								<img src="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>">
+								<span class=" card-title teal"><%= repairs[i].title %></span>
+							</div>
+							<div class="card-content ">
+								<p class=" ">
+									<%= repairs[i].procedureArr[0].instructions %>
+								</p>
+							</div>
+							<div class="card-action">
+								<!-- <a href="#">This is a link</a> -->
+							</div>
+						</div>
+						</div>
+					</div>
+				</a>
+				
+				<!-- <a class="" href="/repairinfo/<%= repairs[i]._id%>">
+					<div class="card teal lighten-4 small-padding rounded  ">
+						<div class=" entry">
+							<div class="med-titlebox">
+								<h2 class="title"><%= repairs[i].title %></h2>
+
+							</div>
+							<div class="card horizontal  grey">
+							  <div class="card-image">
+								<img src="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>">
+							  </div>
+							  <div class="card-stacked ">
+								<div class="card-content ">
+									
+								  <p class="entry_brief fill-vert text-overflow"><%= repairs[i].procedureArr[0].instructions %></p>
+								</div>
+								
+							  </div>
+							</div>
+						  </div>
+					</div>
+				</a> -->
+				
+
+				<!-- <a class="" href="/repairinfo/<%= repairs[i]._id%>"> -->
+					
+<!-- 
 					<%if (repairs[i].engineMake == "cummins"){%>
 						<section class="entry  small-padding clickable cummins-fix">
 					<%}%>
@@ -80,30 +106,16 @@
 					<%}%>
 					<% if (repairs[i].engineMake == "detroit"){%>
 						<section class="entry  small-padding clickable detroit-fix">
-					<%}%>
+					<%}%> -->
 					
-                    
-						<div class="entry__description entry__descriptionborder small-padding text-overflow">
-							<h2 class="entry__title"><%= repairs[i].title %></h2>
-							<!-- <h3><%= repairs[i].searchtags %></h3> -->
-							<p class="small-padding"><%= repairs[i].procedureArr[0].instructions %></p>
-							<span><%=repairs[i].engineMake%></span>
-						  
-						</div>
-						<div class="entry__imgcont ">
-							<!-- thumbnail for repair -->
-							<%if (repairs[i].procedureArr[0].images){%>
-								
-								<img class="img-mini img-mini--repairborder " src=" <%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>" data-url="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>" alt="repair image" >
-								<%}else{%>
-									<img src="https://img.icons8.com/ios-filled/100/000000/automatic-gearbox-warning--v2.png" alt="repair image not available" class="img-mini">
-								<%}%>
-		
-						</div>
-	
+					
+					
+					
+
 						
-					</section>
-				</a>
+						
+					<!-- </section> -->
+				<!-- </a> -->
                 
     
 
@@ -121,10 +133,32 @@
 			
 
 		<footer>
-	
+			<!--menu button  -->
+<div class="fixed-action-btn ">
+	<a title="menu" class="btn-floating btn-large red">
+	  <i class="large material-icons"><i class="fa-solid fa-circle-plus"></i></i>
+	</a>
+	<ul>
+	  <li><a title="Add Repair" class="btn-floating red"><i class="material-icons">Repair</i></a></li>
+	  <li><a title="Search" class="btn-floating yellow darken-1"><i class="material-icons">Search</i></a></li>
+	  <!-- <li><a title="ECM log" class="btn-floating green"><i class="material-icons">Log</i></a></li> -->
+	  <!-- <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li> -->
+	</ul>
+  </div>
 		</footer>
 	
-
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script type="text/javascript" src="./js/index.js"></script>
+
+		<script>
+		document.addEventListener('DOMContentLoaded', function() {
+    		const elems = document.querySelectorAll('.fixed-action-btn');
+			const instances = M.FloatingActionButton.init(elems, {
+				direction: 'left',
+				hoverEnabled: false
+    		});
+  		});
+			
+		</script>
 	</body>
 </html>

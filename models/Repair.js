@@ -1,7 +1,21 @@
 const mongoose = require('mongoose')
 
+//subdocument of RepairSchema
+const ProcedureSchema = new mongoose.Schema({
+  images:[String],
+  procedureNum:{
+      type:Number,
+      default:0
+  },
+  instructions:{
+      type:String,
+  },
+  thumbs:[String],
 
-const UserSchema = new mongoose.Schema({
+})
+
+//parent schema
+const RepairSchema = new mongoose.Schema({
    title:{
         type:String,
         required:true,
@@ -14,7 +28,7 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    procedureArr:[]
+    procedureArr:[ProcedureSchema]
 
     
 },
@@ -50,4 +64,4 @@ UserSchema.methods.comparePassword = function comparePassword(candidatePassword,
 
 
 
-module.exports  = mongoose.model('User', UserSchema)
+module.exports  = mongoose.model('Repair', RepairSchema)

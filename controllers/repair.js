@@ -1,8 +1,6 @@
 
 
-module.exports={
-
-    addRepair: async (req, res)=>{
+module.exports.addRepair = async (req, res)=>{
         try {
             let entry = (request.body)
             console.log(`post at /repairform`,entry)
@@ -15,4 +13,3 @@ module.exports={
             response.status(400).json({message:'failed to save repair', "error":error})
         }
     }
-}
