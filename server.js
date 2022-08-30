@@ -38,7 +38,8 @@ mongooseDb()
 
 // =============================================================
 // ROUTES
-app.use(repairRoutes)
+// todo change routes to app.use ('/repair',repairRoutes) format
+app.use(repairRoutes) // @/repair
 app.use(repairInfoRoutes)
 app.use(repairFormRoutes)
 app.use(signformRoutes)

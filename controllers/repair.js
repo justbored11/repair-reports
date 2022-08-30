@@ -21,14 +21,30 @@ module.exports.addRepair = async (req, res)=>{
 //retrieve repairs matching query
 module.exports.searchRepairs = async (req, res)=>{
     try {
-        console.log(req.query)
-        const searchStr = req.query.searchPhrase
-        const results = await dataBase.search(searchStr);
 
-        response.render('search.ejs',{repairs:results});
+        console.log(`repairsController.searchRepairs`,req.query)
+        const searchStr = req.query.searchPhrase
+        // const results = await dataBase.search(searchStr);
+        const results = await Repair.aggregate(
+            [
+                { 
+                  $search: {
+                    index: 'repairs_search',
+                    text: {
+                      query: searchStr,
+                      path:["title","searchtags","procedureArr"],
+                      fuzzy:{maxEdits:2,prefixLength:2}
+                    }
+                  }
+                }
+              ]);
+
+
+
+        res.render('search.ejs',{repairs:results});
 
     } catch (error) {
-        response.status(400).json({message:'failed to save repair', "error":error})
+        res.status(400).json({message:'failed to get repairs', "error":error.message})
     }
 }
 
@@ -36,11 +52,12 @@ module.exports.searchRepairs = async (req, res)=>{
 module.exports.getNewestRepairs = async (req, res)=>{
     try {
         console.log(`controller repair.getNewestRepairs`)
+        console.log( `number of repairs requested`,req.params.num)
         const numRepairs =   req.params.num > 0 ? +req.params.num : 1;
 
         // const results = await dataBase.latest(numRepairs);
-        const results = await Repair.find();
-    
+        const results = await Repair.find().sort({_id:-1}).limit(numRepairs);
+        console.log( `number of repairs returned`,results.length)
         // console.log(results)
         res.status(200).json({repairs:results})
     

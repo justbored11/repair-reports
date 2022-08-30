@@ -29,18 +29,21 @@ router.post('/repair', async (request, response)=>{
     }
 })
 
+///! working here
 //search for repairs containing terms
-router.get('/repair/search/',async (request,response)=>{
+router.get('/repair/search',repairsController.searchRepairs)
+// router.get('/repair/search/',async (request,response)=>{
+//     c
+//     console.log(request.query)
+//     const searchStr = request.query.searchPhrase
+//     // console.log(`request search`,searchStr )
+//     // const results = await dataBase.search(searchStr);
 
-    console.log(request.query)
-    const searchStr = request.query.searchPhrase
-    // console.log(`request search`,searchStr )
-    const results = await dataBase.search(searchStr);
+   
+//     // console.log(results)
+//     response.render('search.ejs',{repairs:results});
 
-    // console.log(results)
-    response.render('search.ejs',{repairs:results});
-
-})
+// })
 
 
 
