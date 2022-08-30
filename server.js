@@ -2,7 +2,8 @@
 const express = require('express');
 require('dotenv').config(); // to use with enviroment variables initializes enviroment vars
 const cors = require('cors');
-// const bodyParser = require('body-parser');
+const mongooseDb= require('./config/dbM')
+
 
 
 
@@ -31,7 +32,7 @@ app.use(express.static('public'))
 
 //database collection connection
 const dataBase = require('./modules/database.js');
-
+mongooseDb()
 
 
 

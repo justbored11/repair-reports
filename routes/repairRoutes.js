@@ -4,11 +4,12 @@ const express = require('express')
 //modules
 const dataBase = require('../modules/database.js'); //database interface
 
-
-
 // create router instance
 const router = express.Router();
 // test ID 62cdbb3b08a07c547dca5505
+
+//controllers
+const repairsController = require('../controllers/repair')
 
 
 
@@ -43,20 +44,21 @@ router.get('/repair/search/',async (request,response)=>{
 
 
 
+router.get('/repair/latest/:num',repairsController.getNewestRepairs)
 
-// retrieve latest repairs with limit 
-router.get('/repair/latest/:num',async (request,response)=>{
+// retrieve newest repairs with limit 
+// router.get('/repair/latest/:num',async (request,response)=>{
 
-    const numRepairs =   request.params.num > 0 ? +request.params.num : 1;
+//     const numRepairs =   request.params.num > 0 ? +request.params.num : 1;
    
   
-    //retrieve latest repairs
-    const results = await dataBase.latest(numRepairs);
+//     //retrieve latest repairs
+//     const results = await dataBase.latest(numRepairs);
 
-    // console.log(results)
-    response.status(200).json({repairs:results})
+//     // console.log(results)
+//     response.status(200).json({repairs:results})
 
-})
+// })
 
 
 //details of single repair by ID
