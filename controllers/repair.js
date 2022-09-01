@@ -6,15 +6,15 @@ const Repair = require('../models/Repair')
 //add repair to database
 module.exports.addRepair = async (req, res)=>{
         try {
-            let entry = (request.body)
+            let entry = (req.body)
             console.log(`post at /repairform`,entry)
 
-            const result = await dataBase.insertLogEntry(entry)
-            console.log(`done uploading at server`)
-            response.send(result)
-
+            const result = await Repair.create(entry)
+            console.log(`done uploading at server result`,result)
+            res.send(result)
+            
         } catch (error) {
-            response.status(400).json({message:'failed to save repair', "error":error})
+            res.status(400).json({message:'failed to save repair', "error":error.message})
         }
     }
 
@@ -24,16 +24,17 @@ module.exports.searchRepairs = async (req, res)=>{
 
         console.log(`repairsController.searchRepairs`,req.query)
         const searchStr = req.query.searchPhrase
-        // const results = await dataBase.search(searchStr);
-        const results = await Repair.aggregate(
+        const results = 
+        await Repair.aggregate(
             [
                 { 
                   $search: {
                     index: 'repairs_search',
                     text: {
                       query: searchStr,
-                      path:["title","searchtags","procedureArr"],
-                      fuzzy:{maxEdits:2,prefixLength:2}
+                    //   path:["title","searchtags","procedureArr","instructions"],
+                        path:{'wildcard': '*'},
+                      fuzzy:{maxEdits:2,prefixLength:3}
                     }
                   }
                 }

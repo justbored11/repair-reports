@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Repair Form</title>
     <link rel="stylesheet" href="/stylesheets/normalize.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <!-- <link rel="stylesheet" href="/stylesheets/style.css"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/stylesheets/style1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+
 
 </head>
 <body>
@@ -28,22 +34,8 @@
              </ul>
  
             </section>
-             <details class="menu--mobile  menu--mobile-title clickable">
-                 <summary> MENU</summary> 
-                 <section class="flex-row">
-                    <a class=" clickable button--mobile  rounded" href="/">
-                        Search
-                     </a>
-                     <a class=" clickable button--mobile  rounded" href="/repairform">
-                         Repair
-                     </a>
-                      <!-- <a class=" clickable button--mobile  rounded" href="#">
-                        Repair
-                      </a> -->
-                 </section>
-             
-         </details>
-         
+            
+            <%- include("./partials/mobile-menu"); -%>
        
      </nav>
     </header>
@@ -165,26 +157,22 @@
         </section>
 
         <footer>			
-			<!-- <nav>
-				<section class="hidden-menu menu">
-					<details >
-						<summary> MENU</summary> 
-					<a class="button clickable" href="/">
-						<span>Search</span>
-					</a>
-					<a class="button clickable" href="/ecm-logs">
-						<span> ECM LOG <br> +</span>
-					</a>
-					<a class="button clickable" href="#">
-						<span> Repair <br> Search</span>
-					</a>
-				</details>
-				
-				</section>
-			</nav> -->
+			
 		</footer>
         <!-- <script type="text/javascript" src="./js/Procedure.js"></script> -->
         <script type="text/javascript" src="./js/repairformclient.js"></script>
-       
+      
+        
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script>
+		    document.addEventListener('DOMContentLoaded', function() {
+                const elems = document.querySelectorAll('.fixed-action-btn');
+                const instances = M.FloatingActionButton.init(elems, {
+                direction: 'up',
+                hoverEnabled: false
+    	    });
+        });
+			
+		</script>
 </body>
 </html>

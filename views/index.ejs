@@ -39,8 +39,11 @@
 
 				</form>
 			</section>
-			
-			
+			<nav>
+				<%- include("./partials/mobile-menu"); -%>
+
+			</nav>
+
 		</header>
 		
 		<main>
@@ -113,26 +116,13 @@
 
 		<footer>
 			<!--menu button  -->
-			<nav>
-				<div class="fixed-action-btn ">
-					<a title="menu" class="btn-floating btn-large red">
-					  <i class="large material-icons"><i class="fa-solid fa-circle-plus"></i></i>
-					</a>
-					<ul>
-					  <li><a href="/" title="Home" class="btn-floating blue-grey"><i class="fa-solid fa-house-circle-check"></i></a></li>	
-					  <li><a href="/repairform" title="Add Repair" class="btn-floating red"> <i class="fa-solid fa-gears"></i></a></li>
-					  <li><a href="/repair/search" title="Search" class="btn-floating yellow darken-1"><i class="fa-solid fa-magnifying-glass"></i></a></li>
-					  <!-- <li><a title="ECM log" class="btn-floating green"><i class="material-icons">Log</i></a></li> -->
-					  <!-- <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li> -->
-					</ul>
-				  </div>
-			</nav>
+			
 
 		</footer>
 	
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script type="text/javascript" src="./js/index.js"></script>
-
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script>
 		document.addEventListener('DOMContentLoaded', function() {
     		const elems = document.querySelectorAll('.fixed-action-btn');
