@@ -9,13 +9,6 @@ const logger = require('morgan')
 
 
 
-// routes files
-const repairInfoRoutes = require('./routes/repairInfoRoutes')
-const signformRoutes = require('./routes/signformRoutes')
-const repairFormRoutes = require('./routes/repairformRoutes')
-const repairRoutes = require('./routes/repairRoutes')
-
-
 const app = express();
 const PORT = 8000;
 
@@ -37,9 +30,20 @@ mongooseDb()
 
 
 
+
+// routes files
+const repairInfoRoutes = require('./routes/repairInfoRoutes')
+const signformRoutes = require('./routes/signformRoutes')
+const repairFormRoutes = require('./routes/repairformRoutes')
+const repairRoutes = require('./routes/repairRoutes')
+const indexRoute = require('./routes/index')
+
+
 // =============================================================
 // ROUTES
 // todo change routes to app.use ('/repair',repairRoutes) format
+
+app.use(indexRoute)
 app.use(repairRoutes) // @/repair
 app.use(repairInfoRoutes)
 app.use(repairFormRoutes)
@@ -50,7 +54,8 @@ app.use(signformRoutes)
 app.get('/', async (request, response)=>{
     const results  = await dataBase.latest()
 
-    response.render('index.ejs',{repairs:results});
+    // response.render('index.ejs',{repairs:results});
+    response.send('hello');
 
 })
 

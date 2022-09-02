@@ -15,7 +15,10 @@
 				<%- include("./partials/reg-menu"); -%>
 				<%- include("./partials/mobile-menu"); -%>
 			</nav>
-			
+			<form action="/repair/search" method="get">
+				<input class="search_input" type="text" name="searchPhrase" placeholder="Search for Fault code / issue">
+				<button class="search_button" type="submit">Search</button>
+			</form>
 		</header>
 		
 		<main>
@@ -110,17 +113,6 @@
 
 		<footer>
 			<!--menu button  -->
-<div class="fixed-action-btn ">
-	<a title="menu" class="btn-floating btn-large red">
-	  <i class="large material-icons"><i class="fa-solid fa-circle-plus"></i></i>
-	</a>
-	<ul>
-	  <li><a title="Add Repair" class="btn-floating red"><i class="material-icons">Repair</i></a></li>
-	  <li><a title="Search" class="btn-floating yellow darken-1"><i class="material-icons">Search</i></a></li>
-	  <!-- <li><a title="ECM log" class="btn-floating green"><i class="material-icons">Log</i></a></li> -->
-	  <!-- <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li> -->
-	</ul>
-  </div>
 		</footer>
 	
 		<%- include("./partials/scripts"); -%>

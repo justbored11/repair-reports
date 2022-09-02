@@ -17,36 +17,10 @@ const repairsController = require('../controllers/repair')
 //post repair to database
 
 router.post('/repair',repairsController.addRepair)
-// router.post('/repair', async (request, response)=>{
-//     try {
-//         let entry = (request.body)
-//         console.log(`post at /repairform`,entry)
 
-//         const result = await dataBase.insertLogEntry(entry)
-//         console.log(`done uploading at server`)
-//         response.send(result)
-
-//     } catch (error) {
-//         response.status(400).json({message:'failed to save repair', "error":error})
-//     }
-// })
 
 //search for repairs containing terms
 router.get('/repair/search',repairsController.searchRepairs)
-// router.get('/repair/search/',async (request,response)=>{
-//     c
-//     console.log(request.query)
-//     const searchStr = request.query.searchPhrase
-//     // console.log(`request search`,searchStr )
-//     // const results = await dataBase.search(searchStr);
-
-   
-//     // console.log(results)
-//     response.render('search.ejs',{repairs:results});
-
-// })
-
-
 
 router.get('/repair/latest/:num',repairsController.getNewestRepairs)
 
