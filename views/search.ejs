@@ -5,40 +5,16 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-    	<meta charset="utf-8">
-    	<meta name="description" content="Search results">
-    	<meta name="keywords" content="reapirs">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Search Results</title>
-		
-
-		<!-- external CSS link -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-		<link rel="stylesheet" href="/stylesheets/normalize.css">
-		<link rel="stylesheet" href="/stylesheets/style1.css">
-		<!-- <link rel="stylesheet" href="./stylesheets/index.css"> -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<%- include("./partials/head"); -%>
 	</head>
 	<body class="search-page  blue-grey darken-4">
 		<!-- search bar -->
 		<header>
-			<section class="card   blue lighten-3 rounded">
-				<h1 class="title">Search Results</h1>
-				<form action="/repair/search" method="get">
-					
-					<!-- <label for="search">Search
-						<input class="search_input" type="text" id="search" name="searchPhrase" placeholder="Search for Fault code / issue">
-					</label> -->
-					
-					<div class="input-field">
-						<input type="text" id="search" name="searchPhrase">
-						<label for="search">Search</label>
-					</div>
-					
-					<button class=" rounded search_button" type="submit">Search</button>
-				</form>
-			</section>
-			
+			<h1>Search Results</h1>
+			<nav>
+				<%- include("./partials/reg-menu"); -%>
+				<%- include("./partials/mobile-menu"); -%>
+			</nav>
 			
 		</header>
 		
@@ -147,18 +123,6 @@
   </div>
 		</footer>
 	
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-		<script type="text/javascript" src="./js/index.js"></script>
-
-		<script>
-		document.addEventListener('DOMContentLoaded', function() {
-    		const elems = document.querySelectorAll('.fixed-action-btn');
-			const instances = M.FloatingActionButton.init(elems, {
-				direction: 'left',
-				hoverEnabled: false
-    		});
-  		});
-			
-		</script>
+		<%- include("./partials/scripts"); -%>
 	</body>
 </html>

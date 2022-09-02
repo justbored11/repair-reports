@@ -3,54 +3,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repair Information  </title>
-    <link rel="stylesheet" href="/stylesheets/normalize.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-  
+    <%- include("./partials/head"); -%>
 </head>
 <body>
     <header>
         <section class="">
-            <h1 class="title">Latest Repairs</h1>
+            <h1 class="title">Repair info</h1>
             <form action="/repair/search" method="get">
                 <input class="search_input" type="text" name="searchPhrase" placeholder="Search for Fault code / issue">
                 <button class="search_button" type="submit">Search</button>
             </form>
         </section>
         <nav>
-            <section >
-             <ul class=" menu">
-                <li>
-                    <a class=" clickable button--mobile  rounded" href="/">
-                        Search
-                     </a>
-                 </li>
-                 <li>
-                     <a class=" clickable button--mobile  rounded" href="/repairform">
-                        Submit Repair
-                      </a>
-                 </li>
-             </ul>
- 
-            </section>
-             <details class="menu--mobile  menu--mobile-title clickable">
-                 <summary> MENU</summary> 
-                 <section class="flex-row">
-                    <a class=" clickable button--mobile  rounded" href="/">
-                        Search
-                     </a>
-                     <a class=" clickable button--mobile  rounded" href="/repairform">
-                         Submit Repair
-                     </a>
-                      <!-- <a class=" clickable button--mobile  rounded" href="#">
-                        Repair
-                      </a> -->
-                 </section>
-             
-         </details>
+            <%- include("./partials/reg-menu"); -%>
+            <%- include("./partials/mobile-menu"); -%>
          
        
      </nav>
@@ -141,7 +107,7 @@
         <footer>			
 			
 		</footer>
-       
+        <%- include("./partials/scripts"); -%>
 </body>
 </html>
 

@@ -3,6 +3,7 @@ const express = require('express');
 require('dotenv').config(); // to use with enviroment variables initializes enviroment vars
 const cors = require('cors');
 const mongooseDb= require('./config/dbM')
+const logger = require('morgan')
 
 
 
@@ -26,7 +27,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true})); //get body data
 
-
+app.use(logger('dev'))
 
 app.use(express.static('public')) 
 
