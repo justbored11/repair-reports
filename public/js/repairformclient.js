@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     instructions.addEventListener('click',(event)=>{
    
         const action = event.target.dataset.action
-
+        console.log(`click event `, action)
         //parent of target
         const procedure = event.target.closest('.procedure')
 
