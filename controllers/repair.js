@@ -66,3 +66,20 @@ module.exports.getNewestRepairs = async (req, res)=>{
         res.status(500).json({message:'failed get repairs', "error":error.message})
     }
 }
+
+module.exports.getRepair = async (req, res)=>{
+  
+        try{
+            // get paremeter from url
+           const repairId = req.params.id
+           const repairObj = await dataBase.findRepair(repairId)
+    
+           console.log(`getting repair for render`,repairObj)
+           res.status(200).json(repairObj)
+        }
+        catch(err){
+           res.status(400).json({message:`ID: ${request.params.repairId}  NOT FOUND`, error:err})
+       }
+    
+    
+}

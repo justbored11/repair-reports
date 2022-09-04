@@ -14,55 +14,13 @@ const repairsController = require('../controllers/repair')
 
 
 
-//post repair to database
+// @ '/repair'
 
-router.post('/repair',repairsController.addRepair)
+router.post('/',repairsController.addRepair)
+router.get('/search',repairsController.searchRepairs)
+router.get('/latest/:num',repairsController.getNewestRepairs)
 
-
-//search for repairs containing terms
-router.get('/repair/search',repairsController.searchRepairs)
-
-router.get('/repair/latest/:num',repairsController.getNewestRepairs)
-
-// retrieve newest repairs with limit 
-// router.get('/repair/latest/:num',async (request,response)=>{
-
-//     const numRepairs =   request.params.num > 0 ? +request.params.num : 1;
-   
-  
-//     //retrieve latest repairs
-//     const results = await dataBase.latest(numRepairs);
-
-//     // console.log(results)
-//     response.status(200).json({repairs:results})
-
-// })
-
-
-//details of single repair by ID
-router.get('/repair/:id', async (request,response)=>{
-  
-    try{
-        // get paremeter from url
-       const repairId = request.params.id
-       const repairObj = await dataBase.findRepair(repairId)
-
-       console.log(`getting repair for render`,repairObj)
-       response.status(200).json(repairObj)
-    }
-    catch(err){
-       response.status(400).json({message:`ID: ${request.params.repairId}  NOT FOUND`, error:err})
-   }
-
-})
-
-
-
-
-
-
-
-
+router.get('/:id', repairsController.getRepair)
 
 module.exports = router;
 

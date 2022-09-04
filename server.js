@@ -43,28 +43,11 @@ const indexRoute = require('./routes/index')
 // ROUTES
 // todo change routes to app.use ('/repair',repairRoutes) format
 
-app.use(indexRoute)
-app.use(repairRoutes) // @/repair
+app.use('/',indexRoute)
+app.use('/repair', repairRoutes) // '/repair'
 app.use(repairInfoRoutes)
 app.use(repairFormRoutes)
 app.use(signformRoutes)
-
-
-//root route gets latest repairs
-app.get('/', async (request, response)=>{
-    const results  = await dataBase.latest()
-
-    // response.render('index.ejs',{repairs:results});
-    response.send('hello');
-
-})
-
-
-//ecm logs page
-// app.get('/ecm-logs', async (request, response)=>{
-
-//     response.render('ecm-logs.ejs');
-// })
 
 
 app.listen(process.env.PORT || PORT,()=>{
