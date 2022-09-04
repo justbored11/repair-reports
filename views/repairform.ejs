@@ -1,49 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repair Form</title>
-    <link rel="stylesheet" href="/stylesheets/normalize.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <%- include("./partials/head"); -%>
 
 </head>
-<body>
+<body class=" card blue-grey darken-4">
     <header>
         <h1 class="title">Repair Form</h1>
         <nav>
-            <section >
-             <ul class=" menu">
-                <li>
-                    <a class=" clickable button--mobile  rounded" href="/">
-                        Search
-                     </a>
-                 </li>
-                 <li>
-                     <a class=" clickable button--mobile  rounded" href="/repairform">
-                        Repair
-                      </a>
-                 </li>
-             </ul>
- 
-            </section>
-             <details class="menu--mobile  menu--mobile-title clickable">
-                 <summary> MENU</summary> 
-                 <section class="flex-row">
-                    <a class=" clickable button--mobile  rounded" href="/">
-                        Search
-                     </a>
-                     <a class=" clickable button--mobile  rounded" href="/repairform">
-                         Repair
-                     </a>
-                      <!-- <a class=" clickable button--mobile  rounded" href="#">
-                        Repair
-                      </a> -->
-                 </section>
-             
-         </details>
-         
+           
+            <%- include("./partials/reg-menu"); -%>
+            <%- include("./partials/mobile-menu"); -%>
        
      </nav>
     </header>
@@ -62,101 +30,122 @@
 
             <!-- on change of form state mostly from image upload preview the image -->
             <form class="repair-form" action="#" encType="multipart/form-data" >
-                <section class="center--column">
+                <section class=" card blue-grey darken-1 center--column">
                         <!-- title -->
-                    <label for="rep-title" class="form-input">
-                        <h2>Title</h2>
-                        <input id="rep-title" type="text" placeholder=" ex: no 100v"  value="" required> 
-                    </label>
-                    <label for="search-tags" class="form-input">
-                         <h2>Search Tags</h2>
-                        <input id="search-tags" type="text" name="searchtags"  placeholder="Search Tags" value="" required>
-                    </label>
-                    <label for="board-type" class="form-input">
-                        <h2>Board Type</h2>
-                        <input id="board-type" type="text" name="boardtype" placeholder="4473 KA ..." value="" required>
-                    </label>
+                    <div class="input-field">
+                        <label for="title">Tittle</label>
+                        <input type="text" id="title" name="title">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="search-tags" class="">Search Tags</label>
+                        <input id="search-tags" type="text" name="searchtags"   value="" required>
+
+                    </div>
+                    
+                    <div class="input-field">
+                        <label for="board-type" class="form-input">Board Type</label>
+                        <input id="board-type" type="text" name="boardtype"  value="" required>
+                    </div>
                 </section>
                
 
                 <!-- pick model of engine -->
-                    
-                    <fieldset class="engine-models">
-                        <legend>Choose Engine</legend>
+                    <section class="card blue-grey darken-1">
 
-                        <label class="clickable rounded caterpillar"  for="cat">Caterpillar
-                            <input  id="cat" name="model" value="cat" type="radio">
-                        </label>
-                   
-                        <label class="clickable model " for="detroit">Detroit
-                            <input id="detroit" name="model" value="detroit" type="radio">
-                        </label>
-                    
-                        <label class="clickable model" for="cummins">Cummins
-                            <input id="cummins" name="model" value="cummins"  type="radio">
-                        </label>
-
-                        <label class="clickable model" for="other">Other
-                            <input id="other" name="model"  value="other" checked type="radio">
-                        </label>
-                    </fieldset>
+                        <fieldset class="engine-models">
+                            <legend>Choose Engine</legend>
+                            
+                            <label class="clickable model rounded button button--mobile"  for="cat">Caterpillar
+                            </label>
+                                <input  id="cat" name="model" value="cat" type="radio">
+                       
+                            <label class="clickable model rounded button button--mobile " for="detroit">Detroit
+                            </label>
+                                <input id="detroit" name="model" value="detroit" type="radio">
+                        
+                            <label class="clickable model rounded button button--mobile" for="cummins">Cummins
+                            </label>
+                                <input id="cummins" name="model" value="cummins"  type="radio">
+    
+                            <label class="clickable model rounded button button--mobile" for="other">Other
+                            </label>
+                                <input id="other" name="model"  value="other" checked type="radio">
+                        </fieldset>
+                    </section>
                      
                     
-                   
-                <ol id="instructions" data-currentProcId="1">
-                 
-                    
-                    <!-- repair instructions -->
-                    <li class="procedure small-padding" data-procedureId="1">
-                       
-                            <section class="procedure--details small-padding">
-                                <h3>Repair Procedure</h3>
-                    
-                                
-                                <!-- images uploaded -->
-                                <fieldset class=" procedure--images-list ">
-                                    <legend>Images
-                                        <!-- add another image button -->
+                   <section class="card blue-grey darken-1" >
+
+                       <ol id="instructions" data-currentProcId="1">
+                        
+                           
+                           <!-- repair instructions -->
+                           <li class="procedure small-padding" data-procedureId="1">
+                              
+                                   <section class="procedure--details small-padding">
+                                       <h3>Repair Procedure</h3>
+                           
+                                       
+                                       <!-- images uploaded -->
+                                       <fieldset class=" procedure--images-list ">
+                                           <legend>Images
+                                               <!-- add another image button -->
+                                               
+                                           </legend>
+       
+                                            <ol class="uploads" data-totalfiles="0" data-uploadId="0">
+                                               <!-- <li class="imageuploaded small-padding ">
+                                                   <img src="" alt="repair image" class="img-mini">
+                                                   <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
+                                                   <span class="button--mobile rounded clickable">remove item</span>
+                                               </li> -->
+                                           
+                                            </ol>
+                                            <div class="btn blue" data-action="add-image">
+                                                add another image
+                                            </div>
+                                       
+                                       </fieldset>
+                                       
+                                       <textarea name="instructions1" id="instructions1" class="instructions" cols="5" rows="5" value="test dfafamongo"></textarea>
+                                       
+                                       
+                                       
                                         
-                                    </legend>
-
-                                    <ol class="uploads" data-totalfiles="0" data-uploadId="0">
-                                        <!-- <li class="imageuploaded small-padding ">
-                                            <img src="" alt="repair image" class="img-mini">
-                                            <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
-                                            <span class="button--mobile rounded clickable">remove item</span>
-                                        </li> -->
-                                    
-                                    </ol>
-                                    <div class="add-img button--mobile rounded center-self clickable " data-action="add-image">add another image</div>
-                                
-                                </fieldset>
-                                
-                                <textarea name="instructions1" id="instructions1" class="instructions" cols="5" rows="5" value="test dfafamongo"></textarea>
-                                
-                                
-                                
-                                 
-                                
-                            </section>
-                           <section>
-                                <div class="add-proc clickable button--mobile center-self  rounded" data-action="add-procedure">add another step after this one</div>
-                           </section> 
-                    </li>
-
-                    
-
-                </ol>
+                                       
+                                   </section>
+                                  <section>
+                                       <div class=" btn-large add-proc clickable button--mobile center-self  rounded" data-action="add-procedure">add another step after this one</div>
+                                  </section> 
+                           </li>
+       
+                           
+       
+                       </ol>
+                   </section>
                 
                 
                 <!-- submit the repair form to server -->
-                <button class="clickable button--medium rounded" type="submit">
-                   <!-- <a id="submit" href="#status">Submit Repair</a>  -->
+                <!-- <button class="clickable button--medium rounded" type="submit">
+                    submit    
+                </button> -->
+                <button id="submit" class="waves-effect waves-light btn-large" type="submit">
+
+                    <!-- <a id="submit" href="#status">Submit Repair</a>  -->
                    submit
                 </button>
 
             </form>
            
+
+           
+                    <div class="">
+                        <div class="input-field">
+                            <input type="text" id="title" name="title">
+                            <label for="title">Tittle</label>
+                        </div>
+                    </div>
         </main>
 
 
@@ -165,26 +154,10 @@
         </section>
 
         <footer>			
-			<!-- <nav>
-				<section class="hidden-menu menu">
-					<details >
-						<summary> MENU</summary> 
-					<a class="button clickable" href="/">
-						<span>Search</span>
-					</a>
-					<a class="button clickable" href="/ecm-logs">
-						<span> ECM LOG <br> +</span>
-					</a>
-					<a class="button clickable" href="#">
-						<span> Repair <br> Search</span>
-					</a>
-				</details>
-				
-				</section>
-			</nav> -->
+			
 		</footer>
-        <!-- <script type="text/javascript" src="./js/Procedure.js"></script> -->
         <script type="text/javascript" src="./js/repairformclient.js"></script>
-       
+        <%- include("./partials/scripts"); -%>
+        
 </body>
 </html>

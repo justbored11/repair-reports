@@ -1,0 +1,68 @@
+h2{
+    font-size: 2rem;
+}
+
+body *{
+    color: black;
+}
+.entry{
+  min-height: 300px;
+  overflow: hidden;
+  width: 80%;
+}
+
+.med-titlebox{
+    height: 10%;
+}
+
+.card{
+   height: 70%;
+}
+
+.entry_brief{
+    /* font-size: 2rem; */
+    /* overflow: hidden; */
+    height: 100%;
+}
+
+.card-stacked{
+    overflow: hidden;
+}
+
+/*=============================== 
+STYLES
+================================ */
+
+.entry-list{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+}
+
+.small-padding{
+    padding: 3%;
+}
+
+.card .card-content{
+    /* padding: 1%; */
+}
+/*===================================== 
+TYPOGRAPHY
+==================================== */
+
+.title{
+    font-size: 1.5rem;
+}
+
+.entry-brief{
+    font-size: 1.2rem;
+    overflow: hidden;
+    
+}
+.overflow{
+    white-space:no-wrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}

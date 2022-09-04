@@ -24,26 +24,6 @@ class DataBase {
 async search(term_='celect engine', limit=6, matchParams={}){
 
 
-// const searchTerm = '\"' + term + '\"'
-
-// console.log(searchTerm)
-// console.log(this.collection.indexes())
-
-    // const query2 = [
-    //     {
-    //       $search: {
-    //         index: 'repairs_search',
-    //         phrase: {
-    //           query: term,
-    //           path: {
-    //             'wildcard': '*'
-    //           },
-    //           slop:3,
-    //         }
-    //       }
-    //     }
-    //   ]
-
       const query3 = [
         { 
           $search: {

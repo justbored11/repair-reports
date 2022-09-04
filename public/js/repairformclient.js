@@ -79,8 +79,6 @@ class Procedure {
    return element;
     }
 
-    
-
 }
 
 
@@ -89,15 +87,6 @@ class Procedure {
 document.addEventListener('DOMContentLoaded', async () => {
     console.log(`doc loaded repair form`)
     
-    const signResponse = await fetch('/signform'); //fetch signature from server
-    const signData = await signResponse.json();
-
-
-
-    //upload url
-    const url = "https://api.cloudinary.com/v1_1/" + signData.cloudname + "/auto/upload";
-    
-    // const form = document.querySelector("form");
     const instructions =form.querySelector('#instructions')
 
 
@@ -106,11 +95,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // =========================================================
 
     instructions.addEventListener('click',(event)=>{
-        
-
-        
+   
         const action = event.target.dataset.action
-
+        console.log(`click event `, action)
         //parent of target
         const procedure = event.target.closest('.procedure')
 
@@ -147,12 +134,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     const signResponse = await fetch('/signform'); //fetch signature from server
     const signData = await signResponse.json();
     
+    //status message overlay
     const statusIcons = document.querySelector('.status-icons')
-        statusIcons.classList.toggle("hidden");
-    const statusMessage = document.querySelector('.loading-text')
+    statusIcons.classList.toggle("hidden");//show loading message
+
+    const form = document.querySelector('form');
+    form.classList.toggle("hidden");//hide form 
+
+    let procArr = [] //array with all the procedures for this repair
+    const repair = new Repair // actual object to submit to server
+
+    
 
 //build map of promises for uploading images
-    procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
+   const procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
 
         //upload images if any
         const images= await uploadImages(proc, signData)
@@ -166,13 +161,27 @@ document.addEventListener('DOMContentLoaded', async () => {
        
     })
 
+<<<<<<< HEAD
     //display status at this point
     statusMessage.innerHTML+="<br>Uploading images"
+=======
+    // todo add try blcok when submitting
+    try {
+      
+            statusMessage('<br>Uploading images...')
+        procArr = await Promise.all(procedurePromises) 
+            statusMessage('Done')
+>>>>>>> main
 
-    const procArr = await Promise.all(procedurePromises) 
+        repair.buildRepair(procArr) // build repair using procedure array 
+            statusMessage('<br>Saving Report...')
 
-    console.log(procArr)
+        const repairId = await postRepair(repair);
+            statusMessage('Done')
+        
+        location.assign(`/repairinfo/${repairId}`);
 
+<<<<<<< HEAD
         statusMessage.innerHTML+="<br>Uploading Done";
 //! problem starts here
     const repair = new Repair
@@ -187,6 +196,45 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     location.assign(`/repairinfo/${repairId}`);\
 
+=======
+    } catch (error) {
+        // todo if error do not refresh and show form again with message failed to submit
+        statusIcons.classList.toggle("hidden");//hide loading message
+        form.classList.toggle("hidden");//show form 
+        console.error(`Submit error`,error);
+        window.confirm('Submit error')
+    }
+    
+
+
+    async function postRepair(repairObj){
+
+        try{
+            // let repair = JSON.stringify({repairObj})
+    
+            const response = await fetch(`/repair`,{
+                 method: 'post',
+                 headers: {'Content-Type':'application/json'},
+                 body:JSON.stringify(repairObj)
+             }).then(data=>data.json())
+         
+         
+             
+             const repairId = await response._id
+             console.log(`post serv respons`,response)
+             console.log(`post serv repair ID`,repairId)
+         
+             
+             return repairId;
+           
+        }
+       
+        catch(error){
+            console.error(`post error`)
+        }
+        
+    }
+>>>>>>> main
 
 });
 
@@ -197,6 +245,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ==========================================================================
 // FUNCTIONS
 // ==========================================================================
+
+// display status message
+function statusMessage(text){
+    
+    
+    const statusMessage = document.querySelector('.loading-text')
+
+    statusMessage.innerHTML+=`${text}`
+
+}
+
+
 
 //add another procedure to instructions
 function addProcedureToInstructions(event){
@@ -222,32 +282,33 @@ function addProcedureToInstructions(event){
 
 
 
-async function postToServer(repairObj){
+// async function postRepair(repairObj){
 
-    try{
-        // let repair = JSON.stringify({repairObj})
+//     try{
+//         // let repair = JSON.stringify({repairObj})
 
-        const response = await fetch(`/repair`,{
-             method: 'post',
-             headers: {'Content-Type':'application/json'},
-             body:JSON.stringify(repairObj)
-         }).then(data=>data.json())
+//         const response = await fetch(`/repair`,{
+//              method: 'post',
+//              headers: {'Content-Type':'application/json'},
+//              body:JSON.stringify(repairObj)
+//          }).then(data=>data.json())
      
      
          
-         const repairId = await response.insertedId
-         console.log(`post serv respons`,response)
-         console.log(`post serv respons`,repairId)
+//          const repairId = await response._id
+//          console.log(`post serv respons`,response)
+//          console.log(`post serv repair ID`,repairId)
      
-         return repairId;
+         
+//          return repairId;
        
-    }
+//     }
    
-    catch(error){
-        console.error(`post error`)
-    }
+//     catch(error){
+//         console.error(`post error`)
+//     }
     
-}
+// }
 
 
 
@@ -350,7 +411,7 @@ function removeImage(event){
 
     const procedure = event.target.closest('.procedure');
 
-        const uploadList = procedure.querySelector('.uploads');
+    const uploadList = procedure.querySelector('.uploads');
         uploadList.dataset.totalfiles--;
 
     //li the image input is in
@@ -365,22 +426,18 @@ function removeImage(event){
 function previewImage(event){
 
     const uploadnum= event.target.closest('.uploads').dataset.totalfiles    
-
-
     const currentUpload = event.target.closest('.imageuploaded') 
         const image = currentUpload.querySelector('img');
             image.src = URL.createObjectURL(event.target.files[0]);
             image.alt='image preview';
             image.classList.add('img-mini');
-
-        
+   
 }
 
 
 
 
-// add extra image to repair procedure
-
+// add extra image input to DOM
 function addImageToProcedure(event){
     //parent line item
     const procedure = event.target.closest('.procedure')
