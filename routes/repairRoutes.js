@@ -11,14 +11,13 @@ const router = express.Router();
 //controllers
 const repairsController = require('../controllers/repair')
 
-
-
-
-// @ '/repair'
-
+// @route '/repair'
+router.get('/',repairsController.getNewestRepairs) //todo
 router.post('/',repairsController.addRepair)
+
 router.get('/search',repairsController.searchRepairs)
-router.get('/latest/:num',repairsController.getNewestRepairs)
+
+// router.get('/latest/:num',repairsController.getNewestRepairs)
 
 router.get('/:id', repairsController.getRepair)
 

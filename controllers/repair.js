@@ -54,13 +54,12 @@ module.exports.getNewestRepairs = async (req, res)=>{
     try {
         console.log(`controller repair.getNewestRepairs`)
         console.log( `number of repairs requested`,req.params.num)
-        const numRepairs =   req.params.num > 0 ? +req.params.num : 1;
+        const numRepairs = 6;
 
-        // const results = await dataBase.latest(numRepairs);
         const results = await Repair.find().sort({_id:-1}).limit(numRepairs);
         console.log( `number of repairs returned`,results.length)
-        // console.log(results)
-        res.status(200).json({repairs:results})
+        
+        res.render('latest.ejs',{repairs:results})
     
     } catch (error) {
         res.status(500).json({message:'failed get repairs', "error":error.message})

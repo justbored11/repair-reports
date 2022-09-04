@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
     email:{
         // unique:true,
         type:String,
-        default:'no_email',
+        default:'no_email@no_email.com',
         lowercase:true,
     }
     
