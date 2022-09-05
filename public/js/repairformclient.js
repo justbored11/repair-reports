@@ -161,12 +161,17 @@ document.addEventListener('DOMContentLoaded', async () => {
        
     })
 
+<<<<<<< HEAD
+    //display status at this point
+    statusMessage.innerHTML+="<br>Uploading images"
+=======
     // todo add try blcok when submitting
     try {
       
             statusMessage('<br>Uploading images...')
         procArr = await Promise.all(procedurePromises) 
             statusMessage('Done')
+>>>>>>> main
 
         repair.buildRepair(procArr) // build repair using procedure array 
             statusMessage('<br>Saving Report...')
@@ -176,6 +181,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         location.assign(`/repairinfo/${repairId}`);
 
+<<<<<<< HEAD
+        statusMessage.innerHTML+="<br>Uploading Done";
+//! problem starts here
+    const repair = new Repair
+        repair.buildRepair(procArr)
+
+
+    statusMessage.innerHTML+="<br>Saving Report";
+
+    const repairId = await postToServer(repair);
+
+    console.log(repairId)
+    
+    location.assign(`/repairinfo/${repairId}`);\
+
+=======
     } catch (error) {
         // todo if error do not refresh and show form again with message failed to submit
         statusIcons.classList.toggle("hidden");//hide loading message
@@ -213,6 +234,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         
     }
+>>>>>>> main
 
 });
 
