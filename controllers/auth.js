@@ -5,7 +5,7 @@ const User = require('../models/User') //new user gets put in user collection
 
  exports.getLogin = (req, res) => { // todo
     if (req.user) {
-      return res.redirect('/todos')
+      return res.redirect('/repair')
     }
     res.render('login', {
       title: 'Login'
