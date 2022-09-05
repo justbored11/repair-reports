@@ -13,3 +13,17 @@
     });
     
 </script>
+<script>
+        //sidenav
+
+    M.Sidenav.init(document.querySelector('.sidenav'))
+    M.FormSelect.init(document.querySelector('#status'))
+
+</script>
+
+<script>
+    //text box 
+    CKEDITOR.replace('body',{
+        plugins: 'wysiwygarea, toolbar, basicstyles, link'
+    })
+</script>
