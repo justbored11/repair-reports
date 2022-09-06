@@ -1,10 +1,6 @@
-// packages
 const express = require('express')
-
-//modules
 const dataBase = require('../modules/database.js'); //database interface
 
-// create router instance
 const router = express.Router();
 // test ID 62cdbb3b08a07c547dca5505
 
@@ -12,14 +8,10 @@ const router = express.Router();
 const repairsController = require('../controllers/repair')
 
 // @route '/repair'
-router.get('/',repairsController.getNewestRepairs) //todo
+router.get('/',repairsController.getNewestRepairs)
 router.post('/',repairsController.addRepair)
-
 router.get('/search',repairsController.searchRepairs)
-
-// router.get('/latest/:num',repairsController.getNewestRepairs)
-
-router.get('/:id', repairsController.getRepair)
+router.get('/:id', repairsController.getRepairPage)
 
 module.exports = router;
 

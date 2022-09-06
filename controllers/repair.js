@@ -42,7 +42,7 @@ module.exports.searchRepairs = async (req, res)=>{
 
 
 
-        res.render('search.ejs',{repairs:results});
+        res.render('search.ejs',{title:'Search Results',repairs:results});
 
     } catch (error) {
         res.status(400).json({message:'failed to get repairs', "error":error.message})
@@ -59,13 +59,15 @@ module.exports.getNewestRepairs = async (req, res)=>{
         const results = await Repair.find().sort({_id:-1}).limit(numRepairs);
         console.log( `number of repairs returned`,results.length)
         
-        res.render('latest.ejs',{repairs:results})
+        res.render('latest.ejs',{title:'Latest Repairs',repairs:results})
     
     } catch (error) {
         res.status(500).json({message:'failed get repairs', "error":error.message})
     }
 }
 
+
+/// api get repair JSON
 module.exports.getRepair = async (req, res)=>{
   
         try{
@@ -79,6 +81,25 @@ module.exports.getRepair = async (req, res)=>{
         catch(err){
            res.status(400).json({message:`ID: ${request.params.repairId}  NOT FOUND`, error:err})
        }
-    
-    
 }
+
+
+
+/// render single repair 
+module.exports.getRepairPage = async (req, res)=>{
+  
+    try{
+        // get paremeter from url
+       const repairId = req.params.id
+       const repairObj = await dataBase.findRepair(repairId)
+
+       res.render('repairinfo.ejs',{title:'Repair Information',repair:repairObj})
+    }
+    catch(err){
+       res.status(400).json({message:`ID: ${request.params.repairId}  NOT FOUND`, error:err.message})
+   }
+
+
+}
+
+
