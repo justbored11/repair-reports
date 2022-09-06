@@ -70,6 +70,7 @@ ul{
  }
 
 a{
+  border:3px green solid;
   text-decoration: none;
   color: inherit;
 

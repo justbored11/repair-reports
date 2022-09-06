@@ -12,7 +12,7 @@
 		<!-- search bar -->
 		<header>
 			<section class="card   blue lighten-3 rounded">
-				<h1 class="title">Latest Repairs</h1>
+				<!-- <h1 class="title">Latest Repairs</h1> -->
 				
 			</section>
 			<nav>
@@ -26,14 +26,14 @@
 			</form>
 		</header>
 		
-		<main>
+		<main class="">
 			<!-- results -->
 		<section class="results entry-list" >
 
 
             <% for(let i =0; i<repairs.length; i++){ %>
 <!-- large card -->
-				<a class="entry" href="/repairinfo/<%= repairs[i]._id%>">
+				<a class="entry" href="/repair/<%= repairs[i]._id%>">
 
 					<div class=" small-padding">
 						<div class="col s12 m7">
@@ -61,33 +61,6 @@
 						</div>
 					</div>
 				</a>
-				
-				
-
-				<!-- <a class="" href="/repairinfo/<%= repairs[i]._id%>"> -->
-					
-<!-- 
-					<%if (repairs[i].engineMake == "cummins"){%>
-						<section class="entry  small-padding clickable cummins-fix">
-					<%}%>
-					<% if (repairs[i].engineMake == "cat"){%>
-						<section class="entry  small-padding clickable cat-fix">
-					<%}%>
-					<% if (repairs[i].engineMake == "detroit"){%>
-						<section class="entry  small-padding clickable detroit-fix">
-					<%}%> -->
-					
-					
-					
-					
-
-						
-						
-					<!-- </section> -->
-				<!-- </a> -->
-                
-    
-
             <%}%>
 			
 			

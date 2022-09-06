@@ -16,7 +16,7 @@ const router = express.Router();
 // repair form page
 router.get('/repairform', async (request, response)=>{
 
-    response.render('repairform.ejs');
+    response.render('repairform.ejs',{title:"Repair Submission"});
 })
 
 

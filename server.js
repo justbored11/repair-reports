@@ -49,7 +49,7 @@ app.use(passport.session())
 
 
 // routes files
-const repairInfoRoutes = require('./routes/repairInfoRoutes')
+// const repairInfoRoutes = require('./routes/repairInfoRoutes')
 const signformRoutes = require('./routes/signformRoutes')
 const repairFormRoutes = require('./routes/repairformRoutes')
 const repairRoutes = require('./routes/repairRoutes')
@@ -61,7 +61,7 @@ const loginRoutes = require('./routes/login')
 app.use('/', loginRoutes) //todo login route
 
 app.use('/repair', repairRoutes) // '/repair'
-app.use(repairInfoRoutes)
+// app.use(repairInfoRoutes)
 app.use(repairFormRoutes)
 app.use(signformRoutes)
 
