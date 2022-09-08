@@ -9,9 +9,13 @@ module.exports.addRepair = async (req, res)=>{
             let entry = (req.body)
             console.log(`post at /repairform`,entry)
 
-            const result = await Repair.create(entry)
+            let result = await Repair.create(entry)
             console.log(`done uploading at server result`,result)
-            res.send(result)
+
+            const repLink= `/repair/${result._id}` //add link to repair
+
+            console.log(`server response to send`,result)
+            res.send({result:entry,link:repLink})
             
         } catch (error) {
             res.status(400).json({message:'failed to save repair', "error":error.message})
