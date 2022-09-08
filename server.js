@@ -21,7 +21,7 @@ const PORT = 8000;
 
 app.set('view engine', 'ejs'); 
 app.use(flash())
-app.use(require('./midware/httpsRedirect').httpsRedirect)
+app.use(require('./middleware/httpsRedirect').httpsRedirect)
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true})); //get body data

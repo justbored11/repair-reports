@@ -1,5 +1,6 @@
 const express = require('express')
 const dataBase = require('../modules/database.js'); //database interface
+const { ensureAuth } = require('../middleware/auth')
 
 const router = express.Router();
 // test ID 62cdbb3b08a07c547dca5505
@@ -8,11 +9,11 @@ const router = express.Router();
 const repairsController = require('../controllers/repair')
 
 // @route '/repair'
-router.get('/',repairsController.getNewestRepairs)
-router.post('/',repairsController.addRepair)
-router.get('/search',repairsController.searchRepairs)
+router.get('/',ensureAuth,repairsController.getNewestRepairs)
+router.post('/',ensureAuth,repairsController.addRepair)
+router.get('/search',ensureAuth,repairsController.searchRepairs)
 
-router.get('/:id', repairsController.getRepairPage)
+router.get('/:id',ensureAuth, repairsController.getRepairPage)
 
 module.exports = router;
 
