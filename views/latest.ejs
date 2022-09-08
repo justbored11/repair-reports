@@ -41,7 +41,7 @@
 							<div class="card-image">
 								
 								<%if (repairs[i].procedureArr[0].images[0]){%>
-									<img src="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>">
+									<img loading="lazy" src="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>">
 								   
 								<%}else{%>
 										

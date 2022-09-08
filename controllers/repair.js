@@ -21,7 +21,6 @@ module.exports.addRepair = async (req, res)=>{
 //retrieve repairs matching query
 module.exports.searchRepairs = async (req, res)=>{
     try {
-
         console.log(`repairsController.searchRepairs`,req.query)
         const searchStr = req.query.searchPhrase
         const results = 
@@ -39,11 +38,7 @@ module.exports.searchRepairs = async (req, res)=>{
                   }
                 }
               ]);
-
-
-
         res.render('search.ejs',{title:'Search Results',repairs:results});
-
     } catch (error) {
         res.status(400).json({message:'failed to get repairs', "error":error.message})
     }
