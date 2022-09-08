@@ -28,13 +28,13 @@
 
             <% for(let i =0; i<repairs.length; i++){ %>
 				<!-- large card -->
-				<a class="entry" href="/repairinfo/<%= repairs[i]._id%>">
+				<a class="entry" href="/repair/<%= repairs[i]._id%>">
 
 					<div class=" small-padding">
 						<div class="col s12 m7">
 						<div class="card large grey">
 							<div class="card-image">
-								<img src="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>">
+								<img loading="lazy" src="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>">
 								<span class=" card-title teal"><%= repairs[i].title %></span>
 							</div>
 							<div class="card-content ">
@@ -49,68 +49,10 @@
 						</div>
 					</div>
 				</a>
-				
-				<!-- <a class="" href="/repairinfo/<%= repairs[i]._id%>">
-					<div class="card teal lighten-4 small-padding rounded  ">
-						<div class=" entry">
-							<div class="med-titlebox">
-								<h2 class="title"><%= repairs[i].title %></h2>
-
-							</div>
-							<div class="card horizontal  grey">
-							  <div class="card-image">
-								<img src="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>">
-							  </div>
-							  <div class="card-stacked ">
-								<div class="card-content ">
-									
-								  <p class="entry_brief fill-vert text-overflow"><%= repairs[i].procedureArr[0].instructions %></p>
-								</div>
-								
-							  </div>
-							</div>
-						  </div>
-					</div>
-				</a> -->
-				
-
-				<!-- <a class="" href="/repairinfo/<%= repairs[i]._id%>"> -->
-					
-<!-- 
-					<%if (repairs[i].engineMake == "cummins"){%>
-						<section class="entry  small-padding clickable cummins-fix">
-					<%}%>
-					<% if (repairs[i].engineMake == "cat"){%>
-						<section class="entry  small-padding clickable cat-fix">
-					<%}%>
-					<% if (repairs[i].engineMake == "detroit"){%>
-						<section class="entry  small-padding clickable detroit-fix">
-					<%}%> -->
-					
-					
-					
-					
-
-						
-						
-					<!-- </section> -->
-				<!-- </a> -->
-                
-    
-
             <%}%>
-			
-			
-
-
-
 		</section>
 
 		</main>
-		
-				
-			
-
 		<footer>
 			<!--menu button  -->
 		</footer>

@@ -11,6 +11,7 @@ const repairsController = require('../controllers/repair')
 router.get('/',repairsController.getNewestRepairs)
 router.post('/',repairsController.addRepair)
 router.get('/search',repairsController.searchRepairs)
+
 router.get('/:id', repairsController.getRepairPage)
 
 module.exports = router;
