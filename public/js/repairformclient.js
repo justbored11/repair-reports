@@ -174,6 +174,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // const repairId = await postRepair(repair);
         const serverResponse = await postRepair(repair);
         console.log(`server response`,serverResponse)
+        statusMessage('Done')
         
         //we take link server provides
         location.assign(serverResponse.link);
