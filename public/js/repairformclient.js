@@ -26,8 +26,8 @@ class Repair{
             this.procedureArr = procArr;
             this.boardType=document.querySelector('#board-type').value;
             this.searchtags= document.querySelector('#search-tags').value;
-            this.title =  document.querySelector('#rep-title').value;
-            this.engineMake = document.querySelector('.model input:checked').value;
+            this.title =  document.querySelector('#title').value;
+            this.engineMake = document.querySelector('input:checked.model').value;
         
         return this
     }
@@ -46,7 +46,7 @@ class Procedure {
     }
     procedureHtml(){
         const element = ` 
-        <section class="procedure--details small-padding">
+        <section class=" card grey procedure--details small-padding">
         <h3>Repair Procedure</h3>
 
         
@@ -58,22 +58,22 @@ class Procedure {
             </legend>
 
             <ol class="uploads" data-totalfiles="0" data-uploadId="0">
-                <li class="imageuploaded small-padding ">
-                    <img src="" alt="repair image" class="img-mini">
-                    <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
-                    <span class="button--mobile rounded clickable">remove item</span>
-                </li>
+                
             
             </ol>
-            <div class="add-img button--mobile rounded center-self clickable " data-action="add-image">add another image</div>
+            <div class="btn blue " data-action="add-image">
+            add another image
+            </div>
         
         </fieldset>
+        <h6>Instructions</h6>
+        <textarea placeholder="instructions or description here" name="instructions1" id="instructions1" class="instructions white" cols="5" rows="5" value="test dfafamongo"></textarea>
         
-        <textarea name="instructions1" id="instructions1" class="instructions" cols="5" rows="5" value="test dfafamongo"></textarea>
-  
     </section>
    <section>
-        <div class="add-proc clickable button--mobile center-self  rounded" data-action="add-procedure">add another step after this one</div>
+        <div class="btn-large add-proc" data-action="add-procedure">
+            add another step
+        </div>
    </section>  `;
 
    return element;
@@ -438,13 +438,13 @@ function addImageToProcedure(event){
         input.onchange=(event)=>{previewImage(event)}
 
     const removeButton = document.createElement('span');
-        removeButton.classList.add('button--mobile', 'clickable','rounded');
+        removeButton.classList.add('button--mobile', 'clickable','rounded','btn');
         removeButton.innerText='remove item';
         removeButton.dataset.action='remove-image';
         removeButton.dataset.uploadId = uploadId;
         
     const li = document.createElement('li');
-        li.classList.add('imageuploaded','small-padding');
+        li.classList.add('card','blue','imageuploaded','small-padding');
         li.appendChild(image)
         li.appendChild(input);
         li.appendChild(removeButton);

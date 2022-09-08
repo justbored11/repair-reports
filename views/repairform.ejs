@@ -18,12 +18,12 @@
     
 	
     
-		<main>
+		<section>
            
             <!-- loading screen -->
-            <section class="status-icons hidden  ">
-                <div class="loading"></div>
-                <div id="status" class="loading-text">Loading</div>
+            <section class="status-icons">
+                <!-- <div class="loading"></div> -->
+                <div id="" class="loading-text">Loading</div>
             </section>
        
 
@@ -38,7 +38,7 @@
 
                     <div class="input-field">
                         <label for="search-tags" class="">Search Tags</label>
-                        <input id="search-tags" type="text" name="searchtags"   value="" required>
+                        <input id="search-tags" type="text" name="search-tags"   value="" required>
 
                     </div>
                     
@@ -54,10 +54,38 @@
 
                         <fieldset class="engine-models">
                             <legend>Choose Engine</legend>
+                            <span>
+                                <label for="cat">
+                                  <!-- <input type="checkbox" /> -->
+                                  <input class="model" id="cat" name="model" value="cat" type="radio">
+                                  <span>Caterpillar</span>
+                                </label>
+                            </span>
+                            <span>
+                                <label for="detroit">
+                                    <input class="model" id="detroit" name="model" value="detroit" type="radio">
+                                    <span>Detroit</span>
+                                </label>
+                              </span>
+
+                              <span>
+                                <label for="cummins">
+                                    <input class="model" id="cummins" name="model" value="cummins"  type="radio">
+                                    <span>Cummins</span>
+                                </label>
+                              </span>
+
+                              <span>
+                                <label for="other">
+                                    <input class="model" id="other" checked name="model" value="other" type="radio">
+                                    <span>Other</span>
+                                </label>
+                              </span>
                             
-                            <label class="clickable model rounded button button--mobile"  for="cat">Caterpillar
+                            
+                            <!-- <label class="clickable model rounded button button--mobile"  for="cat">Caterpillar
                             </label>
-                                <input  id="cat" name="model" value="cat" type="radio">
+                                <input  id="cat" name="model" value="cat" type="checkbox">
                        
                             <label class="clickable model rounded button button--mobile " for="detroit">Detroit
                             </label>
@@ -69,7 +97,7 @@
     
                             <label class="clickable model rounded button button--mobile" for="other">Other
                             </label>
-                                <input id="other" name="model"  value="other" checked type="radio">
+                                <input id="other" name="model"  value="other" checked type="radio"> -->
                         </fieldset>
                     </section>
                      
@@ -80,9 +108,9 @@
                         
                            
                            <!-- repair instructions -->
-                           <li class="procedure small-padding" data-procedureId="1">
+                           <li class=" procedure small-padding" data-procedureId="1">
                               
-                                   <section class="procedure--details small-padding">
+                                   <section class=" card grey procedure--details small-padding">
                                        <h3>Repair Procedure</h3>
                            
                                        
@@ -107,7 +135,8 @@
                                        
                                        </fieldset>
                                        
-                                       <textarea name="instructions1" id="instructions1" class="instructions" cols="5" rows="5" value="test dfafamongo"></textarea>
+                                       <h6>Instructions</h6>
+                                       <textarea placeholder="instructions or description here" name="instructions1" id="instructions1" class="instructions white" cols="5" rows="5" value="test dfafamongo"></textarea>
                                        
                                        
                                        
@@ -115,7 +144,9 @@
                                        
                                    </section>
                                   <section>
-                                       <div class=" btn-large add-proc clickable button--mobile center-self  rounded" data-action="add-procedure">add another step after this one</div>
+                                    <div class="btn-large add-proc" data-action="add-procedure">
+                                        add another step
+                                    </div>
                                   </section> 
                            </li>
        
@@ -139,17 +170,6 @@
            
 
            
-                    <div class="">
-                        <div class="input-field">
-                            <input type="text" id="title" name="title">
-                            <label for="title">Tittle</label>
-                        </div>
-                    </div>
-        </main>
-
-
-        <section id="formdata">
-
         </section>
 
         <footer>			
