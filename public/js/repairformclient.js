@@ -171,10 +171,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         repair.buildRepair(procArr) // build repair using procedure array 
             statusMessage('<br>Saving Report...')
 
-        const repairId = await postRepair(repair);
-            statusMessage('Done')
+        // const repairId = await postRepair(repair);
+        const serverResponse = await postRepair(repair);
+        console.log(`server response`,serverResponse)
         
-        location.assign(`/repairinfo/${repairId}`);
+        //we take link server provides
+        location.assign(serverResponse.link);
 
     } catch (error) {
         // todo if error do not refresh and show form again with message failed to submit
@@ -199,12 +201,12 @@ document.addEventListener('DOMContentLoaded', async () => {
          
          
              
-             const repairId = await response._id
-             console.log(`post serv respons`,response)
-             console.log(`post serv repair ID`,repairId)
+            //  const repairId = await response._id
+            //  console.log(`post serv respons`,response)
+            //  console.log(`post serv repair ID`,repairId)
          
              
-             return repairId;
+             return response;
            
         }
        
