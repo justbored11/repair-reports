@@ -20,10 +20,11 @@
 				<%- include("./partials/mobile-menu"); -%>
 
 			</nav>
-			<form action="/repair/search" method="get">
+			<%- include("./partials/search-bar"); -%>
+			<!-- <form action="/repair/search" method="get">
 				<input class="search_input" type="text" name="searchPhrase" placeholder="Search for Fault code / issue">
 				<button class="search_button" type="submit">Search</button>
-			</form>
+			</form> -->
 		</header>
 		
 		<main class="">
@@ -50,7 +51,7 @@
 								<span class=" card-title teal"><%= repairs[i].title %></span>
 							</div>
 							<div class="card-content ">
-								<p class=" ">
+								<p class="instructions ">
 									<%= repairs[i].procedureArr[0].instructions %>
 								</p>
 							</div>

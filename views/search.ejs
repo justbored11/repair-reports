@@ -10,20 +10,21 @@
 	<body class="search-page  blue-grey darken-4">
 		<!-- search bar -->
 		<header>
-			<h1>Search Results</h1>
+			
 			<nav>
 				<%- include("./partials/reg-menu"); -%>
 				<%- include("./partials/mobile-menu"); -%>
 			</nav>
-			<form action="/repair/search" method="get">
+			<%- include("./partials/search-bar"); -%>
+			<!-- <form action="/repair/search" method="get">
 				<input class="search_input" type="text" name="searchPhrase" placeholder="Search for Fault code / issue">
 				<button class="search_button" type="submit">Search</button>
-			</form>
+			</form> -->
 		</header>
 		
-		<main>
+		<main class="">
 			<!-- results -->
-		<section class="results entry-list" >
+		<section class=" results small-padding entry-list" >
 
 
             <% for(let i =0; i<repairs.length; i++){ %>
@@ -38,7 +39,7 @@
 								<span class=" card-title teal"><%= repairs[i].title %></span>
 							</div>
 							<div class="card-content ">
-								<p class=" ">
+								<p class="instructions ">
 									<%= repairs[i].procedureArr[0].instructions %>
 								</p>
 							</div>
