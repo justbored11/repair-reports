@@ -40,6 +40,22 @@ body *{
 STYLES
 ================================ */
 
+.ellipsis{
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    
+}
+.border{
+    border: 3px green solid;
+}
+.small-padding{
+    padding: 3%;
+}
+
+.rounded{
+    border-radius: 50px;
+}
+
 .center-text{
     text-align: center;
 }
@@ -52,7 +68,7 @@ STYLES
 }
 
 .image-item{
-    width: 30%;
+    min-width: 30%;
     /* border: rgb(128, 0, 0) 9px solid; */
     
 }
@@ -77,6 +93,10 @@ STYLES
 TYPOGRAPHY
 ==================================== */
 
+.instructions{
+    white-space: pre-line;
+    text-align: left;
+}
 .title{
     font-size: 1.5rem;
 }
