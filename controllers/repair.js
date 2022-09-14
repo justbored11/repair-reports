@@ -6,15 +6,25 @@ const Repair = require('../models/Repair')
 //add repair to database
 module.exports.addRepair = async (req, res)=>{
         try {
-            let entry = (req.body)
-            console.log(`post at /repairform`,entry)
+            //todo destructure req.body to be more visible to what is happening
+            // let entry = (req.body)
+
+            let entry = {
+                procedureArr: req.body.procedureArr,
+                searchtags: req.body.searchtags,
+                title: req.body.title,
+                boardType: req.body.boardType,
+                engineMake: req.body.engineMake
+            }
+            // console.log(req.user)
+            // console.log(`post at /repairform`,entry)
 
             let result = await Repair.create(entry)
             console.log(`done uploading at server result`,result)
 
             const repLink= `/repair/${result._id}` //add link to repair
 
-            console.log(`server response to send`,result)
+            // console.log(`server response to send`,result)
             res.send({result:entry,link:repLink})
             
         } catch (error) {
@@ -99,6 +109,23 @@ module.exports.getRepairPage = async (req, res)=>{
     catch(err){
        res.status(400).json({message:`ID: ${request.params.repairId}  NOT FOUND`, error:err.message})
    }
+
+
+}
+
+
+
+module.exports.getSearchPage = async (req, res)=>{
+  
+    try{
+        // get paremeter from ur
+
+       res.render('search-page.ejs',{title:'Search Records'})
+    }
+    catch(err){
+       res.status(400).json({message:`ID: ${request.params.repairId}  NOT FOUND`, error:err.message})
+   }
+
 
 
 }

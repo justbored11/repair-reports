@@ -31,6 +31,12 @@ const UserSchema = new mongoose.Schema({
         type:String,
         default:'no_email@no_email.com',
         lowercase:true,
+    },
+    groups:{
+      type:[String],
+      default: function(){
+        return this.username
+      }
     }
     
 },
