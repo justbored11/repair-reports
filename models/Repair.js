@@ -28,7 +28,15 @@ const RepairSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    procedureArr:[ProcedureSchema]
+    procedureArr:{
+        type:[ProcedureSchema]
+    },
+    group:{
+        type:String,
+    },
+    createdBy:{
+        type:String,
+    }
 
     
 },
