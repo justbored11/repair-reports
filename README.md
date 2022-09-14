@@ -20,3 +20,19 @@ in progress hosted on heroku https://repair-reports.herokuapp.com/
 
 ## Lessons Learned:
 uploading can be delegated to client side with only having signature from server
+
+
+## Things needed to run
+- cloudinary account
+- mongodb account
+
+## /config/.env  file
+#### cloudinary settings
+- cloud_name = 
+- cloud_key = 
+- cloud_secret =
+#### mongoDb connection string
+- connect_string = 
+#### port to use locally
+- PORT = 
+#### 
