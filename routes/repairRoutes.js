@@ -11,7 +11,8 @@ const repairsController = require('../controllers/repair')
 // @route '/repair'
 router.get('/',ensureAuth,repairsController.getNewestRepairs)
 router.post('/',ensureAuth,repairsController.addRepair)
-router.get('/search',ensureAuth,repairsController.searchRepairs)
+router.get('/search',ensureAuth,repairsController.searchRepairs)////
+router.get('/searchpage',ensureAuth,repairsController.getSearchPage)
 
 router.get('/:id',ensureAuth, repairsController.getRepairPage)
 

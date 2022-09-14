@@ -114,3 +114,20 @@ module.exports.getRepairPage = async (req, res)=>{
 }
 
 
+
+module.exports.getSearchPage = async (req, res)=>{
+  
+    try{
+        // get paremeter from ur
+
+       res.render('search-page.ejs',{title:'Search Records'})
+    }
+    catch(err){
+       res.status(400).json({message:`ID: ${request.params.repairId}  NOT FOUND`, error:err.message})
+   }
+
+
+
+}
+
+
