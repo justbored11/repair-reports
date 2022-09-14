@@ -16,16 +16,16 @@ module.exports.addRepair = async (req, res)=>{
                 boardType: req.body.boardType,
                 engineMake: req.body.engineMake
             }
-            console.log(req.user)
-            console.log(`post at /repairform`,entry)
+            // console.log(req.user)
+            // console.log(`post at /repairform`,entry)
 
-            // let result = await Repair.create(entry)
-            // console.log(`done uploading at server result`,result)
+            let result = await Repair.create(entry)
+            console.log(`done uploading at server result`,result)
 
-            // const repLink= `/repair/${result._id}` //add link to repair
+            const repLink= `/repair/${result._id}` //add link to repair
 
             // console.log(`server response to send`,result)
-            // res.send({result:entry,link:repLink})
+            res.send({result:entry,link:repLink})
             
         } catch (error) {
             res.status(400).json({message:'failed to save repair', "error":error.message})
