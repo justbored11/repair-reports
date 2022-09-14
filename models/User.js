@@ -33,7 +33,10 @@ const UserSchema = new mongoose.Schema({
         lowercase:true,
     },
     groups:{
-      type:[String]
+      type:[String],
+      default: function(){
+        return this.username
+      }
     }
     
 },

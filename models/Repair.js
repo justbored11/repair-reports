@@ -33,10 +33,13 @@ const RepairSchema = new mongoose.Schema({
     },
     group:{
         type:String,
+        default:'public'
     },
     createdBy:{
         type:String,
-    }
+        default:'public'
+    },
+
 
     
 },
