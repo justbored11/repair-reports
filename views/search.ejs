@@ -26,8 +26,8 @@
 			<!-- results -->
 		<section class=" results small-padding entry-list" >
 
-
-            <% for(let i =0; i<repairs.length; i++){ %>
+			<%- include("./partials/repairs-list"); -%>
+            <!-- <% for(let i =0; i<repairs.length; i++){ %>
 				<!-- large card -->
 				<a class="entry" href="/repair/<%= repairs[i]._id%>">
 
@@ -50,7 +50,7 @@
 						</div>
 					</div>
 				</a>
-            <%}%>
+            <%}%> -->
 		</section>
 
 		</main>

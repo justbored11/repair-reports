@@ -65,7 +65,7 @@ module.exports.getNewestRepairs = async (req, res)=>{
     try {
         console.log(`controller repair.getNewestRepairs`)
         console.log( `number of repairs requested`,req.params.num)
-        const numRepairs = 6;
+        const numRepairs = 8;
 
         const results = await Repair.find().sort({_id:-1}).limit(numRepairs);
         console.log( `number of repairs returned`,results.length)
