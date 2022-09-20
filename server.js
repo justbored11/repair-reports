@@ -14,7 +14,7 @@ require('dotenv').config({path:"./config/.env"}); // to use with enviroment vari
 require('./config/passport')(passport)
 
 //database collection connection
-// ! const dataBase = require('./modules/database.js');
+// const dataBase = require('./modules/database.js').connect();
 mongooseDb()
 const app = express();
 const PORT = 8000;
@@ -51,7 +51,7 @@ app.use(passport.session())
 // routes files
 // const repairInfoRoutes = require('./routes/repairInfoRoutes')
 const signformRoutes = require('./routes/signformRoutes')
-const repairFormRoutes = require('./routes/repairformRoutes')
+const formRoutes = require('./routes/form')
 const repairRoutes = require('./routes/repairRoutes')
 const loginRoutes = require('./routes/login')
 
@@ -62,7 +62,7 @@ app.use('/', loginRoutes) //todo login route
 
 app.use('/repair', repairRoutes) // '/repair'
 // app.use(repairInfoRoutes)
-app.use(repairFormRoutes)
+app.use(formRoutes)
 app.use(signformRoutes)
 
 

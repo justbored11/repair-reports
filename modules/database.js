@@ -137,18 +137,9 @@ async findRepair(repairId){
 
 
 //instance of database
-const dataBase = new DataBase(process.env.connectStr_,'Cata','repair-reports' )
+const dataBase = new DataBase(process.env.connect_string,'Cata','repair-reports' )
 // dataBase.connect() //moved to constructor
 
 module.exports=dataBase
 
 
-//testing
-// d()
-
-// async function d(){
-//     await dataBase.connect()
-    
-//     console.log(await dataBase.search('cummins'))
-//     // console.log(dataBase)
-// }

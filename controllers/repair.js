@@ -1,5 +1,5 @@
-const dataBase = require('../modules/database.js'); //database interface
-const mongoose = require('mongoose');
+// const dataBase = require('../modules/database.js'); //database interface
+// const mongoose = require('mongoose');
 const Repair = require('../models/Repair')
 
 
@@ -84,9 +84,10 @@ module.exports.getRepair = async (req, res)=>{
         try{
             // get paremeter from url
            const repairId = req.params.id
-           const repairObj = await dataBase.findRepair(repairId)
+        //    const repairObj = await dataBase.findRepair(repairId)//! use model
+           const repairObj = await Repair.findOne({_id:repairId}).lean() /// swap to mongoose
     
-           console.log(`getting repair for render`,repairObj)
+           console.log(`getting repair JSON`,repairObj)
            res.status(200).json(repairObj)
         }
         catch(err){
@@ -102,7 +103,8 @@ module.exports.getRepairPage = async (req, res)=>{
     try{
         // get paremeter from url
        const repairId = req.params.id
-       const repairObj = await dataBase.findRepair(repairId)
+    //    const repairObj = await dataBase.findRepair(repairId)//! use model
+       const repairObj = await Repair.findOne({_id:repairId}).lean() /// swap to mongoose
 
        res.render('repairinfo.ejs',{title:'Repair Information',repair:repairObj})
     }
