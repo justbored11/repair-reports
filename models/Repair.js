@@ -14,6 +14,17 @@ const ProcedureSchema = new mongoose.Schema({
 
 })
 
+// const memberSchema = new mongoose.Schema({
+//    user:{
+//     type:String,
+//    },
+//    role:{
+//     type:String,
+//     default:'1'
+//    }
+  
+//   })
+
 //parent schema
 const RepairSchema = new mongoose.Schema({
    title:{
@@ -39,6 +50,13 @@ const RepairSchema = new mongoose.Schema({
         type:String,
         default:'public'
     },
+    removed:{
+        type:Boolean,
+        default:false,
+    },
+    // members:{
+    //     type:[memberSchema]
+    // }
 
 
     
