@@ -10,6 +10,7 @@ class Repair{
         this.title=title;
         this.boardType=board;
         this.engineMake=engine;
+        this.removed=false;
     }
 
     addProcedure(proc) {
@@ -28,7 +29,7 @@ class Repair{
             this.searchtags= document.querySelector('#search-tags').value;
             this.title =  document.querySelector('#title').value;
             this.engineMake = document.querySelector('input:checked.model').value;
-        
+            
         return this
     }
     

@@ -13,17 +13,12 @@
             <%- include("./partials/mobile-menu"); -%>
         </nav>
         <%- include("./partials/search-bar"); -%>
-        <!-- <section class="">
-            <form action="/repair/search" method="get">
-                <input class="search_input" type="text" name="searchPhrase" placeholder="Search for Fault code / issue">
-                <button class=" btn search_button" type="submit">Search</button>
-            </form>
-        </section> -->
     </header>
 	
 		<section class=" row small-padding  grey">  
-
+           
             <span>
+                Repair group:<%= repair.group %>
                 <!-- Repair ID:<%= repair._id %> -->
             </span> 
             <section class="grey"> 
@@ -31,7 +26,8 @@
                     <!-- title -->
                     <span>Title:</span>
                     <h1 class="chip"><%= repair.title %></h1> 
-                    <h3 class="chip ">Repair ID:<%= repair._id %></h3>     
+                    <h3 class="chip ">Repair ID:<%= repair._id %></h3>  
+                    <h3 class="chip ">Repair Documented by: <%= repair.createdBy %></h3>  
                 </section>
                 
                 <!-- <section class="">
@@ -105,7 +101,18 @@
 
 
        
-        <footer>			
+        <footer>	
+            <div>
+                <!-- if username === createdby || user.role === admin -->
+                <form action="">
+                    <details>
+                        <summary class="btn"> Delete Report</summary>
+                        <button class="btn red">confirm delete</button>
+                        
+                    </details>
+                   
+                   </form>
+            </div>		
 			
 		</footer>
         <%- include("./partials/scripts"); -%>

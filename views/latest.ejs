@@ -32,48 +32,6 @@
 		<section class="results " >
 
 			<%- include("./partials/repairs-list"); -%>
-			<!-- <ul class="entry-list">
-
-				<% for(let i =0; i<repairs.length; i++){ %>
-
-					<li class="entry small-padding">
-	
-						<a class="" href="/repair/<%= repairs[i]._id%>">
-		
-							<div class=" small-padding">
-								<div class="col s12 m7">
-								<div class="card large grey">
-									<div class="card-image">
-										
-										<%if (repairs[i].procedureArr[0].images[0]){%>
-											<img loading="lazy" src="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>">
-										   
-										<%}else{%>
-												
-											
-										<%}%>
-										<span class=" card-title teal"><%= repairs[i].title %></span>
-									</div>
-									<div class="card-content ">
-										<p class="instructions ">
-											<%= repairs[i].procedureArr[0].instructions %>
-										</p>
-									</div>
-									<div class="card-action">
-									</div>
-								</div>
-								</div>
-							</div>
-						</a>
-					</li>
-				<%}%>
-			</ul> -->
-
-			
-			
-
-
-
 		</section>
 
 		</main>

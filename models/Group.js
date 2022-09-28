@@ -7,7 +7,7 @@ const MemberSchema = new mongoose.Schema({
     },
     username:{
     type:String,
-    required:true,
+    required:true, 
    },
    role:{
     type:String,

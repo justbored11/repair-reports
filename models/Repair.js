@@ -2,15 +2,15 @@ const mongoose = require('mongoose')
 
 //subdocument of RepairSchema
 const ProcedureSchema = new mongoose.Schema({
-  images:[String],
-  procedureNum:{
-      type:Number,
-      default:0
-  },
-  instructions:{
-      type:String,
-  },
-  thumbs:[String],
+    images:[String],
+    procedureNum:{
+            type:Number,
+            default:0
+    },
+    instructions:{
+        type:String,
+    },
+    thumbs:[String],
 
 })
 
@@ -42,11 +42,11 @@ const RepairSchema = new mongoose.Schema({
     procedureArr:{
         type:[ProcedureSchema]
     },
-    group:{
+    group:{//asigned server side
         type:String,
         default:'public'
     },
-    createdBy:{
+    createdBy:{//asigned serverside
         type:String,
         default:'public'
     },
@@ -54,19 +54,10 @@ const RepairSchema = new mongoose.Schema({
         type:Boolean,
         default:false,
     },
-    // members:{
-    //     type:[memberSchema]
-    // }
-
-
-    
 },
 {
     collection:"repair-reports"
 }
 )
-
-
-
 
 module.exports  = mongoose.model('Repair', RepairSchema)

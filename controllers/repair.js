@@ -3,6 +3,11 @@
 const Repair = require('../models/Repair')
 
 
+
+module.exports.testPost = async (req, res)=>{
+    res.send(req.user)
+}
+
 //add repair to database
 module.exports.addRepair = async (req, res)=>{
         try {
@@ -14,7 +19,9 @@ module.exports.addRepair = async (req, res)=>{
                 searchtags: req.body.searchtags,
                 title: req.body.title,
                 boardType: req.body.boardType,
-                engineMake: req.body.engineMake
+                engineMake: req.body.engineMake,
+                createdBy:req.user.username,
+                removed:false,
             }
             // console.log(req.user)
             // console.log(`post at /repairform`,entry)
