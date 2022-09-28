@@ -5,9 +5,9 @@ will primarily be used on mobile to take advantage of on board camera to upload 
 
 Logic overview ![DrawIO](https://github.com/jesusdoza/diagrams/blob/main/repair-reports/Untitled%20Diagram.drawio.svg)
 
-in progress hosted on heroku https://repair-reports.herokuapp.com/
+in progress hosted on [cyclic](https://app.cyclic.sh/#/) https://repair-reports.cyclic.app/
 
-changing over to [cyclic](https://app.cyclic.sh/#/) https://shy-rose-bull-suit.cyclic.app 
+
 
 
 
