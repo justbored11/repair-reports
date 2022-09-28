@@ -37,4 +37,5 @@ uploading can be delegated to client side with only having signature from server
 - connect_string = 
 #### port to use locally
 - PORT = 
-#### 
+#### node enviroment for local run
+- NODE_ENV = development
