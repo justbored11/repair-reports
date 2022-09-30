@@ -1,5 +1,5 @@
 const express = require('express')
-const dataBase = require('../modules/database.js'); //database interface
+// const dataBase = require('../modules/database.js'); //database interface
 const { ensureAuth } = require('../middleware/auth')
 
 const router = express.Router();
