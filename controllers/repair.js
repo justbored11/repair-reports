@@ -1,11 +1,36 @@
 // const dataBase = require('../modules/database.js'); //database interface
 // const mongoose = require('mongoose');
 const Repair = require('../models/Repair')
-
+const User = require('../models/User')
 
 
 module.exports.testPost = async (req, res)=>{
-    res.send(req.user)
+    try {
+        const user = User.findOne({username:req.user.username})
+    
+        res.send(req.user)
+        
+    } catch (error) {
+        
+    }
+}
+
+module.exports.deletePost = async (req, res)=>{
+    try {
+        const user = await User.findOne({username:req.user.username})
+        const report = await Repair.findById({_id:req.params.id})
+    
+        if(user.role === 'admin' || report.createdBy === user.username ){
+            report.removed = true;
+            await report.save()
+            // res.send({message:'user is admin or creator',rep:report})
+            res.redirect('/repair/')
+        }   
+        // res.send({user,report})
+    } catch (error) {
+        
+        res.send({err:'delete error implemented ID: '+ req.params.id, message: error.message})
+    }
 }
 
 //add repair to database
