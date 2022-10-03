@@ -5,21 +5,15 @@
     <%- include("./partials/head"); -%>
 
 </head>
-<body class=" card blue-grey darken-4">
+<body class=" ">
     <header>
         <nav>
            
-            <%- include("./partials/reg-menu"); -%>
             <%- include("./partials/mobile-menu"); -%>
        
-     </nav>
+        </nav>
     </header>
-  
-    
-	
-    
 		<section>
-           
             <!-- loading screen -->
             <section class="status-icons">
                 <!-- <div class="loading"></div> -->
@@ -28,64 +22,83 @@
        
 
             <!-- on change of form state mostly from image upload preview the image -->
-            <form class="repair-form" action="#" encType="multipart/form-data" >
-                <section class=" card blue-grey darken-1 center--column">
-                        <!-- title -->
-                    <div class="input-field">
-                        <label for="title">Tittle</label>
-                        <input type="text" id="title" name="title">
-                    </div>
+            <form id="repair-form" class=" repair-form" action="#" encType="multipart/form-data" >
+                <section class="">
 
-                    <div class="input-field">
-                        <label for="search-tags" class="">Search Tags</label>
-                        <input id="search-tags" type="text" name="search-tags"   value="" required>
-
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                          <span class="label-text">Title: </span>
+                        </label>
+                        <input id="title" name="title" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" required />
+                        <label class="label">
+                        </label>
                     </div>
-                    
-                    <div class="input-field">
-                        <label for="board-type" class="form-input">Board Type</label>
-                        <input id="board-type" type="text" name="boardtype"  value="" required>
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                          <span class="label-text">Search Tags: </span>
+                        </label>
+                        <input id="search-tags" name="search-tags" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+                        <label class="label">
+                        </label>
+                    </div>
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                          <span class="label-text">Search Tags: </span>
+                        </label>
+                        <input id="board-type"  name="boardtype" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+                        <label class="label">
+                        </label>
                     </div>
                 </section>
                
 
                 <!-- pick model of engine -->
-                    <section class="card blue-grey darken-1">
+                    <section class=" blue-grey darken-1">
 
                         <fieldset class="engine-models">
                             <legend>Choose Engine</legend>
                             <span>
                                 <label for="cat">
-                                  <!-- <input type="checkbox" /> -->
-                                  <input class="model" id="cat" name="model" value="cat" type="radio">
-                                  <span>Caterpillar</span>
+                                    <div class="badge badge-accent">
+                                        <input id="cat" name="model" value="cat" type="radio" class=" model radio" />
+                                        Caterpillar
+
+                                    </div>
                                 </label>
                             </span>
                             <span>
                                 <label for="detroit">
-                                    <input class="model" id="detroit" name="model" value="detroit" type="radio">
-                                    <span>Detroit</span>
+                                    <div class="badge badge-accent">
+                                        <input id="detroit" name="model" value="detroit" type="radio" class=" model radio" />
+                                        <!-- <input class="model" id="detroit" name="model" value="detroit" type="radio"> -->
+                                        Detroit
+
+                                    </div>
                                 </label>
                               </span>
 
                               <span>
                                 <label for="cummins">
-                                    <input class="model" id="cummins" name="model" value="cummins"  type="radio">
-                                    <span>Cummins</span>
+                                    <div class="badge badge-accent">
+                                        <input id="cummins" name="model" value="cummins"  type="radio" class=" model radio" />
+                                        <span>Cummins</span>
+                                    </div>
                                 </label>
                               </span>
 
                               <span>
                                 <label for="other">
-                                    <input class="model" id="other" checked name="model" value="other" type="radio">
-                                    <span>Other</span>
+                                    <div class="badge badge-accent">
+                                        <input id="other" checked name="model" value="other"  type="radio" class=" model radio" />
+                                        <span>Other</span>
+                                    </div>
                                 </label>
                               </span>
                         </fieldset>
                     </section>
                      
                     
-                   <section class="card blue-grey darken-1" >
+                   <section class="card " >
 
                        <ol id="instructions" data-currentProcId="1">
                         
@@ -112,41 +125,32 @@
                                                </li> -->
                                            
                                             </ol>
-                                            <div class="btn blue" data-action="add-image">
+                                            <div class="btn " data-action="add-image">
                                                 add another image
                                             </div>
                                        
                                        </fieldset>
                                        <fieldset class="">
-
                                            <legend class="" >Instructions</legend>
                                            <textarea placeholder="instructions or description here" 
                                             name="instructions1" id="instructions1" 
                                             class="instructions center-block large-input white" 
-                                            cols="10" rows="10" value=""></textarea>
+                                            value=""></textarea>
                                        </fieldset>
                                     
                                    </section>
                                   <section>
-                                    <div class="btn-large add-proc" data-action="add-procedure">
+                                    <div class="btn add-proc" data-action="add-procedure">
                                         add another step
                                     </div>
                                   </section> 
                            </li>
-       
-                           
-       
                        </ol>
                    </section>
-                
-                
-                <!-- submit the repair form to server -->
-                <!-- <button class="clickable button--medium rounded" type="submit">
-                    submit    
-                </button> -->
-                <button id="submit" class="waves-effect waves-light btn-large" type="submit">
+                </button>
+                <button id="submit" class="btn" type="submit">
 
-                    <!-- <a id="submit" href="#status">Submit Repair</a>  -->
+                    <!-- <a id="submit" href="#status">Submit Repair</a>-->
                    submit
                 </button>
 

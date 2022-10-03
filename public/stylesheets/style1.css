@@ -1,40 +1,32 @@
-h2{
-    font-size: 2rem;
-}
-ul,ol{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
 
-body *{
-    color: black;
-}
-legend{
-    font-size: 1.5rem;
-}
+
 .entry{
-  min-height: 300px;
+  height: 500px;
   overflow: hidden;
-  width: 80%;
-}
+  width: 90%;
+  margin:50px 0;
+  padding: 10px;
 
-.med-titlebox{
-    height: 10%;
 }
-
 
 
 .entry_brief{
-    /* font-size: 2rem; */
-    /* overflow: hidden; */
     height: 100%;
 }
-
-.card-stacked{
-    overflow: hidden;
+.submenu{
+    z-index: 30;
 }
 
+figure img{
+
+    width: 100%;
+}
+
+
+.card{
+    height: 100%;
+    width: 100%;
+}
 .img-mini{
     max-width: 40%;
     max-height: 300px;
@@ -43,6 +35,14 @@ legend{
 /*=============================== 
 STYLES
 ================================ */
+.procedure-item{
+    /* height: 300px; */
+}
+
+.pic-container{
+    width: 100%;
+    
+}
 .center-block{
     margin: 0 auto;
 }
@@ -93,9 +93,11 @@ STYLES
 .entry-list{
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
     align-content: center;
+    justify-content: center;
 }
+
+
 
 .small-padding{
     padding: 3%;
@@ -109,6 +111,9 @@ TYPOGRAPHY
 .instructions{
     white-space: pre-line;
     text-align: left;
+    text-overflow: clip;
+    height: 50%;
+    width: 100%;
 }
 .title{
     font-size: 1.5rem;
@@ -134,15 +139,18 @@ TYPOGRAPHY
 media queries
 ======================================== */
 
+@media screen and (min-width: 310px) {
+    .instructions{
+        font-size: 2rem;
+    }
+  }
 @media screen and (min-width: 1023px) {
-    .entry-list {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items:center;
-      justify-content: space-evenly;
+    
+    .entry-list{
+        width: 100%;
     }
     .entry{
         width: 50%;
     }
+   
   }

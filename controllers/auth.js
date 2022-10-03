@@ -3,15 +3,17 @@ const passport = require('passport')
 const validator = require('validator') 
 const User = require('../models/User') //new user gets put in user collection
 
+/// get login
  exports.getLogin = (req, res) => { // todo
     if (req.user) {
-      return res.redirect('/repair')
+      return res.redirect('/repair')// already authenticated send user to 
     }
     res.render('login', {
       title: 'Login'
     })
   }
   
+  ///login post
   exports.postLogin = (req, res, next) => {
     const validationErrors = []
     console.log(req.body)
@@ -20,7 +22,7 @@ const User = require('../models/User') //new user gets put in user collection
   
     if (validationErrors.length) {
       req.flash('errors', validationErrors)
-      return res.redirect('/repair')
+      return res.redirect('/login')
     }
     req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
   
@@ -38,6 +40,7 @@ const User = require('../models/User') //new user gets put in user collection
     })(req, res, next)
   }
   
+  /// logout
   exports.logout = (req, res) => {
     console.log(`logout route`)
     
@@ -49,21 +52,21 @@ const User = require('../models/User') //new user gets put in user collection
       req.session.destroy((err) => {
         if (err) console.log('Error : Failed to destroy the session during logout.', err)
         req.user = null
-        res.redirect('/login')
+        res.redirect('/')
       })
     })
   }
   
   exports.getSignup = (req, res) => {
     if (req.user) {
-      return res.redirect('/repair')
+      return res.redirect('/')
     }
     res.render('signup', {
       title: 'Create Account'
     })
   }
   
-
+/// signup
   exports.postSignup = (req, res, next) => { //checking to see if password ect match
 
     console.log(`signup body`,req.body)
@@ -102,7 +105,7 @@ const User = require('../models/User') //new user gets put in user collection
             return next(err)
           }
 
-          res.redirect('/repair') //last thing it does is redirect us to the todo page and we're logged in since we just signed up
+          res.redirect('/repair') //last thing it does is redirect us to the dashboard
         })
       })
     })

@@ -1,7 +1,7 @@
 
 
 // const Procedure = require('./Procedure')
-const form = document.querySelector("form");
+const form = document.querySelector("#repair-form");
 
 class Repair{
     constructor(procedures=[],searchtags='blank tags',title='blank title', board='no board type', engine='no engine make'){
@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 break;
 
             default:
+                console.log('nothing wanted clicked')
                 break;
         }
 

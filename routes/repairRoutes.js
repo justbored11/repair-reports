@@ -8,15 +8,16 @@ const router = express.Router();
 //controllers
 const repairsController = require('../controllers/repair')
 
-// @route '/repair'
-router.get('/delete/:id',ensureAuth,repairsController.deletePost)
-router.get('/testPost',ensureAuth,repairsController.testPost)
-router.get('/',ensureAuth,repairsController.getNewestRepairs)
-router.post('/',ensureAuth,repairsController.addRepair)
-router.get('/search',ensureAuth,repairsController.searchRepairs)////
-router.get('/searchpage',ensureAuth,repairsController.getSearchPage)
 
-router.get('/:id',ensureAuth, repairsController.getRepairPage)
+// @route '/repair/*'
+router.get('/',ensureAuth,repairsController.getNewestRepairs)
+router.get('/getrecords/:num',ensureAuth,repairsController.getNewestRepairs)
+router.get('/delete/:id',ensureAuth,repairsController.deletePost)
+router.post('/',ensureAuth,repairsController.addRepair)
+router.get('/search',ensureAuth,repairsController.searchRepairs)
+router.get('/searchpage',ensureAuth,repairsController.getSearchPage)
+router.get('/:id',ensureAuth, repairsController.getRepairPage) //get specific repair
+
 
 module.exports = router;
 

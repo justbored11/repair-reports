@@ -2,40 +2,41 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <%- include("./partials/head"); -%>
-</head>
-<body class=" blue-grey darken-4" >
-    <header>
-        
-        <nav>
-            <%- include("./partials/reg-menu"); -%>
-            <%- include("./partials/mobile-menu"); -%>
-        </nav>
-        <%- include("./partials/search-bar"); -%>
-    </header>
+    <head>
+		
+        <%- include("./partials/head.ejs"); -%>
+	</head>
+	<body class="search-page center-block">
+		<header>
+			<nav>
+				<%- include("./partials/mobile-menu.ejs"); -%>
+				
+			</nav>
+			
+		</header>
 	
 		<section class=" row small-padding  grey">  
-           
-            <span>
-                Repair group:<%= repair.group %>
-                <!-- Repair ID:<%= repair._id %> -->
-            </span> 
+            <h1 class="text-xl">
+                Title: 
+                <span class="badge badge-lg"><%= repair.title %></span>
+            </h1>
             <section class="grey"> 
-                <section class="card blue small-padding">
-                    <!-- title -->
-                    <span>Title:</span>
-                    <h1 class="chip"><%= repair.title %></h1> 
-                    <h3 class="chip ">Repair ID:<%= repair._id %></h3>  
-                    <h3 class="chip ">Repair Documented by: <%= repair.createdBy %></h3>  
-                </section>
-                
-                <!-- <section class="">
-                    <h3 class="title search-tags">Search Tags: </h3>
-                    <span class="chip"><%= repair.searchtags %></span>
+                <section class="card small-padding">
+                    <h2 class="text-xl">
+                        Repair group: 
+                        <span class="badge badge-lg"><%= repair.group ? repair.group : 'public' %></span>
+                    </h2>
+                    <h2 class="text-xl">
+                        Repair ID:  
+                        <span class="badge badge-lg"><%= repair._id %></span>
+                    </h2>
+                    <h2 class="text-xl">
+                        Repair Documented by: 
+                        <span class="badge badge-lg"><%= repair.createdBy ? repair.createdBy : 'public' %></span>
+                    </h2>
                     
-                </section> -->
-                
+                </section>
+    
                 <section class="rounded">
                     <span class="title  board-type">Board Type: </span> 
                     <h3 class="chip"><%= repair.boardType %></h3> 
@@ -49,58 +50,51 @@
                 
             </section> 
                 
+            <!-- procedures -->
             <ol class="procedure-list" data-currentProcId="1">   
                 
                 <% for (let i= 0 ; repair.procedureArr.length > i ; i++){ %>
 
-                    
-                    <li class=" card blue-grey  procedure-item small-padding">
-                        <section>
+                    <li class=" card procedure-item small-padding">
+                       
+                        <section class="pic-container center-block">
                             <!-- images list -->
-                            <ol class="image-list horz-flex center" data-totalfiles="0" data-uploadId="0">
+                            <!-- carousel -->
+                            <div class="carousel ">
                                 <% for (let a= 0 ; repair.procedureArr[i].images.length > a ; a++){ %>
-                                    <li class=" card   image-item blue-grey ">
-                                        
-                                        <a class="image-link  " href="<%= repair.procedureArr[i].images[a] %>">
+                                    <div id="item<%=a%><%=i%>" class="carousel-item w-full">
+                                        <a class="w-full" href="<%= repair.procedureArr[i].images[a] %>">
+                                            <!-- update below -->
+                                        <%if (repair.procedureArr[i].images){%>
+                                            <img loading="lazy" src="<%= repair.procedureArr[i].images[a].replace('/upload/','/upload/c_scale,w_600/')%>">
+                                        <%}%>
+                                        <span>Click to see full image</span>
+                                        </a>
+                                    </div>
 
-                                            <%if (repair.procedureArr[i].thumbs){%>
-                                                <img class=" rounded red image-preview" src=" <%= repair.procedureArr[i].thumbs[a]%>" alt="repair image" class="rounded img-mini">
-                                               
-                                                <%}else{%>
-                                                    <img src=" <%= repair.procedureArr[i].images[a]%>" alt="repair image" class="rounded img-mini">
-                                                <%}%>
-                                           
-                                            </a>
-                                            <span>Click to see full image</span>
-                                        </li>
-                                        <% } %>
-                                    </ol>
+                                <% } %>
+                            </div>
+
+                            <!-- bottom carousel numbers -->
+                            <div class="flex justify-center w-full py-2 gap-2">
+                                <% for (let a= 0 ; repair.procedureArr[i].images.length > a ; a++){ %>
+                                    <a href="#item<%=a%><%=i%>" class="btn btn-xs"><%= a+1 %></a> 
+                                <% } %>
+                            </div>
+                            <!-- description -->
+                            <section class="small-padding">
+                               <p class="center-text instructions">
+                                   <%= repair.procedureArr[i].instructions %>
+                               </p> 
+                           </section>
+                            <!-- carousel end-->
+
                         </section>
-                                <!-- description -->
-                        <section class="card   small-padding">
-                            <p class="center-text instructions">
-                                <%= repair.procedureArr[i].instructions %>
-                            </p> 
-                        </section> 
                     </li>
                 <% } %>
-
-
-
-                
-
             </ol>
-                
-                
-                <!-- submit the repair form to server -->
-                <!-- <button class="clickable" type="submit">Submit Repair</button> -->
-
-            <!-- </form> -->
-           
         </section>
 
-
-       
         <footer>	
             <div>
                 <!-- if username === createdby || user.role === admin -->
@@ -115,16 +109,9 @@
             </div>		
 			
 		</footer>
-        <%- include("./partials/scripts"); -%>
+     
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var elems = document.querySelectorAll('.chips');
-                var instances = M.Chips.init(elems, options);
-            });
-
-            $('.chips').chips();
-        </script>
+       
 </body>
 </html>
 

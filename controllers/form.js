@@ -3,20 +3,19 @@ const router =  require('express').Router()
 
 
 module.exports={
-    getForm:async (request, response)=>{
-
-        response.render('repairform.ejs',{title:"Repair Submission"});
+    getForm:async (req, res)=>{
+        res.render('repairform.ejs',{title:"Repair Submission",user:req.user});
     },
 
 
-    signForm:async (request, response)=>{
+    signForm:async (req, res)=>{
         
       //todo get signature and respond
       const sig = signature.signuploadform();
       console.log(`signform signature received `, sig)
   
       try{
-          response.status(200).json({
+          res.status(200).json({
               signature: sig.signature,
               timestamp: sig.timestamp,
               cloudname: process.env.cloud_name,

@@ -6,15 +6,15 @@ const formController = require("../controllers/form")
 const { ensureAuth } = require('../middleware/auth')
 
 // repair form page
-router.get('/repairform',ensureAuth, async (request, response)=>{
+router.get('/repairform',ensureAuth, async (req, res)=>{
 
-    response.render('repairform.ejs',{title:"Repair Submission"});
+    res.render('repairform.ejs',{title:"Repair Submission",user:req.user});
 })
 
 // sign repair form
-router.get('/repairform/sign',ensureAuth, async (request, response)=>{
+router.get('/repairform/sign',ensureAuth, async (req, res)=>{
 
-    response.render('repairform.ejs',{title:"Repair Submission"});
+    res.render('repairform.ejs',{title:"Repair Submission",user:req.user});
 })
 
 

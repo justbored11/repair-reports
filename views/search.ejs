@@ -12,44 +12,19 @@
 		<header>
 			
 			<nav>
-				<%- include("./partials/reg-menu"); -%>
+
 				<%- include("./partials/mobile-menu"); -%>
 			</nav>
-			<%- include("./partials/search-bar"); -%>
-			<!-- <form action="/repair/search" method="get">
-				<input class="search_input" type="text" name="searchPhrase" placeholder="Search for Fault code / issue">
-				<button class="search_button" type="submit">Search</button>
-			</form> -->
+			
 		</header>
 		
 		<main class="">
 			<!-- results -->
 		<section class=" results small-padding entry-list" >
 
-			<%- include("./partials/repairs-list"); -%>
-            <!-- <% for(let i =0; i<repairs.length; i++){ %>
-				<!-- large card -->
-				<a class="entry" href="/repair/<%= repairs[i]._id%>">
-
-					<div class=" small-padding">
-						<div class="col s12 m7">
-						<div class="card large grey">
-							<div class="card-image">
-								<img loading="lazy" src="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_300/')%>">
-								<span class=" card-title teal"><%= repairs[i].title %></span>
-							</div>
-							<div class="card-content ">
-								<p class="instructions ">
-									<%= repairs[i].procedureArr[0].instructions %>
-								</p>
-							</div>
-							<div class="card-action">
-								<!-- <a href="#">This is a link</a> -->
-							</div>
-						</div>
-						</div>
-					</div>
-				</a>
+			<% for(let i =0; i<repairs.length; i++){ %>
+				<%- include("./partials/repairs-list"); -%>
+			
             <%}%> -->
 		</section>
 
