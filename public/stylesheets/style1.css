@@ -1,14 +1,35 @@
 
 
+body{
+    width: 100%;
+}
+nav{
+    width: 100%;
+   
+}
+
+li.fill.search-area{
+    width: 100%;
+}
+li.fill{
+    width: 100%;
+}
 .entry{
   height: 500px;
   overflow: hidden;
-  width: 90%;
+  width: 100%;
+
   margin:50px 0;
   padding: 10px;
 
 }
 
+
+.hidden{
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
 
 .entry_brief{
     height: 100%;
@@ -27,14 +48,32 @@ figure img{
     height: 100%;
     width: 100%;
 }
-.img-mini{
+
+/* .img-mini{
+
     max-width: 40%;
     max-height: 300px;
-}
+} */
 
 /*=============================== 
 STYLES
 ================================ */
+
+
+#mobile-nav{
+    justify-content:space-evenly;
+    flex-direction: row-reverse;
+}
+.mobile-menu{
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.mobile-menu > li{
+    width: 50%;
+}
+
+
 .procedure-item{
     /* height: 300px; */
 }
@@ -140,11 +179,16 @@ media queries
 ======================================== */
 
 @media screen and (min-width: 310px) {
+
+    
     .instructions{
         font-size: 2rem;
     }
+  
   }
-@media screen and (min-width: 1023px) {
+/*   
+@media (width: 310px)and  (min-width: 1023px) {
+
     
     .entry-list{
         width: 100%;
@@ -153,4 +197,6 @@ media queries
         width: 50%;
     }
    
-  }
+
+  } */
+

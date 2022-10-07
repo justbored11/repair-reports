@@ -10,6 +10,9 @@ const repairsController = require('../controllers/repair')
 
 
 // @route '/repair/*'
+
+router.get('/test',ensureAuth,repairsController.testPost)
+
 router.get('/',ensureAuth,repairsController.getNewestRepairs)
 router.get('/getrecords/:num',ensureAuth,repairsController.getNewestRepairs)
 router.get('/delete/:id',ensureAuth,repairsController.deletePost)

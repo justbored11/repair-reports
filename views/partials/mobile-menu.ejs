@@ -1,13 +1,15 @@
-<div class="navbar bg-base-100">
-  <div class="flex-1">
+
+<div class="navbar hidden container bg-base-100">
+  <div class="logo flex-1">
     <a class="btn btn-ghost normal-case text-xl">Circuit Chaser</a>
   </div>
   <div class="flex-none">
-    <ul class="menu menu-horizontal p-0">
-    <li>		
+    <ul class="menu reg-menu menu-horizontal p-0">
+    <li class=" search-area">		
       <%- include("./search-bar.ejs"); -%>
     </li>
-    <li tabindex="0">
+    <li class="" tabindex="0">
+
       <a>
       Menu
       <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
@@ -41,9 +43,58 @@
           </ul>
         </div>
         <!-- profile -->
+
       </div>
     </li>
     </ul>
  
   </div>
+
+
+
+<!-- mobile nav -->
+  <div id="mobile-nav" class="navbar bg-base-100">
+      
+      <div >
+        <!-- mobile menu -->
+        <!-- profile dropdown -->
+        <div class="dropdown ">
+          <label tabindex="0" class="avatar btn">
+            <div class="  ">
+              <h1><%=user.username%></h1>
+              <img src="https://placeimg.com/80/80/people" />
+            </div>
+          </label>
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+          </ul>
+        </div>
+        <ul class="menu mobile-menu menu-horizontal p-0">
+          <!-- <li class="search-area">		
+            <%- include("./search-bar.ejs"); -%>
+          </li> -->
+          <li>
+          </li>
+          <li tabindex="0">
+            <a>
+              Menu
+              <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+            </a>
+            <ul class="p-2 submenu bg-base-100">
+              <li class="fill"><a href="/dashboard">Dashboard</a></li>
+              <li class="fill"><a href="/repair">Latest Reports</a></li>
+              <li class="fill"><a href="/repairform">Create Report</a></li>
+              <!-- <li><a href="/repair/searchpage">Search</a></li> -->
+              <li class="search-area fill">		
+                <%- include("./search-bar.ejs"); -%>
+              </li>
+              <li class="fill"><a href="/logout">Logout</a></li>
+            </ul>
+          </li>
+          </ul>
+      </div>
+  </div>
+
+
   
