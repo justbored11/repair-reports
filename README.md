@@ -3,7 +3,13 @@ Database for circuit board repairs that can be searched so problems that have al
 
 will primarily be used on mobile to take advantage of on board camera to upload images, and such mobile design will be focused on first followed by a desktop design
 
-Logic overview ![DrawIO](https://github.com/jesusdoza/diagrams/blob/main/repair-reports/Untitled%20Diagram.drawio.svg)
+
+  <details>
+  <summary>Backend overview </summary>
+    <img src="https://github.com/jesusdoza/diagrams/blob/8229b148c34db17711cd931d5d5b90b12aa5021b/repair-reports/repair-reports-diagram.drawio.svg">
+  </details>
+
+
 
 in progress hosted on [cyclic](https://app.cyclic.sh/#/) https://repair-reports.cyclic.app/
 
@@ -39,3 +45,9 @@ uploading can be delegated to client side with only having signature from server
 - PORT = 
 #### node enviroment for local run
 - NODE_ENV = development
+
+
+### start project
+```npm install
+    npm run dev
+```
