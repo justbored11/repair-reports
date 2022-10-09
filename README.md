@@ -6,7 +6,8 @@ will primarily be used on mobile to take advantage of on board camera to upload 
 
   <details>
   <summary>Backend overview </summary>
-    <img src="https://github.com/jesusdoza/diagrams/blob/8229b148c34db17711cd931d5d5b90b12aa5021b/repair-reports/repair-reports-diagram.drawio.svg">
+    <img src="https://raw.githubusercontent.com/jesusdoza/diagrams/932dd42c34978e4b55f0334809721430822bcae2/repair-reports/repair-reports-diagram.drawio.svg">
+   
   </details>
 
 
