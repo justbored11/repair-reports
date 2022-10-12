@@ -47,35 +47,44 @@ class Procedure {
     }
     procedureHtml(){
         const element = ` 
-        <section class=" card grey procedure--details small-padding">
-        <h3>Repair Procedure</h3>
-
-        
-        <!-- images uploaded -->
-        <fieldset class=" procedure--images-list ">
-            <legend>Images
-                <!-- add another image button -->
-                
-            </legend>
-
-            <ol class="uploads" data-totalfiles="0" data-uploadId="0">
-                
-            
-            </ol>
-            <div class="btn blue " data-action="add-image">
-            add another image
-            </div>
-        
-        </fieldset>
-        <h6>Instructions</h6>
-        <textarea placeholder="instructions or description here" name="instructions1" id="instructions1" class="instructions white" cols="5" rows="5" value="test dfafamongo"></textarea>
-        
-    </section>
-   <section>
-        <div class="btn-large add-proc" data-action="add-procedure">
-            add another step
-        </div>
-   </section>  `;
+        <section class="grey procedure--details small-padding">
+                                       <h3>Repair Procedure</h3>
+                           
+                                       
+                                       <!-- images uploaded -->
+                                       <fieldset class=" procedure--images-list ">
+                                           <legend>Images
+                                               <!-- add another image button -->
+                                               
+                                           </legend>
+       
+                                            <ol class="uploads" data-totalfiles="0" data-uploadId="0">
+                                               <!-- <li class="imageuploaded small-padding ">
+                                                   <img src="" alt="repair image" class="img-mini">
+                                                   <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
+                                                   <span class="button--mobile rounded clickable">remove item</span>
+                                               </li> -->
+                                           
+                                            </ol>
+                                            <div class="btn " data-action="add-image">
+                                                add another image
+                                            </div>
+                                       
+                                       </fieldset>
+                                       <!-- <fieldset class=""> -->
+                                           <legend class="" >Instructions</legend>
+                                           <textarea id="instructions1" class="textarea textarea-warning instructions center-block large-input white" 
+                                                placeholder="Instructions"
+                                                name="instructions1"
+                                                value=""
+                                                rows="8"></textarea>
+                                           <!-- <textarea placeholder="instructions or description here" 
+                                            name="instructions1" id="instructions1" 
+                                            class=" instructions center-block large-input white" 
+                                            value=""></textarea>
+                                       </fieldset> -->
+                                    
+                                   </section>  `;
 
    return element;
     }
@@ -140,8 +149,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const statusIcons = document.querySelector('.status-icons')
     statusIcons.classList.toggle("hidden");//show loading message
 
-    const form = document.querySelector('form');
-    form.classList.toggle("hidden");//hide form 
+    const form = document.querySelector('#repair-form');
+    // form.classList.toggle("hidden");//hide form 
 
     let procArr = [] //array with all the procedures for this repair
     const repair = new Repair // actual object to submit to server
@@ -158,7 +167,8 @@ document.addEventListener('DOMContentLoaded', async () => {
            procedure.images= images.links; // add images urls Array
            procedure.thumbs = images.thumbs;
            procedure.procedureNum = index; //identifying sequence number
-           procedure.instructions = proc.querySelector('.instructions').value
+           //! problem here
+           procedure.instructions = proc.querySelector('.instructions').value //instructions for this procedure
         return (procedure)
        
     })
@@ -201,14 +211,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                  headers: {'Content-Type':'application/json'},
                  body:JSON.stringify(repairObj)
              }).then(data=>data.json())
-         
-         
-             
-            //  const repairId = await response._id
-            //  console.log(`post serv respons`,response)
-            //  console.log(`post serv repair ID`,repairId)
-         
-             
              return response;
            
         }
@@ -254,7 +256,7 @@ function addProcedureToInstructions(event){
 
     const li = document.createElement('li');
         li.dataset.procedureid=instructions.dataset.currentprocid;
-        li.classList.add('procedure',  'small-padding')
+        li.classList.add('procedure','small-padding','card','bg-base-100','shadow-xl')
         li.innerHTML=procedure.procedureHtml();
     
 
@@ -265,33 +267,6 @@ function addProcedureToInstructions(event){
 
 
 
-// async function postRepair(repairObj){
-
-//     try{
-//         // let repair = JSON.stringify({repairObj})
-
-//         const response = await fetch(`/repair`,{
-//              method: 'post',
-//              headers: {'Content-Type':'application/json'},
-//              body:JSON.stringify(repairObj)
-//          }).then(data=>data.json())
-     
-     
-         
-//          const repairId = await response._id
-//          console.log(`post serv respons`,response)
-//          console.log(`post serv repair ID`,repairId)
-     
-         
-//          return repairId;
-       
-//     }
-   
-//     catch(error){
-//         console.error(`post error`)
-//     }
-    
-// }
 
 
 

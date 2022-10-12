@@ -83,6 +83,13 @@ figure img{
 /*=============================== 
 STYLES
 ================================ */
+#instructions{
+    width: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
 .center-block{
     margin: 0 auto;
 }
@@ -104,7 +111,7 @@ STYLES
 
 
 .border{
-    border: 3px green solid;
+    border: 3px rgb(51, 56, 51) solid;
 }
 .small-padding{
     padding: 3%;
@@ -146,7 +153,7 @@ STYLES
 TYPOGRAPHY
 ==================================== */
 
-.instructions{
+.instructions-list{
     white-space: pre-line;
     text-align: left;
     text-overflow: clip;
@@ -178,11 +185,86 @@ media queries
 ======================================== */
 
 @media screen and (min-width: 310px) {
-
+  
+    .form-desc{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .textarea{
+        width: 50%;
+    }
+    .engine-models{
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    .form-control{
+        justify-content: center;
+        
+    }
+    .full-nav{
+        display: none;
+    }
     
     .instructions{
-        font-size: 2rem;
+        font-size: 1.2rem;
+        width: 100%;
+        color: rgb(237, 223, 223);
+    }
+
+    .search-area{
+        width: 0;
+        height: 0;
+        visibility:hidden;
     }
   
   }
+  @media  (min-width: 600px) {
+    .form-desc{
+        flex-direction: row;
+    }
+  
+  }
+    
 
+  @media  (min-width: 760px) {
+    /* remove mobile nave */
+    .mobile-nav{
+        width: 0;
+        height: 0;
+        display: none;
+    }
+    .full-nav{
+        display:block;
+    }
+
+
+
+
+    .entry-list{
+        width: 100%;
+    }
+    .entry{
+        width: 50%;
+    }
+   
+  }
+  
+@media  (min-width: 1023px) {
+    .search-area{
+        visibility: visible;
+        width: fit-content;
+        height: 100%;
+    }
+    .entry-list{
+        width: 100%;
+    }
+    .entry{
+        width: 50%;
+    }
+   
+  }

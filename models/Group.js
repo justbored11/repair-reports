@@ -24,6 +24,10 @@ const GroupSchema = new mongoose.Schema({
     },
     members:{
         type:[MemberSchema],
+    },
+    createdby:{
+        type:String,
+        immutable:true,
     }
 },
 {
