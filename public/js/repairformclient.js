@@ -66,7 +66,7 @@ class Procedure {
                                                </li> -->
                                            
                                             </ol>
-                                            <div class="btn " data-action="add-image">
+                                            <div class="btn bg-warning text-black" data-action="add-image">
                                                 add another image
                                             </div>
                                        
@@ -84,7 +84,18 @@ class Procedure {
                                             value=""></textarea>
                                        </fieldset> -->
                                     
-                                   </section>  `;
+                                   </section> 
+                                   <section class="controls">
+                                   <div class="bg-accent text-base-200 btn add-proc" data-action="add-procedure">
+                                       add another step
+                                   </div>
+                                   
+                                   <details class="warning">
+                                       <summary class=" btn text-black bg-warning remove-proc"> Delete Procedure</summary>
+                                       <button class="btn   bg-error-content text-white" data-action="remove-procedure">confirm delete</button>
+                                       
+                                   </details>
+                                 </section> `;
 
    return element;
     }
@@ -121,6 +132,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             case 'remove-image':
                 removeImage(event);
+                break;
+            case 'remove-procedure':
+                console.log('remove procedure clicked')
+                // removeProc(event);
                 break;
             case 'add-procedure':
                 addProcedureToInstructions(event);
