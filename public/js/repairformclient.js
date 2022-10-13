@@ -148,10 +148,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     //status message overlay
     const statusIcons = document.querySelector('.status-icons')//
+    const progress = statusIcons.querySelector('.progress')
     statusIcons.classList.toggle("hidden");//show loading message
 
     const form = document.querySelector('#repair-form');//get repair form
-    // form.classList.toggle("hidden");//hide form 
+    form.classList.toggle("hidden");//hide form 
 
     let procArr = [] //array with all the procedures for this repair
     const repair = new Repair // actual object to submit to server
@@ -178,16 +179,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       
             statusMessage('<br>Uploading images...')
+            progress.value+=10
         procArr = await Promise.all(procedurePromises) 
             statusMessage('Done')
+            progress.value=50
 
         repair.buildRepair(procArr) // build repair using procedure array 
             statusMessage('<br>Saving Report...')
+            progress.value+=75
 
         // const repairId = await postRepair(repair);
         const serverResponse = await postRepair(repair);
         console.log(`server response`,serverResponse)
         statusMessage('Done')
+        progress.value+=100
         
         //we take link server provides
         location.assign(serverResponse.link);
