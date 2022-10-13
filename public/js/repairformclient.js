@@ -141,15 +141,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 //  form.addEventListener("submit",async (event) => event.preventDefault());// for testing what happens after submit 
  form.addEventListener("submit",async (event) => {
     event.preventDefault();
-    const allProcedures = Array.from( document.querySelectorAll('.procedure'))
+    
+    const allProcedures = Array.from( document.querySelectorAll('.procedure'))// get all procedures on page
     const signResponse = await fetch('/signform'); //fetch signature from server
-    const signData = await signResponse.json();
+    const signData = await signResponse.json();//convert to json
     
     //status message overlay
-    const statusIcons = document.querySelector('.status-icons')
+    const statusIcons = document.querySelector('.status-icons')//
     statusIcons.classList.toggle("hidden");//show loading message
 
-    const form = document.querySelector('#repair-form');
+    const form = document.querySelector('#repair-form');//get repair form
     // form.classList.toggle("hidden");//hide form 
 
     let procArr = [] //array with all the procedures for this repair
@@ -157,12 +158,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     
 
-//build map of promises for uploading images
+//build map of promises for uploading images from all procedures
    const procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
 
         //upload images if any
         const images= await uploadImages(proc, signData)
-
+ 
         const procedure = new Procedure();
            procedure.images= images.links; // add images urls Array
            procedure.thumbs = images.thumbs;

@@ -1,187 +1,137 @@
-<!DOCTYPE HTML>
-<!--
-	Spectral by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Circuit Fix</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<script src="https://kit.fontawesome.com/2d20c3d5a8.js" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="/home/assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="/home/assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="landing is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circuit Chaser</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/2.31.0/full.min.css" integrity="sha512-C61VDg3tFL7Qm+u1GpOOxBwblXrPRyxaAcnKBLM21a+kjYduTZiPJ9fBCjDfCi1ai8/hKpbHDTKNI+ihb2lOWA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/home/assets/css/main.css">
 
-		<!-- Page Wrapper -->
-			<div id="page-wrapper">
+</head>
+<body>
+    
 
-				<!-- Header -->
+<div class="relative overflow-hidden">
+  <div class="mx-auto max-w-7xl">
+    <div class="relative bg-white z-10  pb-8 sm:pb-16 md:pb-20 lg:w-full lg:max-w-2xl lg:pb-28 xl:pb-32">
+      <!-- <svg class="absolute inset-y-0 right-0 hidden h-full w-48 translate-x-1/2 transform text-white lg:block" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"> -->
+        <!-- <polygon points="50,0 100,0 50,100 0,100" /> -->
+      <!-- </svg> -->
 
-				<header id="header" class="alt">
-						<div>
-							<% if (locals.user) { %>
-								user.username
-							<% } %>
-						</div>
+      <div>
+        <div class="relative px-4  pt-6 sm:px-6 lg:px-8">
+            <!-- nav -->
+          <nav class="text-base-100 bg-white relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
+              <div class="navbar bg-content ">
+                <!-- <div><h1 class="font-bold">Circuit Chaser</h1></div> -->
+                <div class="navbar-start">
+                  <div class="dropdown">
+                    <label tabindex="0" class="btn btn-ghost lg:hidden">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                    </label>
+                    <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow  rounded-box w-52">
+                        <li><a href="/login">Log In</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                        <li><a href="/repair">Latest Repairs</a></li>
+                        <li><a href="/repairform">Create Repair</a></li>
+                        <li><a href="/repair/searchpage">Search</a></li>
+                        <li><a class="btn bg-accent" href="/signup">Sign up</a></li>
+                    </ul>
+                  </div>
+                  
+                </div>
+                <div class="navbar-center hidden lg:flex">
+                  <ul class="menu menu-horizontal p-0">
+                      <li><a href="/login">Log In</a></li>
+                      <li><a href="/dashboard">Dashboard</a></li>
+                      <li><a href="/repair">Latest Repairs</a></li>
+                      <li><a href="/repairform">Create Repair</a></li>
+                      <li><a href="/repair/searchpage">Search</a></li>
+                      <li><a class="btn bg-accent" href="/signup">Sign up</a></li>
+                   
+                  </ul>
+                </div>
+                <div class="navbar-end">
+                  <!-- <a class="btn">Get started</a> -->
+                </div>
+              </div>
+          </nav>
+          <!-- nav -->
+        </div>
+        
 
-						<nav id="nav">
-							<ul>
-								<li class="special">
-									<a href="#menu" class="menuToggle"><span>Menu</span></a>
-									<div id="menu">
-										<ul>
+      <main class="mx-auto mt-10 max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+        <div class="sm:text-center lg:text-left">
+          <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+            <span class="block xl:inline">Circuit Chaser</span>
+            <span class="block text-accent xl:inline">Data to Power Back Up </span>
+          </h1>
+          <p class="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
+            
+            </p>
+          <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+            <div class="rounded-md shadow">
+              <a href="/signup" class="flex w-full items-center justify-center rounded-md border border-transparent  bg-accent px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg">Get started</a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+    <img loading="lazy" src="/home/assets/css/images/Printed-circuit-board-pana.svg" alt="circuit repair"/>
+  </div>
+</div>
+<!-- second section -->
+    <div class="hero min-h-screen bg-base-200">
+        <div class="hero-content flex-col lg:flex-row-reverse">
+            <div>
+                <h2 class="text-5xl font-bold">Collaborate</h2>
+                <p>Find obsolete parts or new compatible for your hardware application<br />
+                </div>
+                <img  loading="lazy" src="/home/assets/css/images/Live collaboration-rafiki.svg" class="max-w-sm rounded-lg shadow-2xl" />
+        </div>
+      </div>
 
-											
-                                            <li><a href="/signup">Sign up</a></li>
+<div class="hero min-h-screen bg-base-200">
+    <div class="hero-content flex-col lg:flex-row">
+        <div>
+          <h2 class="text-5xl font-bold">Document repairs </h2>
+          <p class="py-6">Circuit tracing is not fast or easy so back your progress in an easy to search database built for you                                                                           </p>
+        </div>
+      <img loading="lazy" src="/home/assets/css/images/Firmware-amico.svg" class="max-w-sm rounded-lg shadow-2xl" />
+    </div>
+  </div>
 
-                                            <li><a href="/dashboard">Dashboard</a></li>
-											<li><a href="/repair">Latest Repairs</a></li>
-											<li><a href="/repairform">Create Repair</a></li>
-											<li><a href="/repair/searchpage">Search</a></li>
-											<li><a href="/login">Log In</a></li>
-
-											<!-- <li><a href="/repair/testPost">test post</a></li> -->
-
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</nav>
-					</header>
-
-				<!-- Banner -->
-					<section id="banner">
-						<div class="inner">
-							<h2>Circuit Chaser</h2>
-							<p>Catalog Of Repairs to the devices you love<br />
-							
-							<ul class="actions special">
-								<li><a href="#" class="button primary">SIGNUP</a></li>
-							</ul>
-						</div>
-						<a href="#one" class="more scrolly">Learn More</a>
-					</section>
-
-				<!-- One -->
-					<section id="one" class="wrapper style1 special">
-						<div class="inner">
-							<header class="major">
-								<h2>Keep track of repairs<br />
-								you have made</h2>
-								<p>Once you have fixed it you can look it up again without having to rework the problem,<br />
-								continue the work you without backtracking</p>
-							</header>
-							<ul class="icons major">
-								<li><i class="  major icon style1 fa-solid fa-microchip"></i></li>
-								<li><i class="major icon style1 fa-solid fa-toolbox"></i></li>
-								<li><i class="major icon style1 fa-solid fa-screwdriver-wrench"></i></li>
-							</ul>
-						</div>
-					</section>
-
-				<!-- Two -->
-					<section id="two" class="wrapper alt style2">
-						<section class="spotlight">
-							<div class="image"><img src="images/pic01.jpg" alt="" /></div><div class="content">
-								<h2>Your repairs organised<br />
-								 </h2>
-								 <p>All text can be searched to find that crucial piece of information</p>
-							</div>
-						</section>
-						<section class="spotlight">
-							<div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">
-								<h2>Groups for collaboration<br />
-								</h2>
-								<p>Help others or ask for help from other techs</p>
-							</div>
-						</section>
-						<!-- <section class="spotlight">
-							<div class="image"><img src="images/pic03.jpg" alt="" /></div><div class="content">
-								<h2>Augue eleifend aliquet<br />
-								sed condimentum</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
-							</div>
-						</section> -->
-					</section>
-
-				<!-- Three -->
-					<!-- <section id="three" class="wrapper style3 special">
-						<div class="inner">
-							<header class="major">
-								<h2>Accumsan mus tortor nunc aliquet</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
-								fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.</p>
-							</header>
-							<ul class="features">
-								<li class="icon fa-paper-plane">
-									<h3>Arcu accumsan</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon solid fa-laptop">
-									<h3>Ac Augue Eget</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon solid fa-code">
-									<h3>Mus Scelerisque</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon solid fa-headphones-alt">
-									<h3>Mauris Imperdiet</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon fa-heart">
-									<h3>Aenean Primis</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-								<li class="icon fa-flag">
-									<h3>Tortor Ut</h3>
-									<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.</p>
-								</li>
-							</ul>
-						</div>
-					</section> -->
-
-				<!-- CTA -->
-					<section id="cta" class="wrapper style4">
-						<div class="inner">
-							<header>
-								<h2>Simple to use and mobile friendly</h2>
-								<p>catalog your repair quickly before losing track of your progress</p>
-							</header>
-							<ul class="actions stacked">
-								<li><a href="#" class="button fit primary">Sign up</a></li>
-								<!-- <li><a href="#" class="button fit">Learn More</a></li> -->
-							</ul>
-						</div>
-					</section>
-
-				<!-- Footer -->
-					<footer id="footer">
-						<!-- <ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-						</ul> -->
-						<ul class="copyright">
-							<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-						</ul>
-					</footer>
-
-			</div>
-
-		<!-- Scripts -->
-			<script src="/home/assets/js/jquery.min.js"></script>
-			<script src="/home/assets/js/jquery.scrollex.min.js"></script>
-			<script src="/home/assets/js/jquery.scrolly.min.js"></script>
-			<script src="/home/assets/js/browser.min.js"></script>
-			<script src="/home/assets/js/breakpoints.min.js"></script>
-			<script src="/home/assets/js/util.js"></script>
-			<script src="/home/assets/js/main.js"></script>
-
-	</body>
+  <footer>
+    <footer class="footer p-10 bg-base-200 text-base-content">
+        <div>
+          <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="fill-current"><path d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z"></path></svg>
+          <p>ACME Industries Ltd.<br>Providing reliable tech since 1992</p>
+        </div> 
+        <div>
+          <span class="footer-title">Services</span> 
+          <a class="link link-hover">Branding</a> 
+          <a class="link link-hover">Design</a> 
+          <a class="link link-hover">Marketing</a> 
+          <a class="link link-hover">Advertisement</a>
+        </div> 
+        <div>
+          <span class="footer-title">Company</span> 
+          <a class="link link-hover">About us</a> 
+          <a class="link link-hover">Contact</a> 
+          <a class="link link-hover">Jobs</a> 
+          <a class="link link-hover">Press kit</a>
+        </div> 
+        <div>
+          <span class="footer-title">Legal</span> 
+          <a class="link link-hover">Terms of use</a> 
+          <a class="link link-hover">Privacy policy</a> 
+          <a class="link link-hover">Cookie policy</a>
+        </div>
+      </footer>
+  </footer>
+</body>
 </html>
