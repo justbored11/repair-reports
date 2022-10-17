@@ -3,6 +3,7 @@
 // const Procedure = require('./Procedure')
 const form = document.querySelector("#repair-form");
 
+//main repair object sent to server
 class Repair{
     constructor(procedures=[],searchtags='blank tags',title='blank title', board='no board type', engine='no engine make'){
         this.procedureArr=procedures;
@@ -35,9 +36,7 @@ class Repair{
     
 }
 
-
-
-
+// sub class inside Repair
 class Procedure {
     constructor(thumbs=[],imagesArr=[],procedureNum=1,instructions='default instructions'){
         this.images = imagesArr
@@ -48,95 +47,84 @@ class Procedure {
     procedureHtml(){
         const element = ` 
         <section class="grey procedure--details small-padding">
-                                       <h3>Repair Procedure</h3>
-                           
-                                       
-                                       <!-- images uploaded -->
-                                       <fieldset class=" procedure--images-list ">
-                                           <legend>Images
-                                               <!-- add another image button -->
-                                               
-                                           </legend>
-       
-                                            <ol class="uploads" data-totalfiles="0" data-uploadId="0">
-                                               <!-- <li class="imageuploaded small-padding ">
-                                                   <img src="" alt="repair image" class="img-mini">
-                                                   <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
-                                                   <span class="button--mobile rounded clickable">remove item</span>
-                                               </li> -->
-                                           
-                                            </ol>
-                                            <div class="btn bg-warning text-black" data-action="add-image">
-                                                add another image
-                                            </div>
-                                       
-                                       </fieldset>
-                                       <!-- <fieldset class=""> -->
-                                           <legend class="" >Instructions</legend>
-                                           <textarea id="instructions1" class="textarea textarea-warning instructions center-block large-input white" 
-                                                placeholder="Instructions"
-                                                name="instructions1"
-                                                value=""
-                                                rows="8"></textarea>
-                                           <!-- <textarea placeholder="instructions or description here" 
-                                            name="instructions1" id="instructions1" 
-                                            class=" instructions center-block large-input white" 
-                                            value=""></textarea>
-                                       </fieldset> -->
-                                    
-                                   </section> 
-                                   <section class="controls">
-                                   <div class="bg-accent text-base-200 btn add-proc" data-action="add-procedure">
-                                       add another step
-                                   </div>
-                                   
-                                   <details class="warning">
-                                       <summary class=" btn text-black bg-warning remove-proc"> Delete Procedure</summary>
-                                       <button class="btn   bg-error-content text-white" data-action="remove-procedure">confirm delete</button>
-                                       
-                                   </details>
-                                 </section> `;
+            <h3>Repair Procedure</h3>
+
+            
+            <!-- images uploaded -->
+            <fieldset class=" procedure--images-list ">
+                <legend>Images
+                    <!-- add another image button -->
+                    
+                </legend>
+
+                <ol class="uploads" data-totalfiles="0" data-uploadId="0">
+                    <!-- <li class="imageuploaded small-padding ">
+                        <img src="" alt="repair image" class="img-mini">
+                        <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
+                        <span class="button--mobile rounded clickable">remove item</span>
+                    </li> -->
+                
+                </ol>
+                <div class="btn bg-warning text-black " data-action="add-image">
+                    add another image
+                </div>
+            
+            </fieldset>
+            <!-- <fieldset class=""> -->
+                <legend class="" >Instructions</legend>
+                <textarea id="instructions1" class="textarea textarea-warning instructions center-block large-input white" 
+                    placeholder="Instructions"
+                    name="instructions1"
+                    value=""
+                    rows="8"></textarea>
+                
+        </section>
+        <section class="controls">
+        <div class="bg-accent text-base-200 btn add-proc" data-action="add-procedure">
+            add another step
+        </div>
+        
+        <details class="warning">
+            <summary class=" btn text-black bg-warning remove-proc"> Delete Procedure</summary>
+            <div class=" btn bg-error-content text-white" data-action="remove-procedure">confirm delete</div>
+        </details>
+        </section>  `;
 
    return element;
     }
 
 }
 
-
-
-
+// =================================================
+// EVENT LISTENERS
+// =================================================
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log(`doc loaded repair form`)
-    
     const instructions =form.querySelector('#instructions')
-
-
-    // =========================================================
-    //event listeners
-    // =========================================================
 
     instructions.addEventListener('click',(event)=>{
    
         const action = event.target.dataset.action
-        console.log(`click event `, action)
-        //parent of target
+            console.log(`click event `, action)
+
+        //parent of procedure of target
         const procedure = event.target.closest('.procedure')
 
-
         switch (action) {
-           
             case 'add-image':
                 console.log(`add image`)
                 addImageToProcedure(event);
                 break;
-            
+
             case 'remove-image':
                 removeImage(event);
                 break;
+
             case 'remove-procedure':
                 console.log('remove procedure clicked')
-                // removeProc(event);
+                
+                removeProcedure(event);
                 break;
+
             case 'add-procedure':
                 addProcedureToInstructions(event);
                 break;
@@ -150,6 +138,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 })
 
 
+            
 
 
  //submit form event
@@ -252,6 +241,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 // FUNCTIONS
 // ==========================================================================
 
+function removeProcedure(event){
+    console.log(`deleting procedure`)
+    const procedure = event.target.closest('.procedure');
+    // console.log(procedure)
+    procedure.remove();
+}
 // display status message
 function statusMessage(text){
     
@@ -389,16 +384,11 @@ return files;
 function removeImage(event){
 
     const procedure = event.target.closest('.procedure');
-
     const uploadList = procedure.querySelector('.uploads');
         uploadList.dataset.totalfiles--;
-
     //li the image input is in
     const imageListItem = event.target.closest('li');
-
     imageListItem.remove();
-
-
 }
 
 //preview image on page locally when input for image is changed
