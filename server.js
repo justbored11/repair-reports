@@ -56,7 +56,7 @@ const loginRoutes = require('./routes/login')
 const logoutRoutes = require('./routes/logout')
 const signUpRoutes = require('./routes/signup')
 const homeRoutes = require('./routes/home')
-// const profileRoutes = require('./routes/profile')
+const profileRoutes = require('./routes/profile')
 
 // =============================================================
 // ROUTES
