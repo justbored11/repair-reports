@@ -15,7 +15,8 @@ router.get('/signform',async (request, response)=>{
             signature: sig.signature,
             timestamp: sig.timestamp,
             cloudname: process.env.cloud_name,
-            apikey: process.env.cloud_key
+            apikey: process.env.cloud_key,
+            folder:process.env.cloud_folder,
         })
     }catch(error){
     } 

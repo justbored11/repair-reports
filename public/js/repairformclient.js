@@ -24,7 +24,7 @@ class Repair{
     }
 
     buildRepair (procArr){
-        // console.log(procArr)
+        console.log(procArr)
             this.procedureArr = procArr;
             this.boardType=document.querySelector('#board-type').value;
             this.searchtags= document.querySelector('#search-tags').value;
@@ -43,6 +43,7 @@ class Procedure {
         this.procedureNum=procedureNum
         this.instructions=instructions
         this.thumbs = thumbs
+        this.imagesIdArr
     }
     procedureHtml(){
         const element = ` 
@@ -167,19 +168,21 @@ document.addEventListener('DOMContentLoaded', async () => {
    const procedurePromises=Array.from(allProcedures).map( async(proc,index)=>{
 
         //upload images if any
-        const images= await uploadImages(proc, signData)
- 
+        let images= await uploadImages(proc, signData)
+        console.log(images)
+
         const procedure = new Procedure();
            procedure.images= images.links; // add images urls Array
            procedure.thumbs = images.thumbs;
            procedure.procedureNum = index; //identifying sequence number
+           procedure.imagesIdArr = images.imagesIdArr//!problem not sending this to server
            //! problem here
            procedure.instructions = proc.querySelector('.instructions').value //instructions for this procedure
         return (procedure)
        
     })
 
-    // todo add try blcok when submitting
+    // todo add try block when submitting
     try {
       
             statusMessage('<br>Uploading images...')
@@ -304,6 +307,7 @@ function addProcedureToInstructions(event){
 
 
 //return image links after uploading
+//! working on getting a response object instead of just a string[]
  async function uploadImages(element, signData){
 
     // const files=element
@@ -313,46 +317,55 @@ function addProcedureToInstructions(event){
     //get images
     const imagesToUpload=getImages(element);
 
-            let imageLinksPromise = Array.from(imagesToUpload).map(async (filesList)=>{
- 
-                for (let i = 0; i < filesList.length; i++) {
+    let uploadPromises = Array.from(imagesToUpload).map(async (filesList)=>{
+        for (let i = 0; i < filesList.length; i++) {
+            let file = filesList[i];
+            formData.append("file", file);
+            formData.append("api_key", signData.apikey);
+            formData.append("timestamp", signData.timestamp);
+            formData.append("signature", signData.signature);
+            // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260"); //some form of transformation dont need
+            // formData.append("folder", "cata"); //put this file in folder named cata
+            formData.append("folder", signData.folder); //put this file in folder named cata
+
+            const response = await fetch(url, {
+                    method: "POST",
+                    body: formData
+                }).then(data => data.json());
             
-                    let file = filesList[i];
-            
-                    formData.append("file", file);
-                    formData.append("api_key", signData.apikey);
-                    formData.append("timestamp", signData.timestamp);
-                    formData.append("signature", signData.signature);
-                    // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260"); //some form of transformation dont need
-                    formData.append("folder", "cata"); //put this file in folder named cata
-                
-                    const response = await fetch(url, {
-                            method: "POST",
-                            body: formData
-                        }).then(data => data.json());
-                    
-                    // imageLinks.push(response.url)
-                    console.log(`link`,response.url)
-                    return response.url    
-                }
-    
-            })
+            // imageLinks.push(response.url)
+            console.log(`link`,response.url)
 
-            // console.log(`images promises`,imageLinksPromise)
-            let linksResolved = await Promise.all(imageLinksPromise)
-            let thumbsLinks = linksResolved.map((link)=>{
+            //! return the response as a whole 1**
+            /// return response.url    
+            console.log(response)
+            return response //! response as whole returned
+        }
 
-                //small thumb
-                // return link.replace('/upload/','/upload/t_media_lib_thumb/')
-                //larger thumb
-                return link.replace('/upload/','/upload/c_scale,w_400/')
+    })
 
-                // https://res.cloudinary.com/da6jwh1id/image/upload/c_scale,w_400/v1657981954/cata/hkzv8i0p6ghwfktk8ah8.jpg
-            })
-            // console.log(`resolved links`,linksResolved)
+    //array of responses after upload
+    let uploadResponses = await Promise.all(uploadPromises)//! response object returned 2**
+
+    const imageurls = uploadResponses.map((response)=>{
+        return response.url
+    })
+    const thumbsLinks = uploadResponses.map((response)=>{//!extracting url here for thumb
+        //larger thumb
+        // return response.replace('/upload/','/upload/c_scale,w_400/')
+        return response.url.replace('/upload/','/upload/c_scale,w_400/'); //!extracting url from response obj
+    })
+    const idList = uploadResponses.map((response)=>{//!extracting url here for thumb
+        return response.public_id;//!extracting url from response obj
+    })
 
 
-            return {links:linksResolved,thumbs:thumbsLinks}
+    return {
+        // links:uploadResponses, //! array of url links to images 
+        links:imageurls, //! array of url links to images 
+        thumbs:thumbsLinks, //! array of url links to thumbs
+        imagesIdArr:idList //!array of image ids from cloudinary
+    }
     
 }
 
@@ -367,11 +380,11 @@ function getImages(element){
     // get all elements with files
     const allUploads = element.querySelectorAll("[type=file]");
 
-        allUploads.forEach((element)=>{
+        allUploads.forEach((image)=>{
 
             //if a file is attached 
-            if(element.files.length >0){
-                files.push(element.files)
+            if(image.files.length >0){
+                files.push(image.files)
             }
         })
 

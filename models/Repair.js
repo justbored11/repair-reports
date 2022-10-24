@@ -11,6 +11,7 @@ const ProcedureSchema = new mongoose.Schema({
         type:String,
     },
     thumbs:[String],
+    imagesIdArr: [String]
 
 })
 

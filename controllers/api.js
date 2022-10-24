@@ -1,5 +1,3 @@
-// const dataBase = require('../modules/database.js'); //database interface
-// const mongoose = require('mongoose');
 const Repair = require('../models/Repair')
 const User = require('../models/User')
 
@@ -15,6 +13,30 @@ module.exports.testPost = async (req, res)=>{
     }
 }
 
+
+//!permanent delete
+module.exports.deletePost = async (req, res)=>{
+    try {
+        const user = await User.findOne({username:req.user.username})
+        const report = await Repair.findById({_id:req.params.id})
+    
+        // if(user.role === 'admin' || report.createdBy === user.username ){
+        //     report.removed = true;
+        //     await report.save()
+        //     res.redirect('/repair/') 
+        // }else{
+        //     console.log('user not allowed')
+        //     throw new Error(`user: ${user.username} not allowed`)
+        // }
+
+    } catch (error) {
+        
+        res.send({err:'delete error implemented ID: '+ req.params.id, message: error.message})
+    }
+}
+
+
+//soft delete post
 module.exports.deletePost = async (req, res)=>{
     try {
         const user = await User.findOne({username:req.user.username})
