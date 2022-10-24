@@ -65,7 +65,7 @@ app.use('/login', loginRoutes)
 app.use('/logout', logoutRoutes)
 app.use('/signup', signUpRoutes) 
 app.use('/repair', repairRoutes) 
-// app.use('/profile',profileRoutes)
+app.use('/profile',profileRoutes)
 
 
 
