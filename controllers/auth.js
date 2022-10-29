@@ -27,13 +27,18 @@ const User = require('../models/User') //new user gets put in user collection
     req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
   
     passport.authenticate('local', (err, user, info) => {
-      if (err) { return next(err) }
+      if (err) { 
+        console.error('authen failed')
+        return next(err) 
+      }
       if (!user) {
         req.flash('errors', info)
+        console.error('no user found')
         return res.redirect('/login')
       }
       req.logIn(user, (err) => {
         if (err) { return next(err) }
+        console.log('sucess login')
         req.flash('success', { msg: 'Success! You are logged in.' })
         res.redirect(req.session.returnTo || '/repair')
       })
@@ -67,7 +72,7 @@ const User = require('../models/User') //new user gets put in user collection
   }
   
 /// signup
-  exports.postSignup = (req, res, next) => { //checking to see if password ect match
+  exports.postSignup = async (req, res, next) => { //checking to see if password ect match
 
     console.log(`signup body`,req.body)
     const validationErrors = []
@@ -91,14 +96,14 @@ const User = require('../models/User') //new user gets put in user collection
     User.findOne({$or: [
       {email: req.body.email},
       {username: req.body.username}
-    ]}, (err, existingUser) => {
+    ]},async (err, existingUser) => {
       if (err) { return next(err) }
       if (existingUser) {
         req.flash('errors', { msg: 'Account with that email address or username already exists.' })
         return res.redirect('../signup')
       }
 
-      user.save((err) => {//save the new user model to create a new user in our users collection
+      await user.save((err) => {//save the new user model to create a new user in our users collection
         if (err) { return next(err) }
         req.logIn(user, (err) => {
           if (err) {

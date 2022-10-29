@@ -176,7 +176,6 @@ document.addEventListener('DOMContentLoaded', async () => {
            procedure.thumbs = images.thumbs;
            procedure.procedureNum = index; //identifying sequence number
            procedure.imagesIdArr = images.imagesIdArr//!problem not sending this to server
-           //! problem here
            procedure.instructions = proc.querySelector('.instructions').value //instructions for this procedure
         return (procedure)
        

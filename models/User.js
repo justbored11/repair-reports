@@ -18,21 +18,21 @@ const UserSchema = new mongoose.Schema({
         defaul:Date.now(),
         immutable:true,
     },
-    role:{
+    role:{ // application wide role default basic
         type:String,
         default:'basic'
     },
-    version:{
+    version:{ 
         type:Number,
-        default:3
+        default:4
     },
     email:{
-        // unique:true,
+        unique:true,//! made unique
         type:String,
         default:'no_email@no_email.com',
         lowercase:true,
     },
-    groups:{
+    groups:{//groups user belongs to default personal group
       type:[String],
       default: function(){
         return this.username

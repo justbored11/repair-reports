@@ -6,11 +6,3 @@ module.exports.getProfile=async (req, res)=>{
         user:req.user
     })
 }
-module.exports.getDashboard=async (req, res)=>{
-
-    res.render('dashboard.ejs',{
-        title:'Dashboard',
-        user:req.user
-    })
-
-}

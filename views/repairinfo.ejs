@@ -32,7 +32,7 @@
                     </h2>
                     <h2 class="text-xl">
                         Repair Documented by: 
-                        <span class="badge badge-lg"><%= repair.createdBy ? repair.createdBy : 'public' %></span>
+                        <span class="badge badge-lg"><%= createdBy ? createdBy : 'public' %></span>
                     </h2>
                     
                 </section>
@@ -52,8 +52,8 @@
                 
             <!-- procedures -->
             <ol class="procedure-list" data-currentProcId="1">   
-                
-                <% for (let i= 0 ; repair.procedureArr.length > i ; i++){ %>
+                <%# short curcuit procedureArr?. if no length then end loop only mal formed repair with no image or instructions will cause fail %> 
+                <% for (let i= 0 ; repair.procedureArr?.length > i ; i++){ %>
 
                     <li class=" card procedure-item small-padding">
                        

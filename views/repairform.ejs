@@ -49,10 +49,24 @@
                         <label class="label">
                         </label>
                     </div>
+                    <div class="form-control  max-w-xs">
+                        <label class="label">
+                          <span class="label-text">Add to Group </span>
+                        </label>
+                        <select name="groupId" class="select select-accent w-full max-w-xs">
+                            <option disabled selected>Available Groups to add</option>
+                            <% groups.forEach(group => { %>
+                                <option value="<%= group %>"><%= group %></option>
+                            <% }) %>
+                          </select>
+                        <label class="label">
+                        </label>
+                    </div>
+                    
                 </legend>
                
 
-                <!-- pick model of engine -->
+                <!-- pick parts manufacturer -->
                     <section class="container blue-grey darken-1">
 
                         <fieldset class="border engine-models">
@@ -95,6 +109,17 @@
                                 </label>
                               </span>
                         </fieldset>
+
+                        <!-- <fieldset class="border engine-models">
+                            <legend>Part Manufacturer</legend>
+                            <span>
+                                <label for="cat">
+                                    <div class="badge badge-accent">
+                                        <input id="cat" name="model" value="cat" type="radio" class=" model radio" />
+                                    </div>
+                                </label>
+                            </span>
+                        </fieldset> -->
                     </section>
                      
                     

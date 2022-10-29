@@ -43,15 +43,19 @@ const RepairSchema = new mongoose.Schema({
     procedureArr:{
         type:[ProcedureSchema]
     },
-    group:{//asigned server side
+    group:{//client sent group repair belongs to
         type:String,
         default:'public'
+    },
+    visibility:{//client sent allows to be seen to public feed
+        default:'public',
+        type:String,
     },
     createdBy:{//asigned serverside
         type:String,
         default:'public'
     },
-    removed:{
+    removed:{//soft delete
         type:Boolean,
         default:false,
     },

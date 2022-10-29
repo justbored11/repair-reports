@@ -41,6 +41,7 @@ app.use(
   )
   
 // Passport middleware
+const { ensureAuth } = require('./middleware/auth')
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -48,7 +49,6 @@ app.use(passport.session())
 
 
 // routes files
-// const repairInfoRoutes = require('./routes/repairInfoRoutes')
 const signformRoutes = require('./routes/signformRoutes')
 const formRoutes = require('./routes/form')
 const repairRoutes = require('./routes/repairRoutes')
@@ -57,16 +57,18 @@ const logoutRoutes = require('./routes/logout')
 const signUpRoutes = require('./routes/signup')
 const homeRoutes = require('./routes/home')
 const profileRoutes = require('./routes/profile')
-
+const dashboardRoutes = require('./routes/dashboard.js')
+const groupRoutes = require('./routes/group.js')
 // =============================================================
 // ROUTES
 app.use('/', homeRoutes) 
 app.use('/login', loginRoutes)
 app.use('/logout', logoutRoutes)
 app.use('/signup', signUpRoutes) 
-app.use('/repair', repairRoutes) 
-app.use('/profile',profileRoutes)
-
+app.use('/repair',ensureAuth, repairRoutes) 
+app.use('/profile',ensureAuth,profileRoutes)
+app.use('/dashboard',ensureAuth,dashboardRoutes)
+app.use('/group',ensureAuth,groupRoutes)
 
 
 app.use(formRoutes)
