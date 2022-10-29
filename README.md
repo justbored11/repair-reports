@@ -37,11 +37,12 @@ uploading can be delegated to client side with only having signature from server
 
 ## /config/.env  file
 #### cloudinary settings
-- cloud_name = 
-- cloud_key = 
-- cloud_secret =
+- cloud_name = //provided by cloudinary
+- cloud_key = //provided by cloudinary
+- cloud_secret = //provided by cloudinary
+- cloud_folder = //for organizing your cloudinary image into a folder
 #### mongoDb connection string
-- connect_string = 
+- connect_string = //provided by mongo
 #### port to use locally
 - PORT = 
 #### node enviroment for local run
