@@ -4,8 +4,6 @@ const User = require('../models/User')
 
 module.exports.testPost = async (req, res)=>{
     try {
-       console.log(req.session.passport)
-    
         res.render('test')
         
     } catch (error) {
@@ -35,7 +33,6 @@ module.exports.deletePost = async (req, res)=>{
     }
 }
 
-
 //soft delete post
 module.exports.deletePost = async (req, res)=>{
     try {
@@ -47,7 +44,7 @@ module.exports.deletePost = async (req, res)=>{
             await report.save()
             // res.send({message:'user is admin or creator',rep:report})
 
-            res.redirect('/repair/') 
+            res.json({"removed":report}) 
         }else{
             console.log('user not allowed')
             throw new Error(`user: ${user.username} not allowed`)
@@ -76,11 +73,11 @@ module.exports.addRepair = async (req, res)=>{
 
             let result = await Repair.create(entry)
             console.log(`done uploading at server result`,result)
-
+ 
             const repLink= `/repair/${result._id}` //add link to repair
 
             // console.log(`server response to send`,result)
-            res.send({result:entry,link:repLink})
+            res.send({message:"repair added successfully",result:entry,link:repLink})
             
         } catch (error) {
             res.status(400).json({message:'failed to save repair', "error":error.message})
@@ -109,7 +106,7 @@ module.exports.searchRepairs = async (req, res)=>{
                   }
                 }
               ]);
-        res.render('search.ejs',{title:'Search Results',repairs:results,user:req.user});
+        res.json({repairs:results});
     } catch (error) {
         res.status(400).json({message:'failed to get repairs', "error":error.message})
     }
@@ -126,10 +123,8 @@ module.exports.getNewestRepairs = async (req, res)=>{
         const results = await Repair.find({removed:{$ne:true}}).sort({_id:-1}).limit(numRepairs);
         console.log( `number of repairs returned`,results.length)
         
-        res.render('latest.ejs',{
-            title:'Latest Repairs',
+        res.json({
             repairs:results,
-            user:req.user
         })
     
     } catch (error) {
@@ -153,42 +148,3 @@ module.exports.getRepair = async (req, res)=>{
            res.status(400).json({message:`ID: ${request.params.repairId}  NOT FOUND`, error:err})
        }
 }
-
-
-
-/// render single repair 
-module.exports.getRepairPage = async (req, res)=>{
-  
-    try{
-        // get paremeter from url
-       const repairId = req.params.id
-    //    const repairObj = await dataBase.findRepair(repairId)//! use model
-       const repairObj = await Repair.findOne({_id:repairId}).lean() /// swap to mongoose
-
-       res.render('repairinfo.ejs',{title:'Repair Information',repair:repairObj,user:req.user})
-    }
-    catch(err){
-       res.status(400).json({message:`ID: ${request.params.repairId}  NOT FOUND`, error:err.message})
-   }
-
-
-}
-
-
-
-module.exports.getSearchPage = async (req, res)=>{
-  
-    try{
-        // get paremeter from ur
-
-       res.render('search-page.ejs',{title:'Search Records',user:req.user})
-    }
-    catch(err){
-       res.status(400).json({message:`ID: ${request.params.repairId}  NOT FOUND`, error:err.message})
-   }
-
-
-
-}
-
-
