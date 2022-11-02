@@ -106,7 +106,20 @@ module.exports.getNewestRepairs = async (req, res)=>{
         const userGroups = [...req.user.groups,'public']
 
         //retrieve certain number of repairs that have not been removed
-        const results = await Repair.find({removed:{$ne:true},group:{$in:userGroups}}).sort({_id:-1}).limit(numRepairs);
+        // const results = await Repair.find({removed:{$ne:true},group:{$in:userGroups}}).sort({_id:-1}).limit(numRepairs);
+        const results = await Repair.find({$or:[
+            {
+                removed:{$ne:true},
+                group:{$in:userGroups}
+            },
+            {
+                visibility:{$in:['public']},
+                removed:{$ne:true},
+                
+            }
+           
+        ]}).sort({_id:-1}).limit(numRepairs);
+
         console.log( `number of repairs returned`,results.length)
         console.log('repairs are: ',results)
         res.render('latest.ejs',{
