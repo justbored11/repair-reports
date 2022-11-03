@@ -38,8 +38,10 @@ module.exports.deletePost = async (req, res)=>{
 
 //add repair to database
 module.exports.addRepair = async (req, res)=>{
+    console.log("request for add repair",req.body)
+    console.log("***********************************")
         try {
-           let  groupId= req.body.groupId ? req.body.groupId : req.user.username
+           let  groupId= req.body.group ? req.body.group : req.user.username
 
 
             let entry = {
@@ -176,7 +178,7 @@ module.exports.getRepairPage = async (req, res)=>{
         createdByUser = repairObj.createdBy
     }
 
-
+    console.log(repairObj)
     // render page
     res.render('repairinfo.ejs',{
         title:'Repair Information',

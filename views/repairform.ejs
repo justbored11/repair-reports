@@ -54,10 +54,11 @@
                           <span class="label-text">Add to Group </span>
                         </label>
                         <select name="groupId" class="select select-accent w-full max-w-xs">
-                            <option disabled selected>Available Groups to add</option>
+                            <option disabled>Available Groups to add</option>
                             <% groups.forEach(group => { %>
                                 <option value="<%= group %>"><%= group %></option>
                             <% }) %>
+                            <option selected value="public">Public</option>
                           </select>
                         <label class="label">
                         </label>

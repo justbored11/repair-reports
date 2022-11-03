@@ -12,6 +12,7 @@ class Repair{
         this.boardType=board;
         this.engineMake=engine;
         this.removed=false;
+        this.group="public"
     }
 
     addProcedure(proc) {
@@ -30,6 +31,7 @@ class Repair{
             this.searchtags= document.querySelector('#search-tags').value;
             this.title =  document.querySelector('#title').value;
             this.engineMake = document.querySelector('input:checked.model').value;
+            this.group = document.querySelector('select[name="groupId"]').value;
             
         return this
     }
@@ -290,17 +292,18 @@ function addProcedureToInstructions(event){
 
 
 
- function buildRepair (procArr){
-    const repair =  new Repair()
-    // console.log(procArr)
-        repair.procedureArr = procArr;
-        repair.boardType=document.querySelector('#board-type').value;
-        repair.searchtags= document.querySelector('#search-tags').value;
-        repair.title =  document.querySelector('#rep-title').value;
-        repair.engineMake = document.querySelector('.model input:checked').value;
+//  function buildRepair (procArr){
+//     const repair =  new Repair()
+//     // console.log(procArr)
+//         repair.procedureArr = procArr;
+//         repair.boardType=document.querySelector('#board-type').value;
+//         repair.searchtags= document.querySelector('#search-tags').value;
+//         repair.title =  document.querySelector('#rep-title').value;
+//         repair.engineMake = document.querySelector('.model input:checked').value;
+//         repair.group = document.querySelector('select[name="groupId"]').value;
     
-    return repair
-}
+//     return repair
+// }
 
 
 

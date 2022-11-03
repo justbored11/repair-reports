@@ -13,7 +13,7 @@ module.exports.getForm=async (req, res)=>{
         foundUser.groups = [foundUser.username]
         await foundUser.save()
     }
-    const userGroups = [...foundUser.groups,'public']
+    const userGroups = [...foundUser.groups]
 
     res.render('repairform.ejs',{
         title:"Repair Submission",
