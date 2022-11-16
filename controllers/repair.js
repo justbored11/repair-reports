@@ -1,4 +1,4 @@
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const Repair = require('../models/Repair')
 const User = require('../models/User')
 
@@ -14,12 +14,15 @@ module.exports.testPost = async (req, res)=>{
     }
 }
 
+//soft delete
 module.exports.deletePost = async (req, res)=>{
     try {
         const user = await User.findOne({username:req.user.username})
         const report = await Repair.findById({_id:req.params.id})
     
-        if(user.role === 'admin' || report.createdBy === user.username ){
+        // if(user.role === 'admin' || report.createdBy === user.username ){
+        if(user.role === 'admin' || user._id.equals(report.createdBy) ){
+
             report.removed = true;
             await report.save()
             // res.send({message:'user is admin or creator',rep:report})
@@ -30,7 +33,7 @@ module.exports.deletePost = async (req, res)=>{
             throw new Error(`user: ${user.username} not allowed`)
         }
 
-    } catch (error) {
+    } catch (err) {
         
         res.send({err:'delete error implemented ID: '+ req.params.id, message: error.message})
     }
@@ -66,8 +69,8 @@ module.exports.addRepair = async (req, res)=>{
             // console.log(`server response to send`,result)
             res.send({result:entry,link:repLink})
             
-        } catch (error) {
-            res.status(400).json({message:'failed to save repair', "error":error.message})
+        } catch (err) {
+            res.status(400).json({message:'failed to save repair', "error":err.message})
         }
     }
 
@@ -94,8 +97,8 @@ module.exports.searchRepairs = async (req, res)=>{
                 }
               ]);
         res.render('search.ejs',{title:'Search Results',repairs:results,user:req.user});
-    } catch (error) {
-        res.status(400).json({message:'failed to get repairs', "error":error.message})
+    } catch (err) {
+        res.status(400).json({message:'failed to get repairs', "error":err.message})
     }
 }
 
@@ -130,8 +133,8 @@ module.exports.getNewestRepairs = async (req, res)=>{
             user:req.user
         })
     
-    } catch (error) {
-        res.status(500).json({message:'failed get repairs', "error":error.message})
+    } catch (err) {
+        res.status(500).json({message:'failed get repairs', "error":err.message})
     }
 }
 
@@ -160,31 +163,45 @@ module.exports.getRepairPage = async (req, res)=>{
     let repairObj ={};
     let createdByUser='';
     let foundUser={};
+    let requestingUser={}
 
     try { //find repair report
        repairObj = await Repair.findOne({_id:repairId}).lean() 
-    } catch (error) {
-        res.status(400).json({message:`ID: ${req.params.repairId}  NOT FOUND`, error:err.message})
+    } catch (err) {
+        res.status(400).json({message:`ID: ${repairId}  NOT FOUND`, error:err.message})
+        return;
     }
 
     
-    try {//find user that created report
-        foundUser =await User.findById({_id:repairObj.createdBy})
-        createdByUser = foundUser.username
+    try {//find user that created report from user id on report
         
-    } catch (error) {
-        console.error('user not found')
-        console.log('found user is: ',foundUser)
-        createdByUser = repairObj.createdBy
+        //!need to abstract the ID to username action
+        foundUser =await User.findById({_id:repairObj.createdBy}) //find by ID
+        createdByUser = foundUser.username // get the username string for report render
+
+        requestingUser = await User.findById({_id:req.user._id})
+        
+    } catch (err) {
+        res.status(400).json({message:`Failed to find report ID:${repairId}`, error:err.message})
+        return
     }
 
-    console.log(repairObj)
-    // render page
+    
+    // console.log(repairObj)
+    // console.log(`created by compare` ,repairObj.createdBy,' : ',req.user._id )
+    // console.log(foundUser)
+    // console.log(`req user`, requestingUser)
+    console.log(req.user)
+    
+    /// render page
     res.render('repairinfo.ejs',{
         title:'Repair Information',
         repair:repairObj,user:req.user,
         createdBy:createdByUser,
-        allowedDelete:(repairObj.createdBy === req.user._id)
+        // allowedEdit:(repairObj.createdBy == req.user._id)
+        //!need to abstract check for modify tools
+        allowedEdit:(req.user._id.equals(repairObj.createdBy) || requestingUser.role === 'admin') //! need admin check
+
     })
    
 
