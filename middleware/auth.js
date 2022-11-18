@@ -6,7 +6,7 @@ module.exports = {
       return next();
     } else {
       req.session.returnTo = req.originalUrl;
-      console.log("session output", req.session.returnTo);
+      // console.log("session output", req.session.returnTo);
       res.redirect("/login");
     }
   },

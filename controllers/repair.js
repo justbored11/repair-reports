@@ -225,3 +225,66 @@ module.exports.getSearchPage = async (req, res) => {
     });
   }
 };
+
+///render edit page *******************************************
+module.exports.getEditPage = async (req, res) => {
+  const repairId = req.params.id;
+  let repairObj = {};
+  let createdByUser = "";
+  let foundUser = {};
+  let requestingUser = {};
+  let toolsAllowed = false;
+
+  try {
+    //find repair report
+    repairObj = await Repair.findOne({ _id: repairId }).lean();
+    console.log(repairObj);
+  } catch (err) {
+    res
+      .status(400)
+      .json({ message: `ID: ${repairId}  NOT FOUND`, error: err.message });
+    return;
+  }
+
+  try {
+    //! need to abstract the ID to username action
+    //! some entry are old using string newer ones use ID
+    //find user that created report from user id on report
+    // new entrys use userID for createdBy field
+    //older entrys might not have created by feild
+    if (repairObj.createdBy && repairObj.createdBy.length > 10) {
+      foundUser = await User.findOne({ _id: repairObj.createdBy });
+    }
+    //older entry using string of username for createdBy field
+    else if (repairObj.createdBy) {
+      foundUser = await User.findOne({ username: repairObj.createdBy });
+    }
+
+    createdByUser = foundUser.username || "public default"; // get the username string for report render
+    requestingUser = await User.findOne({ _id: req.user._id }); //user requesting
+    console.log("user requesting ******", requestingUser);
+  } catch (err) {
+    res.status(400).json({
+      message: `Failed to find report ID:${repairId}`,
+      error: err.message,
+    });
+    return;
+  }
+
+  //check if user can have edit tools
+  // if createdby matches req user ID || or matches username || has admin role
+  toolsAllowed =
+    req.user._id.equals(repairObj.createdBy) ||
+    repairObj.createdBy === req.user.username ||
+    requestingUser.role === "admin";
+
+  /// render page
+  res.render("edit-page.ejs", {
+    title: "Repair Information",
+    repair: repairObj,
+    user: req.user,
+    createdBy: createdByUser, //possible not user found
+    allowedEdit: toolsAllowed,
+    groupList: requestingUser.groups,
+  });
+};
