@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
     },
     createdAt: {
       type: Date,
-      defaul: Date.now(),
+      default: Date.now,
       immutable: true,
     },
     role: {
@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema(
     },
     version: {
       type: Number,
-      default: 4,
+      default: 5,
     },
     email: {
       unique: true, //! made unique
