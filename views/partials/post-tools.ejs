@@ -1,11 +1,14 @@
 <div>
     <!-- if username === createdby || user.role === admin -->
     <form action='/repair/delete/<%= repair._id %>'>
-        <details>
-            <summary class="btn"> Delete Report</summary>
-            <button class="btn red">confirm delete</button>
-            
+        <details class="mb-4">
+            <summary class="btn text-black bg-blue-300"> Delete Report</summary>
+            <button class="btn text-black bg-red-600 ">confirm delete</button>
         </details>
-       
-       </form>
-</div>		
+        <details>
+            <summary class="btn text-black bg-blue-300">Edit Report</summary>
+            <button class="btn text-black">confirm EDIT</button>
+        </details>
+
+    </form>
+</div>
