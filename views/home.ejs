@@ -27,11 +27,11 @@
               <div class="navbar bg-content ">
                 <!-- <div><h1 class="font-bold">Circuit Chaser</h1></div> -->
                 <div class="navbar-start">
-                  <div class="dropdown">
-                    <label tabindex="0" class="btn btn-ghost lg:hidden">
+                  <div data-test="mobile-nav" class="dropdown">
+                    <label  tabindex="0" class="btn btn-ghost lg:hidden">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </label>
-                    <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow  rounded-box w-52">
+                    <ul data-test="mobile-menu" tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow  rounded-box w-52">
                         <li><a href="/login">Log In</a></li>
                         <li><a href="/dashboard">Dashboard</a></li>
                         <li><a href="/repair">Latest Repairs</a></li>
@@ -43,7 +43,7 @@
                   
                 </div>
                 <div class="navbar-center hidden lg:flex">
-                  <ul class="menu menu-horizontal p-0">
+                  <ul data-test="full-menu" class="menu menu-horizontal p-0">
                       <li><a href="/login">Log In</a></li>
                       <li><a href="/dashboard">Dashboard</a></li>
                       <li><a href="/repair">Latest Repairs</a></li>
