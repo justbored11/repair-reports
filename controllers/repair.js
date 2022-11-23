@@ -226,7 +226,7 @@ module.exports.getSearchPage = async (req, res) => {
   }
 };
 
-///render edit page *******************************************
+///RENDER EDIT PAGE *******************************************
 module.exports.getEditPage = async (req, res) => {
   const repairId = req.params.id;
   let repairObj = {};
@@ -277,7 +277,7 @@ module.exports.getEditPage = async (req, res) => {
     req.user._id.equals(repairObj.createdBy) ||
     repairObj.createdBy === req.user.username ||
     requestingUser.role === "admin";
-
+  console.log(repairObj);
   /// render page
   res.render("edit-page.ejs", {
     title: "Repair Information",
@@ -285,6 +285,7 @@ module.exports.getEditPage = async (req, res) => {
     user: req.user,
     createdBy: createdByUser, //possible not user found
     allowedEdit: toolsAllowed,
-    groupList: requestingUser.groups,
+    groups: requestingUser.groups,
+    manufacturers: ["cat", "detroit", "cummins"],
   });
 };

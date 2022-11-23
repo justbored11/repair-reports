@@ -1,6 +1,4 @@
-// const Procedure = require('./Procedure')
 const form = document.querySelector("#repair-form");
-
 //main repair object sent to server
 class Repair {
   constructor(
@@ -361,6 +359,7 @@ function previewImage(event) {
   //   const uploadnum = event.target.closest(".uploads").dataset.totalfiles;
   const currentUpload = event.target.closest(".imageuploaded");
   const image = currentUpload.querySelector("img");
+  console.log("image", image);
   image.src = URL.createObjectURL(event.target.files[0]);
   image.alt = "image preview";
   image.classList.add("img-mini");
