@@ -16,6 +16,7 @@ router.get("/getrecords/:num", repairsController.getNewestRepairs);
 router.get("/delete/:id", repairsController.deletePost);
 router.get("/search", repairsController.searchRepairs);
 router.get("/searchpage", repairsController.getSearchPage);
+router.get("/edit/:id", repairsController.getEditPage);
 router.get("/:id", repairsController.getRepairPage);
 
 //POST

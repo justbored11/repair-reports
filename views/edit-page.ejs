@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("./partials/head.ejs"); -%>
+</head>
+
+<body class="search-page center-block">
+  <header>
+    <nav>
+      <%- include("./partials/mobile-menu.ejs"); -%>
+    </nav>
+  </header>
+  <section class="flex container">
+    <h2 class="flex-auto text-center text-2xl">EDIT MODE</h2>
+  </section>
+  <section class="report row small-padding grey">
+    <section class="grey">
+      <section class="card small-padding">
+        <section>
+          <h1 class="text-xl">Title:</h1>
+          <input class="text-black" type="text" data-orig="<%= repair.title %>" value="<%= repair.title %>" id="title"
+            name="title" />
+          <!-- <span class="badge badge-lg"><%= repair.title %></span> -->
+          <span class="btn btn-sm">reset</span>
+        </section>
+        <section>
+          <h2 class="text-xl">Repair group:</h2>
+          <p>
+            original group was <%= repair.group ? repair.group : 'public' %>
+          </p>
+          <select class="text-black" name="group" id="group">
+            <option disabled selected value="<%= repair.group ? repair.group : 'public' %>">
+              Groups Available
+            </option>
+            <option value="<%= repair.group ? repair.group : 'public' %>">
+              <%= repair.group ? repair.group : 'public' %>
+            </option>
+            <%# loop through users available groups %>
+              <% for( let index=0; index < groupList.length;index++ ) { %>
+                <option value="<%= groupList[index] %>">
+                  <%= groupList[index] %>
+                </option>
+
+                <%} %>
+          </select>
+          <span class="btn btn-sm">reset</span>
+        </section>
+        <section>
+          <h2 class="text-xl">Repair ID:</h2>
+          <input class="text-black" size="30" type="text" value="<%= repair._id %>" disabled />
+          <!-- <span class="badge badge-lg"><%= repair._id %></span> -->
+        </section>
+
+        <section>
+          <h2 class="text-xl">Repair Documented by:</h2>
+          <input type="text" class="text-black" value="<%= createdBy ? createdBy : 'public' %>" disabled />
+          <!-- <span class="badge badge-lg"
+              ><%= createdBy ? createdBy : 'public' %></span
+            > -->
+        </section>
+        <section class="rounded">
+          <h3 class="title board-type">Board Type:</h3>
+          <input class="text-black" data-orig="<%= repair.boardType %>" type="text" name="boardType" id="boardType"
+            value="<%= repair.boardType %>" />
+          <span class="btn btn-sm">reset</span>
+        </section>
+
+        <section class="rounded repair-info">
+          <h3 class="title">Engine Make:</h3>
+          <input class="text-black" type="text" name="" id="" value="<%= repair.engineMake %>" />
+          <span class="btn btn-sm">reset</span>
+        </section>
+      </section>
+    </section>
+
+    <!-- procedures -->
+    <ol class="procedure-list" data-currentProcId="1">
+      <%# short curcuit procedureArr?. if no length then end loop only mal formed repair with no image or instructions
+        will cause fail %>
+        <% for(let i=0 ; repair.procedureArr?.length> i ; i++){ %>
+
+          <li class="card procedure-item small-padding">
+            <section class="pic-container center-block">
+              <!-- images list -->
+              <!-- carousel -->
+              <div class="grid grid-cols-3 gap-4 content-center">
+                <% for (let a=0 ; repair.procedureArr[i].images.length> a ;
+                  a++){ %>
+                  <div id="item<%=a%><%=i%>" class="content-center flex">
+                    <a class="content-center " href="<%= repair.procedureArr[i].images[a] %>">
+                      <!-- update below -->
+                      <%if (repair.procedureArr[i].images){%>
+                        <img loading="lazy"
+                          src="<%= repair.procedureArr[i].images[a].replace('/upload/','/upload/c_scale,w_600/')%>" />
+
+
+                        <%}%>
+                    </a>
+
+                  </div>
+                  <!-- UPDATE IMAGE URL-->
+                  <section class="border border-sky-500">
+                    <h3>Change image with URL</h3>
+                    <input type="text"
+                      value="<%= repair.procedureArr[i].images[a].replace('/upload/','/upload/c_scale,w_600/')%>">
+                  </section>
+                  <section class="border border-sky-500">
+                    <h3>Upload New Image</h3>
+                    <h2>NOT IMPLEMENTED</h2>
+
+                    <input data-uploadnum="1" type="file" name="picture" accept="image/*"
+                      onchange="previewImage(event)">
+                  </section>
+
+                  <% } %>
+
+              </div>
+
+              <!-- bottom carousel numbers -->
+
+
+
+              <!-- description -->
+              <section class="small-padding">
+                <p class="center-text instructions">
+                  <%= repair.procedureArr[i].instructions %>
+                </p>
+              </section>
+              <!-- carousel end-->
+            </section>
+          </li>
+          <% } %>
+    </ol>
+  </section>
+
+  <footer>
+    <!-- 
+            <% if (allowedEdit) { %>
+                <h3>Edit tools</h3>
+                <%- include("./partials/post-tools.ejs"); -%>
+            <% } %> 
+             -->
+  </footer>
+</body>
+
+</html>
