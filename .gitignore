@@ -1,5 +1,5 @@
 node_modules/
 secrets.js
 *.env
-cypress/videos
+cypress/videos/
 
