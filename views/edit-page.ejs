@@ -105,44 +105,23 @@
         <ol id="instructions" data-currentProcId="1">
 
 
-          <!-- FOR LOOP -->
+          <!-- FOR LOOP PROCEDURES -->
           <% for( let index=0, len=repair.procedureArr.length ;index < len; index++ ) { %>
-            <li class=" procedure small-padding card  bg-base-100 shadow-xl" data-procedureId="1">
+            <li class=" mb-4 bg-cyan-800 procedure small-padding card   shadow-xl" data-procedureId="1">
 
-              <h3>Repair Procedure <%= index+1 %>
-              </h3>
               <section class="grey procedure--details small-padding">
+                <h3>Repair Procedure</h3>
 
                 <!-- images uploaded -->
-                <fieldset class=" procedure--images-list ">
-                  <legend>Images
-                    <!-- add another image button -->
-
-                  </legend>
-
+                <section class="">
                   <ol class="uploads" data-totalfiles="0" data-uploadId="0">
-                    <!-- <li class="imageuploaded small-padding ">
-                                                     <img src="" alt="repair image" class="img-mini">
-                                                     <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
-                                                     <span class="button--mobile rounded clickable">remove item</span>
-                                                 </li> -->
-                    <!-- FOR LOOP IMAGES -->
-                    <fieldset class=" procedure--images-list ">
-                      <legend>Images
-                        <!-- add another image button -->
 
-                      </legend>
+                    <fieldset class="">
+                      <legend>Images</legend>
+                      <!-- FOR LOOP IMAGES -->
                       <% repair.procedureArr[index]?.images.forEach(element=> { %>
-
+                        <!-- UPLOADED IMAGES -->
                         <ol class="uploads" data-totalfiles="0" data-uploadid="0">
-                          <!-- <li class="imageuploaded small-padding ">
-                                                           <img src="" alt="repair image" class="img-mini">
-                                                           <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
-                                                           <span class="button--mobile rounded clickable">remove item</span>
-                                                       </li> -->
-
-
-
                           <li class="card imageuploaded small-padding">
                             <img src=<%=element%> alt="image preview" class="img-mini" />
                             <input onchange="previewImage(event);" type="file" accept="image/*"><span
@@ -160,7 +139,7 @@
                     add another image
                   </div>
 
-                </fieldset>
+                </section>
                 <!-- <fieldset class=""> -->
                 <legend class="">Instructions</legend>
                 <textarea id="instructions1"
@@ -185,52 +164,7 @@
             <% } %>
               <!-- FOR LOOP END -->
 
-              <!-- repair instructions -->
-              <li class=" procedure small-padding card  bg-base-100 shadow-xl" data-procedureId="1">
 
-                <section class="grey procedure--details small-padding">
-                  <h3>Repair Procedure</h3>
-
-
-                  <!-- images uploaded -->
-                  <fieldset class=" procedure--images-list ">
-                    <legend>Images
-                      <!-- add another image button -->
-
-                    </legend>
-
-                    <ol class="uploads" data-totalfiles="0" data-uploadId="0">
-                      <!-- <li class="imageuploaded small-padding ">
-                                                   <img src="" alt="repair image" class="img-mini">
-                                                   <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
-                                                   <span class="button--mobile rounded clickable">remove item</span>
-                                               </li> -->
-
-                    </ol>
-                    <div class="btn bg-warning text-black " data-action="add-image">
-                      add another image
-                    </div>
-
-                  </fieldset>
-                  <!-- <fieldset class=""> -->
-                  <legend class="">Instructions</legend>
-                  <textarea id="instructions1"
-                    class="textarea textarea-warning instructions center-block large-input white"
-                    placeholder="Instructions" name="instructions1" value="" rows="8"></textarea>
-
-                </section>
-                <section class="controls">
-                  <div class="bg-accent text-base-200 btn add-proc" data-action="add-procedure">
-                    add another step
-                  </div>
-
-                  <details class="warning">
-                    <summary class=" btn text-black bg-warning remove-proc"> Delete Procedure</summary>
-                    <div class=" btn bg-error-content text-white" data-action="remove-procedure">confirm
-                      delete</div>
-                  </details>
-                </section>
-              </li>
         </ol>
       </section>
       <button id="submit" class="btn" type="submit">
@@ -244,6 +178,60 @@
   </main>
 
   <footer>
+    <section class="">
+      <h4>TEMPLATES</h4>
+      <!-- PROCEDURE TEMPLATE -->
+      <li id="procedure-template" class=" mb-4 bg-cyan-800 procedure small-padding card shadow-xl" data-procedureId="1">
+
+        <section class="grey procedure--details small-padding">
+          <h3>Repair Procedure</h3>
+
+          <!-- images uploaded -->
+          <section class="">
+            <ol class="uploads" data-totalfiles="0" data-uploadId="0">
+
+              <fieldset class="">
+                <legend>Images</legend>
+                <!-- FOR LOOP IMAGES -->
+                <!-- UPLOADED IMAGES -->
+                <ol class="uploads" data-totalfiles="0" data-uploadid="0">
+                  <!-- IMAGE TEMPLATE -->
+                  <li id="image-template" class="card imageuploaded small-padding">
+                    <img src="" alt="image preview" class="img-mini" />
+                    <input onchange="previewImage(event);" type="file" accept="image/*"><span
+                      class="button--mobile clickable rounded btn" data-action="remove-image">remove item</span>
+                  </li>
+                </ol>
+
+
+              </fieldset>
+              <!-- FOR LOOP IMAGES END -->
+
+            </ol>
+            <div class="btn bg-warning text-black " data-action="add-image">
+              add another image
+            </div>
+
+          </section>
+          <!-- <fieldset class=""> -->
+          <legend class="">Instructions</legend>
+          <textarea id="instructions1" class="textarea textarea-warning instructions center-block large-input white"
+            placeholder="Instructions" name="instructions1" data-orig="" rows="8"></textarea>
+
+        </section>
+        <section class="controls">
+          <div class="bg-accent text-base-200 btn add-proc" data-action="add-procedure">
+            add another step
+          </div>
+
+          <details class="warning">
+            <summary class=" btn text-black bg-warning remove-proc"> Delete Procedure</summary>
+            <div class=" btn bg-error-content text-white" data-action="remove-procedure">confirm
+              delete</div>
+          </details>
+        </section>
+      </li>
+    </section>
 
   </footer>
   <script type="text/javascript" src="/js/editpage.js"></script>
