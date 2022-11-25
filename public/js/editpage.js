@@ -400,5 +400,6 @@ function addImageToProcedure(event) {
     .querySelector("#image-template")
     .cloneNode(true);
   // uploadList.appendChild(li);//! orig
+  imageLiTemplate.id = null;
   uploadList.appendChild(imageLiTemplate); //! new
 }
