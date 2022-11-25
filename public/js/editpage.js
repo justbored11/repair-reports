@@ -371,11 +371,6 @@ function addImageToProcedure(event) {
   const procedure = event.target.closest(".procedure");
 
   const uploadList = procedure.querySelector(".uploads");
-  //   uploadList.dataset.totalfiles++; //amount of files
-  //   uploadList.dataset.uploadId++; //id for uploading
-
-  //   let uploadId = uploadList.dataset.uploadId;
-
   const image = document.createElement("img");
   image.alt = "image preview";
   image.classList.add("img-mini");
@@ -383,23 +378,27 @@ function addImageToProcedure(event) {
   const input = document.createElement("input");
   //   input.dataset.uploadId = uploadId;
   //   input.name = `picture${uploadId}`;
-  input.type = "file";
-  input.accept = "image/*";
-  input.onchange = (event) => {
-    previewImage(event);
-  };
+  // input.type = "file";
+  // input.accept = "image/*";
+  // input.onchange = (event) => {
+  //   previewImage(event);
+  // };
 
-  const removeButton = document.createElement("span");
-  removeButton.classList.add("button--mobile", "clickable", "rounded", "btn");
-  removeButton.innerText = "remove item";
-  removeButton.dataset.action = "remove-image";
+  // const removeButton = document.createElement("span");
+  // removeButton.classList.add("button--mobile", "clickable", "rounded", "btn");
+  // removeButton.innerText = "remove item";
+  // removeButton.dataset.action = "remove-image";
   //   removeButton.dataset.uploadId = uploadId;
 
-  const li = document.createElement("li");
-  li.classList.add("card", "blue", "imageuploaded", "small-padding");
-  li.appendChild(image);
-  li.appendChild(input);
-  li.appendChild(removeButton);
+  // const li = document.createElement("li");
+  // li.classList.add("card", "blue", "imageuploaded", "small-padding");
+  // li.appendChild(image);
+  // li.appendChild(input);
+  // li.appendChild(removeButton);
 
-  uploadList.appendChild(li);
+  const imageLiTemplate = document
+    .querySelector("#image-template")
+    .cloneNode(true);
+  // uploadList.appendChild(li);//! orig
+  uploadList.appendChild(imageLiTemplate); //! new
 }
