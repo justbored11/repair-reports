@@ -53,54 +53,53 @@ class Procedure {
     this.thumbs = thumbs;
     this.imagesIdArr;
   }
-  procedureHtml() {
-    const element = ` 
-        <section class="grey procedure--details small-padding">
-            <h3>Repair Procedure</h3>
+  // procedureHtml() {
+  //   const element = `
+  //       <section class="grey procedure--details small-padding">
+  //           <h3>Repair Procedure</h3>
 
-            
-            <!-- images uploaded -->
-            <fieldset class=" procedure--images-list ">
-                <legend>Images
-                    <!-- add another image button -->
-                    
-                </legend>
+  //           <!-- images uploaded -->
+  //           <fieldset class=" procedure--images-list ">
+  //               <legend>Images
+  //                   <!-- add another image button -->
 
-                <ol class="uploads"  data-uploadId="0">
-                    <!-- <li class="imageuploaded small-padding ">
-                        <img src="" alt="repair image" class="img-mini">
-                        <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
-                        <span class="button--mobile rounded clickable">remove item</span>
-                    </li> -->
-                
-                </ol>
-                <div class="btn bg-warning text-black " data-action="add-image">
-                    add another image
-                </div>
-            
-            </fieldset>
-            <!-- <fieldset class=""> -->
-                <legend class="" >Instructions</legend>
-                <textarea id="instructions1" class="textarea textarea-warning instructions center-block large-input white" 
-                    placeholder="Instructions"
-                    name="instructions1"
-                    value=""
-                    rows="8"></textarea>
-                
-        </section>
-        <section class="controls">
-        <div class="bg-accent text-base-200 btn add-proc" data-action="add-procedure">
-            add another step
-        </div>
-        
-        <details class="warning">
-            <summary class=" btn text-black bg-warning remove-proc"> Delete Procedure</summary>
-            <div class=" btn bg-error-content text-white" data-action="remove-procedure">confirm delete</div>
-        </details>
-        </section>  `;
+  //               </legend>
 
-    return element;
-  }
+  //               <ol class="uploads"  data-uploadId="0">
+  //                   <!-- <li class="imageuploaded small-padding ">
+  //                       <img src="" alt="repair image" class="img-mini">
+  //                       <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
+  //                       <span class="button--mobile rounded clickable">remove item</span>
+  //                   </li> -->
+
+  //               </ol>
+  //               <div class="btn bg-warning text-black " data-action="add-image">
+  //                   add another image
+  //               </div>
+
+  //           </fieldset>
+  //           <!-- <fieldset class=""> -->
+  //               <legend class="" >Instructions</legend>
+  //               <textarea id="instructions1" class="textarea textarea-warning instructions center-block large-input white"
+  //                   placeholder="Instructions"
+  //                   name="instructions1"
+  //                   value=""
+  //                   rows="8"></textarea>
+
+  //       </section>
+  //       <section class="controls">
+  //       <div class="bg-accent text-base-200 btn add-proc" data-action="add-procedure">
+  //           add another step
+  //       </div>
+
+  //       <details class="warning">
+  //           <summary class=" btn text-black bg-warning remove-proc"> Delete Procedure</summary>
+  //           <div class=" btn bg-error-content text-white" data-action="remove-procedure">confirm delete</div>
+  //       </details>
+  //       </section>  `;
+
+  //   return element;
+  // }
 }
 
 // =================================================
@@ -242,34 +241,39 @@ function removeProcedure(event) {
   procedure.remove();
 }
 
+/// CHANGE STATUS MESSAGE
 function statusMessage(text) {
   const statusMessage = document.querySelector(".loading-text");
 
   statusMessage.innerHTML += `${text}`;
 }
 
+/// ADD ANOTHER PROCEDURE ELEMENT
 function addProcedureToInstructions(event) {
-  const procedure = new Procedure();
-  // console.log(`add procedure`)
-
+  // const procedure = new Procedure();
   const instructions = event.target.closest("#instructions");
-  instructions.dataset.currentprocid++;
+  // instructions.dataset.currentprocid++;
 
   const parentProcedure = event.target.closest(".procedure"); //new
 
-  const li = document.createElement("li");
-  li.dataset.procedureid = instructions.dataset.currentprocid;
-  li.classList.add(
-    "procedure",
-    "small-padding",
-    "card",
-    "bg-base-100",
-    "shadow-xl"
-  );
-  li.innerHTML = procedure.procedureHtml();
+  // const li = document.createElement("li");
+  // li.dataset.procedureid = instructions.dataset.currentprocid;
+  // li.classList.add(
+  //   "procedure",
+  //   "small-padding",
+  //   "card",
+  //   "bg-base-100",
+  //   "shadow-xl"
+  // );
+  // li.innerHTML = procedure.procedureHtml();
 
-  // instructions.appendChild(li);
-  parentProcedure.insertAdjacentElement("afterend", li);
+  const procedureTemplate = document
+    .querySelector("#procedure-template")
+    .cloneNode(true);
+
+  procedureTemplate.id = null;
+  // parentProcedure.insertAdjacentElement("afterend", li);//! original
+  parentProcedure.insertAdjacentElement("afterend", procedureTemplate); //! new
 }
 
 ///return image links after uploading
@@ -369,37 +373,10 @@ function previewImage(event) {
 function addImageToProcedure(event) {
   //parent line item
   const procedure = event.target.closest(".procedure");
-
   const uploadList = procedure.querySelector(".uploads");
-  const image = document.createElement("img");
-  image.alt = "image preview";
-  image.classList.add("img-mini");
-
-  const input = document.createElement("input");
-  //   input.dataset.uploadId = uploadId;
-  //   input.name = `picture${uploadId}`;
-  // input.type = "file";
-  // input.accept = "image/*";
-  // input.onchange = (event) => {
-  //   previewImage(event);
-  // };
-
-  // const removeButton = document.createElement("span");
-  // removeButton.classList.add("button--mobile", "clickable", "rounded", "btn");
-  // removeButton.innerText = "remove item";
-  // removeButton.dataset.action = "remove-image";
-  //   removeButton.dataset.uploadId = uploadId;
-
-  // const li = document.createElement("li");
-  // li.classList.add("card", "blue", "imageuploaded", "small-padding");
-  // li.appendChild(image);
-  // li.appendChild(input);
-  // li.appendChild(removeButton);
-
   const imageLiTemplate = document
     .querySelector("#image-template")
     .cloneNode(true);
-  // uploadList.appendChild(li);//! orig
   imageLiTemplate.id = null;
-  uploadList.appendChild(imageLiTemplate); //! new
+  uploadList.appendChild(imageLiTemplate);
 }
