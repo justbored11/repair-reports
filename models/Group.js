@@ -30,10 +30,15 @@ const GroupSchema = new mongoose.Schema({
     type: String,
     immutable: true,
   },
-  partsManufacturer: {
+  subGroup: {
     // to organize repairs by subgroups to choose from when submitting repairs
+    //will use it as a set
     type: [String],
     default: ["public"],
+  },
+  inviteCodes: {
+    type: [String],
+    default: [],
   },
 });
 
