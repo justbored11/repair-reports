@@ -124,8 +124,9 @@
                         <ol class="uploads" data-totalfiles="0" data-uploadid="0">
                           <li class="card imageuploaded small-padding">
                             <img src=<%=element%> alt="image preview" class="img-mini" />
-                            <input onchange="previewImage(event);" type="file" accept="image/*"><span
-                              class="button--mobile clickable rounded btn" data-action="remove-image">remove item</span>
+                            <input data-newimage="false" onchange="previewImage(event);" type="file"
+                              accept="image/*"><span class="button--mobile clickable rounded btn"
+                              data-action="remove-image">remove item</span>
                           </li>
                         </ol>
 
@@ -197,7 +198,7 @@
                 <ol class="uploads" data-totalfiles="0" data-uploadid="0">
                   <li id="" class="card imageuploaded small-padding">
                     <img src="" alt="image preview" class="img-mini" />
-                    <input onchange="previewImage(event);" type="file" accept="image/*"><span
+                    <input data-newimage="true" onchange="previewImage(event);" type="file" accept="image/*"><span
                       class="button--mobile clickable rounded btn" data-action="remove-image">remove item</span>
                   </li>
                 </ol>
@@ -238,7 +239,7 @@
       <!--======================== IMAGE TEMPLATE ===============================-->
       <li id="image-template" class="card imageuploaded small-padding">
         <img src="" alt="image preview" class="img-mini" />
-        <input onchange="previewImage(event);" type="file" accept="image/*"><span
+        <input data-newimage="true" onchange="previewImage(event);" type="file" accept="image/*"><span
           class="button--mobile clickable rounded btn" data-action="remove-image">remove item</span>
       </li>
       <!--======================== IMAGE TEMPLATE END ===============================-->

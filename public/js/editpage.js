@@ -105,42 +105,43 @@ class Procedure {
 // =================================================
 // EVENT LISTENERS
 // =================================================
-document.addEventListener("DOMContentLoaded", async () => {
-  const instructions = form.querySelector("#instructions");
 
-  instructions.addEventListener("click", (event) => {
-    const action = event.target.dataset.action;
-    console.log(`click event `, action);
+// document.addEventListener("DOMContentLoaded", async () => {
+const instructions = form.querySelector("#instructions");
 
-    //parent of procedure of target
-    const procedure = event.target.closest(".procedure");
+instructions.addEventListener("click", (event) => {
+  const action = event.target.dataset.action;
+  console.log(`click event `, action);
 
-    switch (action) {
-      case "add-image":
-        console.log(`add image`);
-        addImageToProcedure(event);
-        break;
+  //parent of procedure of target
+  const procedure = event.target.closest(".procedure");
 
-      case "remove-image":
-        removeImage(event);
-        break;
+  switch (action) {
+    case "add-image":
+      console.log(`add image`);
+      addImageToProcedure(event);
+      break;
 
-      case "remove-procedure":
-        console.log("remove procedure clicked");
+    case "remove-image":
+      removeImage(event);
+      break;
 
-        removeProcedure(event);
-        break;
+    case "remove-procedure":
+      console.log("remove procedure clicked");
 
-      case "add-procedure":
-        addProcedureToInstructions(event);
-        break;
+      removeProcedure(event);
+      break;
 
-      default:
-        console.log("nothing wanted clicked");
-        break;
-    }
-  });
+    case "add-procedure":
+      addProcedureToInstructions(event);
+      break;
+
+    default:
+      console.log("nothing wanted clicked");
+      break;
+  }
 });
+// });
 
 ///SUBMIT FORM EVENT
 //  form.addEventListener("submit",async (event) => event.preventDefault());// for testing what happens after submit
@@ -186,24 +187,23 @@ form.addEventListener("submit", async (event) => {
     console.error(`Submit error`, error);
     window.confirm("Submit error");
   }
-
-  ///POST TO SERVER
-  async function postRepair(repairObj) {
-    try {
-      // let repair = JSON.stringify({repairObj})
-
-      const response = await fetch(`/repair`, {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(repairObj),
-      }).then((data) => data.json());
-      return response;
-    } catch (error) {
-      console.error(`post error`);
-    }
-  }
 });
 
+///POST TO SERVER
+async function postRepair(repairObj) {
+  try {
+    // let repair = JSON.stringify({repairObj})
+
+    const response = await fetch(`/repair`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(repairObj),
+    }).then((data) => data.json());
+    return response;
+  } catch (error) {
+    console.error(`post error`);
+  }
+}
 // ==========================================================================
 // FUNCTIONS
 // ==========================================================================
@@ -332,12 +332,15 @@ async function uploadImages(element, signData) {
   };
 }
 
-///get images if any and return them
+///GET ANY IMAGES THAT REQUIRE UPLOAD
 function getImages(element) {
   let files = [];
 
   // get all elements with files
-  const allUploads = element.querySelectorAll("[type=file]");
+  //get all inputs inside the instructions element to avoid templates in DOM
+  const allUploads = document.querySelectorAll(
+    "#instructions [type=file][data-newimage=true]"
+  );
 
   allUploads.forEach((image) => {
     //if a file is attached
@@ -349,6 +352,7 @@ function getImages(element) {
   return files;
 }
 
+///REMOVE IMAGE FROM A PROCEDURE
 function removeImage(event) {
   const procedure = event.target.closest(".procedure");
   //   const uploadList = procedure.querySelector(".uploads");
