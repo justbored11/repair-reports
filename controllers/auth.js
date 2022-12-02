@@ -1,5 +1,5 @@
 const passport = require("passport");
-
+const Group = require("../models/Group");
 const validator = require("validator");
 const User = require("../models/User"); //new user gets put in user collection
 
@@ -124,12 +124,30 @@ exports.postSignup = async (req, res, next) => {
         });
         return res.redirect("../signup");
       }
-
-      await user.save((err) => {
+      const result = await user.save(async (err, createdUser) => {
         //save the new user model to create a new user in our users collection
         if (err) {
           return next(err);
         }
+        const foundGroup = await Group.findOne({ name: createdUser.username });
+        console.log(`found group`, foundGroup);
+        if (!foundGroup) {
+          console.log(`user created: `, createdUser);
+          ///no group found make one
+          const newGroup = await Group.create({
+            name: user.username,
+            members: [
+              {
+                userid: createdUser._id,
+                username: createdUser.username,
+                role: "3",
+              },
+            ],
+            createdBy: createdUser._id,
+          });
+          console.log("group made: ", newGroup);
+        }
+
         req.logIn(user, (err) => {
           if (err) {
             return next(err);
