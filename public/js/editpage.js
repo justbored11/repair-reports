@@ -30,9 +30,9 @@ class Repair {
     console.log(procArr);
     this.procedureArr = procArr;
     this.boardType = document.querySelector("#board-type").value;
-    this.searchtags = document.querySelector("#search-tags").value;
+    // this.searchtags = document.querySelector("#search-tags").value;
     this.title = document.querySelector("#title").value;
-    this.engineMake = document.querySelector("input:checked.model").value;
+    this.engineMake = document.querySelector("select[name=engineMake]").value; //!change this to select
     this.group = document.querySelector('select[name="groupId"]').value;
 
     return this;
@@ -53,53 +53,6 @@ class Procedure {
     this.thumbs = thumbs;
     this.imagesIdArr;
   }
-  // procedureHtml() {
-  //   const element = `
-  //       <section class="grey procedure--details small-padding">
-  //           <h3>Repair Procedure</h3>
-
-  //           <!-- images uploaded -->
-  //           <fieldset class=" procedure--images-list ">
-  //               <legend>Images
-  //                   <!-- add another image button -->
-
-  //               </legend>
-
-  //               <ol class="uploads"  data-uploadId="0">
-  //                   <!-- <li class="imageuploaded small-padding ">
-  //                       <img src="" alt="repair image" class="img-mini">
-  //                       <input  data-uploadnum="1" type="file" name="picture1" accept="image/*" onchange="previewImage(event)"  >
-  //                       <span class="button--mobile rounded clickable">remove item</span>
-  //                   </li> -->
-
-  //               </ol>
-  //               <div class="btn bg-warning text-black " data-action="add-image">
-  //                   add another image
-  //               </div>
-
-  //           </fieldset>
-  //           <!-- <fieldset class=""> -->
-  //               <legend class="" >Instructions</legend>
-  //               <textarea id="instructions1" class="textarea textarea-warning instructions center-block large-input white"
-  //                   placeholder="Instructions"
-  //                   name="instructions1"
-  //                   value=""
-  //                   rows="8"></textarea>
-
-  //       </section>
-  //       <section class="controls">
-  //       <div class="bg-accent text-base-200 btn add-proc" data-action="add-procedure">
-  //           add another step
-  //       </div>
-
-  //       <details class="warning">
-  //           <summary class=" btn text-black bg-warning remove-proc"> Delete Procedure</summary>
-  //           <div class=" btn bg-error-content text-white" data-action="remove-procedure">confirm delete</div>
-  //       </details>
-  //       </section>  `;
-
-  //   return element;
-  // }
 }
 
 // =================================================
@@ -163,7 +116,7 @@ form.addEventListener("submit", async (event) => {
   try {
     statusMessage("<br>Uploading images...");
     progress.value += 10;
-    procArr = await createProcedureArr(); //! new
+    procArr = await createProcedureArr();
     statusMessage("Done");
     progress.value = 50;
 
@@ -171,7 +124,7 @@ form.addEventListener("submit", async (event) => {
     statusMessage("<br>Saving Report...");
     progress.value += 75;
 
-    // const repairId = await postRepair(repair);
+    console.log(repair);
     const serverResponse = await postRepair(repair);
     console.log(`server response`, serverResponse);
     statusMessage("Done");
@@ -190,6 +143,7 @@ form.addEventListener("submit", async (event) => {
 });
 
 ///POST TO SERVER
+//! need update not post
 async function postRepair(repairObj) {
   try {
     // let repair = JSON.stringify({repairObj})
@@ -207,18 +161,23 @@ async function postRepair(repairObj) {
 // ==========================================================================
 // FUNCTIONS
 // ==========================================================================
-// todo HERE 11-22-22
+async function getSignature() {
+  const signResponse = await fetch("/signform"); //fetch signature from server
+  const signData = await signResponse.json(); //convert to json
+  return signData;
+}
 ///create Procedure Array
 async function createProcedureArr() {
   const allProcedureElements = Array.from(
-    document.querySelectorAll(".procedure")
+    document.querySelectorAll("#instructions .procedure")
   );
-  const signResponse = await fetch("/signform"); //fetch signature from server
-  const signData = await signResponse.json(); //convert to json
+
+  const signData = await getSignature();
 
   //start uploading each procedures respective images
   const procedurePromises = allProcedureElements.map(async (proc, index) => {
-    let images = await uploadImages(proc, signData);
+    let images = await uploadImages(proc, signData); //todo so far so good uploading new images and return urls of old ones
+    // console.log(`create procedure`, images);
     const procedure = new Procedure();
 
     procedure.images = images.links; // add images urls Array
@@ -256,17 +215,6 @@ function addProcedureToInstructions(event) {
 
   const parentProcedure = event.target.closest(".procedure"); //new
 
-  // const li = document.createElement("li");
-  // li.dataset.procedureid = instructions.dataset.currentprocid;
-  // li.classList.add(
-  //   "procedure",
-  //   "small-padding",
-  //   "card",
-  //   "bg-base-100",
-  //   "shadow-xl"
-  // );
-  // li.innerHTML = procedure.procedureHtml();
-
   const procedureTemplate = document
     .querySelector("#procedure-template")
     .cloneNode(true);
@@ -276,41 +224,84 @@ function addProcedureToInstructions(event) {
   parentProcedure.insertAdjacentElement("afterend", procedureTemplate); //! new
 }
 
-///return image links after uploading
+///GET ANY IMAGES THAT REQUIRE UPLOAD from procedure :
+function getImages(element) {
+  let files = [];
+  class imgObj {
+    constructor(imageBuffer = null, isNew = false, url = null) {
+      this.imageBuffer = imageBuffer; //buffer of image if any
+      this.isNew = isNew; //does it need to upload
+      this.url = url; // url if does not need upload
+    }
+  }
+  console.log(`getfrom procedure `, element);
+
+  //all inputs with images even ones that dont need upload
+  const images = element.querySelectorAll("#instructions [type=file]");
+
+  images.forEach((image) => {
+    //if a file is attached it is new image
+    if (image.files.length > 0) {
+      // files.push(image.files);
+      files.push(new imgObj(image.files, true, null));
+    }
+    //no image attached but does have orig url then its existing image
+    else if (image.files.length === 0 && image.dataset.origurl) {
+      files.push(new imgObj(null, false, image.dataset.origurl));
+    }
+  });
+
+  return files; //return array of image objects
+}
+
+///UPLOAD AND RETURN ARRAY OF LINKS for one procedure
+///return image links after uploading from an element
+// THIS RECIEVES PROCEDURE and should return links of new images uploded along with
+// old image links of one procedure
 async function uploadImages(element, signData) {
   const url =
     "https://api.cloudinary.com/v1_1/" + signData.cloudname + "/auto/upload";
   const formData = new FormData();
 
-  //get images
+  //get images from procedure element
   const imagesToUpload = getImages(element);
+  let response = null;
 
-  let uploadPromises = Array.from(imagesToUpload).map(async (filesList) => {
-    for (let i = 0; i < filesList.length; i++) {
-      let file = filesList[i];
+  //upload all images that need it
+  let uploadPromisesArr = imagesToUpload.map(async (image) => {
+    // for (let i = 0; i < image.length; i++) {
+    ///new image requires upload
+    if (image.isNew) {
+      console.log(`is new need upload image`, signData);
+      let file = image.imageBuffer[0];
+
       formData.append("file", file);
       formData.append("api_key", signData.apikey);
       formData.append("timestamp", signData.timestamp);
       formData.append("signature", signData.signature);
-      // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260"); //some form of transformation dont need
-      // formData.append("folder", "cata"); //put this file in folder named cata
       formData.append("folder", signData.folder); //put this file in folder named cata
 
-      const response = await fetch(url, {
+      response = await fetch(url, {
         method: "POST",
         body: formData,
       }).then((data) => data.json());
-
-      // imageLinks.push(response.url)
-      console.log(`link`, response.url);
-
-      console.log(response);
-      return response; //! response as whole returned
     }
+    //image is not new use url
+    else if (!image.isNew) {
+      console.log("not new dont need upload");
+      response = {
+        url: image.url,
+        public_id: null,
+      };
+    }
+
+    // console.log(`response whole`, response);
+    return response; // response as whole returned
+    // }
   });
 
   //array of responses after upload
-  let uploadResponses = await Promise.all(uploadPromises); //! response object returned 2**
+  let uploadResponses = await Promise.all(uploadPromisesArr);
 
   const imageurls = uploadResponses.map((response) => {
     return response.url;
@@ -330,26 +321,6 @@ async function uploadImages(element, signData) {
     thumbs: thumbsLinks, //! array of url links to thumbs
     imagesIdArr: idList, //!array of image ids from cloudinary
   };
-}
-
-///GET ANY IMAGES THAT REQUIRE UPLOAD
-function getImages(element) {
-  let files = [];
-
-  // get all elements with files
-  //get all inputs inside the instructions element to avoid templates in DOM
-  const allUploads = document.querySelectorAll(
-    "#instructions [type=file][data-newimage=true]"
-  );
-
-  allUploads.forEach((image) => {
-    //if a file is attached
-    if (image.files.length > 0) {
-      files.push(image.files);
-    }
-  });
-
-  return files;
 }
 
 ///REMOVE IMAGE FROM A PROCEDURE

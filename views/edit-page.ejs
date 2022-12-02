@@ -41,7 +41,7 @@
           <label class="label">
             <span class="label-text">Board type: </span>
           </label>
-          <input id="board-type" value=<%=repair.boardType %> name="boardtype" type="text" placeholder="Type here"
+          <input id="board-type" value=<%=repair.boardType%> name="boardtype" type="text" placeholder="Type here"
           class="input input-bordered w-full max-w-xs" />
           <label class="label">
           </label>
@@ -72,7 +72,7 @@
       <section class="container w-full blue-grey darken-1">
         <fieldset class="border w-full engine-models">
           <legend>Choose Engine</legend>
-          <select name="groupId" class=" w-full select select-accent w-full max-w-xs">
+          <select name="engineMake" class=" w-full select select-accent w-full max-w-xs">
             <option selected value=<%=repair.engineMake %> disabled>Original value: <%=repair.engineMake %>
             </option>
             <% manufacturers.forEach(make=> { %>
@@ -124,8 +124,9 @@
                         <ol class="uploads" data-totalfiles="0" data-uploadid="0">
                           <li class="card imageuploaded small-padding">
                             <img src=<%=element%> alt="image preview" class="img-mini" />
-                            <input data-newimage="false" onchange="previewImage(event);" type="file"
-                              accept="image/*"><span class="button--mobile clickable rounded btn"
+                            <input data-origurl=<%=element%> data-newimage="false" onchange="previewImage(event);"
+                            type="file"
+                            accept="image/*"><span class="button--mobile clickable rounded btn"
                               data-action="remove-image">remove item</span>
                           </li>
                         </ol>
