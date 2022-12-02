@@ -147,9 +147,9 @@ form.addEventListener("submit", async (event) => {
 async function postRepair(repairObj) {
   try {
     // let repair = JSON.stringify({repairObj})
-
+    console.log(repairObj);
     const response = await fetch(`/repair`, {
-      method: "post",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(repairObj),
     }).then((data) => data.json());
@@ -178,13 +178,19 @@ async function createProcedureArr() {
   const procedurePromises = allProcedureElements.map(async (proc, index) => {
     let images = await uploadImages(proc, signData); //todo so far so good uploading new images and return urls of old ones
     // console.log(`create procedure`, images);
-    const procedure = new Procedure();
+    // const procedure = new Procedure();
+    const procedure = new Procedure(
+      images.thumbs,
+      images.links,
+      index,
+      proc.querySelector(".instructions").value
+    );
 
-    procedure.images = images.links; // add images urls Array
-    procedure.thumbs = images.thumbs; // smaller images links
-    procedure.procedureNum = index; //identifying sequence number
-    procedure.imagesIdArr = images.imagesIdArr;
-    procedure.instructions = proc.querySelector(".instructions").value; //instructions for this procedure
+    // procedure.images = images.links; // add images urls Array
+    // procedure.thumbs = images.thumbs; // smaller images links
+    // procedure.procedureNum = index; //identifying sequence number
+    // procedure.imagesIdArr = images.imagesIdArr;
+    // procedure.instructions = proc.querySelector(".instructions").value; //instructions for this procedure
 
     return procedure;
   });
