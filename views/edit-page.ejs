@@ -2,146 +2,255 @@
 <html lang="en">
 
 <head>
-  <%- include("./partials/head.ejs"); -%>
+
+  <%- include("./partials/head"); -%>
+
 </head>
 
-<body class="search-page center-block">
+<body class=" ">
   <header>
     <nav>
-      <%- include("./partials/mobile-menu.ejs"); -%>
+
+      <%- include("./partials/mobile-menu"); -%>
+
     </nav>
   </header>
-  <section class="flex container">
-    <h2 class="flex-auto text-center text-2xl">EDIT MODE</h2>
+  <!-- loading screen -->
+  <section class=" hidden status-icons">
+    <div id="loading" class="loading-text">Loading</div>
+    <progress class="progress progress-info w-56" value="10" max="100"></progress>
   </section>
-  <section class="report row small-padding grey">
-    <section class="grey">
-      <section class="card small-padding">
-        <section>
-          <h1 class="text-xl">Title:</h1>
-          <input class="text-black" type="text" data-orig="<%= repair.title %>" value="<%= repair.title %>" id="title"
-            name="title" />
-          <!-- <span class="badge badge-lg"><%= repair.title %></span> -->
-          <span class="btn btn-sm">reset</span>
-        </section>
-        <section>
-          <h2 class="text-xl">Repair group:</h2>
-          <p>
-            original group was <%= repair.group ? repair.group : 'public' %>
-          </p>
-          <select class="text-black" name="group" id="group">
-            <option disabled selected value="<%= repair.group ? repair.group : 'public' %>">
-              Groups Available
+  <main class="card">
+
+
+    <!-- TOP INFO -->
+    <form id="repair-form" class="small-padding repair-form" action="#" encType="multipart/form-data">
+      <legend class=" flex-col form-desc flex-center">
+
+        <div class="  form-control  max-w-xs">
+          <label class="label">
+            <span class="label-text">Title: </span>
+          </label>
+          <input id="title" name="title" type="text" placeholder="Type here" value=<%=repair.title %> class="input
+          input-bordered w-full max-w-xs" required />
+          <label class="label">
+          </label>
+        </div>
+
+        <div class="form-control  max-w-xs">
+          <label class="label">
+            <span class="label-text">Board type: </span>
+          </label>
+          <input id="board-type" value=<%=repair.boardType%> name="boardtype" type="text" placeholder="Type here"
+          class="input input-bordered w-full max-w-xs" />
+          <label class="label">
+          </label>
+        </div>
+        <div class="form-control  max-w-xs">
+          <label class="label">
+            <span class="label-text">Add to Group </span>
+          </label>
+          <select name="groupId" class="select select-accent w-full max-w-xs">
+            <option selected value=<%=repair.group %> disabled>Original value: <%=repair.group %>
             </option>
-            <option value="<%= repair.group ? repair.group : 'public' %>">
-              <%= repair.group ? repair.group : 'public' %>
-            </option>
-            <%# loop through users available groups %>
-              <% for( let index=0; index < groupList.length;index++ ) { %>
-                <option value="<%= groupList[index] %>">
-                  <%= groupList[index] %>
+            <% groups.forEach(group=> { %>
+              <option value="<%= group %>">
+                <%= group %>
+              </option>
+              <% }) %>
+                <option value='public'>Public
                 </option>
-
-                <%} %>
           </select>
-          <span class="btn btn-sm">reset</span>
-        </section>
-        <section>
-          <h2 class="text-xl">Repair ID:</h2>
-          <input class="text-black" size="30" type="text" value="<%= repair._id %>" disabled />
-          <!-- <span class="badge badge-lg"><%= repair._id %></span> -->
-        </section>
+          <label class="label">
+          </label>
+        </div>
 
-        <section>
-          <h2 class="text-xl">Repair Documented by:</h2>
-          <input type="text" class="text-black" value="<%= createdBy ? createdBy : 'public' %>" disabled />
-          <!-- <span class="badge badge-lg"
-              ><%= createdBy ? createdBy : 'public' %></span
-            > -->
-        </section>
-        <section class="rounded">
-          <h3 class="title board-type">Board Type:</h3>
-          <input class="text-black" data-orig="<%= repair.boardType %>" type="text" name="boardType" id="boardType"
-            value="<%= repair.boardType %>" />
-          <span class="btn btn-sm">reset</span>
-        </section>
+      </legend>
 
-        <section class="rounded repair-info">
-          <h3 class="title">Engine Make:</h3>
-          <input class="text-black" type="text" name="" id="" value="<%= repair.engineMake %>" />
-          <span class="btn btn-sm">reset</span>
-        </section>
+
+      <!-- pick parts manufacturer -->
+      <section class="container w-full blue-grey darken-1">
+        <fieldset class="border w-full engine-models">
+          <legend>Choose Engine</legend>
+          <select name="engineMake" class=" w-full select select-accent w-full max-w-xs">
+            <option selected value=<%=repair.engineMake %> disabled>Original value: <%=repair.engineMake %>
+            </option>
+            <% manufacturers.forEach(make=> { %>
+              <option value="<%= make %>">
+                <%= make %>
+              </option>
+              <% }) %>
+                <option value='other'>Other
+                </option>
+          </select>
+
+        </fieldset>
+
+        <!-- <fieldset class="border engine-models">
+                            <legend>Part Manufacturer</legend>
+                            <span>
+                                <label for="cat">
+                                    <div class="badge badge-accent">
+                                        <input id="cat" name="model" value="cat" type="radio" class=" model radio" />
+                                    </div>
+                                </label>
+                            </span>
+                        </fieldset> -->
       </section>
-    </section>
-
-    <!-- procedures -->
-    <ol class="procedure-list" data-currentProcId="1">
-      <%# short curcuit procedureArr?. if no length then end loop only mal formed repair with no image or instructions
-        will cause fail %>
-        <% for(let i=0 ; repair.procedureArr?.length> i ; i++){ %>
-
-          <li class="card procedure-item small-padding">
-            <section class="pic-container center-block">
-              <!-- images list -->
-              <!-- carousel -->
-              <div class="grid grid-cols-3 gap-4 content-center">
-                <% for (let a=0 ; repair.procedureArr[i].images.length> a ;
-                  a++){ %>
-                  <div id="item<%=a%><%=i%>" class="content-center flex">
-                    <a class="content-center " href="<%= repair.procedureArr[i].images[a] %>">
-                      <!-- update below -->
-                      <%if (repair.procedureArr[i].images){%>
-                        <img loading="lazy"
-                          src="<%= repair.procedureArr[i].images[a].replace('/upload/','/upload/c_scale,w_600/')%>" />
 
 
-                        <%}%>
-                    </a>
+      <!-- PROCEDURES -->
+      <section class=" border  ">
 
+        <ol id="instructions" data-currentProcId="1">
+
+
+          <!-- FOR LOOP PROCEDURES -->
+          <% for( let index=0, len=repair.procedureArr.length ;index < len; index++ ) { %>
+            <li class=" mb-4 bg-cyan-800 procedure small-padding card   shadow-xl" data-procedureId="1">
+
+              <section class="grey procedure--details small-padding">
+                <h3>Repair Procedure</h3>
+
+                <!-- images uploaded -->
+                <section class="">
+                  <ol class="uploads" data-totalfiles="0" data-uploadId="0">
+
+                    <fieldset class="">
+                      <legend>Images</legend>
+                      <!-- FOR LOOP IMAGES -->
+                      <% repair.procedureArr[index]?.images.forEach(element=> { %>
+                        <!-- UPLOADED IMAGES -->
+                        <ol class="uploads" data-totalfiles="0" data-uploadid="0">
+                          <li class="card imageuploaded small-padding">
+                            <img src=<%=element%> alt="image preview" class="img-mini" />
+                            <input data-origurl=<%=element%> data-newimage="false" onchange="previewImage(event);"
+                            type="file"
+                            accept="image/*"><span class="button--mobile clickable rounded btn"
+                              data-action="remove-image">remove item</span>
+                          </li>
+                        </ol>
+
+
+                        <% }) %>
+                    </fieldset>
+                    <!-- FOR LOOP IMAGES END -->
+
+                  </ol>
+                  <div class="btn bg-warning text-black " data-action="add-image">
+                    add another image
                   </div>
-                  <!-- UPDATE IMAGE URL-->
-                  <section class="border border-sky-500">
-                    <h3>Change image with URL</h3>
-                    <input type="text"
-                      value="<%= repair.procedureArr[i].images[a].replace('/upload/','/upload/c_scale,w_600/')%>">
-                  </section>
-                  <section class="border border-sky-500">
-                    <h3>Upload New Image</h3>
-                    <h2>NOT IMPLEMENTED</h2>
 
-                    <input data-uploadnum="1" type="file" name="picture" accept="image/*"
-                      onchange="previewImage(event)">
-                  </section>
+                </section>
+                <!-- <fieldset class=""> -->
+                <legend class="">Instructions</legend>
+                <textarea id="instructions1"
+                  class="textarea textarea-warning instructions center-block large-input white"
+                  placeholder="Instructions" name="instructions1" data-orig=<%=repair.procedureArr[index].instructions
+                  %>
+                    rows="8"><%=repair.procedureArr[index].instructions %></textarea>
 
-                  <% } %>
-
-              </div>
-
-              <!-- bottom carousel numbers -->
-
-
-
-              <!-- description -->
-              <section class="small-padding">
-                <p class="center-text instructions">
-                  <%= repair.procedureArr[i].instructions %>
-                </p>
               </section>
-              <!-- carousel end-->
-            </section>
-          </li>
-          <% } %>
-    </ol>
-  </section>
+              <section class="controls">
+                <div class="bg-accent text-base-200 btn add-proc" data-action="add-procedure">
+                  add another step
+                </div>
+
+                <details class="warning">
+                  <summary class=" btn text-black bg-warning remove-proc"> Delete Procedure</summary>
+                  <div class=" btn bg-error-content text-white" data-action="remove-procedure">confirm
+                    delete</div>
+                </details>
+              </section>
+            </li>
+            <% } %>
+              <!-- FOR LOOP END -->
+
+
+        </ol>
+      </section>
+      <details>
+        <summary class="btn text-black bg-blue-300">Save Edit</summary>
+        <button class="btn text-black">confirm</button>
+      </details>
+
+    </form>
+
+
+
+  </main>
 
   <footer>
-    <!-- 
-            <% if (allowedEdit) { %>
-                <h3>Edit tools</h3>
-                <%- include("./partials/post-tools.ejs"); -%>
-            <% } %> 
-             -->
+    <section class="hidden">
+      <h4>TEMPLATES</h4>
+      <!-- ===========================PROCEDURE TEMPLATE ===============================-->
+      <li id="procedure-template" class=" mb-4 bg-cyan-800 procedure small-padding card shadow-xl" data-procedureId="1">
+
+        <section class="grey procedure--details small-padding">
+          <h3>Repair Procedure</h3>
+
+          <!-- images uploaded -->
+          <section class="">
+            <ol class="uploads" data-totalfiles="0" data-uploadId="0">
+
+              <fieldset class="">
+                <legend>Images</legend>
+                <!-- FOR LOOP IMAGES -->
+                <!-- UPLOADED IMAGES -->
+                <ol class="uploads" data-totalfiles="0" data-uploadid="0">
+                  <li id="" class="card imageuploaded small-padding">
+                    <img src="" alt="image preview" class="img-mini" />
+                    <input data-newimage="true" onchange="previewImage(event);" type="file" accept="image/*"><span
+                      class="button--mobile clickable rounded btn" data-action="remove-image">remove item</span>
+                  </li>
+                </ol>
+
+
+              </fieldset>
+              <!-- FOR LOOP IMAGES END -->
+
+            </ol>
+            <div class="btn bg-warning text-black " data-action="add-image">
+              add another image
+            </div>
+
+          </section>
+          <!-- <fieldset class=""> -->
+          <legend class="">Instructions</legend>
+          <textarea id="instructions1" class="textarea textarea-warning instructions center-block large-input white"
+            placeholder="Instructions" name="instructions1" data-orig="" rows="8"></textarea>
+
+        </section>
+        <section class="controls">
+          <div class="bg-accent text-base-200 btn add-proc" data-action="add-procedure">
+            add another step
+          </div>
+
+          <details class="warning">
+            <summary class=" btn text-black bg-warning remove-proc"> Delete Procedure</summary>
+            <div class=" btn bg-error-content text-white" data-action="remove-procedure">confirm
+              delete</div>
+          </details>
+        </section>
+      </li>
+      <!-- ===========================PROCEDURE TEMPLATE ===============================-->
+
+
+
+
+      <!--======================== IMAGE TEMPLATE ===============================-->
+      <li id="image-template" class="card imageuploaded small-padding">
+        <img src="" alt="image preview" class="img-mini" />
+        <input data-newimage="true" onchange="previewImage(event);" type="file" accept="image/*"><span
+          class="button--mobile clickable rounded btn" data-action="remove-image">remove item</span>
+      </li>
+      <!--======================== IMAGE TEMPLATE END ===============================-->
+
+    </section>
   </footer>
+  <script type="text/javascript" src="/js/editpage.js"></script>
+  <%- include("./partials/scripts"); -%>
+
 </body>
 
 </html>
