@@ -17,15 +17,6 @@ class Repair {
     this.group = "public";
   }
 
-  addProcedure(proc) {
-    this.procedureArr.push(proc);
-    this.getObj();
-  }
-
-  getObj() {
-    return this;
-  }
-
   buildRepair(procArr) {
     console.log(procArr);
     this.procedureArr = procArr;
@@ -45,13 +36,14 @@ class Procedure {
     thumbs = [],
     imagesArr = [],
     procedureNum = 1,
-    instructions = "default instructions"
+    instructions = "default instructions",
+    imagesIdArr = []
   ) {
     this.images = imagesArr;
     this.procedureNum = procedureNum;
     this.instructions = instructions;
     this.thumbs = thumbs;
-    this.imagesIdArr;
+    this.imagesIdArr = imagesIdArr;
   }
 }
 
@@ -177,13 +169,14 @@ async function createProcedureArr() {
   //start uploading each procedures respective images
   const procedurePromises = allProcedureElements.map(async (proc, index) => {
     let images = await uploadImages(proc, signData); //todo so far so good uploading new images and return urls of old ones
-    // console.log(`create procedure`, images);
+    console.log(`create procedure`, images);
     // const procedure = new Procedure();
     const procedure = new Procedure(
       images.thumbs,
       images.links,
       index,
-      proc.querySelector(".instructions").value
+      proc.querySelector(".instructions").value,
+      images.imagesIdArr
     );
 
     // procedure.images = images.links; // add images urls Array
