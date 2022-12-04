@@ -22,4 +22,7 @@ router.get("/:id", repairsController.getRepairPage);
 //POST
 router.post("/", repairsController.addRepair);
 
+//PUT
+router.put("/edit/:id", repairsController.editRepair);
+
 module.exports = router;
