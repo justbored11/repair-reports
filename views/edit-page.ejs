@@ -27,12 +27,13 @@
     <form id="repair-form" class="small-padding repair-form" action="#" encType="multipart/form-data">
       <legend class=" flex-col form-desc flex-center">
 
+
         <div class="  form-control  max-w-xs">
           <label class="label">
             <span class="label-text">Title: </span>
           </label>
-          <input id="title" name="title" type="text" placeholder="Type here" value=<%=repair.title %> class="input
-          input-bordered w-full max-w-xs" required />
+          <input id="title" name="title" type="text" placeholder="Type here" value="<%=repair.title%>" class="input
+            input-bordered w-full max-w-xs" required />
           <label class="label">
           </label>
         </div>
@@ -41,7 +42,7 @@
           <label class="label">
             <span class="label-text">Repair Id: </span>
           </label>
-          <input id="id" name="id" type="text" placeholder="Type here" value=<%=repair._id %> class="input
+          <input id="id" name="id" type="text" placeholder="Type here" value="<%=repair._id %>" class="input
           input-bordered w-full max-w-xs" disabled required />
           <label class="label">
           </label>
@@ -51,8 +52,8 @@
           <label class="label">
             <span class="label-text">Board type: </span>
           </label>
-          <input id="board-type" value=<%=repair.boardType%> name="boardtype" type="text" placeholder="Type here"
-          class="input input-bordered w-full max-w-xs" />
+          <input id="board-type" value="<%=repair.boardType%>" name="boardtype" type="text" placeholder="Type here"
+            class="input input-bordered w-full max-w-xs" />
           <label class="label">
           </label>
         </div>

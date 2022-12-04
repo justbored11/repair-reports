@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { update, updateOne } = require("../models/Repair");
 const Repair = require("../models/Repair");
 const User = require("../models/User");
 
@@ -225,30 +226,38 @@ module.exports.getSearchPage = async (req, res) => {
 };
 
 ///PUT REPAIR
-//todo **************************** UPDATE RECORD
+//todo **************************** UPDATE RECORD *****************************
 module.exports.editRepair = async (req, res) => {
   console.log(`REPAIR EDIT ROUTE`, req.body);
 
-  let foundRepair = {};
+  let updatedDoc = null;
+  let origDoc = null;
+  let filter = { _id: req.body.id };
 
+  //update repair
   try {
-    foundRepair = await Repair.findOne({ _id: req.body.id });
+    origDoc = await Repair.findOne(filter);
+    updatedDoc = await Repair.findOneAndUpdate(filter, req.body, {
+      returnOriginal: false,
+    });
   } catch (err) {
     res.status(400).json({
-      message: `ID: ${foundRepair.id}  NOT FOUND for edit`,
+      message: `ID: ${req.body.id}  NOT FOUND for edit`,
       error: err.message,
     });
     return;
   }
 
-  console.log(`foundRepair`, foundRepair);
-
   //update record
-
-  res.status(200).send({ "edit repair": "page here" });
+  res.status(200).json({
+    updatedDoc: updatedDoc,
+    update: "success",
+    editPage: `/repair/edit/${updatedDoc.id}`,
+  });
 };
+//todo **************************************************************
 
-///RENDER EDIT PAGE *******************************************
+///RENDER EDIT PAGE
 module.exports.getEditPage = async (req, res) => {
   const repairId = req.params.id;
   let repairObj = {};
@@ -259,8 +268,8 @@ module.exports.getEditPage = async (req, res) => {
 
   try {
     //find repair report
+
     repairObj = await Repair.findOne({ _id: repairId }).lean();
-    console.log(repairObj);
   } catch (err) {
     res
       .status(400)
@@ -298,7 +307,7 @@ module.exports.getEditPage = async (req, res) => {
     req.user._id.equals(repairObj.createdBy) ||
     repairObj.createdBy === req.user.username ||
     requestingUser.role === "admin";
-  console.log(repairObj);
+  console.log(repairObj.title);
   /// render page
   res.render("edit-page.ejs", {
     title: "Repair Information",
