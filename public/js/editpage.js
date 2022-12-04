@@ -125,7 +125,7 @@ form.addEventListener("submit", async (event) => {
     progress.value += 100;
 
     // redirect to link server provides
-    // location.assign(serverResponse.link);//todo
+    location.assign(serverResponse.repairLink); //todo
     // console.log(serverResponse);
   } catch (error) {
     statusIcons.classList.toggle("hidden"); //hide loading message

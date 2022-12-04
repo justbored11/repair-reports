@@ -251,7 +251,8 @@ module.exports.editRepair = async (req, res) => {
   res.status(200).json({
     updatedDoc: updatedDoc,
     update: "success",
-    editPage: `/repair/edit/${updatedDoc.id}`,
+    editLink: `/repair/edit/${updatedDoc.id}`,
+    repairLink: `/repair/${updatedDoc.id}`,
   });
 };
 //todo **************************************************************
