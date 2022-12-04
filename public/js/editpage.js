@@ -6,7 +6,8 @@ class Repair {
     searchtags = "blank tags",
     title = "blank title",
     board = "no board type",
-    engine = "no engine make"
+    engine = "no engine make",
+    id = "no id"
   ) {
     this.procedureArr = procedures;
     this.searchtags = searchtags;
@@ -15,6 +16,7 @@ class Repair {
     this.engineMake = engine;
     this.removed = false;
     this.group = "public";
+    this.id = id;
   }
 
   buildRepair(procArr) {
@@ -22,6 +24,7 @@ class Repair {
     this.procedureArr = procArr;
     this.boardType = document.querySelector("#board-type").value;
     // this.searchtags = document.querySelector("#search-tags").value;
+    this.id = document.querySelector("#id").value;
     this.title = document.querySelector("#title").value;
     this.engineMake = document.querySelector("select[name=engineMake]").value; //!change this to select
     this.group = document.querySelector('select[name="groupId"]').value;
@@ -89,7 +92,6 @@ instructions.addEventListener("click", (event) => {
 // });
 
 ///SUBMIT FORM EVENT
-//  form.addEventListener("submit",async (event) => event.preventDefault());// for testing what happens after submit
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -117,42 +119,40 @@ form.addEventListener("submit", async (event) => {
     progress.value += 75;
 
     console.log(repair);
-    const serverResponse = await postRepair(repair);
+    const serverResponse = await putRepair(repair);
     console.log(`server response`, serverResponse);
     statusMessage("Done");
     progress.value += 100;
 
     //redirect to link server provides
     console.log(serverResponse);
-    location.assign(serverResponse.link);
   } catch (error) {
-    // todo if error do not refresh and show form again with message failed to submit
     statusIcons.classList.toggle("hidden"); //hide loading message
     form.classList.toggle("hidden"); //show form
-    console.error(`Submit error`, error);
-    window.confirm("Submit error");
+    console.error(`Update error`, error);
+    window.confirm("Update error");
   }
 });
 
-///POST TO SERVER
-//! need update not post
-async function postRepair(repairObj) {
+// ==========================================================================
+// FUNCTIONS
+// ==========================================================================
+///PUT TO SERVER
+async function putRepair(repairObj) {
   try {
-    // let repair = JSON.stringify({repairObj})
-    console.log(repairObj);
-    const response = await fetch(`/repair`, {
+    console.log("PUT FROM CLIENT", repairObj);
+    const response = await fetch(`/repair/edit/${repairObj.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(repairObj),
     }).then((data) => data.json());
     return response;
   } catch (error) {
-    console.error(`post error`);
+    console.error(`PUT error`);
   }
 }
-// ==========================================================================
-// FUNCTIONS
-// ==========================================================================
+
+///GET SIGNATURE
 async function getSignature() {
   const signResponse = await fetch("/signform"); //fetch signature from server
   const signData = await signResponse.json(); //convert to json
@@ -178,12 +178,6 @@ async function createProcedureArr() {
       proc.querySelector(".instructions").value,
       images.imagesIdArr
     );
-
-    // procedure.images = images.links; // add images urls Array
-    // procedure.thumbs = images.thumbs; // smaller images links
-    // procedure.procedureNum = index; //identifying sequence number
-    // procedure.imagesIdArr = images.imagesIdArr;
-    // procedure.instructions = proc.querySelector(".instructions").value; //instructions for this procedure
 
     return procedure;
   });
