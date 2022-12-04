@@ -16,11 +16,9 @@ module.exports.deletePost = async (req, res) => {
     const user = await User.findOne({ username: req.user.username });
     const report = await Repair.findById({ _id: req.params.id });
 
-    // if(user.role === 'admin' || report.createdBy === user.username ){
     if (user.role === "admin" || user._id.equals(report.createdBy)) {
       report.removed = true;
       await report.save();
-      // res.send({message:'user is admin or creator',rep:report})
 
       res.redirect("/repair/");
     } else {
@@ -214,7 +212,7 @@ module.exports.getRepairPage = async (req, res) => {
   });
 };
 
-//render searchpage
+///RENDER SEARCH PAGE
 module.exports.getSearchPage = async (req, res) => {
   try {
     res.render("search-page.ejs", { title: "Search Records", user: req.user });
@@ -224,6 +222,30 @@ module.exports.getSearchPage = async (req, res) => {
       error: err.message,
     });
   }
+};
+
+///PUT REPAIR
+//todo **************************** UPDATE RECORD
+module.exports.editRepair = async (req, res) => {
+  console.log(`REPAIR EDIT ROUTE`, req.body);
+
+  let foundRepair = {};
+
+  try {
+    foundRepair = await Repair.findOne({ _id: req.body.id });
+  } catch (err) {
+    res.status(400).json({
+      message: `ID: ${foundRepair.id}  NOT FOUND for edit`,
+      error: err.message,
+    });
+    return;
+  }
+
+  console.log(`foundRepair`, foundRepair);
+
+  //update record
+
+  res.status(200).send({ "edit repair": "page here" });
 };
 
 ///RENDER EDIT PAGE *******************************************
@@ -262,7 +284,6 @@ module.exports.getEditPage = async (req, res) => {
 
     createdByUser = foundUser.username || "public default"; // get the username string for report render
     requestingUser = await User.findOne({ _id: req.user._id }); //user requesting
-    console.log("user requesting ******", requestingUser);
   } catch (err) {
     res.status(400).json({
       message: `Failed to find report ID:${repairId}`,
