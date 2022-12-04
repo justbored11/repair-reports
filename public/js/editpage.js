@@ -20,7 +20,6 @@ class Repair {
   }
 
   buildRepair(procArr) {
-    console.log(procArr);
     this.procedureArr = procArr;
     this.boardType = document.querySelector("#board-type").value;
     // this.searchtags = document.querySelector("#search-tags").value;
@@ -59,14 +58,12 @@ const instructions = form.querySelector("#instructions");
 
 instructions.addEventListener("click", (event) => {
   const action = event.target.dataset.action;
-  console.log(`click event `, action);
 
   //parent of procedure of target
   const procedure = event.target.closest(".procedure");
 
   switch (action) {
     case "add-image":
-      console.log(`add image`);
       addImageToProcedure(event);
       break;
 
@@ -75,8 +72,6 @@ instructions.addEventListener("click", (event) => {
       break;
 
     case "remove-procedure":
-      console.log("remove procedure clicked");
-
       removeProcedure(event);
       break;
 
@@ -85,7 +80,6 @@ instructions.addEventListener("click", (event) => {
       break;
 
     default:
-      console.log("nothing wanted clicked");
       break;
   }
 });
@@ -108,25 +102,24 @@ form.addEventListener("submit", async (event) => {
 
   ///submiting to server
   try {
+    //build array of procedure to put inside repair
     statusMessage("<br>Uploading images...");
     progress.value += 10;
     procArr = await createProcedureArr();
     statusMessage("Done");
     progress.value = 50;
 
-    repair.buildRepair(procArr); // build repair using procedure array
+    // build repair using procedure array
+    repair.buildRepair(procArr);
     statusMessage("<br>Saving Report...");
     progress.value += 75;
 
-    console.log(repair);
     const serverResponse = await putRepair(repair);
-    console.log(`server response`, serverResponse);
     statusMessage("Done");
     progress.value += 100;
 
     // redirect to link server provides
-    location.assign(serverResponse.repairLink); //todo
-    // console.log(serverResponse);
+    location.assign(serverResponse.repairLink);
   } catch (error) {
     statusIcons.classList.toggle("hidden"); //hide loading message
     form.classList.toggle("hidden"); //show form
@@ -141,7 +134,6 @@ form.addEventListener("submit", async (event) => {
 ///PUT TO SERVER
 async function putRepair(repairObj) {
   try {
-    console.log("PUT FROM CLIENT", repairObj);
     const response = await fetch(`/repair/edit/${repairObj.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -170,8 +162,6 @@ async function createProcedureArr() {
   //start uploading each procedures respective images
   const procedurePromises = allProcedureElements.map(async (proc, index) => {
     let images = await uploadImages(proc, signData); //todo so far so good uploading new images and return urls of old ones
-    console.log(`create procedure`, images);
-    // const procedure = new Procedure();
     const procedure = new Procedure(
       images.thumbs,
       images.links,
@@ -189,7 +179,6 @@ async function createProcedureArr() {
 }
 
 function removeProcedure(event) {
-  console.log(`deleting procedure`);
   const procedure = event.target.closest(".procedure");
   procedure.remove();
 }
@@ -228,7 +217,6 @@ function getImages(element) {
       this.url = url; // url if does not need upload
     }
   }
-  console.log(`getfrom procedure `, element);
 
   //all inputs with images even ones that dont need upload
   const images = element.querySelectorAll("#instructions [type=file]");
@@ -263,10 +251,8 @@ async function uploadImages(element, signData) {
 
   //upload all images that need it
   let uploadPromisesArr = imagesToUpload.map(async (image) => {
-    // for (let i = 0; i < image.length; i++) {
     ///new image requires upload
     if (image.isNew) {
-      console.log(`is new need upload image`, signData);
       let file = image.imageBuffer[0];
 
       formData.append("file", file);
@@ -282,14 +268,12 @@ async function uploadImages(element, signData) {
     }
     //image is not new use url
     else if (!image.isNew) {
-      console.log("not new dont need upload");
       response = {
         url: image.url,
         public_id: null,
       };
     }
 
-    // console.log(`response whole`, response);
     return response; // response as whole returned
     // }
   });
@@ -329,10 +313,8 @@ function removeImage(event) {
 
 //preview image on page locally when input for image is changed
 function previewImage(event) {
-  //   const uploadnum = event.target.closest(".uploads").dataset.totalfiles;
   const currentUpload = event.target.closest(".imageuploaded");
   const image = currentUpload.querySelector("img");
-  console.log("image", image);
   image.src = URL.createObjectURL(event.target.files[0]);
   image.alt = "image preview";
   image.classList.add("img-mini");
