@@ -7,7 +7,7 @@
 
 </head>
 
-<body class=" ">
+<body class=" w-full">
   <header>
     <nav>
 
@@ -20,7 +20,7 @@
     <div id="loading" class="loading-text">Loading</div>
     <progress class="progress progress-info w-56" value="10" max="100"></progress>
   </section>
-  <main class="card">
+  <main class="w-full card">
 
 
     <!-- TOP INFO -->
@@ -31,8 +31,18 @@
           <label class="label">
             <span class="label-text">Title: </span>
           </label>
-          <input id="title" name="title" type="text" placeholder="Type here" value=<%=repair.title %> class="input
-          input-bordered w-full max-w-xs" required />
+          <input id="title" name="title" type="text" placeholder="Type here" value="<%=repair.title%>" class="input
+            input-bordered w-full max-w-xs" required />
+          <label class="label">
+          </label>
+        </div>
+
+        <div class="  form-control  max-w-xs">
+          <label class="label">
+            <span class="label-text">Repair Id: </span>
+          </label>
+          <input id="id" name="id" type="text" placeholder="Type here" value="<%=repair._id %>" class="input
+          input-bordered w-full max-w-xs" disabled required />
           <label class="label">
           </label>
         </div>
@@ -41,8 +51,8 @@
           <label class="label">
             <span class="label-text">Board type: </span>
           </label>
-          <input id="board-type" value=<%=repair.boardType%> name="boardtype" type="text" placeholder="Type here"
-          class="input input-bordered w-full max-w-xs" />
+          <input id="board-type" value="<%=repair.boardType%>" name="boardtype" type="text" placeholder="Type here"
+            class="input input-bordered w-full max-w-xs" />
           <label class="label">
           </label>
         </div>
@@ -100,34 +110,54 @@
 
 
       <!-- PROCEDURES -->
-      <section class=" border  ">
+      <section class=" border w-full ">
 
-        <ol id="instructions" data-currentProcId="1">
+        <ol id="instructions" class="w-full flex flex-col flex-center" data-currentProcId="1">
 
 
           <!-- FOR LOOP PROCEDURES -->
           <% for( let index=0, len=repair.procedureArr.length ;index < len; index++ ) { %>
-            <li class=" mb-4 bg-cyan-800 procedure small-padding card   shadow-xl" data-procedureId="1">
+            <li class=" w-full mb-4 mt-4 bg-cyan-800 procedure small-padding card   shadow-xl" data-procedureId="1">
 
-              <section class="grey procedure--details small-padding">
+              <section class=" w-full grey procedure--details small-padding">
                 <h3>Repair Procedure</h3>
 
                 <!-- images uploaded -->
-                <section class="">
-                  <ol class="uploads" data-totalfiles="0" data-uploadId="0">
+                <section class="w-full ">
+                  <ol class="uploads w-full flex flex-col flex-center" data-totalfiles="0" data-uploadId="0">
 
                     <fieldset class="">
                       <legend>Images</legend>
                       <!-- FOR LOOP IMAGES -->
                       <% repair.procedureArr[index]?.images.forEach(element=> { %>
                         <!-- UPLOADED IMAGES -->
-                        <ol class="uploads" data-totalfiles="0" data-uploadid="0">
-                          <li class="card imageuploaded small-padding">
-                            <img src=<%=element%> alt="image preview" class="img-mini" />
-                            <input data-origurl=<%=element%> data-newimage="false" onchange="previewImage(event);"
+                        <ol class="mb-5 uploads border-2 border-black flex flex-center flex-col" data-totalfiles="0"
+                          data-uploadid="0">
+                          <li class=" w-full card imageuploaded small-padding">
+                            <img class="w-full" src=<%=element%> alt="image preview" class="img-mini" />
+                            <input class=" file-input file-input-bordered w-full max-w-xs" data-origurl=<%=element%>
+                            data-newimage="false"
+                            onchange="previewImage(event);"
                             type="file"
-                            accept="image/*"><span class="button--mobile clickable rounded btn"
-                              data-action="remove-image">remove item</span>
+                            accept="image/*">
+
+
+
+
+                            <section class="border-2 border-black p-4  text-clip  ">
+                              <!-- <h3>Current Url</h3> -->
+                              <input type="text" class="file-input file-input-bordered w-full max-w-xs"
+                                value="<%=element%>">
+                              <span class="btn" href="">
+                                reset
+                              </span>
+                            </section>
+                            <section class=" w-1/2">
+                              <span class="button--mobile clickable rounded btn" data-action="remove-image">
+                                remove image
+                              </span>
+
+                            </section>
                           </li>
                         </ol>
 
@@ -171,7 +201,7 @@
       </section>
       <details>
         <summary class="btn text-black bg-blue-300">Save Edit</summary>
-        <button class="btn text-black">confirm</button>
+        <button type="submit" class="btn text-black">confirm</button>
       </details>
 
     </form>
