@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Repair = require("../models/Repair");
 const User = require("../models/User");
 
+const { getAggregate } = require("../modules/getAggregate");
+
 module.exports.testPost = async (req, res) => {
   try {
     // console.log(req.session.passport);
@@ -28,7 +30,7 @@ module.exports.deletePost = async (req, res) => {
   } catch (err) {
     res.send({
       err: "delete error implemented ID: " + req.params.id,
-      message: error.message,
+      message: err.message,
     });
   }
 };
@@ -71,22 +73,28 @@ module.exports.addRepair = async (req, res) => {
 //retrieve repairs matching query
 module.exports.searchRepairs = async (req, res) => {
   try {
-    // console.log(`repairsController.searchRepairs`, req.query);
     const searchStr = req.query.searchPhrase;
+
+    //generate aggregate must array
+    const aggregateArr = getAggregate(searchStr);
+
+    //individual text search aggregate from given phrase
     const results = await Repair.aggregate([
       {
         $search: {
           index: "repairs_search",
-          text: {
-            query: searchStr,
-            //   path:["title","searchtags","procedureArr","instructions"],
-            path: { wildcard: "*" },
-            fuzzy: { maxEdits: 2, prefixLength: 3 },
+          compound: {
+            must: aggregateArr,
           },
         },
       },
+      {
+        $match: { removed: false },
+      },
     ]);
-    res.render("search.ejs", {
+
+    // res.render("search.ejs", {
+    res.render("search-page.ejs", {
       title: "Search Results",
       repairs: results,
       user: req.user,
