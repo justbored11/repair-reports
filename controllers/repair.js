@@ -78,6 +78,8 @@ module.exports.searchRepairs = async (req, res) => {
     //generate aggregate must array
     const aggregateArr = getAggregate(searchStr);
 
+    //!
+    console.log(aggregateArr);
     //individual text search aggregate from given phrase
     const results = await Repair.aggregate([
       {
@@ -89,7 +91,7 @@ module.exports.searchRepairs = async (req, res) => {
         },
       },
       {
-        $match: { removed: false },
+        $match: { removed: { $ne: true } },
       },
     ]);
 

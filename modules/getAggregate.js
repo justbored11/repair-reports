@@ -12,7 +12,7 @@ function getAggregate(str) {
 //make querys for aggregate query
 function makeQuerys(str) {
   if (str === "" || str === undefined) return [];
-  //get all words and remove spaces save into array
+  //get all words and remove spaces and save into array
   const wordsArr = str.split(" ").filter((word) => {
     const noSpace = word.trim();
     if (noSpace !== "") {
@@ -27,7 +27,7 @@ function makeQuerys(str) {
       text: {
         query: word,
         path: { wildcard: "*" },
-        fuzzy: { maxEdits: 2.0 },
+        fuzzy: { maxEdits: 1.0 },
       },
     };
   });
