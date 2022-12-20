@@ -6,8 +6,6 @@ const { getAggregate } = require("../modules/getAggregate");
 
 module.exports.testPost = async (req, res) => {
   try {
-    // console.log(req.session.passport);
-
     res.render("test");
   } catch (error) {}
 };
@@ -24,7 +22,6 @@ module.exports.deletePost = async (req, res) => {
 
       res.redirect("/repair/");
     } else {
-      // console.log("user not allowed");
       throw new Error(`user: ${user.username} not allowed`);
     }
   } catch (err) {
@@ -37,8 +34,6 @@ module.exports.deletePost = async (req, res) => {
 
 //add repair to database
 module.exports.addRepair = async (req, res) => {
-  // console.log("request for add repair", req.body);
-  // console.log("***********************************");
   try {
     let groupId = req.body.group ? req.body.group : req.user.username;
 
@@ -53,15 +48,10 @@ module.exports.addRepair = async (req, res) => {
       group: groupId, //user group id instead
       //! test if group is actually assigne
     };
-    // console.log(req.body);
-    // console.log(`post at /repairform`,entry)
-
     let result = await Repair.create(entry);
-    // console.log(`done uploading at server result`, result);
 
     const repLink = `/repair/${result._id}`; //add link to repair
 
-    // console.log(`server response to send`,result)
     res.send({ result: entry, link: repLink });
   } catch (err) {
     res
@@ -89,7 +79,7 @@ module.exports.searchRepairs = async (req, res) => {
         },
       },
       {
-        $match: { removed: false },
+        $match: { removed: { $ne: true } },
       },
     ]);
 
@@ -109,8 +99,6 @@ module.exports.searchRepairs = async (req, res) => {
 //get a number of newest repairs
 module.exports.getNewestRepairs = async (req, res) => {
   try {
-    // console.log(`controller repair.getNewestRepairs`);
-    // console.log(`number of repairs requested`, req.params.num);
     const numRepairs = req.params.num ? req.params.num : 8;
     const userGroups = [...req.user.groups, "public"];
 
@@ -131,8 +119,6 @@ module.exports.getNewestRepairs = async (req, res) => {
       .sort({ _id: -1 })
       .limit(numRepairs);
 
-    // console.log(`number of repairs returned`, results.length);
-    // console.log("repairs are: ", results);
     res.render("latest.ejs", {
       title: "Latest Repairs",
       repairs: results,
@@ -150,7 +136,6 @@ module.exports.getRepair = async (req, res) => {
     const repairId = req.params.id;
     const repairObj = await Repair.findOne({ _id: repairId }).lean(); /// swap to mongoose
 
-    // console.log(`getting repair JSON`, repairObj);
     res.status(200).json(repairObj);
   } catch (err) {
     res.status(400).json({
@@ -233,10 +218,7 @@ module.exports.getSearchPage = async (req, res) => {
 };
 
 ///PUT REPAIR
-//todo **************************** UPDATE RECORD *****************************
 module.exports.editRepair = async (req, res) => {
-  console.log(`REPAIR EDIT ROUTE`, req.body);
-
   let updatedDoc = null;
   let origDoc = null;
   let filter = { _id: req.body.id };
@@ -315,7 +297,6 @@ module.exports.getEditPage = async (req, res) => {
     req.user._id.equals(repairObj.createdBy) ||
     repairObj.createdBy === req.user.username ||
     requestingUser.role === "admin";
-  console.log(repairObj.title);
   /// render page
   res.render("edit-page.ejs", {
     title: "Repair Information",
