@@ -39,6 +39,7 @@ uploading can be delegated to client side with only having signature from server
 - cloudinary account
 - mongodb account
 
+
 ## /config/.env  file
 #### cloudinary settings
 - cloud_name = //provided by cloudinary
@@ -47,13 +48,33 @@ uploading can be delegated to client side with only having signature from server
 - cloud_folder = //for organizing your cloudinary image into a folder
 #### mongoDb connection string
 - connect_string = //provided by mongo
-#### port to use locally
+#### //port to use locally
 - PORT = 
 #### node enviroment for local run
 - NODE_ENV = development
 
+# inside the file /config/.env should look like this
+```
+ cloud_name = afds355ha 
+ cloud_key = 125554658
+ cloud_secret = ckdskfalkfjai123
+ cloud_folder = IMAGES
+ connect_string = mongodb://myDBReader:D1fficultP%40ssw0rd@mongodb0.example.com:27017/?authSource=admin
+ PORT = 8000
+ NODE_ENV = development
+```
 
-### start project
-```npm install
+
+### Then clone repository from terminal node and git required 
+```
+git clone https://github.com/jesusdoza/repair-reports.git
+```
+### move into project folder
+```
+ cd repair-reports/
+```
+### Open terminal prompt and run following commands
+```
+    npm install
     npm run dev
 ```
