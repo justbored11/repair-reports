@@ -1,0 +1,43 @@
+<!-- full nav -->
+<div class="full-nav navbar bg-base-100">
+
+  <div class="flex-1 ">
+    <a data-test="full-nav" class="logo btn btn-ghost normal-case text-xl">Circuit Chaser</a>
+  </div>
+  <div class="flex-1">
+    <ul class="menu flex-1 menu-horizontal p-0">
+      <li class=" search-area">
+        <%- include("./search-bar.ejs"); -%>
+      </li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/repair">Latest Reports</a></li>
+      <li><a href="/repairform">Create Report</a></li>
+      <li><a href="/repair/searchpage">Search</a></li>
+      <!-- <li><a href="/logout">Logout</a></li> -->
+
+
+      <li tabindex="0">
+        <a>
+          <div class="w-10  ">
+            <h1>
+              <%=user.username%>
+            </h1>
+            <img src="https://placeimg.com/80/80/people" />
+          </div>
+        </a>
+        <ul class="submenu above p-2 bg-base-100">
+          <li>
+            <a href="/profile" class="justify-between">
+              Profile
+              <span class="badge">New</span>
+            </a>
+          </li>
+          <li><a>Settings</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </li>
+
+    </ul>
+  </div>
+
+</div>
