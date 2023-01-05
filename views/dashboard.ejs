@@ -11,11 +11,17 @@
         <%- include("./partials/menu"); -%>
 
     </section>
-    <section>
-        <h2>
-            <%=title%>
-        </h2>
-        <%- include("./partials/useractions.ejs"); -%>
+    <section class="flex">
+
+        <section class="w-1/2">
+            <h2>
+                <%=title%>
+            </h2>
+            <%- include("./partials/useractions.ejs"); -%>
+        </section>
+        <section class="w-1/2">
+            <h3>Your Repairs</h3>
+        </section>
 
     </section>
 
