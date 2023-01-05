@@ -1,17 +1,28 @@
 ///dashboard controller
 const User = require("../models/User");
+const Repair = require("../models/Repair");
+const mongoose = require("mongoose");
 
-module.exports.getDashboard = async (req, res) => {
-  // console.log(req.user)
-  const foundUser = await User.findById({ _id: req.user._id }).lean();
-  const userGroups = foundUser.groups;
+async function getDashboard(req, res) {
+    // console.log(req.user)
 
-  console.log("foundUser", foundUser);
-  console.log("usergroups", userGroups);
+    getUserRepairs(req.user);
+    const foundUser = await User.findById({ _id: req.user._id }).lean();
+    const userGroups = foundUser.groups;
 
-  res.render("dashboard.ejs", {
-    title: "Dashboard",
-    user: req.user,
-    groups: userGroups,
-  });
-};
+    // console.log("foundUser", foundUser);
+    // console.log("usergroups", userGroups);
+
+    res.render("dashboard.ejs", {
+        title: "Dashboard",
+        user: req.user,
+        groups: userGroups,
+    });
+}
+
+async function getUserRepairs(user) {
+    const results = await Repair.find({ createdBy: user._id }).lean();
+    console.log("results ", results);
+}
+
+module.exports = { getDashboard };
