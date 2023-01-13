@@ -12,20 +12,20 @@
         <%- include("./partials/menu"); -%>
 
     </section>
-    <section class="flex flex-wrap">
+    <section class="flex flex-wrap justify-around">
 
-        <section class="">
+        <section class="flex flex-col">
             <h2>
                 <%=title%>
             </h2>
-            <%- include("./partials/useractions.ejs"); -%>
+            <%- include("./partials/dashboard-groups.ejs"); -%>
         </section>
-        <section class="border-2 border-sky-500   ">
+        <section class="flex-1 border-2 border-sky-500   ">
             <h3>Your Repairs</h3>
             <div class="flex justify-center">
-                <ul class="flex flex-wrap ">
-                    <li class="m-2 flex justify-center">
-                        <div class="card w-96 bg-base-100 shadow-xl image-full">
+                <ul class="flex flex-wrap justify-center md:justify-around">
+                    <li class="m-2 flex">
+                        <div class="card w-80 bg-base-100 shadow-xl image-full">
                             <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
                             <div class="card-body">
                                 <h2 class="card-title">test Repair display!</h2>
@@ -39,8 +39,8 @@
                             </div>
                         </div>
                     </li>
-                    <li class="m-2 flex justify-center">
-                        <div class="card w-96 bg-base-100 shadow-xl image-full">
+                    <li class="m-2">
+                        <div class="card w-80 bg-base-100 shadow-xl image-full">
                             <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
                             <div class="card-body">
                                 <h2 class="card-title">test Repair display!</h2>
