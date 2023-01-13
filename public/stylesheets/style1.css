@@ -1,5 +1,7 @@
 
-
+* {
+box-sizing: border-box;
+}
 body{
     width: 100%;
 }
@@ -211,7 +213,16 @@ TYPOGRAPHY
 
 
 /*====================================== 
+
+
+
+
 media queries
+
+
+
+
+
 ======================================== */
 
 @media screen and (min-width: 310px) {
@@ -269,7 +280,8 @@ media queries
         display: none;
     }
     .full-nav{
-        display:block;
+        display:flex;
+        
     }
 
 

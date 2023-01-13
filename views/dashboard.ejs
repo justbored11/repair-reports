@@ -1,20 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include("./partials/head"); -%>
 </head>
+
 <body>
     <section>
-        <%- include("./partials/mobile-menu"); -%>
-        
+
+        <%- include("./partials/menu"); -%>
+
     </section>
-    <section>
-        <h2><%=title%></h2>
-        <%- include("./partials/useractions.ejs"); -%>
+    <section class="flex">
+
+        <section class="">
+            <h2>
+                <%=title%>
+            </h2>
+            <%- include("./partials/useractions.ejs"); -%>
+        </section>
+        <section class="border-2 border-sky-500 w-1/2  ">
+            <h3>Your Repairs</h3>
+            <div class="flex justify-center">
+                <ul class="flex ">
+                    <li class="m-2 flex justify-center">
+                        <div class="card w-96 bg-base-100 shadow-xl image-full">
+                            <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
+                            <div class="card-body">
+                                <h2 class="card-title">test Repair display!</h2>
+                                <p>text partial from repair</p>
+                                <div class="card-actions justify-end">
+                                    <div class="btn btn-primary">Edit</div>
+                                </div>
+                                <div class="card-actions justify-end">
+                                    <div class="btn btn-primary">delete</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="m-2 flex justify-center">
+                        <div class="card w-96 bg-base-100 shadow-xl image-full">
+                            <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
+                            <div class="card-body">
+                                <h2 class="card-title">test Repair display!</h2>
+                                <p>text partial from repair</p>
+                                <div class="card-actions justify-end">
+                                    <div class="btn btn-primary">Edit</div>
+                                </div>
+                                <div class="card-actions justify-end">
+                                    <div class="btn btn-primary">delete</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </section>
 
     </section>
 
 
     <%- include("./partials/scripts"); -%>
 </body>
+
 </html>
