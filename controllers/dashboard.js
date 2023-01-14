@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 async function getDashboard(req, res) {
     // console.log(req.user)
 
-    getUserRepairs(req.user);
+    const userRepairs = getUserRepairs(req.user);
     const foundUser = await User.findById({ _id: req.user._id }).lean();
     const userGroups = foundUser.groups;
 
@@ -17,6 +17,7 @@ async function getDashboard(req, res) {
         title: "Dashboard",
         user: req.user,
         groups: userGroups,
+        repairs: userRepairs,
     });
 }
 
