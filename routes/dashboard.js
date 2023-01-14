@@ -4,7 +4,7 @@ const { ensureAuth } = require("../middleware/auth");
 const router = express.Router();
 
 //controllers
-const dashboardController = require("../controllers/dashboard.js");
+const dashboardController = require("../controllers/dashboard/dashboard");
 
 // @route '/dashboard/'
 router.get("/", dashboardController.getDashboard);

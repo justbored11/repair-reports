@@ -6,53 +6,56 @@
 </head>
 
 <body>
+
     <section>
 
         <%- include("./partials/menu"); -%>
 
     </section>
-    <section class="flex">
+    <section class="flex flex-wrap justify-around">
 
-        <section class="">
+        <section class="flex flex-col">
             <h2>
                 <%=title%>
             </h2>
-            <%- include("./partials/useractions.ejs"); -%>
+            <%- include("./partials/dashboard-groups.ejs"); -%>
         </section>
-        <section class="border-2 border-sky-500 w-1/2  ">
+        <section class="flex-1 border-2 border-sky-500   ">
             <h3>Your Repairs</h3>
             <div class="flex justify-center">
-                <ul class="flex ">
-                    <li class="m-2 flex justify-center">
-                        <div class="card w-96 bg-base-100 shadow-xl image-full">
-                            <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
-                            <div class="card-body">
-                                <h2 class="card-title">test Repair display!</h2>
-                                <p>text partial from repair</p>
-                                <div class="card-actions justify-end">
-                                    <div class="btn btn-primary">Edit</div>
-                                </div>
-                                <div class="card-actions justify-end">
-                                    <div class="btn btn-primary">delete</div>
+                <ul class="flex flex-wrap justify-center md:justify-around">
+                    <% for( let index=0; index < repairs.length; index++ ) { %>
+
+                        <li class="m-2 flex">
+                            <div class="card w-80 bg-base-100 shadow-xl image-full">
+                                <figure>
+                                    <%if (repairs[index].procedureArr[0]?.images[0]){%>
+                                        <img loading="lazy"
+                                            src="<%= repairs[index].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_600/')%>">
+                                        <%}else{%>
+                                            <img loading="lazy" src="/images/no-image.png">
+                                            <% } %>
+                                </figure>
+                                <div class="card-body">
+                                    <h2 class="card-title">
+                                        <%= repairs[index].title %>
+                                    </h2>
+                                    <p>
+                                        <%= repairs[index].engineMake ? repairs[index].engineMake : "no engine make" %>
+                                    </p>
+                                    <div class="card-actions justify-end">
+                                        <div class="btn btn-primary">Edit</div>
+                                    </div>
+                                    <div class="card-actions justify-end">
+                                        <div class="btn btn-primary">delete</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="m-2 flex justify-center">
-                        <div class="card w-96 bg-base-100 shadow-xl image-full">
-                            <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
-                            <div class="card-body">
-                                <h2 class="card-title">test Repair display!</h2>
-                                <p>text partial from repair</p>
-                                <div class="card-actions justify-end">
-                                    <div class="btn btn-primary">Edit</div>
-                                </div>
-                                <div class="card-actions justify-end">
-                                    <div class="btn btn-primary">delete</div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                        <% } %>
+
+
+
                 </ul>
 
             </div>
