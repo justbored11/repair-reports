@@ -6,63 +6,65 @@
 </head>
 
 <body>
-
-    <section>
-
-        <%- include("./partials/menu"); -%>
-
-    </section>
+    <section><%- include("./partials/menu"); -%></section>
     <section class="flex flex-wrap justify-around">
-
         <section class="flex flex-col">
             <h2>
                 <%=title%>
             </h2>
             <%- include("./partials/dashboard-groups.ejs"); -%>
         </section>
-        <section class="flex-1 border-2 border-sky-500   ">
+        <section class="flex-1 border-2 border-sky-500">
             <h3>Your Repairs</h3>
             <div class="flex justify-center">
                 <ul class="flex flex-wrap justify-center md:justify-around">
-                    <% for( let index=0; index < repairs.length; index++ ) { %>
+                    <% for( let index=0; index < repairs.length; index++ ){%>
 
                         <li class="m-2 flex">
                             <div class="card w-80 bg-base-100 shadow-xl image-full">
                                 <figure>
                                     <%if (repairs[index].procedureArr[0]?.images[0]){%>
                                         <img loading="lazy"
-                                            src="<%= repairs[index].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_600/')%>">
+                                            src="<%= repairs[index].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_600/')%>" />
                                         <%}else{%>
-                                            <img loading="lazy" src="/images/no-image.png">
+                                            <img loading="lazy" src="/images/no-image.png" />
                                             <% } %>
                                 </figure>
                                 <div class="card-body">
                                     <h2 class="card-title">
                                         <%= repairs[index].title %>
                                     </h2>
-                                    <p>
-                                        <%= repairs[index].engineMake ? repairs[index].engineMake : "no engine make" %>
-                                    </p>
+                                    <section>
+                                        <h6>Engine :<span>
+                                                <%= repairs[index].engineMake ? repairs[index].engineMake
+                                                    : "no enginemake" %>
+                                            </span></h6>
+                                        <h6>Group: <span>
+                                                <%= repairs[index].group ? repairs[index].group : "no group" %>
+                                            </span></h6>
+
+
+                                    </section>
                                     <div class="card-actions justify-end">
                                         <div class="btn btn-primary">Edit</div>
                                     </div>
                                     <div class="card-actions justify-end">
-                                        <div class="btn btn-primary">delete</div>
+                                        <div class="btn btn-primary">
+                                            delete
+                                        </div>
+                                    </div>
+                                    <div class="card-actions justify-end">
+                                        <div class="btn btn-primary"><a href="/repair/<%= repairs[index]._id%>">view</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </li>
                         <% } %>
-
-
-
                 </ul>
-
             </div>
         </section>
-
     </section>
-
 
     <%- include("./partials/scripts"); -%>
 </body>
