@@ -321,7 +321,12 @@ module.exports.getEditPage = async (req, res) => {
 ///GET ALL USERS REPAIRS
 module.exports.getUserRepairs = async (user) => {
     try {
-        const results = await Repair.find({ createdBy: user._id }).lean();
+        const results = await Repair.find({
+            createdBy: user._id,
+            removed: false,
+        })
+            .lean()
+            .sort({ _id: -1 });
         // console.log("results ", JSON.stringify(results[0]));
         return results;
     } catch (error) {
