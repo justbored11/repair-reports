@@ -5,24 +5,24 @@
     <%- include("./partials/head"); -%>
 </head>
 
-<body>
+<body class="w-full">
     <section><%- include("./partials/menu"); -%></section>
-    <section class="flex flex-wrap justify-around">
-        <section class="flex flex-col">
+    <section class=" flex flex-wrap justify-around w-full ">
+        <section class="flex flex-1 flex-col">
             <h2>
                 <%=title%>
             </h2>
             <%- include("./partials/dashboard-groups.ejs"); -%>
         </section>
-        <section class="flex-1 border-2 border-sky-500">
-            <h3>Your Repairs</h3>
-            <div class="flex justify-center">
-                <ul class="flex flex-wrap justify-center md:justify-around">
+        <section class="flex-1 border-2 border-sky-500 w-full">
+            <h3 class="w-full">Your Repairs</h3>
+            <div class=" flex-1 flex justify-center">
+                <ul class=" flex flex-wrap justify-center md:justify-around">
                     <% for( let index=0; index < repairs.length; index++ ){%>
 
-                        <li class="m-2 flex">
-                            <div class="card w-80 bg-base-100 shadow-xl image-full">
-                                <figure>
+                        <li class="m-2 flex flex-1">
+                            <div class="card  bg-base-100 shadow-xl image-full">
+                                <figure class="">
                                     <%if (repairs[index].procedureArr[0]?.images[0]){%>
                                         <img loading="lazy"
                                             src="<%= repairs[index].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_600/')%>" />
@@ -45,18 +45,22 @@
 
 
                                     </section>
+
+
                                     <div class="card-actions justify-end">
-                                        <div class="btn btn-primary">Edit</div>
-                                    </div>
-                                    <div class="card-actions justify-end">
-                                        <div class="btn btn-primary">
-                                            delete
+                                        <div class="dropdown dropdown-left">
+                                            <label tabindex="0" class="btn m-1">TOOLS</label>
+                                            <ul tabindex="0"
+                                                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                <li><a>edit</a></li>
+                                                <li><a>view</a></li>
+                                                <li><a>delete</a></li>
+
+
+                                            </ul>
                                         </div>
                                     </div>
-                                    <div class="card-actions justify-end">
-                                        <div class="btn btn-primary"><a href="/repair/<%= repairs[index]._id%>">view</a>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </li>
