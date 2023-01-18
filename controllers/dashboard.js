@@ -2,6 +2,7 @@
 const User = require("../models/User");
 const Repair = require("../models/Repair");
 const mongoose = require("mongoose");
+const { getUserRepairs } = require("./repair");
 
 async function getDashboard(req, res) {
     // console.log(req.user)
@@ -21,9 +22,9 @@ async function getDashboard(req, res) {
     });
 }
 
-async function getUserRepairs(user) {
-    const results = await Repair.find({ createdBy: user._id }).lean();
-    console.log("results ", results);
-}
+// async function getUserRepairs(user) {
+//     const results = await Repair.find({ createdBy: user._id }).lean();
+//     console.log("results ", results);
+// }
 
 module.exports = { getDashboard };
