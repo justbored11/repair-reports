@@ -5,23 +5,23 @@
     <%- include("./partials/head"); -%>
 </head>
 
-<body class="w-full">
+<body class="">
     <section><%- include("./partials/menu"); -%></section>
-    <section class=" flex flex-wrap justify-around w-full ">
-        <section class="flex flex-1 flex-col">
+    <section class=" flex flex-wrap justify-around sm: w-full ">
+        <section class="flex flex-col ">
             <h2>
                 <%=title%>
             </h2>
             <%- include("./partials/dashboard-groups.ejs"); -%>
         </section>
-        <section class="flex-1 border-2 border-sky-500 w-full">
+        <section class="flex-1 border-2 border-sky-500 ">
             <h3 class="w-full">Your Repairs</h3>
             <div class=" flex-1 flex justify-center">
                 <ul class=" flex flex-wrap justify-center md:justify-around">
                     <% for( let index=0; index < repairs.length; index++ ){%>
 
-                        <li class="m-2 flex flex-1">
-                            <div class="card  bg-base-100 shadow-xl image-full">
+                        <li class="m-1 flex  flex-1 justify-center">
+                            <div class="card w-60 bg-base-100 shadow-xl image-full">
                                 <figure class="">
                                     <%if (repairs[index].procedureArr[0]?.images[0]){%>
                                         <img loading="lazy"
