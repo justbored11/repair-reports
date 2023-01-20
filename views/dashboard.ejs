@@ -14,7 +14,7 @@
             </h2>
             <%- include("./partials/dashboard-groups.ejs"); -%>
         </section>
-        <section class="flex-1 border-2 border-sky-500 ">
+        <section class="flex-1 ">
             <h3 class="w-full">Your Repairs</h3>
             <div class=" flex-1 flex justify-center">
                 <ul class=" flex flex-wrap justify-center md:justify-around">
@@ -48,17 +48,15 @@
 
 
                                     <div class="card-actions justify-end">
-                                        <div class="dropdown dropdown-left">
-                                            <label tabindex="0" class="btn m-1">TOOLS</label>
-                                            <ul tabindex="0"
-                                                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                                <li><a>edit</a></li>
-                                                <li><a>view</a></li>
-                                                <li><a>delete</a></li>
+                                        <ul class="flex flex-col">
+                                            <li class="btn"><a href="/repair/edit/<%= repairs[index]._id%>">edit</a>
+                                            </li>
+                                            <li class="btn"><a href="/repair/<%= repairs[index]._id%>">view</a></li>
+                                            <li class="btn"><a>delete</a></li>
 
 
-                                            </ul>
-                                        </div>
+                                        </ul>
+
                                     </div>
 
                                 </div>
