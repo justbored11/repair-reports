@@ -45,45 +45,30 @@
                                                 <%= repairs[index].group ? repairs[index].group : "no group" %>
                                             </span></h6>
                                     </section>
-
-
                                     <div class="card-actions justify-end">
-                                        <<<<<<< HEAD <div class="dropdown dropdown-left">
-                                            <label tabindex="0" class="btn m-1">TOOLS</label>
-                                            <ul tabindex="0"
-                                                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                                <li><a>edit</a></li>
-                                                <li><a>view</a></li>
-                                                <li><a>delete</a></li>
+                                        <ul class="z-1 flex flex-col">
+                                            <li class="">
+                                                <a class="btn w-full" href="/repair/edit/<%= repairs[index]._id %>">edit
+                                                </a>
+                                            </li>
+                                            <li class=""><a class="btn w-full"
+                                                    href="/repair/<%= repairs[index]._id %>">view</a></li>
+                                            <li class=""><a class="btn w-full"
+                                                    href="/repair/<%= repairs[index]._id %>#delete-tool">delete</a>
+                                            </li>
 
 
-                                            </ul>
+                                        </ul>
+
+
                                     </div>
-                                    =======
-                                    <ul class="z-1 flex flex-col">
 
-                                        <li class="">
-                                            <a class="btn w-full" href="/repair/edit/<%= repairs[index]._id %>">edit
-                                            </a>
-                                        </li>
-                                        <li class=""><a class="btn w-full"
-                                                href="/repair/<%= repairs[index]._id %>">view</a></li>
-                                        <li class=""><a class="btn w-full"
-                                                href="/repair/<%= repairs[index]._id %>#delete-tool">delete</a>
-                                        </li>
-
-
-                                    </ul>
-
-                                    >>>>>>> dashboard-tools
                                 </div>
-
                             </div>
-            </div>
-            </li>
-            <% } %>
+                        </li>
+                        <% } %>
                 </ul>
-                </div>
+            </div>
         </section>
     </section>
 
