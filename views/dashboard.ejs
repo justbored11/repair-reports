@@ -20,9 +20,9 @@
                 <ul class=" flex flex-wrap justify-center md:justify-around">
                     <% for( let index=0; index < repairs.length; index++ ){%>
 
-                        <li class="m-1 flex  flex-1 justify-center">
+                        <li class="z-1 m-1 flex  flex-1 justify-center">
                             <div class="card w-full bg-base-100 shadow-xl image-full md:w-80">
-                                <figure class="">
+                                <figure class="z-1">
                                     <%if (repairs[index].procedureArr[0]?.images[0]){%>
                                         <img loading="lazy"
                                             src="<%= repairs[index].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_600/')%>" />
@@ -31,7 +31,7 @@
                                             <% } %>
                                 </figure>
                                 <div class="card-body">
-                                    <h2 class="card-title">
+                                    <h2 class="-z-1 card-title">
                                         <%= repairs[index].title %>
                                     </h2>
                                     <section>
@@ -42,17 +42,19 @@
                                         <h6>Group: <span>
                                                 <%= repairs[index].group ? repairs[index].group : "no group" %>
                                             </span></h6>
-
-
                                     </section>
-
-
                                     <div class="card-actions justify-end">
-                                        <ul class="flex flex-col">
-                                            <li class="btn"><a href="/repair/edit/<%= repairs[index]._id%>">edit</a>
+                                        <ul class="z-1 flex flex-col">
+
+                                            <li class="">
+                                                <a class="btn w-full" href="/repair/edit/<%= repairs[index]._id %>">edit
+                                                </a>
                                             </li>
-                                            <li class="btn"><a href="/repair/<%= repairs[index]._id%>">view</a></li>
-                                            <li class="btn"><a>delete</a></li>
+                                            <li class=""><a class="btn w-full"
+                                                    href="/repair/<%= repairs[index]._id %>">view</a></li>
+                                            <li class=""><a class="btn w-full"
+                                                    href="/repair/<%= repairs[index]._id %>#delete-tool">delete</a>
+                                            </li>
 
 
                                         </ul>
