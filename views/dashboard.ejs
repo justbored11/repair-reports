@@ -3,6 +3,7 @@
 
 <head>
     <%- include("./partials/head"); -%>
+
 </head>
 
 <body class="">
@@ -20,7 +21,8 @@
                 <ul class=" flex flex-wrap justify-center md:justify-around">
                     <% for( let index=0; index < repairs.length; index++ ){%>
 
-                        <li class="z-1 m-1 flex  flex-1 justify-center">
+                        <li data-group="<%= repairs[index].group ? repairs[index].group : " no group" %>" class="z-1 m-1
+                            flex flex-1 justify-center">
                             <div class="card w-full bg-base-100 shadow-xl image-full md:w-80">
                                 <figure class="z-1">
                                     <%if (repairs[index].procedureArr[0]?.images[0]){%>
@@ -71,6 +73,7 @@
     </section>
 
     <%- include("./partials/scripts"); -%>
+        <script src="/js/dashboard-page.js"> </script>
 </body>
 
 </html>
