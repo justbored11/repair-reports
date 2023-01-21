@@ -3,26 +3,28 @@
 
 <head>
     <%- include("./partials/head"); -%>
+
 </head>
 
-<body>
+<body class="">
     <section><%- include("./partials/menu"); -%></section>
-    <section class="flex flex-wrap justify-around">
-        <section class="flex flex-col">
+    <section class=" flex flex-wrap justify-around sm: w-full ">
+        <section class="flex flex-col ">
             <h2>
                 <%=title%>
             </h2>
             <%- include("./partials/dashboard-groups.ejs"); -%>
         </section>
-        <section class="flex-1 border-2 border-sky-500">
-            <h3>Your Repairs</h3>
-            <div class="flex justify-center">
-                <ul class="flex flex-wrap justify-center md:justify-around">
+        <section class="flex-1 ">
+            <h3 class="w-full">Your Repairs</h3>
+            <div class=" flex-1 flex justify-center">
+                <ul class=" flex flex-wrap justify-center md:justify-around">
                     <% for( let index=0; index < repairs.length; index++ ){%>
 
-                        <li class="m-2 flex">
-                            <div class="card w-80 bg-base-100 shadow-xl image-full">
-                                <figure>
+                        <li data-group="<%= repairs[index].group ? repairs[index].group : " no group" %>" class="z-1 m-1
+                            flex flex-1 justify-center">
+                            <div class="card w-full bg-base-100 shadow-xl image-full md:w-80">
+                                <figure class="z-1">
                                     <%if (repairs[index].procedureArr[0]?.images[0]){%>
                                         <img loading="lazy"
                                             src="<%= repairs[index].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_600/')%>" />
@@ -31,7 +33,7 @@
                                             <% } %>
                                 </figure>
                                 <div class="card-body">
-                                    <h2 class="card-title">
+                                    <h2 class="-z-1 card-title">
                                         <%= repairs[index].title %>
                                     </h2>
                                     <section>
@@ -42,21 +44,25 @@
                                         <h6>Group: <span>
                                                 <%= repairs[index].group ? repairs[index].group : "no group" %>
                                             </span></h6>
-
-
                                     </section>
                                     <div class="card-actions justify-end">
-                                        <div class="btn btn-primary">Edit</div>
+                                        <ul class="z-1 flex flex-col">
+                                            <li class="">
+                                                <a class="btn w-full" href="/repair/edit/<%= repairs[index]._id %>">edit
+                                                </a>
+                                            </li>
+                                            <li class=""><a class="btn w-full"
+                                                    href="/repair/<%= repairs[index]._id %>">view</a></li>
+                                            <li class=""><a class="btn w-full"
+                                                    href="/repair/<%= repairs[index]._id %>#delete-tool">delete</a>
+                                            </li>
+
+
+                                        </ul>
+
+
                                     </div>
-                                    <div class="card-actions justify-end">
-                                        <div class="btn btn-primary">
-                                            delete
-                                        </div>
-                                    </div>
-                                    <div class="card-actions justify-end">
-                                        <div class="btn btn-primary"><a href="/repair/<%= repairs[index]._id%>">view</a>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </li>
@@ -67,6 +73,7 @@
     </section>
 
     <%- include("./partials/scripts"); -%>
+        <script src="/js/dashboard-page.js"> </script>
 </body>
 
 </html>

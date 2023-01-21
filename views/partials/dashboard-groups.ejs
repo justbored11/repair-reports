@@ -1,35 +1,36 @@
-<div class="container">
+<div class="">
   <div class="row mt-5">
-      <div class="col-6">
-          <div>
-              <h2>Welcome <%=user.username%></h2>
-          </div>
-          
+    <div class="col-6">
+      <div>
+        <h2>Welcome <%=user.username%>
+        </h2>
       </div>
-      <div class="col-6">
-     <h3>Your a member of these groups</h3>
-        <div class="row justify-content-center mt-5">
-         <ul class="container">
+
+    </div>
+    <div class="col-6">
+      <h3>Your a member of these groups</h3>
+      <div class="row justify-content-center mt-5">
+        <ul id="usergroups" class="container">
           <li class="m-5">
-            <span class="btn btn-wide ">
-              <%='public'.toUpperCase()%> 
+            <span data-groupsort="public" class="btn w-11/12 ">
+              <%='public'.toUpperCase()%>
             </span>
           </li>
-          <%# if user is old will not have groups and will fail to render %> 
-        <% if(groups){%>
-        <%groups.forEach(group => { %>
-          <li class="m-5">
-            <span class="btn btn-wide ">
-              <%=group.toUpperCase()%> 
-            </span>
-          </li>
-        <% }) %>
-        <% } %> 
-           
-           
-         </ul>
-        </div>  
-      </div>  
+          <%# if user is old will not have groups and will fail to render %>
+            <% if(groups){%>
+              <%groups.forEach(group=> { %>
+                <li class="m-5">
+                  <span data-groupsort="<%= group.toLowerCase() %>" class="btn w-11/12">
+                    <%=group.toUpperCase()%>
+                  </span>
+                </li>
+                <% }) %>
+                  <% } %>
+
+
+        </ul>
+      </div>
     </div>
   </div>
+</div>
 </div>
