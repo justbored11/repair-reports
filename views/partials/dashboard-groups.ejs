@@ -10,9 +10,9 @@
     <div class="col-6">
       <h3>Your a member of these groups</h3>
       <div class="row justify-content-center mt-5">
-        <ul class="container">
+        <ul id="usergroups" class="container">
           <li class="m-5">
-            <span class="btn w-11/12 ">
+            <span data-groupsort="public" class="btn w-11/12 ">
               <%='public'.toUpperCase()%>
             </span>
           </li>
@@ -20,7 +20,7 @@
             <% if(groups){%>
               <%groups.forEach(group=> { %>
                 <li class="m-5">
-                  <span class="btn w-11/12">
+                  <span data-groupsort="<%= group.toLowerCase() %>" class="btn w-11/12">
                     <%=group.toUpperCase()%>
                   </span>
                 </li>
