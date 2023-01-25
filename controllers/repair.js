@@ -41,13 +41,14 @@ module.exports.addRepair = async (req, res) => {
             procedureArr: req.body.procedureArr,
             searchtags: req.body.searchtags,
             title: req.body.title,
-            boardType: req.body.boardType,
-            engineMake: req.body.engineMake,
+            boardType: req.body.boardType.toLowerCase(),
+            engineMake: req.body.engineMake.toLowerCase(),
             createdBy: req.user._id, //user user id instead
             removed: false,
             group: groupId, //user group id instead
-            //! test if group is actually assigne
+            //! test if group is actually assigned
         };
+
         let result = await Repair.create(entry);
 
         const repLink = `/repair/${result._id}`; //add link to repair
@@ -229,13 +230,15 @@ module.exports.getSearchPage = async (req, res) => {
 ///PUT REPAIR
 module.exports.editRepair = async (req, res) => {
     let updatedDoc = null;
-    let origDoc = null;
     let filter = { _id: req.body.id };
+    let changesRequested = req.body;
+
+    //fix the boardtype case
+    changesRequested.boardType = changesRequested.boardType.toUpperCase();
 
     //update repair
     try {
-        origDoc = await Repair.findOne(filter);
-        updatedDoc = await Repair.findOneAndUpdate(filter, req.body, {
+        updatedDoc = await Repair.findOneAndUpdate(filter, changesRequested, {
             returnOriginal: false,
         });
     } catch (err) {
