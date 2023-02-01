@@ -1,9 +1,18 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <h1>Login</h1>
 <div class="container login-container">
+    <div>
+        <% if (locals.messages.errors) { %>
+            <% for( let index=0; index < locals.messages.errors.length; index++ ) { %>
+                <h4>
+                    <%= locals.messages.errors[index] %>
+                </h4>
+                <% } %>
+                    <% } %>
+    </div>
     <div class="card  light-blue lighten-5">
         <div class="card-content">
-            <form action="/login" method="post" >
+            <form action="/login" method="post">
                 <div class="input-field">
 
                     <label for="email">email</label>
@@ -22,13 +31,13 @@
         </div>
     </div>
     <section class="">
-        
-            <a class= "btn waves-effect waves-light " href="/signup">
-                <i class="material-icons left">signup Here</i>
-        
-            </a>
-        
-        
-        
+
+        <a class="btn waves-effect waves-light " href="/signup">
+            <i class="material-icons left">signup Here</i>
+
+        </a>
+
+
+
     </section>
 </div>
