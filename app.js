@@ -8,6 +8,7 @@ const passport = require("passport");
 const session = require("express-session"); //enables them to stay logged in
 const MongoStore = require("connect-mongo");
 const mongooseDb = require("./config/dbM");
+const cookieParser = require("cookie-parser");
 
 require("dotenv").config({ path: "./config/.env" }); // to use with enviroment variables initializes enviroment vars
 
@@ -17,15 +18,16 @@ const app = express();
 const PORT = 8000;
 
 app.set("view engine", "ejs");
-app.use(flash());
 app.use(require("./middleware/httpsRedirect").httpsRedirect);
 app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //get body data
 app.use(logger("dev"));
 app.use(express.static("public"));
 
 // Sessions
+app.use(cookieParser());
 app.use(
     session({
         secret: "keyboard cat",
@@ -37,6 +39,7 @@ app.use(
     })
 );
 
+app.use(flash());
 // Passport middleware
 const { ensureAuth } = require("./middleware/auth");
 app.use(passport.initialize());
