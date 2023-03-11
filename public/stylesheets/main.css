@@ -1,4 +1,6 @@
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 * {
 box-sizing: border-box;
 }
@@ -7,7 +9,6 @@ body{
 }
 nav{
     width: 100%;
-   
 }
 
 li.fill.search-area{
@@ -27,11 +28,11 @@ li.fill{
 }
 
 
-.hidden{
+/* .hidden{
     width: 0;
     height: 0;
     visibility: hidden;
-}
+} */
 
 .entry_brief{
     height: 100%;
