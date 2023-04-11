@@ -101,12 +101,7 @@ STYLES
     justify-content: space-between;
     align-items: center;
 }
-.warning .btn:hover{
-    background-color: rgb(210, 27, 27);
-}
-.btn:hover{
-    background-color: chartreuse;
-}
+
 .status-icons{
     background-color: white;
    display: flex;
@@ -234,9 +229,7 @@ media queries
         align-items: center;
         
     }
-    .textarea{
-        width: 50%;
-    }
+    
     .engine-models{
         width: 80%;
         display: flex;

@@ -1,11 +1,15 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const commentSchema = new mongoose.Schema({
     userid: {
         type: String,
         required: true,
     },
-    postid: {
+    repairid: {
+        type: String,
+        required: true,
+    },
+    title: {
         type: String,
         required: true,
     },
@@ -13,10 +17,15 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    createdat: {
+    reply: {
+        default: null,
+        type: mongoose.ObjectId,
+        ref: "comment",
+    },
+    createdate: {
         type: Date,
         default: Date.now,
     },
 });
 
-export default mongoose.model("Comment", commentSchema);
+module.exports = mongoose.model("comment", commentSchema);

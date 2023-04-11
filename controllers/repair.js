@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Repair = require("../models/Repair");
 const User = require("../models/User");
+const Comment = require("../models/Comment");
 
 const { getAggregate } = require("../modules/getAggregate");
 
@@ -159,6 +160,7 @@ module.exports.getRepairPage = async (req, res) => {
     let foundUser = {};
     let requestingUser = {};
     let toolsAllowed = false;
+    let comments = [];
 
     try {
         //find repair report
@@ -195,6 +197,18 @@ module.exports.getRepairPage = async (req, res) => {
         return;
     }
 
+    //get comments if any
+    try {
+        const foundComments = await Comment.find({
+            repairid: repairId,
+        }).lean();
+        comments = foundComments.length > 0 ? foundComments : [];
+    } catch (error) {
+        //comments failed to load serve request anyway
+        console.log("failed to get comments");
+        comments = [];
+    }
+
     //check if user can have edit tools
     // if createdby matches req user ID || or matches username || has admin role
     toolsAllowed =
@@ -202,6 +216,7 @@ module.exports.getRepairPage = async (req, res) => {
         repairObj.createdBy === req.user.username ||
         requestingUser.role === "admin";
 
+    console.log("comments found ", comments);
     /// render page
     res.render("repairinfo.ejs", {
         title: "Repair Information",
@@ -209,6 +224,7 @@ module.exports.getRepairPage = async (req, res) => {
         user: req.user,
         createdBy: createdByUser, //possible not user found
         allowedEdit: toolsAllowed,
+        comments: comments,
     });
 };
 

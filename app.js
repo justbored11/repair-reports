@@ -59,6 +59,7 @@ const homeRoutes = require("./routes/home");
 const profileRoutes = require("./routes/profile");
 const dashboardRoutes = require("./routes/dashboard.js");
 const groupRoutes = require("./routes/group.js");
+const commentRoutes = require("./routes/comments.js");
 
 // =============================================================
 // ROUTES
@@ -70,6 +71,7 @@ app.use("/repair", ensureAuth, repairRoutes);
 app.use("/profile", ensureAuth, profileRoutes);
 app.use("/dashboard", ensureAuth, dashboardRoutes);
 app.use("/group", ensureAuth, groupRoutes);
+app.use("/comments", ensureAuth, commentRoutes);
 
 app.use(formRoutes);
 app.use(signformRoutes);

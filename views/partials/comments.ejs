@@ -1,36 +1,60 @@
-<section>
-    <section class="flex flex-col">
-        <h3>Wanna add something leave a comment.</h3>
-        <form class="flex justify-center flex-col" action="">
-            <div>
-                <label for="comment-input"></label>
-                <textarea class="textarea" id="comment-input" name="newComment" rows="4" type="text"></textarea>
+<section class="w-11/12 p-2 rounded-sm bg-slate-400">
+    <!-- comment submit form -->
+    <section class="">
+        <form id="comment_form" class="p-3 bg-slate-600 rounded-lg" method="post" action="/comments/<%= repair._id %>">
+            <h3 class="text-left">Wanna add something to this repair let <%=createdBy %> know. </h3>
+            <div class="text-center bg-white">
+                <div class="flex gap-2">
+                    <label class="text-gray-800 font-bold" for="comment-title">Title
+                    </label>
+                    <input required
+                        class="text-black textarea font-bold bg-white border-solid border-2 border-sky-300 w-full"
+                        type="text" name="title" id="comment-title"></input>
 
+                </div>
+
+                <textarea required id="comment-input" name="comment" placeholder="Comment here"
+                    class="text-black bg-white textarea border-solid border-2 border-sky-300 w-full"></textarea>
             </div>
             <div>
-                <input class="btn" type="submit">
+                <input id="comment_submit" class="btn" type="submit">
 
             </div>
         </form>
 
     </section>
-    <section>
-        <h4>comments section</h4>
+
+    <!-- display comments section -->
+    <section class="p-2 h-auto border-double">
         <ol>
-            <li>
-                <div class="card w-96 bg-base-100 shadow-xl">
-                    <div class="card-body">
-                        <h2 class="card-title">Comment title</h2>
-                        <p>COMMENT TEXT</p>
-                        <div class=" justify-end">
-                            <section class="border-double border-2 border-green-500">
-                                <img src="" alt="">
-                                <span>username of comment</span>
-                            </section>
+            <% if (locals.comments) { %>
+                <% for( let index=0; index < comments.length; index++ ) { %>
+                    <li class="my-2">
+                        <div class="card w-96 bg-gray-500 shadow-xl">
+                            <div class="card-body">
+                                <h2 class="card-title text-black">
+                                    <%= comments[index].title%>
+                                </h2>
+                                <p class="text-slate-800 whitespace-pre-line">
+                                    <%= comments[index].content %>
+                                </p>
+                                <div class="flex justify-end">
+                                    <section class="h-5/6">
+                                        <div class="w-20">
+                                            <span>USERNAME</span>
+                                            <img class="w-full" src="/images/no-image.png" alt="user avatar">
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </li>
+                    </li>
+                    <% } %>
+
+
+                        <% } %>
+
+
         </ol>
     </section>
 </section>

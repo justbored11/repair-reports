@@ -110,29 +110,18 @@
                     <% } %>
         </ol>
     </section>
-    <section>
+    <section class="flex justify-center w-full">
         <%- include("./partials/comments.ejs"); -%>
     </section>
 
     <footer>
-        <!-- <div>
-                <form action='/repair/delete/<%= repair._id %>'>
-                    <details>
-                        <summary class="btn"> Delete Report</summary>
-                        <button class="btn red">confirm delete</button>
-                        
-                    </details>
-                   
-                   </form>
-            </div>		 -->
-
         <% if (allowedEdit) { %>
             <h3>Edit tools</h3>
             <%- include("./partials/post-tools.ejs"); -%>
                 <% } %>
     </footer>
 
-
+    <script type="text/javascript" src="/js/repairinfo.js"></script>
 
 </body>
 
