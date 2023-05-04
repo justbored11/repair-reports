@@ -19,7 +19,7 @@
         <h1 class="text-xl">
             Title:
             <span class="badge badge-lg">
-                <%= repair.title %>
+                <%= repair.title ? repair.title : 'no title' %>
             </span>
         </h1>
         <section class="grey">
@@ -33,7 +33,7 @@
                 <h2 class="text-xl">
                     Repair ID:
                     <span class="badge badge-lg">
-                        <%= repair._id %>
+                        <%= repair._id ? repair._id : 'no id' %>
                     </span>
                 </h2>
                 <h2 class="text-xl">
@@ -48,7 +48,7 @@
             <section class="rounded">
                 <span class="title  board-type">Board Type: </span>
                 <h3 class="chip">
-                    <%= repair.boardType %>
+                    <%= repair.boardType ? repair.boardType : 'board type' %>
                 </h3>
 
             </section>
@@ -56,7 +56,7 @@
             <section class="  rounded repair-info">
                 <span class="title  ">Engine Make: </span>
                 <h3 class="chip">
-                    <%= repair.engineMake %>
+                    <%= repair.engineMake ? repair.engineMake : 'engine make' %>
                 </h3>
             </section>
 

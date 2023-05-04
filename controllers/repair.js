@@ -187,7 +187,7 @@ module.exports.getRepairPage = async (req, res) => {
             foundUser = await User.findOne({ username: repairObj.createdBy });
         }
 
-        createdByUser = foundUser.username || "public default"; // get the username string for report render
+        createdByUser = foundUser?.username || "public default"; // get the username string for report render
         requestingUser = await User.findOne({ _id: req.user._id }); //user requesting
     } catch (err) {
         res.status(400).json({
@@ -309,7 +309,7 @@ module.exports.getEditPage = async (req, res) => {
             foundUser = await User.findOne({ username: repairObj.createdBy });
         }
 
-        createdByUser = foundUser.username || "public default"; // get the username string for report render
+        createdByUser = foundUser?.username || "public default"; // get the username string for report render
         requestingUser = await User.findOne({ _id: req.user._id }); //user requesting
     } catch (err) {
         res.status(400).json({
