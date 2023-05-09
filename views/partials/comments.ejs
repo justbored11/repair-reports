@@ -40,9 +40,18 @@
                                 </p>
                                 <div class="flex justify-end">
                                     <section class="h-5/6">
-                                        <div class="w-20">
-                                            <span>USERNAME</span>
-                                            <img class="w-full" src="/images/no-image.png" alt="user avatar">
+                                        <div class="w-20 bg-sky-500 hover:bg-sky-700">
+                                            <a href="/userinfo/<%= comments[index].userid ? comments[index].userid : 0 %>"
+                                                class="">
+                                                <img class="w-full" src="/images/no-image.png" alt="user avatar">
+                                                <div class="text-center">
+                                                    <span class="text-center">
+                                                        <%= comments[index].username ? comments[index].username
+                                                            : 'Anonymous' %>
+                                                    </span>
+
+                                                </div>
+                                            </a>
                                         </div>
                                     </section>
                                 </div>

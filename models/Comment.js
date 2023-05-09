@@ -5,6 +5,11 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    username: {
+        type: String,
+        required: true,
+        default: "anonymous",
+    },
     repairid: {
         type: String,
         required: true,

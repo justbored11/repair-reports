@@ -17,12 +17,15 @@ module.exports = {
         const { comment, title } = req.body;
         const repairId = req.params.id;
         const user = req.user.id;
+        const username = req.user.username;
+        console.log("user from request", req.user);
         try {
             await Comment.create({
                 userid: user,
                 repairid: repairId,
                 title: title,
                 content: comment,
+                username: username,
             });
         } catch (err) {
             res.status(400).json({
