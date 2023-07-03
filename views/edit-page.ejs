@@ -199,10 +199,28 @@
 
         </ol>
       </section>
-      <details>
-        <summary class="btn text-black bg-blue-300">Save Edit</summary>
-        <button type="submit" class="btn text-black">confirm</button>
-      </details>
+      <section>
+        <ul class="flex flex-row justify-between">
+          <li>
+            <details class="mb-4">
+              <summary id="delete-tool" class="btn text-black bg-orange-600 hover:bg-red-700 hover:text-white"> Delete
+                Report
+              </summary>
+              <a href='/repair/delete/<%= repair._id %>'
+                class="btn text-black bg-red-600 hover:bg-red-600 hover:text-white">confirm
+                delete</a>
+            </details>
+          </li>
+          <li>
+            <details class="">
+              <button type="submit"
+                class="btn text-black bg-green-600 hover:bg-green-900 hover:text-white">confirm</button>
+              <summary class="btn text-black bg-blue-300 hover:bg-green-600">Save Edit</summary>
+            </details>
+          </li>
+        </ul>
+
+      </section>
 
     </form>
 
