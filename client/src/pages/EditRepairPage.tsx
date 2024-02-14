@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { repairDataT } from "../hooks/useGetLatest";
 import ProcedureList from "../components/ProcedureList/ProcedureList";
 import { useEffect, useState } from "react";
+import EditProcedureList from "../components/EditTools/EditProcedureList";
 
 export default function EditRepairPage() {
   const { state: data }: { state: repairDataT } = useLocation();
@@ -39,7 +40,7 @@ export default function EditRepairPage() {
       </legend>
       <section>
         <h3 className="text-xl">Repair procedures</h3>
-        <ProcedureList list={newData.procedureArr} />
+        <EditProcedureList list={newData.procedureArr} />
       </section>
       {/* if user id matches created by field user can use edit tools */}
     </section>

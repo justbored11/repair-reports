@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const envFile = path.normalize("/etc/secrets/.env.production");
-const newEnvFile = path.normalize("./frontend/.env.production");
+const newEnvFile = path.normalize("./client/.env.production");
 
 if (fs.existsSync(envFile)) {
   console.log("env file exists");
