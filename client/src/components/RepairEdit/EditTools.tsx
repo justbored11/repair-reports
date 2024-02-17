@@ -35,8 +35,9 @@ export default function EditTools({
             </form>
             <h3 className="font-bold text-lg">Confirm you wanna edit</h3>
 
-            <div className="btn">
+            <div>
               <NavLink
+                className="btn"
                 state={data}
                 to={editPageUrl}>
                 Edit Repair

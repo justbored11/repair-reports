@@ -10,7 +10,9 @@
     "build-client": "cd ./client/ && npm run build",
     "start": "cd ./backend/ && npm run start",
     "install": "npm run copy-env && concurrently 'npm:back-install' 'npm:client-install' && npm run build-client",
-    "dev": "cd ./backend/ && npm run dev",
+    "dev": "concurrently 'npm:dev-backend' 'npm:dev-client'",
+    "dev-backend": "cd ./backend/ && npm run dev",
+    "dev-client": "cd ./client/ && npm run dev",
     "copy-env": "node copyfile.js"
   },
   "author": "",

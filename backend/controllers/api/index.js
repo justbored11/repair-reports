@@ -153,3 +153,36 @@ module.exports.getRepair = async (req, res) => {
     });
   }
 };
+
+module.exports.updateRepair = async (req, res) => {
+  let updateResponse;
+  try {
+    const updatedDoc = req.body.repairData;
+    const filter = { _id: updatedDoc._id };
+    updatedDoc.boardType = updatedDoc.boardType.toUpperCase();
+
+    console.log("repair data", updatedDoc);
+    console.log("filter", filter);
+
+    try {
+      updateResponse = await Repair.findOneAndUpdate(filter, updatedDoc, {
+        returnOriginal: false,
+      });
+    } catch (err) {
+      res.status(400).json({
+        message: `ID: ${updatedDoc._id}  NOT FOUND for edit`,
+        error: err?.message,
+      });
+      return;
+    }
+
+    res
+      .status(200)
+      .json({ message: "repair update", status: "success", updatedDoc });
+  } catch (error) {
+    res.status(400).json({
+      message: `failed to update document: ${updatedDoc._id}`,
+      error: error.message,
+    });
+  }
+};

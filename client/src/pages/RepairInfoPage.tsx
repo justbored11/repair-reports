@@ -4,7 +4,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { repairDataT } from "../hooks/useGetLatest";
 import ProcedureList from "../components/ProcedureList/ProcedureList";
-import EditTools from "../components/EditTools/EditTools";
+import EditTools from "../components/RepairEdit/EditTools";
 import Comments from "../components/Comments/Comments";
 import useAuthContext from "../hooks/useAuthContext";
 
