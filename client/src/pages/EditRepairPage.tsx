@@ -2,9 +2,9 @@ import { useLocation } from "react-router-dom";
 import { repairDataT } from "../hooks/useGetLatest";
 import { ChangeEvent, useEffect, useState } from "react";
 import EditProcedureList from "../components/RepairEdit/EditProcedureList";
-import { AvailableEnginesSelect } from "../components/AvailableOptions/AvailableEngines";
 // import axios from "axios";
 import useRepairApi from "../hooks/useRepairApi";
+import AvailableOptions from "../components/AvailableOptions/AvailableOptions";
 
 export default function EditRepairPage() {
   const { state: data }: { state: repairDataT } = useLocation();
@@ -19,23 +19,17 @@ export default function EditRepairPage() {
   const { updateRepair } = useRepairApi();
 
   useEffect(() => {
-    // console.log("new data", updatedData);
-    // console.log("central procedures state @EditRepairPage", newProceds);
+    console.log("updatedData", updatedData);
+  }, [updatedData]);
 
-    //bring in substate for procedureArr back into the main state
-    setUpdatedData((state) => {
-      return { ...state, procedureArr: newProceds };
-    });
+  useEffect(() => {
+    updateState({ procedureArr: newProceds }, setUpdatedData);
   }, [newProceds]);
 
-  // useEffect(() => {
-  //   console.log("updatedData : ", updatedData);
-  // }, [updatedData]);
-
-  const handleUpdate = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log("updatedData", updatedData);
+    console.log("updatedData", updatedData.procedureArr);
 
     try {
       const res = await updateRepair(updatedData);
@@ -45,24 +39,54 @@ export default function EditRepairPage() {
     }
   };
 
+  const availableGroups = [
+    {
+      label: `original: ${updatedData.group}`,
+      value: updatedData.group,
+    },
+    { label: "public", value: "public" },
+  ];
+
+  const availableBoardTypes = [
+    {
+      label: `original: ${updatedData.boardType}`,
+      value: updatedData.group,
+    },
+    { label: "public", value: "public" },
+  ];
+
+  const availableEngines = [
+    {
+      label: `original: ${updatedData.engineMake}`,
+      value: updatedData.engineMake,
+    },
+    { label: "Caterpillar", value: "cat" },
+    { label: "Cummins", value: "cummins" },
+    { label: "Detroit", value: "detroit" },
+  ];
+
   return (
-    <form onSubmit={handleUpdate}>
-      <legend className=" border-4 rounded-lg p-2 border-gray-600">
+    <form
+      className="w-full"
+      onSubmit={handleSubmit}>
+      <legend className=" gap-4 flex flex-col border-4 rounded-lg p-2 border-gray-600">
         <span className=" text-4xl">Title:</span>
-        <input
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            console.log("e", e.target.value);
-            setUpdatedData((state) => {
-              return { ...state, title: e.target.value };
-            });
-          }}
-          className="text-4xl"
-          id="title"
-          name="title"
-          type="text"
-          defaultValue={updatedData.title ? updatedData.title : ""}
-        />
-        <h3>repair info</h3>
+        <div>
+          <input
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              // console.log("e", e.target.value);
+              setUpdatedData((state) => {
+                return { ...state, title: e.target.value };
+              });
+            }}
+            className="text-2xl w-full"
+            id="title"
+            name="title"
+            type="text"
+            defaultValue={updatedData.title ? updatedData.title : ""}
+          />
+        </div>
+
         <div>
           <span>Repair Id:</span>
           <div className="badge badge-neutral"> {updatedData._id}</div>
@@ -71,14 +95,35 @@ export default function EditRepairPage() {
           <span>created by user:</span>
           <div className="badge badge-neutral"> {updatedData.createdBy}</div>
         </div>
-        <AvailableEnginesSelect defaultValue={updatedData.engineMake} />
+
         <div>
-          <span>user group:</span>
-          <div className="badge badge-neutral"> {updatedData.group}</div>
+          <AvailableOptions
+            title="User group"
+            name="group"
+            options={availableGroups}
+          />
         </div>
         <div>
-          <span>board type:</span>
-          <div className="badge badge-neutral"> {updatedData.boardType}</div>
+          <AvailableOptions
+            title="Board Type"
+            name="boardType"
+            options={availableBoardTypes}
+          />
+        </div>
+        <div>
+          <AvailableOptions
+            callback={(engine: string) => {
+              updateState({ engineMake: engine }, setUpdatedData);
+
+              // updateEngine({
+              //   engineSelected: engine,
+              //   setState: setUpdatedData,
+              // });
+            }}
+            title="Engine make"
+            name="engine"
+            options={availableEngines}
+          />
         </div>
       </legend>
       <section>
@@ -95,4 +140,13 @@ export default function EditRepairPage() {
       </button>
     </form>
   );
+}
+
+function updateState(
+  fieldUpdate: object,
+  setState: React.Dispatch<React.SetStateAction<repairDataT>>
+) {
+  setState((state) => {
+    return { ...state, ...fieldUpdate };
+  });
 }

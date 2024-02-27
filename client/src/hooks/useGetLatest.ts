@@ -3,8 +3,17 @@ import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
 import useRepairApi from "./useRepairApi";
 
+export type imageObjT = {
+  imageUrl: string;
+  imageThumb: string;
+  caption: string;
+  imageId: string;
+  folder: string;
+};
+
 export type ProcedureT = {
   images: string[];
+  imageObjs?: imageObjT[];
   imagesIdArr: string[];
   instructions: string;
   procedureNum: number;

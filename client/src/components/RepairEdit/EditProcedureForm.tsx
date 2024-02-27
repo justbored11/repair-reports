@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ProcedureT } from "../../hooks/useGetLatest";
 import { DispatchType, updateProcDispT } from "../../hooks/useUpdateProcedures";
 import { EditImageCard } from "./EditImageCard";
@@ -12,20 +12,24 @@ export default function EditProcedureForm({
   reducer: updateProcDispT;
   index: number;
 }) {
-  //
-  const [imageUrls, setImageUrls] = useState(proc.images);
+  //! use reducer and remove this state state will become const and update as necessary
+  // const [imageUrls, setImageUrls] = useState(proc.images);
 
   //coarse index to number to be used as reference of updating state array of the proceduresArray
-  index = Number(index);
-  //
-  const imageCards = createEditImageCards(imageUrls, setImageUrls);
+  const PROCEDURE_INDEX = Number(index);
+
+  const imageCards = createEditImageCards({
+    imageUrls: proc.images,
+    reducer: reducer,
+    procIndex: PROCEDURE_INDEX,
+  });
 
   const handleInstructChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     // console.log("event.target.value", e.target.value);
     reducer({
       type: DispatchType.UPDATE_INTRUC,
-      payload: { index, instructions: e.target.value },
+      payload: { procIndex: PROCEDURE_INDEX, instructions: e.target.value },
     });
   };
 
@@ -73,17 +77,30 @@ export default function EditProcedureForm({
 //   return;
 // }
 
-function createEditImageCards(
-  imageUrls: string[],
-  setImageUrls: React.Dispatch<React.SetStateAction<string[]>>
-) {
+// imageUrls:proc.images, reducer:reducer, procIndex:PROCEDURE_INDEX
+//! use only the reducer here not set state redundant
+function createEditImageCards({
+  procIndex,
+  reducer,
+  imageUrls,
+}: {
+  imageUrls: string[];
+  procIndex: number;
+  // setImageUrls: React.Dispatch<React.SetStateAction<string[]>>,
+  reducer: updateProcDispT;
+}) {
+  //
   const imageCards = imageUrls.map((url, index) => {
-    //update image array at index based on map index
-    const setUrl = (newUrl: string) => {
-      setImageUrls((state) => {
-        const newState = [...state];
-        newState[index] = newUrl; //update at current index
-        return newState;
+    // setting up the function so component doesnt need to know what index it is in array
+    const updateUrl = (newUrl: string) => {
+      //update image array at index based on map index
+      reducer({
+        type: DispatchType.UPDATE_IMAGES,
+        payload: {
+          newImageUrl: newUrl,
+          procIndex: procIndex,
+          newImageIndex: index,
+        },
       });
     };
 
@@ -91,7 +108,7 @@ function createEditImageCards(
       <li key={url}>
         <EditImageCard
           url={url}
-          setUrl={setUrl}
+          setUrl={updateUrl}
         />
       </li>
     );

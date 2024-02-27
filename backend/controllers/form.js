@@ -22,7 +22,11 @@ const getForm = async (req, res) => {
 };
 const signForm = async (req, res) => {
   //todo get signature and respond
-  const sig = signature.signuploadform();
+  //folder to organize this image in
+  const desiredFolder = req.query?.folder ? req.query.folder : "test_folder";
+
+  const sig = signature.signuploadform(desiredFolder);
+
   console.log(`signform signature received `, sig);
 
   try {
@@ -31,7 +35,7 @@ const signForm = async (req, res) => {
       timestamp: sig.timestamp,
       cloudname: process.env.cloud_name,
       apikey: process.env.cloud_key,
-      folder: process.env.cloud_folder,
+      folder: desiredFolder,
     });
   } catch (error) {}
 };

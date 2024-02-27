@@ -8,7 +8,7 @@ export default function EditProcedureList({
   updateFn,
 }: {
   list: ProcedureT[];
-  updateFn: React.Dispatch<React.SetStateAction<ProcedureT[]>>;
+  updateFn: (newProcedures: ProcedureT[]) => void;
 }): React.ReactNode {
   //
   //state holding all procedures on an array central state
@@ -16,7 +16,7 @@ export default function EditProcedureList({
 
   useEffect(() => {
     // console.log("currentListState", currentListState);
-    updateFn(currentListState); //!not called yet
+    updateFn(currentListState);
   }, [currentListState]);
 
   const procedures = currentListState.map((proc, index) => {

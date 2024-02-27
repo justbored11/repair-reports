@@ -1,8 +1,24 @@
 const mongoose = require("mongoose");
 
+//version: 2 contains imageObjs:[imageObj] for images on procedures
+const imageObj = new mongoose.Schema({
+  imageUrl: { type: String, default: "" },
+  imageThumb: { type: String, default: "" },
+  caption: { type: String, default: "" },
+  imageId: {
+    type: String,
+    default: "",
+  },
+  folder: {
+    type: String,
+    default: "test",
+  },
+});
+
 //subdocument of RepairSchema
 const ProcedureSchema = new mongoose.Schema({
   images: [String],
+  imageObjs: [imageObj], //version 2 to be used instead of seperate images[],thumbs[],imagesIdArr[]
   procedureNum: {
     type: Number,
     default: 0,
@@ -28,6 +44,11 @@ const ProcedureSchema = new mongoose.Schema({
 //parent schema
 const RepairSchema = new mongoose.Schema(
   {
+    version: {
+      type: String,
+      required: true,
+      default: "2",
+    },
     title: {
       type: String,
       required: true,

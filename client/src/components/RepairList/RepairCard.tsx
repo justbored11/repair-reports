@@ -7,7 +7,7 @@ export const RepairCard = ({
 }: {
   data: repairDataT;
 }): React.ReactNode => {
-  console.log("data", data);
+  // console.log("data", data);
 
   const previewImageUrl =
     data.procedureArr.length > 0 && data?.procedureArr[0]?.images[0]
