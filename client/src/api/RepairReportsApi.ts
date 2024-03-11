@@ -1,5 +1,6 @@
 import axios from "axios";
-import { repairDataT } from "../hooks/useGetLatest";
+// import { repairDataT } from "../../types";
+import { RepairDataT } from "../../types";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export type signatureT = {
@@ -45,7 +46,7 @@ const getUploadSignature = async (folder: string) => {
   return response.data as signatureT;
 };
 
-const updateRepair = async (repair: repairDataT) => {
+const updateRepair = async (repair: RepairDataT) => {
   console.log("repair @updateRepair ", repair);
 
   try {

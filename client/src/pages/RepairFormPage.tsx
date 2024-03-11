@@ -1,56 +1,28 @@
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent } from "react";
 import AvailableOptions from "../components/AvailableOptions/AvailableOptions";
-import EditProcedureList from "../components/RepairEdit/EditProcedureList";
-// import { repairDataT } from "../hooks/useGetLatest";
-// import useRepairApi from "../hooks/useRepairApi";
-import useRepairFormState, { DispatchType } from "../hooks/useRepairFormState";
+import EditProcedureList from "../components/ProcedureList/EditProcedureList";
+// import { RepairFormContext } from "../context/RepairFormContext";
+import useRepairFormState from "../hooks/useRepairFormState";
 
-const startingProcedure = {
-  images: [],
-  imageObjs: [],
-  imagesIdArr: [],
-  instructions: "",
-  procedureNum: 0,
-  thumbs: [],
-};
-
-const newRepairState = {
-  boardType: "other",
-  engineMake: "other",
-  group: "public",
-  procedureArr: [startingProcedure],
-  title: "New Repair",
-};
-
-export type NewRepairT = typeof newRepairState;
+// const LOC = "@RepairFormPage.tsx";
 
 export default function RepairFormPage(): React.ReactNode {
-  // const { state: data }: { state: repairDataT } = useLocation();
+  // const { formDispatch, currentFormState } = useContext(RepairFormContext);
 
-  //duplicate state incase user wants to revert to original
-
-  // const [updatedData, setUpdatedData] = useState<NewRepairT>(newRepairState);
-  const { state: currentFormState, dispatch: formDispatch } =
-    useRepairFormState();
-
-  //delegate proceduresArr to substate
-  // const [newProceds, setNewProceds] = useState(updatedData.procedureArr);
-
-  // const { createRepair } = useRepairApi();
-
-  useEffect(() => {
-    console.log("currentFormState useEffect ln41", currentFormState);
-  }, [currentFormState]);
-
+  const { currentFormState, formDispatch } = useRepairFormState();
   // useEffect(() => {
-  //   updateState({ procedureArr: newProceds }, setUpdatedData);
-  // }, [newProceds]);
+  //   console.log("currentFormState", currentFormState);
+  // }, [currentFormState]);
+
+  // const [currentProcedureList, setProcedureList] = useState(
+  //   newRepairObj.procedureArr
+  // );
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log("currentFormState submit", currentFormState);
-
+    console.log("currentFormState", currentFormState);
+    //! NOT USING DATABASE YET
     try {
       // const res = await updateRepair(updatedData);
       // console.log("res update repair", res);
@@ -72,7 +44,11 @@ export default function RepairFormPage(): React.ReactNode {
       label: `original: ${currentFormState.boardType}`,
       value: currentFormState.group,
     },
-    { label: "public", value: "public" },
+    { label: "Cat 70 pin", value: "cat70" },
+    { label: "Cat 40 pin", value: "cat40" },
+    { label: "DDEC 2", value: "DDEC2" },
+    { label: "DDEC 3", value: "DDEC3" },
+    { label: "DDEC 4", value: "DDEC4" },
   ];
 
   const availableEngines = [
@@ -89,69 +65,83 @@ export default function RepairFormPage(): React.ReactNode {
     <form
       className="w-full"
       onSubmit={handleSubmit}>
-      <legend className=" gap-4 flex flex-col border-4 rounded-lg p-2 border-gray-600">
-        <span className=" text-4xl">Title:</span>
-        <div>
-          <input
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              console.log("e", e.target.value);
-              // setUpdatedData((state) => {
-              //   return { ...state, title: e.target.value };
-              // });
-            }}
-            className="text-2xl w-full"
-            id="title"
-            name="title"
-            type="text"
-            defaultValue={currentFormState.title}
-          />
+      <legend className=" gap-4 flex flex-col rounded-lg p-2 border-gray-600 w-full">
+        <div className="flex flex-col w-full justify-around items-center align-middle ">
+          <div className="flex-1 flex justify-end">
+            <span className="text-4xl w-full text-right">Title:</span>
+          </div>
+          <div className="flex-1 flex justify-start">
+            <input
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                // console.log("e", e.target.value);
+
+                formDispatch({
+                  type: "UPDATE_FIELD",
+                  payload: { formField: { title: e.target.value } },
+                });
+              }}
+              className="text-2xl w-full"
+              id="title"
+              name="title"
+              type="text"
+              defaultValue={currentFormState.title}
+            />
+          </div>
         </div>
 
-        <div>
+        <div className="">
           <AvailableOptions
             title="Visibility group"
-            name="group"
             options={availableGroups}
+            callback={(group: string) => {
+              formDispatch({
+                type: "UPDATE_FIELD",
+                payload: { formField: { group } },
+              });
+            }}
           />
         </div>
         <div>
           <AvailableOptions
             title="Board Type"
-            name="boardType"
             options={availableBoardTypes}
+            callback={(boardType: string) => {
+              formDispatch({
+                type: "UPDATE_FIELD",
+                payload: { formField: { boardType } },
+              });
+            }}
           />
         </div>
         <div>
           <AvailableOptions
-            callback={(engine: string) => {
+            callback={(engineMake: string) => {
               formDispatch({
-                type: DispatchType.UPDATE_FIELD,
-                payload: { formField: { engineMake: engine } },
+                type: "UPDATE_FIELD",
+                payload: { formField: { engineMake } },
               });
             }}
             title="Engine make"
-            name="engine"
             options={availableEngines}
           />
         </div>
       </legend>
+
       <section>
         <h3 className="text-xl">Repair procedures</h3>
         <EditProcedureList
-          updateFn={(newProcList) => {
-            formDispatch({
-              type: DispatchType.UPDATE_PROCEDURES,
-              payload: { allProcedures: newProcList },
-            });
-          }}
-          list={currentFormState.procedureArr}
+          formDispatch={formDispatch}
+          procedureList={currentFormState.procedureArr}
         />
       </section>
-      <button
-        type="submit"
-        className="btn">
-        Update
-      </button>
+      {/* submit section */}
+      <section className="p-3">
+        <button
+          type="submit"
+          className="btn">
+          Update
+        </button>
+      </section>
     </form>
   );
 }

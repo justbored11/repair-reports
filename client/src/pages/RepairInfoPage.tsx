@@ -2,15 +2,15 @@
 import React from "react";
 
 import { useLocation } from "react-router-dom";
-import { repairDataT } from "../hooks/useGetLatest";
 import ProcedureList from "../components/ProcedureList/ProcedureList";
-import EditTools from "../components/RepairEdit/EditTools";
+import EditTools from "../components/ProcedureList/EditTools";
 import Comments from "../components/Comments/Comments";
 import useAuthContext from "../hooks/useAuthContext";
+import { RepairDataT } from "../../types";
 
 export const RepairInfoPage = (): React.ReactNode => {
   // const { repair_id } = useParams();
-  const { state: data }: { state: repairDataT } = useLocation();
+  const { state: data }: { state: RepairDataT } = useLocation();
   console.log("data at repair info page", data);
   const { userInfo } = useAuthContext();
   const userId = userInfo?._id;

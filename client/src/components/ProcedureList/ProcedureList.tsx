@@ -1,4 +1,5 @@
-import { ProcedureT } from "../../hooks/useGetLatest";
+// import { ProcedureT } from "../../hooks/useGetLatest";
+import { ProcedureT } from "../../../types";
 import { ProcedureCard } from "./ProcedureCard";
 
 export default function ProcedureList({

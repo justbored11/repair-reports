@@ -1,39 +1,39 @@
 import { useEffect, useState } from "react";
-
+import { RepairDataT } from "../../types";
 import { AxiosError } from "axios";
 import useRepairApi from "./useRepairApi";
 
-export type imageObjT = {
-  imageUrl: string;
-  imageThumb: string;
-  caption: string;
-  imageId: string;
-  folder: string;
-};
+// export type imageObjT = {
+//   imageUrl: string;
+//   imageThumb: string;
+//   caption: string;
+//   imageId: string;
+//   folder: string;
+// };
 
-export type ProcedureT = {
-  images: string[];
-  imageObjs?: imageObjT[];
-  imagesIdArr: string[];
-  instructions: string;
-  procedureNum: number;
-  thumbs: string[];
-};
+// export type ProcedureT = {
+//   images: string[];
+//   imageObjs?: imageObjT[];
+//   imagesIdArr: string[];
+//   instructions: string;
+//   procedureNum: number;
+//   thumbs: string[];
+// };
 // export type repairDataT = Record<string, string>;
-export type repairDataT = {
-  boardType: string;
-  createdBy: string;
-  engineMake: string;
-  group: string;
-  procedureArr: ProcedureT[];
-  removed: boolean;
-  title: string;
-  visibility: string;
-  _id: string;
-};
+// export type repairDataT = {
+//   boardType: string;
+//   createdBy: string;
+//   engineMake: string;
+//   group: string;
+//   procedureArr: ProcedureT[];
+//   removed: boolean;
+//   title: string;
+//   visibility: string;
+//   _id: string;
+// };
 
 const useGetLatest = (limit: number) => {
-  const [repairsData, setRepairsData] = useState<repairDataT[] | []>([]);
+  const [repairsData, setRepairsData] = useState<RepairDataT[] | []>([]);
   const { getLatestRepairs } = useRepairApi();
   useEffect(() => {
     const getData = async () => {
