@@ -2,7 +2,7 @@
 
 import CreatableSelect from "react-select/creatable";
 
-type selectionT = {
+export type OptionT = {
   value: string;
   label: string;
 };
@@ -12,13 +12,10 @@ export default function AvailableOptions({
   title,
   callback,
 }: {
-  options: selectionT[];
+  options: OptionT[];
   title: string;
   callback?: (engineSelected: string) => void;
 }) {
-  // const selections = options.map((item: selectionT) => {
-  //   return createOption(item);
-  // });
   return (
     <div className="flex flex-col w-full justify-around items-center align-middle ">
       <div className="flex-1 flex justify-end">
@@ -35,16 +32,6 @@ export default function AvailableOptions({
           options={options}
         />
       </div>
-      {/* <select
-        onChange={(event) => {
-          console.log("event select", event.target.value);
-
-          if (callback) callback(event.target.value || options[0].value);
-        }}
-        name={name}
-        className="select select-info w-full max-w-xs">
-        {selections}
-      </select> */}
     </div>
   );
 }

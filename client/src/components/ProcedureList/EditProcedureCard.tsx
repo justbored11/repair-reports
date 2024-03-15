@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // import { RepairFormContext } from "../../context/RepairFormContext";
 
 import { EditImageCard } from "../ImageCard/EditImageCard";

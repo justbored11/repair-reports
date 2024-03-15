@@ -1,11 +1,3 @@
-import { useLocation } from "react-router-dom";
-import { repairDataT } from "../hooks/useGetLatest";
-import { ChangeEvent, useEffect, useState } from "react";
-import EditProcedureList from "../components/RepairEditOLD/EditProcedureList";
-// import axios from "axios";
-import useRepairApi from "../hooks/useRepairApi";
-import AvailableOptions from "../components/AvailableOptions/AvailableOptions";
-
 export default function EditRepairPage() {
   return <div>edit repair</div>;
   // const { state: data }: { state: repairDataT } = useLocation();
@@ -143,11 +135,11 @@ export default function EditRepairPage() {
   // );
 }
 
-function updateState(
-  fieldUpdate: object,
-  setState: React.Dispatch<React.SetStateAction<repairDataT>>
-) {
-  setState((state) => {
-    return { ...state, ...fieldUpdate };
-  });
-}
+// function updateState(
+//   fieldUpdate: object,
+//   setState: React.Dispatch<React.SetStateAction<repairDataT>>
+// ) {
+//   setState((state) => {
+//     return { ...state, ...fieldUpdate };
+//   });
+// }

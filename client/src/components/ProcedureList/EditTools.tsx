@@ -1,13 +1,14 @@
 import { NavLink } from "react-router-dom";
-import { repairDataT } from "../../hooks/useGetLatest";
+import { RepairDataT } from "../../../types";
+
 type editToolsPropsT = {
   editPageUrl: string;
-  data: repairDataT;
+  data: RepairDataT;
 };
 
 export default function EditTools({
   editPageUrl,
-  data,
+  data: repairData,
 }: editToolsPropsT): React.ReactNode {
   return (
     <section>
@@ -38,7 +39,7 @@ export default function EditTools({
             <div>
               <NavLink
                 className="btn"
-                state={data}
+                state={repairData}
                 to={editPageUrl}>
                 Edit Repair
               </NavLink>

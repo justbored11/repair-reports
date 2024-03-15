@@ -1,4 +1,4 @@
-import { repairDataT } from "../../hooks/useGetLatest";
+import { repairDataT } from "../../../types";
 import { Link } from "react-router-dom";
 import noImagePlaceholder from "../../assets/no-image.png";
 

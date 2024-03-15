@@ -42,12 +42,13 @@ const ProcedureSchema = new mongoose.Schema({
 //   })
 
 //parent schema
+//version 3 has searchTags:string[] to allow for sorting
 const RepairSchema = new mongoose.Schema(
   {
     version: {
       type: String,
       required: true,
-      default: "2",
+      default: "3",
     },
     title: {
       type: String,
@@ -56,6 +57,10 @@ const RepairSchema = new mongoose.Schema(
     boardType: {
       type: String,
       required: true,
+    },
+    searchTags: {
+      type: [String],
+      default: [],
     },
     engineMake: {
       type: String,

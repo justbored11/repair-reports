@@ -2,6 +2,7 @@ import { ProcedureT } from "../../types";
 import { Procedure } from "./Procedure";
 
 export class Repair {
+  public searchTags: string[] = [];
   public boardType = "other";
   public engineMake = "other";
   public group = "public";

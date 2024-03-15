@@ -1,7 +1,8 @@
-import { ProcedureT } from "../../hooks/useGetLatest";
+import { ProcedureT } from "../../../types";
+import { v4 as uuidv4 } from "uuid";
 
-export function ProcedureCard(proc: ProcedureT) {
-  const images = proc.images.map((url) => {
+export function ProcedureCard({ proc }: { proc: ProcedureT }) {
+  const images = proc.images.map((url: string) => {
     return (
       <li
         key={url}
@@ -14,7 +15,7 @@ export function ProcedureCard(proc: ProcedureT) {
     );
   });
   return (
-    <li>
+    <li key={uuidv4()}>
       <ul className="carousel carousel-center w-full p-4 space-x-4 bg-neutral rounded-box">
         {images}
       </ul>

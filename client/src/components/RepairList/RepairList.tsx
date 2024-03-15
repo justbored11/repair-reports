@@ -1,5 +1,7 @@
-import { repairDataT } from "../../hooks/useGetLatest";
+import { repairDataT } from "../../../types";
 import { RepairCard } from "./RepairCard";
+import { v4 as uuidv4 } from "uuid";
+
 interface latestRepairsProps {
   repairList: repairDataT[];
 }
@@ -11,7 +13,7 @@ export default function RepairList({
     return (
       <li className="w-1/4">
         <RepairCard
-          key={Math.random() * 514}
+          key={uuidv4()}
           data={data}
         />
       </li>

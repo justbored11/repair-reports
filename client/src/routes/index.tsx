@@ -6,7 +6,6 @@ import RepairFormPage from "../pages/RepairFormPage";
 import DashboardPage from "../pages/DashboardPage";
 import { RepairInfoPage } from "../pages/RepairInfoPage";
 import EditRepairPage from "../pages/EditRepairPage";
-import { RepairFormContextProvider } from "../context/RepairFormContext";
 
 export const routes = createBrowserRouter([
   {
@@ -38,9 +37,7 @@ export const routes = createBrowserRouter([
     path: "/repairform",
     element: (
       <Layout>
-        <RepairFormContextProvider>
-          <RepairFormPage />
-        </RepairFormContextProvider>
+        <RepairFormPage />
       </Layout>
     ),
   },

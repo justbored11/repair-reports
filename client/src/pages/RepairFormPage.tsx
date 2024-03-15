@@ -1,8 +1,11 @@
 import React, { ChangeEvent } from "react";
-import AvailableOptions from "../components/AvailableOptions/AvailableOptions";
+import AvailableOptions, {
+  OptionT,
+} from "../components/AvailableOptions/AvailableOptions";
+import AvailableOptionsMulti from "../components/AvailableOptions/AvailableOptionsMulti";
 import EditProcedureList from "../components/ProcedureList/EditProcedureList";
-// import { RepairFormContext } from "../context/RepairFormContext";
 import useRepairFormState from "../hooks/useRepairFormState";
+import useRepairApi from "../hooks/useRepairApi";
 
 // const LOC = "@RepairFormPage.tsx";
 
@@ -10,13 +13,7 @@ export default function RepairFormPage(): React.ReactNode {
   // const { formDispatch, currentFormState } = useContext(RepairFormContext);
 
   const { currentFormState, formDispatch } = useRepairFormState();
-  // useEffect(() => {
-  //   console.log("currentFormState", currentFormState);
-  // }, [currentFormState]);
-
-  // const [currentProcedureList, setProcedureList] = useState(
-  //   newRepairObj.procedureArr
-  // );
+  const { postRepair } = useRepairApi();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,14 +21,14 @@ export default function RepairFormPage(): React.ReactNode {
     console.log("currentFormState", currentFormState);
     //! NOT USING DATABASE YET
     try {
-      // const res = await updateRepair(updatedData);
-      // console.log("res update repair", res);
+      const res = await postRepair(currentFormState);
+      console.log("res update repair", res);
     } catch (error) {
-      console.log("error handleUpdate @EditRepairPage ", error);
+      console.log("error handleUpdate @RepairPage ", error);
     }
   };
 
-  const availableGroups = [
+  const availableGroups: OptionT[] = [
     {
       label: `original: ${currentFormState.group}`,
       value: currentFormState.group,
@@ -39,19 +36,19 @@ export default function RepairFormPage(): React.ReactNode {
     { label: "public", value: "public" },
   ];
 
-  const availableBoardTypes = [
+  const availableBoardTypes: OptionT[] = [
     {
       label: `original: ${currentFormState.boardType}`,
       value: currentFormState.group,
     },
-    { label: "Cat 70 pin", value: "cat70" },
-    { label: "Cat 40 pin", value: "cat40" },
+    { label: "Cat70 IK", value: "IK" },
+    { label: "Cat40 CA", value: "CA" },
     { label: "DDEC 2", value: "DDEC2" },
     { label: "DDEC 3", value: "DDEC3" },
     { label: "DDEC 4", value: "DDEC4" },
   ];
 
-  const availableEngines = [
+  const availableEngines: OptionT[] = [
     {
       label: `original: ${currentFormState.engineMake}`,
       value: currentFormState.engineMake,
@@ -59,6 +56,26 @@ export default function RepairFormPage(): React.ReactNode {
     { label: "Caterpillar", value: "cat" },
     { label: "Cummins", value: "cummins" },
     { label: "Detroit", value: "detroit" },
+  ];
+
+  //first option is always the default
+  const availableTags: OptionT[] = [
+    {
+      label: "repair",
+      value: "repair",
+    },
+    {
+      label: "parts",
+      value: "parts",
+    },
+    {
+      label: "diagram",
+      value: "diagram",
+    },
+    {
+      label: "Pin out",
+      value: "pinout",
+    },
   ];
 
   return (
@@ -125,6 +142,21 @@ export default function RepairFormPage(): React.ReactNode {
             options={availableEngines}
           />
         </div>
+        <div>
+          {/* //! working on getting searchtags into form state */}
+          <AvailableOptionsMulti
+            callback={(searchTags: string[]) => {
+              formDispatch({
+                type: "UPDATE_SEARCH_TAGS",
+                payload: { searchTags },
+              });
+            }}
+            // defaultValue={currentFormState.searchTags}
+            // defaultValue={}
+            title="Search tags"
+            options={availableTags}
+          />
+        </div>
       </legend>
 
       <section>
@@ -139,7 +171,7 @@ export default function RepairFormPage(): React.ReactNode {
         <button
           type="submit"
           className="btn">
-          Update
+          Create Repair
         </button>
       </section>
     </form>
