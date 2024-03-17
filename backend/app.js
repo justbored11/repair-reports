@@ -41,6 +41,7 @@ app.use(
     store: MongoStore.create({
       mongoUrl: process.env.connect_string,
     }),
+    rolling: true,
     cookie: {
       maxAge: cookieMaxAge,
     },

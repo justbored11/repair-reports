@@ -87,10 +87,19 @@ export function EditImageCard({
       setUploadProgress(50);
       try {
         const response = await uploadImage(imageToUpload, folder);
+
+        // console.log("response image", response);
+        if (!response) {
+          console.log("no response from axios");
+          return;
+        }
+
+        const { url, public_id, folder: uploadFolder } = response.data;
+
         const imageObj: ImageObjT = {
-          imageUrl: response.url,
-          imageId: response.public_id,
-          folder: response.folder,
+          imageUrl: url,
+          imageId: public_id,
+          folder: uploadFolder,
         };
         setUploadProgress(70);
         setFormImageUrl(imageObj);
@@ -186,7 +195,11 @@ export function EditImageCard({
       const blobData = await fetch(dataUrl).then((res) => res.blob());
 
       const imageFileFromBlob = new File([blobData], "image.jpg");
-      closeCamera();
+      if (mediaStreamRef.current) {
+        mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+        mediaStreamRef.current = null;
+        videoRef.current = null;
+      }
 
       setImageToUpload(imageFileFromBlob);
       //once image is captured set preview and close camera
@@ -335,14 +348,4 @@ export function EditImageCard({
       </div>
     </div>
   );
-}
-
-function closeCamera() {
-  navigator.mediaDevices
-    .getUserMedia({
-      video: true,
-    })
-    .then((stream: MediaStream) => {
-      stream.getTracks().forEach((track) => track.stop());
-    });
 }

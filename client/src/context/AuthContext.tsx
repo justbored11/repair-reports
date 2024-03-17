@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 import axios from "axios";
 import LoginCard from "../components/LoginSignUp/LoginCard";
 
@@ -11,6 +11,7 @@ type User = {
   email: string;
   groups: string[];
 };
+
 export type authContextT = {
   userToken: string | null;
   setUserToken: object | null;
@@ -20,7 +21,9 @@ export type authContextT = {
   signUp:
     | ((email: string, password: string, username: string) => Promise<void>)
     | null;
+  unauthorizedError: () => void;
 };
+
 export const AuthContext = createContext<authContextT>({
   userToken: null,
   setUserToken: null,
@@ -28,6 +31,7 @@ export const AuthContext = createContext<authContextT>({
   login: null,
   signUp: null,
   logout: null,
+  unauthorizedError: () => {},
 });
 
 export const AuthContextProvider = ({
@@ -39,15 +43,15 @@ export const AuthContextProvider = ({
   const [isAuth, setIsAuth] = useState(false);
   const [userInfo, setUserInfo] = useState<User | null>(null);
 
-  useEffect(() => {
-    console.log("userInfo", userInfo);
-    console.log("userToken display for testing remove this console.log", [
-      userToken,
-    ]);
-  }, [userToken, userInfo]);
+  // useEffect(() => {
+  //   console.log("userInfo", userInfo);
+  //   console.log("userToken display for testing remove this console.log", [
+  //     userToken,
+  //   ]);
+  // }, [userToken, userInfo]);
 
   const logout = async () => {
-    console.log("logout");
+    // console.log("logout");
     const response = await axios.get(`${API_URL}/api/logout`, {
       withCredentials: true,
     });
@@ -87,6 +91,11 @@ export const AuthContextProvider = ({
     console.log("response", response.data);
   };
 
+  const unauthorizedError = () => {
+    console.log("unauthorized log in again");
+    setIsAuth(false);
+  };
+
   const values: authContextT = {
     userToken,
     setUserToken,
@@ -94,6 +103,7 @@ export const AuthContextProvider = ({
     login,
     logout,
     signUp,
+    unauthorizedError,
   };
 
   return (

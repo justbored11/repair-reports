@@ -2,14 +2,6 @@ import axios from "axios";
 import { Repair } from "../classes/Repair";
 const API_URL = import.meta.env.VITE_API_URL;
 
-export type signatureT = {
-  apikey: string;
-  cloudname: string;
-  signature: string;
-  timestamp: number;
-  folder: string;
-};
-
 const getLatestRepairs = async (limit: string | number) => {
   // const response = await axios.get(`http://localhost:8000/api/repairs`, {
   const response = await axios.get(`${API_URL}/api/repairs`, {
@@ -77,6 +69,7 @@ const postRepair = async (repair: Repair) => {
         withCredentials: true,
       }
     );
+
     return response.data;
   } catch (err) {
     if (err instanceof Error && err?.message) {

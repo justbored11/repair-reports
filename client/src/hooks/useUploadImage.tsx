@@ -1,47 +1,44 @@
 // import React from "react";
+import axios, { AxiosError } from "axios";
 
 import useRepairApi from "./useRepairApi";
-import { signatureT } from "../api/RepairReportsApi";
+import { signatureT } from "./useRepairApi";
+import useAuthContext from "./useAuthContext";
 
 export default function useUploadImage() {
   const { getUploadSignature } = useRepairApi();
+  const { unauthorizedError } = useAuthContext();
 
   return async function uploadImage(imageFile: File | string, folder: string) {
-    const signData = await getUploadSignature(folder);
+    let signData;
+    try {
+      signData = await getUploadSignature(folder);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error?.response?.status && error?.response?.status == 401) {
+          console.log(
+            "error getting signature for image upload @useUploadImage"
+          );
+
+          // console.log("error.status", error?.response?.status);
+          unauthorizedError();
+        }
+      }
+      console.log(
+        "unspecified axios error @useUploadImage sending to cloudinary",
+        error
+      );
+      return;
+    }
 
     const url =
       "https://api.cloudinary.com/v1_1/" + signData.cloudname + "/auto/upload";
+
     const formData = await createForm({ imageFile, signData });
 
     //upload to cloudinary
-    const response = await fetch(url, {
-      method: "POST",
-      body: formData,
-    }).then((data) => data.json());
-
+    const response = axios.post(url, formData);
     return response;
-
-    //   //array of responses after upload
-    //   let uploadResponses = await Promise.all(uploadPromisesArr);
-
-    //   const imageurls = uploadResponses.map((response) => {
-    //     return response.url;
-    //   });
-
-    //   const thumbsLinks = uploadResponses.map((response) => {
-    //     return response.url.replace("/upload/", "/upload/c_scale,w_400/");
-    //   });
-
-    //   //getting images public id for cloudinary actions
-    //   const idList = uploadResponses.map((response) => {
-    //     return response.public_id;
-    //   });
-
-    //   return {
-    //     links: imageurls, //! array of url links to images
-    //     thumbs: thumbsLinks, //! array of url links to thumbs
-    //     imagesIdArr: idList, //!array of image ids from cloudinary
-    //   };
   };
 }
 
