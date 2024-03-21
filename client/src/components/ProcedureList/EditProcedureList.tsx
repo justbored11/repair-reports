@@ -22,46 +22,58 @@ export default function EditProcedureList({
     });
   };
 
-  const procedures = procedureList.map((proc, index) => {
+  const procedures = procedureList.map((procedureData, procedureIndex) => {
     const instructions = (text: string) => {
       formDispatch({
         type: "UPDATE_INTRUC",
-        payload: { procIndex: index, instructions: text },
+        payload: { procIndex: procedureIndex, instructions: text },
       });
     };
     const addImage = () => {
       formDispatch({
         type: "ADD_IMAGE",
-        payload: { procIndex: index },
+        payload: { procIndex: procedureIndex },
       });
     };
 
-    //! working here
     const editImage = (imageIndex: number, updatedImageObj: ImageObjT) => {
       formDispatch({
         type: "UPDATE_IMAGES",
         payload: {
-          procIndex: index,
-          newImageIndex: imageIndex,
+          procIndex: procedureIndex,
+          imageIndex: imageIndex,
           newImageObj: updatedImageObj,
         },
       });
     };
 
+    //! working on this
+    const removeImage = (imageId: string) => {
+      formDispatch({
+        type: "REMOVE_IMAGE",
+        payload: { imageId, procIndex: procedureIndex },
+      });
+    };
+
     //object with update functions for editProcedureCard component
-    const updateProcedure = { instructions, addImage, editImage };
+    const updateProcedureMethods = {
+      instructions,
+      addImage,
+      editImage,
+      removeImage,
+    };
 
     return (
       <li key={uuidv4()}>
         <EditProcedureCard
-          updateProcedure={updateProcedure}
-          proc={proc}
-          index={index}
+          updateProcedure={updateProcedureMethods}
+          proc={procedureData}
+          index={procedureIndex}
         />
 
         <div
           onClick={() => {
-            addNewProcedure(index + 1);
+            addNewProcedure(procedureIndex + 1);
           }}
           className="btn">
           Add new Procedure here

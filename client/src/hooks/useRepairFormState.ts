@@ -1,40 +1,9 @@
 import { useReducer } from "react";
-import { ChangeFormPayloadT, RepairFormDispatchType } from "../../types";
+import { ChangeFormPayloadT, RepairFormStateActionT } from "../../types";
 import { Repair } from "../classes/Repair";
 import { ImageObj } from "../classes/ImageObj";
 import { Procedure } from "../classes/Procedure";
 const LOC = "@useRepairFormState ";
-
-// class ImageObj implements ImageObjT {
-//   public imageUrl = "";
-//   public imageThumb = "";
-//   public caption = "";
-//   public imageId = "";
-//   public folder = "testFolder";
-//   constructor() {}
-// }
-
-// export class Procedure implements ProcedureT {
-//   public images = [];
-//   public imageObjs: ImageObjT[] = [];
-//   public imagesIdArr = [];
-//   public instructions = "";
-//   public procedureNum = 0;
-//   public thumbs = [];
-
-//   constructor() {}
-// }
-
-// export class Repair {
-//   public boardType = "other";
-//   public engineMake = "other";
-//   public group = "public";
-//   public procedureArr: ProcedureT[] = [new Procedure()];
-//   public title = "New Repair";
-//   public searchTags: string[] = [];
-
-//   constructor() {}
-// }
 
 export const newRepairForm = new Repair();
 
@@ -47,10 +16,7 @@ export default function useRepairFormState() {
   return { currentFormState, formDispatch };
 }
 
-function updateFormDataReducer(
-  state: Repair,
-  action: { type: RepairFormDispatchType; payload: ChangeFormPayloadT }
-) {
+function updateFormDataReducer(state: Repair, action: RepairFormStateActionT) {
   let newState = state;
   switch (action.type) {
     case "ADD_IMAGE":
@@ -74,9 +40,12 @@ function updateFormDataReducer(
     case "UPDATE_SEARCH_TAGS":
       newState = updateSearchTags(state, action.payload);
       break;
+    case "REMOVE_IMAGE":
+      newState = removeImage(state, action.payload);
+      break;
 
     default:
-      console.log("no action available for ", LOC, action.type);
+      console.log("no action available for ", LOC, action);
       return state;
       break;
   }
@@ -152,9 +121,8 @@ function updateInstruction(state: Repair, payload: ChangeFormPayloadT): Repair {
 }
 
 ///UPDATE IMAGE action
-//!working on here cant the newImage url is undefined** works but check again
 function updateImage(state: Repair, payload: ChangeFormPayloadT) {
-  const { procIndex, newImageIndex, newImageObj } = payload;
+  const { procIndex, imageIndex: newImageIndex, newImageObj } = payload;
 
   //does image exists, have an index to update at, and index is valid if not then do nothing
   if (
@@ -201,6 +169,48 @@ function updateImage(state: Repair, payload: ChangeFormPayloadT) {
 
   return state as Repair;
   // return { ...state, procedureArr: newProcedures } as RepairFormT;
+}
+
+//remove image from both images and imageObj arrays
+function removeImage(state: Repair, payload: ChangeFormPayloadT) {
+  const { procIndex, imageId } = payload;
+
+  //todo trying to filter based on imageId which is generated in cosntructor and will
+  //todo replaced when image is uploaded with unique id
+  const targetId = imageId;
+
+  //does image exist, have an index to remove at, and index is valid if not then do nothing
+  if (!imageId) {
+    console.log("payload", payload);
+    console.log(
+      "no index to update or url to update with image @useUpdateProcedures.removeImage"
+    );
+
+    return state;
+  }
+
+  if (typeof procIndex != "number") {
+    return state;
+  }
+
+  const targetProc = state.procedureArr[procIndex];
+
+  //get images if any from procedure
+  // const images = state.procedureArr[procIndex]?.images;
+  const imageObjs = targetProc?.imageObjs;
+  const newImageObjs = imageObjs.filter((item) => {
+    console.log("item", item);
+
+    if (item.imageId == targetId) return false;
+
+    return true;
+  });
+  // const procIndex = payload.procIndex;
+
+  targetProc.imageObjs = newImageObjs;
+
+  console.log("state", state.procedureArr);
+  return { ...state } as Repair;
 }
 
 function addEmptyImageToProcedure(state: Repair, payload: ChangeFormPayloadT) {

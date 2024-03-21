@@ -5,6 +5,7 @@ import { EditImageCard } from "../ImageCard/EditImageCard";
 import { v4 as uuidv4 } from "uuid";
 import { useDebouncedCallback } from "use-debounce";
 import { ImageObjT, ProcedureT } from "../../../types";
+import { ImageObj } from "../../classes/ImageObj";
 
 export default function EditProcedureCard({
   proc,
@@ -17,6 +18,7 @@ export default function EditProcedureCard({
     instructions: (text: string) => void;
     addImage: () => void;
     editImage: (imageIndex: number, updatedImageObj: ImageObjT) => void;
+    removeImage: (imageId: string) => void;
   };
 }) {
   //index to number to be used as reference of updating state array of the proceduresArray
@@ -25,11 +27,12 @@ export default function EditProcedureCard({
   // const { formDispatch } = useContext(RepairFormContext);
 
   const [instructions, setInstructions] = useState(proc.instructions);
-  const images = proc.images;
+  const { imageObjs } = proc;
 
   const imageCards = createEditImageCards({
-    imageUrls: images,
+    imageObjs: imageObjs,
     updateUrl: updateProcedure.editImage,
+    onRemove: updateProcedure.removeImage,
   });
 
   const handleInstructionsUpdate = useDebouncedCallback((text: string) => {
@@ -79,16 +82,23 @@ export default function EditProcedureCard({
 }
 
 function createEditImageCards({
-  imageUrls,
   updateUrl,
+  imageObjs,
+  onRemove,
 }: {
-  imageUrls: string[];
+  imageObjs: ImageObjT[];
   updateUrl: (imageIndex: number, newImageObj: ImageObjT) => void;
+  onRemove?: (imageId: string) => void;
 }) {
-  const imageCards = imageUrls.map((url, index) => {
+  const imageCards = imageObjs.map((imageObj, index) => {
+    const { imageUrl, imageId } = imageObj;
     // high order function to update url
     const updateImageUrl = ({ imageUrl, imageId, folder }: ImageObjT) => {
-      updateUrl(index, { imageUrl, imageId, folder });
+      updateUrl(index, { ...new ImageObj(), ...{ imageUrl, imageId, folder } });
+    };
+
+    const removeImageFromList = () => {
+      if (onRemove) onRemove(imageId);
     };
 
     return (
@@ -96,8 +106,9 @@ function createEditImageCards({
         className="w-full card md:w-1/3 bg-slate-700 p-2"
         key={uuidv4()}>
         <EditImageCard
+          onRemove={removeImageFromList}
           key={uuidv4()}
-          url={url}
+          url={imageUrl}
           setFormImageUrl={updateImageUrl}
         />
       </li>

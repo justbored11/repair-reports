@@ -1,16 +1,9 @@
 import axios, { AxiosError } from "axios";
 import { Repair } from "../classes/Repair";
 import useAuthContext from "./useAuthContext";
+import { signatureT } from "../../types";
 
 const API_URL = import.meta.env.VITE_API_URL;
-
-export type signatureT = {
-  apikey: string;
-  cloudname: string;
-  signature: string;
-  timestamp: number;
-  folder: string;
-};
 
 const useRepairApi = () => {
   const { unauthorizedError } = useAuthContext();

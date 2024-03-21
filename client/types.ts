@@ -32,31 +32,33 @@ export type ChangeFormPayloadT = {
   procIndex?: number;
   instructions?: string;
   newImageUrl?: string;
-  newImageIndex?: number;
+  imageIndex?: number;
   newImageObj?: ImageObjT;
   allProcedures?: ProcedureT[];
   formField?: Record<string, string>;
   searchTags?: string[];
+  imageId?: string;
 };
 
-export type RepairFormDispatchType =
-  | "UPDATE_IMAGES"
-  | "ADD_IMAGE"
-  | "UPDATE_INTRUC"
-  | "ADD_PROCEDURE"
-  | "REMOVE_PROCEDURE"
-  | "UPDATE_PROCEDURES"
-  | "UPDATE_FIELD"
-  | "UPDATE_SEARCH_TAGS";
+// export type RepairFormDispatchType =
+//   | "ADD_IMAGE"
+//   | "ADD_PROCEDURE"
+//   | "REMOVE_PROCEDURE"
+//   | "REMOVE_IMAGE"
+//   | "UPDATE_IMAGES"
+//   | "UPDATE_INTRUC"
+//   | "UPDATE_PROCEDURES"
+//   | "UPDATE_FIELD"
+//   | "UPDATE_SEARCH_TAGS";
 
-export type RepairFormDispatchT = React.Dispatch<RepairFormStateDispatchT>;
+export type RepairFormDispatchT = React.Dispatch<RepairFormStateActionT>;
 
 // export type RepairFormDispatchT = React.Dispatch<{
 //   type: RepairFormDispatchType;
 //   payload: ChangeFormPayloadT;
 // }>;
 
-export type RepairFormStateDispatchT =
+export type RepairFormStateActionT =
   | {
       type: "UPDATE_SEARCH_TAGS";
       payload: { searchTags: string[] };
@@ -81,8 +83,15 @@ export type RepairFormStateDispatchT =
       type: "UPDATE_IMAGES";
       payload: {
         procIndex: number;
-        newImageIndex: number;
+        imageIndex: number;
         newImageObj: ImageObjT;
+      };
+    }
+  | {
+      type: "REMOVE_IMAGE";
+      payload: {
+        procIndex: number;
+        imageId: string;
       };
     }
   | {
@@ -100,6 +109,14 @@ export type repairDataT = {
   title: string;
   visibility: string;
   _id: string;
+};
+
+export type signatureT = {
+  apikey: string;
+  cloudname: string;
+  signature: string;
+  timestamp: number;
+  folder: string;
 };
 
 // export type imageObjT = {
@@ -129,4 +146,5 @@ export type repairDataT = {
 //   title: string;
 //   visibility: string;
 //   _id: string;
+
 // };

@@ -5,11 +5,13 @@ import useRepairApi from "./useRepairApi";
 import { signatureT } from "../../types";
 import useAuthContext from "./useAuthContext";
 
-export default function useUploadImage() {
+const IMAGE_API_URL = import.meta.env.VITE_API_URL;
+
+export default function useImageManager() {
   const { getUploadSignature } = useRepairApi();
   const { unauthorizedError } = useAuthContext();
 
-  return async function uploadImage(imageFile: File | string, folder: string) {
+  async function uploadImage(imageFile: File | string, folder: string) {
     let signData;
     try {
       signData = await getUploadSignature(folder);
@@ -37,9 +39,27 @@ export default function useUploadImage() {
     const formData = await createForm({ imageFile, signData });
 
     //upload to cloudinary
-    const response = axios.post(url, formData);
+    const response = await axios.post(url, formData);
+    console.log("response", response);
     return response;
-  };
+  }
+
+  async function deleteImage(imageUrl: string) {
+    //   "public_id": "testfolder/voxv6ccg3pz15uqsyrfb",
+    // "url": "http://res.cloudinary.com/da6jwh1id/image/upload/v1710692119/testfolder/voxv6ccg3pz15uqsyrfb.png",
+
+    const url = `${IMAGE_API_URL}/images`;
+
+    //upload to cloudinary
+    const response = axios.delete(url, {
+      data: imageUrl,
+      withCredentials: true,
+    });
+
+    return response;
+  }
+
+  return { uploadImage, deleteImage };
 }
 
 // function getImages(element) {
@@ -87,3 +107,28 @@ async function createForm({
 
   return formData;
 }
+
+//image upload response
+// {
+//   "asset_id": "bb3498945289512b8d701676d3705cab",
+//   "public_id": "testfolder/voxv6ccg3pz15uqsyrfb",
+//   "version": 1710692119,
+//   "version_id": "fd7dbdc31fdec140e27a3bcb6f4b5372",
+//   "signature": "065bdfead0e493b97f2ceb92f2efec9c0d6eaec6",
+//   "width": 640,
+//   "height": 480,
+//   "format": "png",
+//   "resource_type": "image",
+//   "created_at": "2024-03-17T16:15:19Z",
+//   "tags": [],
+//   "bytes": 404617,
+//   "type": "upload",
+//   "etag": "6a9abfb0e592e780b16099df1a8f41cf",
+//   "placeholder": false,
+//   "url": "http://res.cloudinary.com/da6jwh1id/image/upload/v1710692119/testfolder/voxv6ccg3pz15uqsyrfb.png",
+//   "secure_url": "https://res.cloudinary.com/da6jwh1id/image/upload/v1710692119/testfolder/voxv6ccg3pz15uqsyrfb.png",
+//   "folder": "testfolder",
+//   "original_filename": "image",
+//   "original_extension": "jpg",
+//   "api_key": "492571145989964"
+// }
