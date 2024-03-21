@@ -77,13 +77,12 @@ export function EditImageCard({
         return;
       }
 
-      setImageUploadedObj(null);
-
       setFormImageUrl({
         folder: "testFolder",
-        imageId: urlText,
+        imageId: imageUploadedObj ? imageUploadedObj.imageId : urlText,
         imageUrl: urlText,
       });
+      // setImageUploadedObj(null);
     },
     300
   );
@@ -107,18 +106,18 @@ export function EditImageCard({
         }
 
         const { url, public_id, folder: uploadFolder } = response.data;
+        console.log("public_id", public_id);
 
         const imageObj: ImageObjT = {
           imageUrl: url,
           imageId: public_id,
           folder: uploadFolder,
         };
-        // setImageObj(imageObj);
         setUploadProgress(70);
         setFormImageUrl(imageObj);
+        setImageUploadedObj(imageObj);
         setUploadProgress(100);
         setImageUploadStatus(UploadStatus.SUCCESS);
-        setImageUploadedObj(imageObj);
         return;
       } catch (error) {
         console.log("error uploading", error);
@@ -132,11 +131,6 @@ export function EditImageCard({
   }, 1000);
 
   const handleImageDelete = async () => {
-    // deleteImage(url);
-    //delete image if uploaded
-    //delete self from list
-    // if(isUploaded)deleteImage() //todo use image object instead to be able to get id
-
     // if image has been uploaded delete from database
     if (imageUploadedObj) {
       const tempImageObj = { ...imageUploadedObj };

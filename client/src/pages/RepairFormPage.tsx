@@ -19,7 +19,6 @@ export default function RepairFormPage(): React.ReactNode {
     event.preventDefault();
 
     console.log("currentFormState", currentFormState);
-    //! NOT USING DATABASE YET
     try {
       const res = await postRepair(currentFormState);
       console.log("res update repair", res);

@@ -165,7 +165,8 @@ function updateImage(state: Repair, payload: ChangeFormPayloadT) {
   //update legacy image urls property
   targetProc.images[imageIndexToUpdate] = newImageObj.imageUrl;
 
-  targetProc.imageObjs[imageIndexToUpdate].imageUrl = newImageObj.imageUrl;
+  // targetProc.imageObjs[imageIndexToUpdate].imageUrl = newImageObj.imageUrl;
+  targetProc.imageObjs[imageIndexToUpdate] = newImageObj;
 
   return state as Repair;
   // return { ...state, procedureArr: newProcedures } as RepairFormT;
@@ -209,7 +210,6 @@ function removeImage(state: Repair, payload: ChangeFormPayloadT) {
 
   targetProc.imageObjs = newImageObjs;
 
-  console.log("state", state.procedureArr);
   return { ...state } as Repair;
 }
 
@@ -222,7 +222,7 @@ function addEmptyImageToProcedure(state: Repair, payload: ChangeFormPayloadT) {
       //imageObjs[] will be initialized if one undefined
       return {
         ...proc,
-        images: [...proc.images, ""],
+        // images: [...proc.images, ""],
         imageObjs: [...proc.imageObjs, new ImageObj()],
       };
     } else {
