@@ -20,12 +20,19 @@ const getForm = async (req, res) => {
     groups: userGroups,
   });
 };
-const signForm = async (req, res) => {
-  //todo get signature and respond
-  //folder to organize this image in
-  const desiredFolder = req.query?.folder ? req.query.folder : "test_folder";
 
-  const sig = signature.signuploadform(desiredFolder);
+const signForm = async (req, res) => {
+  const userId = req.user._id;
+
+  //requested folder user wants to upload to
+  //todo folder validation. Does user have auth to save in this folder maybe its a company folder
+  const desiredFolder = `${req.query?.folder ? req.query.folder : "no_folder"}`;
+
+  //folder to organize this image in
+  //composed of folder requested by user and the userId
+  const imageFolder = `${desiredFolder}/${userId}`;
+
+  const sig = signature.signuploadform(imageFolder);
 
   console.log(`signform signature received `, sig);
 
@@ -35,7 +42,7 @@ const signForm = async (req, res) => {
       timestamp: sig.timestamp,
       cloudname: process.env.cloud_name,
       apikey: process.env.cloud_key,
-      folder: desiredFolder,
+      folder: imageFolder,
     });
   } catch (error) {}
 };
