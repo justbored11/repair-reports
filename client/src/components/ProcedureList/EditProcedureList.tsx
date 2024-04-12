@@ -11,10 +11,6 @@ export default function EditProcedureList({
   procedureList: ProcedureT[];
   formDispatch: RepairFormDispatchT;
 }): React.ReactNode {
-  //
-
-  // const { currentFormState: procedureList, formDispatch } = useRepairFormState();
-
   const addNewProcedure = (index: number) => {
     formDispatch({
       type: "ADD_PROCEDURE",
@@ -23,45 +19,11 @@ export default function EditProcedureList({
   };
 
   const procedures = procedureList.map((procedureData, procedureIndex) => {
-    const instructions = (text: string) => {
-      formDispatch({
-        type: "UPDATE_INTRUC",
-        payload: { procIndex: procedureIndex, instructions: text },
-      });
-    };
-    const addImage = () => {
-      formDispatch({
-        type: "ADD_IMAGE",
-        payload: { procIndex: procedureIndex },
-      });
-    };
-
-    const editImage = (imageIndex: number, updatedImageObj: ImageObjT) => {
-      formDispatch({
-        type: "UPDATE_IMAGES",
-        payload: {
-          procIndex: procedureIndex,
-          imageIndex: imageIndex,
-          newImageObj: updatedImageObj,
-        },
-      });
-    };
-
-    //! working on this
-    const removeImage = (imageId: string) => {
-      formDispatch({
-        type: "REMOVE_IMAGE",
-        payload: { imageId, procIndex: procedureIndex },
-      });
-    };
-
     //object with update functions for editProcedureCard component
-    const updateProcedureMethods = {
-      instructions,
-      addImage,
-      editImage,
-      removeImage,
-    };
+    const updateProcedureMethods = generateProcedureMethods({
+      formDispatch,
+      procedureIndex,
+    });
 
     return (
       <li key={uuidv4()}>
@@ -94,4 +56,51 @@ export default function EditProcedureList({
       <ul className="w-full">{procedures}</ul>
     </div>
   );
+}
+
+//create methods for specific procedure based on there index position
+function generateProcedureMethods({
+  procedureIndex,
+  formDispatch,
+}: {
+  procedureIndex: number;
+  formDispatch: RepairFormDispatchT;
+}) {
+  const instructions = (text: string) => {
+    formDispatch({
+      type: "UPDATE_INTRUC",
+      payload: { procIndex: procedureIndex, instructions: text },
+    });
+  };
+
+  const addImage = () => {
+    formDispatch({
+      type: "ADD_IMAGE",
+      payload: { procIndex: procedureIndex },
+    });
+  };
+
+  const editImage = (imageIndex: number, updatedImageObj: ImageObjT) => {
+    formDispatch({
+      type: "UPDATE_IMAGES",
+      payload: {
+        procIndex: procedureIndex,
+        imageIndex: imageIndex,
+        newImageObj: updatedImageObj,
+      },
+    });
+  };
+
+  const removeImage = (imageId: string) => {
+    formDispatch({
+      type: "REMOVE_IMAGE",
+      payload: { imageId, procIndex: procedureIndex },
+    });
+  };
+  return {
+    instructions,
+    addImage,
+    editImage,
+    removeImage,
+  };
 }

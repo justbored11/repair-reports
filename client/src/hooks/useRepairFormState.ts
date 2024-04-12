@@ -81,7 +81,8 @@ function addProcedure(state: Repair, payload: ChangeFormPayloadT) {
     };
   }
 
-  if (procIndex >= oldProcedures.length - 1) {
+  //if new index is larger than old array add new instance to end of state
+  if (procIndex > oldProcedures.length - 1) {
     return { ...state, procedureArr: [...oldProcedures, new Procedure()] };
   }
 
