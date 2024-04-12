@@ -11,7 +11,7 @@ export default function RepairList({
 }: latestRepairsProps): React.ReactNode {
   const repairs = repairList.map((data) => {
     return (
-      <li className="w-1/4">
+      <li className="w-full p-1 sm:w-1/3 md:w-1/4">
         <RepairCard
           key={uuidv4()}
           data={data}
@@ -19,5 +19,5 @@ export default function RepairList({
       </li>
     );
   });
-  return <ul className="flex flex-wrap gap-3 justify-center ">{repairs}</ul>;
+  return <ul className="flex flex-wrap gap-0 justify-center ">{repairs}</ul>;
 }

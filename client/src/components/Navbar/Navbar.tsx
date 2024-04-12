@@ -38,7 +38,7 @@ export default function Navbar(): React.ReactNode {
             <Search></Search>
           </li>
 
-          <li className="dropdown dropdown-end">
+          <li className="dropdown dropdown-end ">
             <div
               tabIndex={0}
               role="button"
@@ -52,7 +52,7 @@ export default function Navbar(): React.ReactNode {
             </div>
             <ul
               tabIndex={0}
-              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+              className="mt-3 z-[30] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
               <li>
                 <Link to={"/profile"}>
                   <span className="justify-between">

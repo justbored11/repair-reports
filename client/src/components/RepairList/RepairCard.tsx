@@ -44,7 +44,7 @@ export const RepairCard = ({
     <Link
       state={data}
       to={`/repair/${data._id}`}
-      className="">
+      className="w-full">
       <div
         data-test="entry"
         className="card h-full w-full bg-base-100 shadow-xl image-full">

@@ -8,7 +8,7 @@ export default function LatestRepairsPage(): React.ReactNode {
   const repairs = useGetLatest(8);
 
   return (
-    <div className="center-block w-full p-3">
+    <div className="center-block w-full">
       <RepairList repairList={repairs} />
     </div>
   );
