@@ -28,7 +28,7 @@ export default function EditProcedureList({
     return (
       <li key={uuidv4()}>
         <EditProcedureCard
-          updateProcedure={updateProcedureMethods}
+          updateProcedureMethods={updateProcedureMethods}
           proc={procedureData}
           index={procedureIndex}
         />

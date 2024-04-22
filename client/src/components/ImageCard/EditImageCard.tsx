@@ -4,7 +4,7 @@ import { CameraPreview } from "./CameraPreview";
 import { ImageObjT } from "../../../types";
 import { useDebouncedCallback } from "use-debounce";
 import { v4 as uuidv4 } from "uuid";
-import useImageDb from "../../hooks/useImageManager";
+import useImageManager from "../../hooks/useImageManager";
 import { Check } from "lucide-react";
 
 enum UploadStatus {
@@ -24,25 +24,29 @@ export function EditImageCard({
   onRemove: () => void;
   setFormImageUrl: (imageObj: ImageObjT) => void; //external state setter to manipulate url prop
 }) {
-  const { uploadImage, deleteImage } = useImageDb();
+  const { uploadImage, deleteImage } = useImageManager();
 
   //will hold <video> tag reference
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
+  //camera stream
   const mediaStreamRef = useRef<MediaStream | null>(null);
 
   //is camera active
   const [activeCamera, setActiveCamera] = useState(false);
 
   //image has been uploaded and have imageObj or null
+  //after image is uploaded store details
   const [imageUploadedObj, setImageUploadedObj] = useState<null | ImageObjT>(
     null
   );
 
+  //show status of image action
   const [imageUploadStatus, setImageUploadStatus] = useState<UploadStatus>(
     UploadStatus.IDLE
   );
 
+  //number to track percentage of image action progress
   const [uploadProgress, setUploadProgress] = useState(10);
 
   //new image to upload stored locally
@@ -130,23 +134,28 @@ export function EditImageCard({
     alert("no image to upload");
   }, 1000);
 
+  //todo handle delete of image from database and state
   const handleImageDelete = async () => {
     // if image has been uploaded delete from database
+    console.log("imageUploadedObj to delete", imageUploadedObj);
+
     if (imageUploadedObj) {
-      const tempImageObj = { ...imageUploadedObj };
       try {
-        // console.log("deleteImage called", deleteImage);
-        const deleteResponse = await deleteImage(imageUploadedObj.imageId);
+        const deleteResponse = await deleteImage({
+          imageId: imageUploadedObj.imageId,
+        });
+
         console.log("deleteResponse", deleteResponse);
+
         setImageUploadedObj(null);
+        onRemove();
       } catch (error) {
         // reset image obj and do not remove from dom
         alert("failed to delete image");
-        setImageUploadedObj(tempImageObj);
+        // setImageUploadedObj(imageUploadedObj);
         return;
       }
     }
-    onRemove();
   };
 
   const handleFileChange = async (

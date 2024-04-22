@@ -10,11 +10,11 @@ import { ImageObj } from "../../classes/ImageObj";
 export default function EditProcedureCard({
   proc,
   index,
-  updateProcedure,
+  updateProcedureMethods: updateProcedure,
 }: {
   proc: ProcedureT;
   index: number;
-  updateProcedure: {
+  updateProcedureMethods: {
     instructions: (text: string) => void;
     addImage: () => void;
     editImage: (imageIndex: number, updatedImageObj: ImageObjT) => void;
@@ -81,16 +81,17 @@ export default function EditProcedureCard({
   );
 }
 
+//create image card components
 function createEditImageCards({
   updateUrl,
   imageObjs,
-  onRemove,
+  onRemove = () => {},
 }: {
   imageObjs: ImageObjT[];
   updateUrl: (imageIndex: number, newImageObj: ImageObjT) => void;
   onRemove?: (imageId: string) => void;
 }) {
-  const imageCards = imageObjs.map((imageObj, index) => {
+  const imageCardComponents = imageObjs.map((imageObj, index) => {
     const { imageUrl, imageId } = imageObj;
     // high order function to update url
     const updateImageUrl = ({ imageUrl, imageId, folder }: ImageObjT) => {
@@ -115,5 +116,5 @@ function createEditImageCards({
     );
   });
 
-  return imageCards;
+  return imageCardComponents;
 }

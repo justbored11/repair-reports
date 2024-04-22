@@ -142,7 +142,6 @@ export default function RepairFormPage(): React.ReactNode {
           />
         </div>
         <div>
-          {/* //! working on getting searchtags into form state */}
           <AvailableOptionsMulti
             callback={(searchTags: string[]) => {
               formDispatch({

@@ -44,22 +44,23 @@ export default function useImageManager() {
     return response;
   }
 
-  async function deleteImage(imageUrl: string) {
-    //   "public_id": "testfolder/voxv6ccg3pz15uqsyrfb",
-    // "url": "http://res.cloudinary.com/da6jwh1id/image/upload/v1710692119/testfolder/voxv6ccg3pz15uqsyrfb.png",
-
-    const url = `${IMAGE_API_URL}/images`;
-
-    //upload to cloudinary
-    const response = axios.delete(url, {
-      data: imageUrl,
-      withCredentials: true,
-    });
-
-    return response;
-  }
-
   return { uploadImage, deleteImage };
+}
+
+async function deleteImage({ imageId }: { imageId: string }) {
+  //   "public_id": "testfolder/voxv6ccg3pz15uqsyrfb",
+  // "url": "http://res.cloudinary.com/da6jwh1id/image/upload/v1710692119/testfolder/voxv6ccg3pz15uqsyrfb.png",
+
+  const url = `${IMAGE_API_URL}/images`;
+
+  //upload to cloudinary
+  const response = axios.delete(url, {
+    headers: { "Content-Type": "application/json" },
+    data: imageId,
+    withCredentials: true,
+  });
+
+  return response;
 }
 
 // function getImages(element) {
@@ -90,6 +91,7 @@ export default function useImageManager() {
 //   return files; //return array of image objects
 // }
 
+//format form data for cloudinary
 async function createForm({
   imageFile,
   signData,
