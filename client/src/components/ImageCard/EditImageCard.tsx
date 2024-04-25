@@ -134,7 +134,7 @@ export function EditImageCard({
     alert("no image to upload");
   }, 1000);
 
-  //todo handle delete of image from database and state
+  //TODO handle delete of image from database and state
   const handleImageDelete = async () => {
     // if image has been uploaded delete from database
     console.log("imageUploadedObj to delete", imageUploadedObj);
@@ -148,6 +148,7 @@ export function EditImageCard({
         console.log("deleteResponse", deleteResponse);
 
         setImageUploadedObj(null);
+
         onRemove();
       } catch (error) {
         // reset image obj and do not remove from dom

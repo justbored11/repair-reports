@@ -47,16 +47,17 @@ export default function useImageManager() {
   return { uploadImage, deleteImage };
 }
 
+//todo delete image
 async function deleteImage({ imageId }: { imageId: string }) {
   //   "public_id": "testfolder/voxv6ccg3pz15uqsyrfb",
   // "url": "http://res.cloudinary.com/da6jwh1id/image/upload/v1710692119/testfolder/voxv6ccg3pz15uqsyrfb.png",
 
-  const url = `${IMAGE_API_URL}/images`;
+  const url = `${IMAGE_API_URL}/api/images`;
 
   //upload to cloudinary
   const response = axios.delete(url, {
     headers: { "Content-Type": "application/json" },
-    data: imageId,
+    data: { imageId },
     withCredentials: true,
   });
 

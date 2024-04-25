@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const signatureController = require("../../controllers/form");
+const formController = require("../../controllers/formController");
 
-router.get("/", signatureController.signForm);
+router.get("/", formController.signForm);
 
 module.exports = router;
