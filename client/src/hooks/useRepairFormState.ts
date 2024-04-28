@@ -43,6 +43,9 @@ function updateFormDataReducer(state: Repair, action: RepairFormStateActionT) {
     case "REMOVE_IMAGE":
       newState = removeImage(state, action.payload);
       break;
+    case "REMOVE_PROCEDURE":
+      newState = removeProcedure(state, action.payload);
+      break;
 
     default:
       console.log("no action available for ", LOC, action);
@@ -67,6 +70,7 @@ function updateSearchTags(state: Repair, payload: ChangeFormPayloadT) {
 function addProcedure(state: Repair, payload: ChangeFormPayloadT) {
   const updatedProcedures = [];
   const oldProcedures = state.procedureArr;
+  const newProcedure = new Procedure();
 
   const procIndex =
     typeof payload.procIndex == "number" && payload.procIndex >= 0
@@ -77,18 +81,18 @@ function addProcedure(state: Repair, payload: ChangeFormPayloadT) {
   if (procIndex == 0) {
     return {
       ...state,
-      procedureArr: [new Procedure(), ...oldProcedures],
+      procedureArr: [newProcedure, ...oldProcedures],
     };
   }
 
   //if new index is larger than old array add new instance to end of state
   if (procIndex > oldProcedures.length - 1) {
-    return { ...state, procedureArr: [...oldProcedures, new Procedure()] };
+    return { ...state, procedureArr: [...oldProcedures, newProcedure] };
   }
 
   for (let i = 0; i < oldProcedures.length; i++) {
     if (i == procIndex) {
-      updatedProcedures.push(new Procedure());
+      updatedProcedures.push(newProcedure);
       updatedProcedures.push(oldProcedures[i]);
       continue;
     }
@@ -231,4 +235,19 @@ function addEmptyImageToProcedure(state: Repair, payload: ChangeFormPayloadT) {
     }
   });
   return { ...state, procedureArr: newProcedures } as Repair;
+}
+
+function removeProcedure(state: Repair, payload: ChangeFormPayloadT) {
+  const targetId = payload.procedureId;
+  const updatedProcedureArr = state.procedureArr.filter((procedure) => {
+    if (procedure.id == targetId) {
+      return false;
+    }
+    return true;
+  });
+  state.procedureArr = updatedProcedureArr;
+
+  console.log("updatedProcedureArr", updatedProcedureArr);
+  // return updatedProcedureArr;
+  return { ...state };
 }

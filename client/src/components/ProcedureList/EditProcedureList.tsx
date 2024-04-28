@@ -2,13 +2,14 @@ import EditProcedureCard from "./EditProcedureCard";
 
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { ImageObjT, ProcedureT, RepairFormDispatchT } from "../../../types";
+import { ImageObjT, RepairFormDispatchT } from "../../../types";
+import { Procedure } from "../../classes/Procedure";
 
 export default function EditProcedureList({
   procedureList,
   formDispatch,
 }: {
-  procedureList: ProcedureT[];
+  procedureList: Procedure[];
   formDispatch: RepairFormDispatchT;
 }): React.ReactNode {
   const addNewProcedure = (index: number) => {
@@ -18,18 +19,23 @@ export default function EditProcedureList({
     });
   };
 
+  // const procedures = [];
   const procedures = procedureList.map((procedureData, procedureIndex) => {
-    //object with update functions for editProcedureCard component
-    const updateProcedureMethods = generateProcedureMethods({
+    //object with update methods for editProcedureCard component
+    const procedureActions = generateProcedureMethods({
       formDispatch,
       procedureIndex,
+      procedureId: procedureData.id,
     });
 
     return (
-      <li key={uuidv4()}>
+      <li
+        key={uuidv4()}
+        className="">
         <EditProcedureCard
-          updateProcedureMethods={updateProcedureMethods}
-          proc={procedureData}
+          key={procedureData.id}
+          procedureActions={procedureActions}
+          procedureData={procedureData}
           index={procedureIndex}
         />
 
@@ -53,7 +59,9 @@ export default function EditProcedureList({
         className="btn">
         Add new Procedure at begining
       </div>
-      <ul className="w-full">{procedures}</ul>
+      <ul className="w-full flex flex-col gap-2 overflow-hidden">
+        {procedures}
+      </ul>
     </div>
   );
 }
@@ -62,9 +70,11 @@ export default function EditProcedureList({
 function generateProcedureMethods({
   procedureIndex,
   formDispatch,
+  procedureId,
 }: {
   procedureIndex: number;
   formDispatch: RepairFormDispatchT;
+  procedureId: string;
 }) {
   const instructions = (text: string) => {
     formDispatch({
@@ -97,10 +107,18 @@ function generateProcedureMethods({
       payload: { imageId, procIndex: procedureIndex },
     });
   };
+  const removeProcedure = () => {
+    //remove current procedure
+    formDispatch({
+      type: "REMOVE_PROCEDURE",
+      payload: { procedureId },
+    });
+  };
   return {
     instructions,
     addImage,
     editImage,
     removeImage,
+    removeProcedure,
   };
 }

@@ -156,6 +156,8 @@ export function EditImageCard({
         // setImageUploadedObj(imageUploadedObj);
         return;
       }
+    } else {
+      onRemove();
     }
   };
 

@@ -6,7 +6,7 @@ export class Repair {
   public boardType = "other";
   public engineMake = "other";
   public group = "public";
-  public procedureArr: ProcedureT[] = [new Procedure()];
+  public procedureArr: Procedure[] = [new Procedure()];
   public title = "New Repair";
 
   constructor() {}

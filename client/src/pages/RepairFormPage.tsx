@@ -79,7 +79,7 @@ export default function RepairFormPage(): React.ReactNode {
 
   return (
     <form
-      className="w-full"
+      className="w-full bg-slate-300"
       onSubmit={handleSubmit}>
       <legend className=" gap-4 flex flex-col rounded-lg p-2 border-gray-600 w-full">
         <div className="flex flex-col w-full justify-around items-center align-middle ">
@@ -96,7 +96,7 @@ export default function RepairFormPage(): React.ReactNode {
                   payload: { formField: { title: e.target.value } },
                 });
               }}
-              className="text-2xl w-full"
+              className="text-2xl w-full bg-white"
               id="title"
               name="title"
               type="text"

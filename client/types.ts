@@ -38,6 +38,7 @@ export type ChangeFormPayloadT = {
   formField?: Record<string, string>;
   searchTags?: string[];
   imageId?: string;
+  procedureId?: string;
 };
 
 // export type RepairFormDispatchType =
@@ -92,6 +93,12 @@ export type RepairFormStateActionT =
       payload: {
         procIndex: number;
         imageId: string;
+      };
+    }
+  | {
+      type: "REMOVE_PROCEDURE";
+      payload: {
+        procedureId: string;
       };
     }
   | {
