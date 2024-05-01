@@ -5,7 +5,7 @@ export function ProcedureCard({ proc }: { proc: ProcedureT }) {
   const images = proc.images.map((url: string) => {
     return (
       <li
-        key={url}
+        key={uuidv4()}
         className="carousel-item w-3/4">
         <img
           src={url}

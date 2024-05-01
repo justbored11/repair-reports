@@ -129,6 +129,7 @@ function updateInstruction(state: Repair, payload: ChangeFormPayloadT): Repair {
 function updateImage(state: Repair, payload: ChangeFormPayloadT) {
   const { procIndex, imageIndex: newImageIndex, newImageObj } = payload;
 
+  console.log("newImageObj", newImageObj);
   //does image exists, have an index to update at, and index is valid if not then do nothing
   if (
     typeof newImageIndex != "number" ||
@@ -136,21 +137,11 @@ function updateImage(state: Repair, payload: ChangeFormPayloadT) {
     !newImageObj ||
     !newImageObj?.imageUrl
   ) {
-    console.log("payload", payload);
-    console.log(
-      "no index to update or url to update with image @useUpdateProcedures.updateImage"
-    );
-
     return state;
   }
 
+  //procedure index not number
   if (typeof procIndex != "number") {
-    console.log("no procedure index to update image at");
-    console.log("!payload.procIndex", !payload.procIndex);
-    console.log(
-      'typeof payload.procIndex != "number"',
-      typeof procIndex != "number"
-    );
     return state;
   }
 
@@ -191,7 +182,6 @@ function removeImage(state: Repair, payload: ChangeFormPayloadT) {
     console.log(
       "no index to update or url to update with image @useUpdateProcedures.removeImage"
     );
-
     return state;
   }
 
@@ -205,8 +195,6 @@ function removeImage(state: Repair, payload: ChangeFormPayloadT) {
   // const images = state.procedureArr[procIndex]?.images;
   const imageObjs = targetProc?.imageObjs;
   const newImageObjs = imageObjs.filter((item) => {
-    console.log("item", item);
-
     if (item.imageId == targetId) return false;
 
     return true;

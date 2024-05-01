@@ -1,3 +1,5 @@
+import { ImageObj } from "./src/classes/ImageObj";
+
 export interface ImageObjT {
   imageUrl: string;
   imageThumb?: string;
@@ -85,7 +87,7 @@ export type RepairFormStateActionT =
       payload: {
         procIndex: number;
         imageIndex: number;
-        newImageObj: ImageObjT;
+        newImageObj: ImageObj;
       };
     }
   | {
