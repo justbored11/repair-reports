@@ -141,7 +141,7 @@ module.exports.getRepair = async (req, res) => {
   try {
     // get paremeter from url
     const repairId = req.params.id;
-    const repairObj = await Repair.findOne({ _id: repairId }).lean(); /// swap to mongoose
+    const repairObj = await Repair.findOne({ _id: repairId }).lean();
 
     res.status(200).json(repairObj);
   } catch (err) {

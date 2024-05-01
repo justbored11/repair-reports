@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const apiController = require("../../controllers/api");
+const apiController = require("../../controllers/api/repairsController");
 
 router.get("/", apiController.getNewestRepairs);
 router.post("/", apiController.addRepair);
