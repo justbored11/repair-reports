@@ -9,11 +9,13 @@
     "client-install": "cd ./client/ && npm install",
     "build-client": "cd ./client/ && npm run build",
     "start": "cd ./backend/ && npm run start",
-    "install": "npm run copy-env && concurrently 'npm:back-install' 'npm:client-install' && npm run build-client",
+    "install": "npm run copy-env && concurrently 'npm:back-install' 'npm:client-install' ",
+    "build": "npm run build-client && npm run client-cleanup",
     "dev": "concurrently 'npm:dev-backend' 'npm:dev-client'",
     "dev-backend": "cd ./backend/ && npm run dev",
     "dev-client": "cd ./client/ && npm run dev",
-    "copy-env": "node copyfile.js"
+    "copy-env": "node copyfile.js",
+    "client-cleanup": "node cleanupClient.js"
   },
   "author": "",
   "license": "ISC",
