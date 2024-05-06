@@ -105,3 +105,9 @@ git clone https://github.com/jesusdoza/repair-reports.git
     npm install
     npm run dev
 ```
+
+### for hosted following scripts must run
+
+- npm run install
+- npm run build
+- npm run start
