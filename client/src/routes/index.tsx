@@ -4,7 +4,7 @@ import LatestRepairsPage from "../pages/LatestRepairsPage";
 import ProfilePage from "../pages/ProfilePage";
 import RepairFormPage from "../pages/RepairFormPage";
 import DashboardPage from "../pages/DashboardPage";
-import { RepairInfoPage } from "../pages/RepairInfoPage";
+import { RepairInfoPageContainer } from "../pages/RepairInfoPageContainer";
 import EditRepairPage from "../pages/EditRepairPage";
 
 export const routes = createBrowserRouter([
@@ -55,7 +55,7 @@ export const routes = createBrowserRouter([
     path: "/repair/:repair_id",
     element: (
       <Layout>
-        <RepairInfoPage />
+        <RepairInfoPageContainer />
       </Layout>
     ),
   },

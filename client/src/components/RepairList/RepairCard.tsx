@@ -15,34 +15,8 @@ export const RepairCard = ({
       : noImagePlaceholder;
 
   return (
-    // <div
-    //   className=""
-    //   data-test="entry">
-    //   {/* <Link className=" " href="/repair/<%= repairs[i]._id%>"> */}
-    //   <Link
-    //     state={data}
-    //     to={`/repair/${data._id}`}
-    //     className="">
-    //     <div className=" h-full card shadow-xl image-full hover:opacity-80 hover:bg-green-400">
-    //       <figure>
-    //         <img
-    //           loading="lazy"
-    //           src={previewImageUrl}
-    //           alt="repair preview image"
-    //         />
-    //       </figure>
-    //       <div className="card-body">
-    //         <h2 className="card-title">{data.title}</h2>
-    //         <p>
-    //           {data.procedureArr.length > 0 &&
-    //             data.procedureArr[0]?.instructions}
-    //         </p>
-    //       </div>
-    //     </div>
-    //   </Link>
-    // </div>
     <Link
-      state={data}
+      state={{ repair: data }}
       to={`/repair/${data._id}`}
       className="w-full">
       <div

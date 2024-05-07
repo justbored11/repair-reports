@@ -49,6 +49,25 @@ const useRepairApi = () => {
   };
 
   const getRepairById = async (repairId: string) => {
+    try {
+      const response = await axios.get(`${API_URL}/api/repairs/${repairId}`, {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error?.response?.status && error?.response?.status == 401) {
+          console.log("unauthorized error @useRepairApi.getRepairById");
+
+          unauthorizedError();
+        }
+      }
+      throw new Error(
+        `unspecified get error ${API_URL}/api/repairs/${repairId}`
+      );
+    }
+
+    `  /repairs`;
     console.log("repairId", repairId);
   };
 
