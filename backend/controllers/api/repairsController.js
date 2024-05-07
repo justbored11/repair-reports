@@ -1,15 +1,14 @@
 const Repair = require("../../models/Repair");
 
 const getRepairById = async (req, res) => {
+  // get paremeter from url
+  const repairId = req.params.id;
   try {
-    // get paremeter from url
-    const repairId = req.params.id;
     const repairObj = await Repair.findOne({ _id: repairId }).lean();
-
     res.status(200).json(repairObj);
   } catch (err) {
     res.status(400).json({
-      message: `ID: ${request.params.repairId}  NOT FOUND`,
+      message: `error getting repair by ID: ${repairId}`,
       error: err,
     });
   }
