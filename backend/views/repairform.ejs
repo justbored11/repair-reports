@@ -58,7 +58,7 @@
                     <label class="label">
                         <span class="label-text">Add to Group </span>
                     </label>
-                    <select name="groupId" class="select select-accent w-full max-w-xs">
+                    <select id="groupId" name="groupId" class="select select-accent w-full max-w-xs">
                         <option disabled>Available Groups to add</option>
                         <% groups.forEach(group=> { %>
                             <option value="<%= group %>">

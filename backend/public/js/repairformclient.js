@@ -163,25 +163,38 @@ form.addEventListener("submit", async (event) => {
 
   ///submiting to server
   try {
-    statusMessage("<br>Uploading images...");
-    progress.value += 10;
-    procArr = await createProcedureArr(); //! new
-    statusMessage("Done");
-    progress.value = 50;
+    try {
+      statusMessage("<br>Uploading images...");
+      progress.value += 10;
+      procArr = await createProcedureArr();
+      statusMessage("Done");
+      progress.value = 50;
+    } catch (error) {
+      console.log("create procedure array error", error);
+      throw Error("failed to create procedure array");
+    }
 
-    repair.buildRepair(procArr); // build repair using procedure array
-    statusMessage("<br>Saving Report...");
-    progress.value += 75;
+    try {
+      repair.buildRepair(procArr); // build repair using procedure array
+      statusMessage("<br>Saving Report...");
+      progress.value += 75;
+    } catch (error) {
+      console.log("build repair error", error);
+      throw Error("failed to build repair");
+    }
 
     // const repairId = await postRepair(repair);
-    const serverResponse = await postRepair(repair);
-    console.log(`server response`, serverResponse);
-    statusMessage("Done");
-    progress.value += 100;
-
-    //redirect to link server provides
-    console.log(serverResponse);
-    location.assign(serverResponse.link);
+    try {
+      const serverResponse = await postRepair(repair);
+      statusMessage("Done");
+      progress.value += 100;
+      ///redirect to link server provides
+      console.log(serverResponse);
+      location.assign(serverResponse.link);
+    } catch (error) {
+      console.log("post repair to server error", error);
+      throw Error("failed to post repair to server");
+    }
   } catch (error) {
     // todo if error do not refresh and show form again with message failed to submit
     statusIcons.classList.toggle("hidden"); //hide loading message
@@ -210,13 +223,25 @@ form.addEventListener("submit", async (event) => {
 // ==========================================================================
 // FUNCTIONS
 // ==========================================================================
-// todo HERE 11-22-22
 ///create Procedure Array
 async function createProcedureArr() {
   const allProcedureElements = Array.from(
     document.querySelectorAll(".procedure")
   );
-  const signResponse = await fetch("/signform", {}); //fetch signature from server
+  const groupId = document.querySelector("#groupId");
+  const requestedFolder = groupId ? groupId.value : undefined;
+
+  console.log("requestedFolder", requestedFolder);
+
+  const body = JSON.stringify({ folder: requestedFolder });
+
+  const signResponse = await fetch("/repairform/sign", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body,
+  }); //fetch signature from server
   const signData = await signResponse.json(); //convert to json
 
   //start uploading each procedures respective images

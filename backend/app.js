@@ -55,7 +55,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // routes files
-const signformRoutes = require("./routes/signformRoutes");
 const formRoutes = require("./routes/formRouter.js");
 const repairRoutes = require("./routes/repair");
 const loginRoutes = require("./routes/login");
@@ -83,7 +82,7 @@ app.use("/group", ensureAuth, groupRoutes);
 app.use("/comments", ensureAuth, commentRoutes);
 app.use("/api", apiRoutes);
 
-app.use(formRoutes);
-app.use(signformRoutes);
+///route "/repairform"
+app.use("/repairform", formRoutes);
 
 module.exports = { app };
