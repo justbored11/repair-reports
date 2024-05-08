@@ -1,4 +1,5 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AvailableOptions, {
   OptionT,
 } from "../components/AvailableOptions/AvailableOptions";
@@ -11,18 +12,25 @@ import useRepairApi from "../hooks/useRepairApi";
 
 export default function RepairFormPage(): React.ReactNode {
   // const { formDispatch, currentFormState } = useContext(RepairFormContext);
-
+  const navigate = useNavigate();
   const { currentFormState, formDispatch } = useRepairFormState();
   const { postRepair } = useRepairApi();
+
+  const [submitAllowed, setSubmitAllowed] = useState(true);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     console.log("currentFormState", currentFormState);
     try {
+      setSubmitAllowed(false);
       const res = await postRepair(currentFormState);
-      console.log("res update repair", res);
+      const { repairId } = res;
+
+      setSubmitAllowed(true);
+      navigate(`/repair/${repairId}`);
     } catch (error) {
+      setSubmitAllowed(true);
       console.log("error handleUpdate @RepairPage ", error);
     }
   };
@@ -165,10 +173,11 @@ export default function RepairFormPage(): React.ReactNode {
         />
       </section>
       {/* submit section */}
-      <section className="p-3">
+      <section className={`p-3`}>
         <button
           type="submit"
-          className="btn">
+          className="btn"
+          disabled={!submitAllowed}>
           Create Repair
         </button>
       </section>
