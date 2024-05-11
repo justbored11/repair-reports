@@ -1,4 +1,3 @@
-import { ProcedureT } from "../../types";
 import { Procedure } from "./Procedure";
 
 export class Repair {

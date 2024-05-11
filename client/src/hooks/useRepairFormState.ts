@@ -131,6 +131,7 @@ function updateImage(state: Repair, payload: ChangeFormPayloadT) {
 
   console.log("newImageObj", newImageObj);
   //does image exists, have an index to update at, and index is valid if not then do nothing
+  //if fail do nothing an return state
   if (
     typeof newImageIndex != "number" ||
     newImageIndex < 0 ||
@@ -140,31 +141,24 @@ function updateImage(state: Repair, payload: ChangeFormPayloadT) {
     return state;
   }
 
-  //procedure index not number
+  //procedure index not number do nothing
   if (typeof procIndex != "number") {
     return state;
-  }
-
-  //get images if any from procedure
-  const images = state.procedureArr[procIndex]?.images;
-  // const imageObjs = state.procedureArr[procIndex]?.imageObjs;
-
-  //image might be in array remove from database and insert new
-  if (Array.isArray(images) && images.length > newImageIndex) {
-    //todo remove image
   }
 
   // const procIndex = payload.procIndex;
   const targetProc = state.procedureArr[procIndex];
   const imageIndexToUpdate = newImageIndex;
 
-  //update legacy image urls property
+  //update legacy image urls :string[] property
   targetProc.images[imageIndexToUpdate] = newImageObj.imageUrl;
 
-  // targetProc.imageObjs[imageIndexToUpdate].imageUrl = newImageObj.imageUrl;
+  //update image objs :ImageObj[]
   targetProc.imageObjs[imageIndexToUpdate] = newImageObj;
 
-  return state as Repair;
+  // return state as Repair;// old working code
+  return { ...state }; //working code
+
   // return { ...state, procedureArr: newProcedures } as RepairFormT;
 }
 
@@ -189,7 +183,15 @@ function removeImage(state: Repair, payload: ChangeFormPayloadT) {
     return state;
   }
 
+  console.log("looking for ", imageId);
+
+  //todo //remove image from old images array
   const targetProc = state.procedureArr[procIndex];
+  const newImagesArr = targetProc.images.filter((url) => {
+    if (url.includes(imageId)) return false;
+
+    return true;
+  });
 
   //get images if any from procedure
   // const images = state.procedureArr[procIndex]?.images;
@@ -202,6 +204,7 @@ function removeImage(state: Repair, payload: ChangeFormPayloadT) {
   // const procIndex = payload.procIndex;
 
   targetProc.imageObjs = newImageObjs;
+  targetProc.images = newImagesArr;
 
   return { ...state } as Repair;
 }
