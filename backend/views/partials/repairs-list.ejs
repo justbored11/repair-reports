@@ -1,28 +1,33 @@
 <ul class="flex entry-list">
 
-    <% for(let i =0; i<repairs.length; i++){ %>
-<!-- large card -->
+    <% for(let i=0; i<repairs.length; i++){ %>
+        <!-- large card -->
 
 
-<li data-test="entry" class=" entry  ">
-        <a class=" " href="/repair/<%= repairs[i]._id%>">
-    
-            <div class="card bg-base-100 shadow-xl image-full">
-                <figure>
-                    <%if (repairs[i].procedureArr[0]?.images[0]){%>
-                        <img loading="lazy" src="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_600/')%>">
-                    <%}else{%>
-                        <img loading="lazy" src="/images/no-image.png">
-                    <% } %> 
-                </figure>
-                <div class="card-body">
-                  <h2 class="card-title"><%= repairs[i].title %></h2>
-                  <p> <%= repairs[i].procedureArr[0]?.instructions || 'Click to see' %></p>
-                 
+        <li data-test="entry" class=" entry  ">
+            <a class=" " href="/repair/<%= repairs[i]._id%>">
+
+                <div class="card bg-base-100 shadow-xl image-full">
+                    <figure>
+                        <%if (repairs[i].procedureArr[0]?.images[0]){%>
+                            <img loading="lazy"
+                                src="<%= repairs[i].procedureArr[0].images[0].replace('/upload/','/upload/c_scale,w_600/')%>">
+                            <%}else{%>
+                                <img loading="lazy" src="/images/no-image.png">
+                                <% } %>
+                    </figure>
+                    <div class="card-body w-full">
+                        <h2 class="card-title">
+                            <%= repairs[i].title %>
+                        </h2>
+                        <p>
+                            <%= repairs[i].procedureArr[0]?.instructions || 'Click to see' %>
+                        </p>
+
+                    </div>
                 </div>
-              </div>
-        </a>
-    
-</li>
-    <%}%>
+            </a>
+
+        </li>
+        <%}%>
 </ul>

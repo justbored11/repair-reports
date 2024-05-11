@@ -1,37 +1,38 @@
-import { repairDataT } from "../../../types";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import noImagePlaceholder from "../../assets/no-image.png";
 
 export const RepairCard = ({
-  data,
+  previewUrl = noImagePlaceholder,
+  summary,
+  title,
 }: {
-  data: repairDataT;
+  previewUrl?: string;
+  title?: string;
+  summary?: string;
 }): React.ReactNode => {
   // console.log("data", data);
 
-  const previewImageUrl =
-    data.procedureArr.length > 0 && data?.procedureArr[0]?.images[0]
-      ? data.procedureArr[0]?.images[0]
-      : noImagePlaceholder;
+  const [previewImageUrl, setPreviewUrl] = useState(previewUrl);
 
   return (
-    <Link
-      state={{ repair: data }}
-      to={`/repair/${data._id}`}
-      className="w-full">
+    <div className="w-full">
       <div
         data-test="entry"
-        className="card h-full w-full bg-base-100 shadow-xl image-full">
-        <figure>
-          <img src={previewImageUrl} />
+        className="card bg-base-100 shadow-xl image-full">
+        <figure className="">
+          <img
+            className=""
+            src={previewImageUrl}
+            onError={() => {
+              setPreviewUrl(noImagePlaceholder);
+            }}
+          />
         </figure>
-        <div className="card-body">
-          <h2 className="card-title">{data.title}</h2>
-          <p>
-            {data.procedureArr.length > 0 && data.procedureArr[0]?.instructions}
-          </p>
+        <div className="card-body w-full">
+          {title && <h2 className="card-title">{title}</h2>}
+          {summary && <p>{summary}</p>}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
