@@ -44,7 +44,7 @@ export const routes = createBrowserRouter([
 
   // edit repair
   {
-    path: "/repair/edit/:repair_id",
+    path: "/repair/edit/:id",
     element: (
       <Layout>
         <EditRepairPage />

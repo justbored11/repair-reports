@@ -7,10 +7,18 @@ const LOC = "@useRepairFormState ";
 
 export const newRepairForm = new Repair();
 
-export default function useRepairFormState() {
+export default function useRepairFormState(repair: Repair | undefined | null) {
+  //check if received repair as prop
+  let initialRepairState = repair;
+
+  if (!initialRepairState) {
+    initialRepairState = new Repair();
+  }
+
+  //set up form state
   const [currentFormState, formDispatch] = useReducer(
     updateFormDataReducer,
-    new Repair()
+    initialRepairState
   );
 
   return { currentFormState, formDispatch };

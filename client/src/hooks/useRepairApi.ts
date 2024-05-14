@@ -66,9 +66,6 @@ const useRepairApi = () => {
         `unspecified get error ${API_URL}/api/repairs/${repairId}`
       );
     }
-
-    `  /repairs`;
-    console.log("repairId", repairId);
   };
 
   //todo what folder to upload images to needs to be in signature
