@@ -18,7 +18,8 @@ const PORT = 8000;
 const cookieMaxAge = 15 * 60 * 1000;
 
 const corsOptions = {
-  origin: process.env.client_origin, // Replace with your front-end URL
+  origin:
+    process.env.NODE_ENV == "development" ? true : process.env.client_origin, // Replace with your front-end URL
   credentials: true,
 };
 
