@@ -1,7 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useRepairFormState from "../../hooks/useRepairFormState";
-import useRepairApi from "../../hooks/useRepairApi";
 import AvailableOptions, {
   OptionT,
 } from "../AvailableOptions/AvailableOptions";
@@ -16,7 +14,7 @@ export default function RepairEditForm({
   submitType,
 }: {
   repair?: Repair | null | undefined;
-  onSubmit?: (repair: Repair) => Promise<T>;
+  onSubmit?: (repair: Repair) => Promise<void>;
   enabled?: boolean;
   submitType: string;
 }) {
