@@ -9,7 +9,7 @@ export class Procedure implements ProcedureT {
   public instructions = "";
   public procedureNum = 0;
   public thumbs = [];
-  public id = uuid4();
+  public _id = uuid4();
 
   constructor() {}
 }

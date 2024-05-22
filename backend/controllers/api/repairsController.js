@@ -33,8 +33,9 @@ const addRepair = async (req, res) => {
       group: groupId,
     };
 
-    const result = await Repair.create(entry);
-    const repairId = result._id; //add link to repair
+    const response = await Repair.create(entry);
+
+    const repairId = response._id; //add link to repair
 
     res.send({
       message: "repair added successfully",

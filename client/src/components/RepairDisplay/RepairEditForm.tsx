@@ -6,6 +6,7 @@ import AvailableOptions, {
 import AvailableOptionsMulti from "../AvailableOptions/AvailableOptionsMulti";
 import { Repair } from "../../classes/Repair";
 import EditProcedureList from "../ProcedureList/EditProcedureList";
+import ModalConfirm from "../Modals/ModalConfirm";
 
 export default function RepairEditForm({
   repair,
@@ -177,12 +178,17 @@ export default function RepairEditForm({
       </section>
       {/* submit section */}
       <section className={`p-3`}>
-        <button
-          type="submit"
-          className="btn"
-          disabled={!submitAllowed}>
-          {submitType ? submitType : "Create Repair"}
-        </button>
+        <ModalConfirm label={submitType ? submitType : "Create Repair"}>
+          <div>
+            <span>Please confirm: </span>
+            <button
+              type="submit"
+              className="btn"
+              disabled={!submitAllowed}>
+              {submitType ? submitType : "Create Repair"}
+            </button>
+          </div>
+        </ModalConfirm>
       </section>
     </form>
   );

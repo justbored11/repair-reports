@@ -20,13 +20,12 @@ export default function EditProcedureList({
     });
   };
 
-  // const procedures = [];
   const procedures = procedureList.map((procedureData, procedureIndex) => {
     //object with update methods for editProcedureCard component
     const procedureActions = generateProcedureMethods({
       formDispatch,
       procedureIndex,
-      procedureId: procedureData.id,
+      procedureId: procedureData._id,
     });
 
     return (
@@ -34,7 +33,7 @@ export default function EditProcedureList({
         key={uuidv4()}
         className="">
         <EditProcedureCard
-          key={procedureData.id}
+          key={procedureData._id}
           procedureActions={procedureActions}
           procedureData={procedureData}
           index={procedureIndex}

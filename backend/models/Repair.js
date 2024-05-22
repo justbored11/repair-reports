@@ -17,6 +17,7 @@ const imageObj = new mongoose.Schema({
 
 //subdocument of RepairSchema
 const ProcedureSchema = new mongoose.Schema({
+  _id: [String],
   images: [String],
   imageObjs: [imageObj], //version 2 to be used instead of seperate images[],thumbs[],imagesIdArr[]
   procedureNum: {

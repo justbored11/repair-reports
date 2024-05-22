@@ -239,7 +239,7 @@ function addEmptyImageToProcedure(state: Repair, payload: ChangeFormPayloadT) {
 function removeProcedure(state: Repair, payload: ChangeFormPayloadT) {
   const targetId = payload.procedureId;
   const updatedProcedureArr = state.procedureArr.filter((procedure) => {
-    if (procedure.id == targetId) {
+    if (procedure._id == targetId) {
       return false;
     }
     return true;
