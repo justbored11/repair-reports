@@ -15,100 +15,103 @@
 
     </header>
 
-    <section class=" row small-padding  grey">
-        <h1 class="text-xl">
-            Title:
-            <span class="badge badge-lg">
-                <%= repair.title ? repair.title : 'no title' %>
-            </span>
-        </h1>
-        <section class="grey">
-            <section class="card small-padding">
-                <h2 class="text-xl">
-                    Repair group:
+    <section class="flex flex-col items-center p-2">
+
+        <div class="md:flex">
+            <section class="py-2">
+                <h1 class="text-xl">
+                    Title:
                     <span class="badge badge-lg">
-                        <%= repair.group ? repair.group : 'public' %>
+                        <%= repair.title ? repair.title : 'no title' %>
                     </span>
-                </h2>
-                <h2 class="text-xl">
-                    Repair ID:
-                    <span class="badge badge-lg">
-                        <%= repair._id ? repair._id : 'no id' %>
-                    </span>
-                </h2>
-                <h2 class="text-xl">
-                    Repair Documented by:
-                    <span class="badge badge-lg">
-                        <%= createdBy ? createdBy : 'public' %>
-                    </span>
-                </h2>
+                </h1>
+                <section class="card small-padding flex md:flex-row">
+                    <h2 class="text-xl">
+                        Repair group:
+                        <span class="badge badge-lg">
+                            <%= repair.group ? repair.group : 'public' %>
+                        </span>
+                    </h2>
+                    <h2 class="text-xl">
+                        Repair ID:
+                        <span class="badge badge-lg">
+                            <%= repair._id ? repair._id : 'no id' %>
+                        </span>
+                    </h2>
+                    <h2 class="text-xl">
+                        Repair Documented by:
+                        <span class="badge badge-lg">
+                            <%= createdBy ? createdBy : 'public' %>
+                        </span>
+                    </h2>
+                    <h2 class="text-xl">
+                        Board Type:
+                        <span class="badge badge-lg">
+                            <%= repair.boardType ? repair.boardType : 'board type' %>
+                        </span>
+                    </h2>
+                    <h2 class="text-xl">
+                        Engine Make:
+                        <span class="badge badge-lg">
+                            <%= repair.engineMake ? repair.engineMake : 'engine make' %>
+                        </span>
+                    </h2>
 
-            </section>
+                </section>
 
-            <section class="rounded">
-                <span class="title  board-type">Board Type: </span>
-                <h3 class="chip">
-                    <%= repair.boardType ? repair.boardType : 'board type' %>
-                </h3>
+        </div>
 
-            </section>
+    </section>
 
-            <section class="  rounded repair-info">
-                <span class="title  ">Engine Make: </span>
-                <h3 class="chip">
-                    <%= repair.engineMake ? repair.engineMake : 'engine make' %>
-                </h3>
-            </section>
+    <!-- procedures -->
+    <ol class="procedure-list p-4" data-currentProcId="1">
+        <%# short curcuit procedureArr?. if no length then end loop only mal formed repair with no image or instructions
+            will cause fail %>
+            <% for (let i=0 ; repair.procedureArr?.length> i ; i++){ %>
 
-        </section>
+                <li class="card procedure-item border border-slate-900 shadow-lg">
 
-        <!-- procedures -->
-        <ol class="procedure-list" data-currentProcId="1">
-            <%# short curcuit procedureArr?. if no length then end loop only mal formed repair with no image or
-                instructions will cause fail %>
-                <% for (let i=0 ; repair.procedureArr?.length> i ; i++){ %>
-
-                    <li class=" card procedure-item small-padding">
-
-                        <section class="pic-container center-block">
-                            <!-- images list -->
-                            <!-- carousel -->
-                            <div class="carousel ">
-                                <% for (let a=0 ; repair.procedureArr[i].images.length> a ; a++){ %>
-                                    <div id="item<%=a%><%=i%>" class="carousel-item w-full ">
-                                        <a class="w-full" href="<%= repair.procedureArr[i].images[a] %>">
-                                            <!-- update below -->
-                                            <%if (repair.procedureArr[i].images){%>
-                                                <img loading="lazy"
-                                                    src="<%= repair.procedureArr[i].images[a].replace('/upload/','/upload/c_scale,w_600/')%>">
-                                                <%}%>
-                                                    <span>Click to see full image</span>
-                                        </a>
-                                    </div>
-
-                                    <% } %>
-                            </div>
-
-                            <!-- bottom carousel numbers -->
-                            <div class="flex justify-center w-full py-2 gap-2">
-                                <% for (let a=0 ; repair.procedureArr[i].images.length> a ; a++){ %>
-                                    <a href="#item<%=a%><%=i%>" class="btn btn-xs">
-                                        <%= a+1 %>
+                    <section class="p-1 center-block flex flex-col">
+                        <!-- images list -->
+                        <!-- carousel -->
+                        <div class="carousel print:flex-col">
+                            <% for (let a=0 ; repair.procedureArr[i].images.length> a ; a++){ %>
+                                <div id="item<%=a%><%=i%>"
+                                    class="carousel-item w-full flex justify-center items-center ">
+                                    <a class="w-full" target="_blank" href="<%= repair.procedureArr[i].images[a] %>">
+                                        <!-- update below -->
+                                        <%if (repair.procedureArr[i].images){%>
+                                            <img loading="lazy" class="w-full"
+                                                src="<%= repair.procedureArr[i].images[a].replace('/upload/','/upload/c_scale,w_600/')%>">
+                                            <%}%>
+                                                <span>Click to see full image</span>
+                                                <%= a+1 %>
                                     </a>
-                                    <% } %>
-                            </div>
-                            <!-- description -->
-                            <section class="small-padding">
-                                <p class="center-text instructions">
-                                    <%= repair.procedureArr[i].instructions %>
-                                </p>
-                            </section>
-                            <!-- carousel end-->
+                                </div>
 
+                                <% } %>
+                        </div>
+
+                        <!-- bottom carousel numbers -->
+                        <div class="flex justify-center py-2 gap-2 print:hidden">
+                            <% for (let a=0 ; repair.procedureArr[i].images.length> a ; a++){ %>
+                                <a href="#item<%=a%><%=i%>" class="btn btn-xs md:btn-md">
+                                    <%= a+1 %>
+                                </a>
+                                <% } %>
+                        </div>
+                        <!-- description -->
+                        <section class="small-padding">
+                            <p class="center-text instructions">
+                                <%= repair.procedureArr[i].instructions %>
+                            </p>
                         </section>
-                    </li>
-                    <% } %>
-        </ol>
+                        <!-- carousel end-->
+
+                    </section>
+                </li>
+                <% } %>
+    </ol>
     </section>
     <section class="flex justify-center w-full">
         <%- include("./partials/comments.ejs"); -%>
