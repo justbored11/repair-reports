@@ -1,73 +1,44 @@
-import { useState } from "react";
-// import { RepairFormContext } from "../../context/RepairFormContext";
+import React, { useContext, useEffect, useState } from "react";
 
 import { EditImageCard } from "../ImageCard/EditImageCard";
 import { v4 as uuidv4 } from "uuid";
-import { useDebouncedCallback } from "use-debounce";
-import { ImageObjT } from "../../../types";
+import { ProcedureT } from "../../../types";
 import { ImageObj } from "../../classes/ImageObj";
-import { Procedure } from "../../classes/Procedure";
-import useImageManager from "../../hooks/useImageManager";
 import ModalConfirm from "../Modals/ModalConfirm";
+import { Procedure } from "../../classes/Procedure";
+import { RepairFormDataContext } from "../../context/RepairFormContext";
+
+type ImageCardListT = { _id: string; component: React.ReactNode };
 
 export default function EditProcedureCard({
-  procedureData,
-  index,
-  procedureActions,
+  procedureData = new Procedure(),
+  id = uuidv4(),
 }: {
-  procedureData: Procedure;
-  index: number;
-  procedureActions: {
-    instructions: (text: string) => void;
-    addImage: () => void;
-    editImage: (imageIndex: number, updatedImageObj: ImageObj) => void;
-    removeImage: (imageId: string) => void;
-    removeProcedure: () => void;
-  };
+  procedureData: ProcedureT;
+  id?: string;
 }) {
-  //index to number to be used as reference of updating state array of the proceduresArray
-  const PROCEDURE_INDEX = Number(index);
-  const PROCEDURE_ID = procedureData._id;
-
-  const { deleteImage } = useImageManager();
-
-  // const { formDispatch } = useContext(RepairFormContext);
+  const { formAction } = useContext(RepairFormDataContext);
+  const { updateInstructions } = formAction;
+  const { imageObjs } = procedureData; //TODO images on procedure
+  const PROCEDURE_ID = procedureData._id ? procedureData._id : id;
 
   const [instructions, setInstructions] = useState(procedureData.instructions);
-  const { imageObjs } = procedureData;
 
-  const imageCards = createEditImageCards({
-    imageObjs: imageObjs,
-    updateUrl: procedureActions.editImage,
-    onRemove: procedureActions.removeImage,
-  });
+  const [imageCards, setImageCards] = useState<ImageCardListT[]>([]);
 
-  const handleInstructionsUpdate = useDebouncedCallback((text: string) => {
-    procedureActions.instructions(text);
-  }, 0);
-
-  const handleRemoveProcedure = async () => {
-    //remove images if needed
-    if (procedureData.imageObjs && procedureData.imageObjs.length > 0) {
-      console.log("procedureData", procedureData.imageObjs);
-
-      try {
-        const imagesDataArr = procedureData.imageObjs;
-        const promises = imagesDataArr.map((data) => {
-          console.log("removing id: ", data.imageId);
-
-          return deleteImage({ imageId: data.imageId });
-        });
-
-        await Promise.allSettled(promises);
-      } catch (error) {
-        console.log("error deleting multiple images", error);
-      }
-    }
-
-    //remove actual procedure component
-    procedureActions.removeProcedure();
-  };
+  //load initial state after mount
+  useEffect(() => {
+    //create cards for initial prop data passed in
+    const initialImageCardData: ImageCardListT[] = imageObjs.map((data) => {
+      const component = createEditImageCard({
+        procedureId: PROCEDURE_ID,
+        imageObj: new ImageObj(data),
+        setter: setImageCards,
+      });
+      return { _id: data._id, component };
+    });
+    setImageCards(initialImageCardData);
+  }, []);
 
   return (
     <div className="p-3 card relative border border-solid border-slate-700">
@@ -81,7 +52,7 @@ export default function EditProcedureCard({
         <section className="flex justify-center">
           <div
             onClick={() => {
-              handleRemoveProcedure();
+              // handleRemoveProcedure();
             }}
             className="btn bg-yellow-600 hover:bg-red-600 hover:scale-125 w-40 text-black">
             Remove procedure
@@ -91,16 +62,37 @@ export default function EditProcedureCard({
 
       {/* edit image cards */}
       <section>
-        <h1 className="text-xl">procedure num is : {PROCEDURE_INDEX}</h1>
+        <h1 className="text-xl">procedure num is </h1>
         <h1 className="text-xl">procedure ID is : {PROCEDURE_ID}</h1>
         <ul className=" w-full flex flex-wrap justify-center align-middle items-center gap-2 p-4  bg-neutral rounded-box">
-          {imageCards}
+          {imageCards.map((item) => item.component)}
           <section>
             <div>
               <span>Add another image</span>
               <div
                 onClick={() => {
-                  procedureActions.addImage();
+                  //todo add image data to formContext
+                  console.log("adding image to procedure");
+
+                  const newImageData = new ImageObj();
+                  formAction.addImage(newImageData, PROCEDURE_ID);
+
+                  setImageCards((state) => {
+                    //data
+                    //function component
+                    const newImageCard = createEditImageCard({
+                      procedureId: PROCEDURE_ID,
+                      imageObj: newImageData,
+                      setter: setImageCards,
+                    });
+
+                    //format for storing in state
+                    const newItem: ImageCardListT = {
+                      _id: newImageData._id,
+                      component: newImageCard,
+                    };
+                    return [...state, newItem];
+                  });
                 }}
                 className="text-xl btn btn-active btn-accent hover:bg-green-300">
                 +
@@ -116,8 +108,12 @@ export default function EditProcedureCard({
         <textarea
           onChange={(e) => {
             e.preventDefault();
-            handleInstructionsUpdate(e.target.value);
-            setInstructions(e.target.value);
+            // handleInstructionsUpdate(e.target.value);
+            const text = e.target.value;
+            setInstructions(() => {
+              updateInstructions(id, text);
+              return text;
+            });
           }}
           className="w-3/4 "
           value={instructions}
@@ -129,43 +125,177 @@ export default function EditProcedureCard({
     </div>
   );
 }
+// export default function EditProcedureCard({
+//   procedureData = new Procedure(),
+//   id = uuidv4(),
+//   procedureActions,
+// }: {
+//   procedureData: ProcedureT;
+//   id: string;
+//   procedureActions?: {
+//     instructions: (text: string) => void;
+//     addImage: () => void;
+//     editImage: (imageIndex: number, updatedImageObj: ImageObj) => void;
+//     removeImage: (imageId: string) => void;
+//     removeProcedure: () => void;
+//   };
+// }) {
+//   //index to number to be used as reference of updating state array of the proceduresArray
+//   const PROCEDURE_INDEX = Number(id);
+//   const PROCEDURE_ID = procedureData._id;
+
+//   const { deleteImage } = useImageManager();
+
+//   // const { formDispatch } = useContext(RepairFormContext);
+
+//   const [instructions, setInstructions] = useState(procedureData.instructions);
+//   const { imageObjs } = procedureData;
+
+//   const imageCards = createEditImageCards({
+//     imageObjs: imageObjs,
+//     updateUrl: procedureActions.editImage,
+//     onRemove: procedureActions.removeImage,
+//   });
+
+//   const handleInstructionsUpdate = useDebouncedCallback((text: string) => {
+//     procedureActions.instructions(text);
+//   }, 0);
+
+//   const handleRemoveProcedure = async () => {
+//     //remove images if needed
+//     if (procedureData.imageObjs && procedureData.imageObjs.length > 0) {
+//       console.log("procedureData", procedureData.imageObjs);
+
+//       try {
+//         const imagesDataArr = procedureData.imageObjs;
+//         const promises = imagesDataArr.map((data) => {
+//           console.log("removing id: ", data.imageId);
+
+//           return deleteImage({ imageId: data.imageId });
+//         });
+
+//         await Promise.allSettled(promises);
+//       } catch (error) {
+//         console.log("error deleting multiple images", error);
+//       }
+//     }
+
+//     //remove actual procedure component
+//     procedureActions.removeProcedure();
+//   };
+
+//   return (
+//     <div className="p-3 card relative border border-solid border-slate-700">
+//       {/* delete procedure button */}
+
+//       <ModalConfirm label="Remove procedure">
+//         <section>
+//           <span>Confirm: </span>
+//         </section>
+
+//         <section className="flex justify-center">
+//           <div
+//             onClick={() => {
+//               handleRemoveProcedure();
+//             }}
+//             className="btn bg-yellow-600 hover:bg-red-600 hover:scale-125 w-40 text-black">
+//             Remove procedure
+//           </div>
+//         </section>
+//       </ModalConfirm>
+
+//       {/* edit image cards */}
+//       <section>
+//         <h1 className="text-xl">procedure num is : {PROCEDURE_INDEX}</h1>
+//         <h1 className="text-xl">procedure ID is : {PROCEDURE_ID}</h1>
+//         <ul className=" w-full flex flex-wrap justify-center align-middle items-center gap-2 p-4  bg-neutral rounded-box">
+//           {imageCards}
+//           <section>
+//             <div>
+//               <span>Add another image</span>
+//               <div
+//                 onClick={() => {
+//                   procedureActions.addImage();
+//                 }}
+//                 className="text-xl btn btn-active btn-accent hover:bg-green-300">
+//                 +
+//               </div>
+//             </div>
+//           </section>
+//         </ul>
+//       </section>
+
+//       {/* INSTRUCTIONS */}
+//       <section className=" w-full flex flex-col items-center">
+//         <h3 className="text-lg text-gray">Instructions: </h3>
+//         <textarea
+//           onChange={(e) => {
+//             e.preventDefault();
+//             handleInstructionsUpdate(e.target.value);
+//             setInstructions(e.target.value);
+//           }}
+//           className="w-3/4 "
+//           value={instructions}
+//           name=""
+//           id=""
+//           cols={30}
+//           rows={10}></textarea>
+//       </section>
+//     </div>
+//   );
+// }
+
+// const newImageData = new ImageObj();
+//                     const newItem: ImageCardListT = {
+//                       _id: newImageData._id,
+//                       component: (
+//                         <EditImageCard
+//                           url={newImageData.imageUrl}
+//                           id={newImageData._id}
+//                           imageData={newImageData}
+//                           setFormImageObj={() => {
+//                             console.log("no setform yet on imagecard");
+//                           }}
+//                         />
+//                       ),
+//                     };
 
 //create image card components
-function createEditImageCards({
-  updateUrl,
-  imageObjs,
-  onRemove = () => {},
+function createEditImageCard({
+  imageObj,
+  procedureId,
+  setter,
 }: {
-  imageObjs: ImageObj[];
-  updateUrl: (imageIndex: number, newImageObj: ImageObj) => void;
-  onRemove?: (imageId: string) => void;
+  imageObj: ImageObj;
+  procedureId: string;
+  setter: React.Dispatch<React.SetStateAction<ImageCardListT[]>>;
 }) {
-  const imageCardComponents = imageObjs.map((imageObj, index) => {
-    const { imageUrl, imageId } = imageObj;
-    // high order function to update url
-    const updateImageUrl = (updatedImageObj: ImageObjT) => {
-      updateUrl(index, { ...new ImageObj(), ...updatedImageObj });
-    };
+  return (
+    <li
+      className="w-full card md:w-1/3 bg-slate-700 p-2"
+      key={uuidv4()}>
+      <EditImageCard
+        procedureId={procedureId}
+        imageData={imageObj}
+        id={imageObj._id}
+        key={uuidv4()}
+        url={imageObj.imageUrl}
+        onRemove={() => removeItem(setter, imageObj._id)}
+      />
+    </li>
+  ) as React.ReactNode;
+}
 
-    const removeImageFromList = () => {
-      if (onRemove) onRemove(imageId);
-    };
+function removeItem(
+  setter: React.Dispatch<React.SetStateAction<ImageCardListT[]>>,
+  id: string
+) {
+  setter((state) => {
+    const newState = state.filter((imageCard) => {
+      if (imageCard._id == id) return false;
+      return true;
+    });
 
-    return (
-      <li
-        className="w-full card md:w-1/3 bg-slate-700 p-2"
-        key={uuidv4()}>
-        <EditImageCard
-          imageData={imageObj}
-          id={imageId}
-          onRemove={removeImageFromList}
-          key={uuidv4()}
-          url={imageUrl}
-          setFormImageObj={updateImageUrl}
-        />
-      </li>
-    );
+    return newState;
   });
-
-  return imageCardComponents;
 }

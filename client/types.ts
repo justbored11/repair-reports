@@ -6,6 +6,7 @@ export interface ImageObjT {
   caption?: string;
   imageId: string;
   folder: string;
+  _id: string;
 }
 
 export interface ProcedureT {
@@ -15,6 +16,7 @@ export interface ProcedureT {
   instructions: string;
   procedureNum: number;
   thumbs: string[];
+  _id?: string;
 }
 
 export type RepairDataT = {
@@ -27,6 +29,8 @@ export type RepairDataT = {
   title: string;
   visibility: string;
   searchTags?: string[];
+  version: number;
+
   _id: string;
 };
 

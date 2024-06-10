@@ -1,42 +1,49 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 // import useUploadImage from "../../hooks/useUploadImage";
 import { CameraPreview } from "./CameraPreview";
 import { ImageObjT } from "../../../types";
 import { useDebouncedCallback } from "use-debounce";
 import { v4 as uuidv4 } from "uuid";
 import useImageManager from "../../hooks/useImageManager";
-import { ImageObj, UploadStatus } from "../../classes/ImageObj";
+import { ImageObj } from "../../classes/ImageObj";
 import UploadStatusBar from "./UploadStatusBar";
 import useCreateThumbUrl from "../../hooks/useCreateThumbUrl";
+import { RepairFormDataContext } from "../../context/RepairFormContext";
 
-// enum UploadStatus {
-//   SUCCESS,
-//   UPLOADING,
-//   ERROR,
-//   IDLE,
-//   DELETING,
-// }
+enum UploadStatus {
+  SUCCESS = "SUCCESS",
+  UPLOADING = "UPLOADING",
+  ERROR = "ERROR",
+  IDLE = "IDLE",
+  DELETING = "DELETING",
+}
 
 export function EditImageCard({
   url = "",
-  setFormImageObj,
   onRemove,
   imageData,
+  procedureId,
 }: {
+  procedureId: string;
   id: string;
   url: string;
   onRemove?: () => void;
   imageData: ImageObj;
-  setFormImageObj: (imageObj: ImageObjT) => void; //external state setter to manipulate url prop
 }) {
-  //
+  //hook for handling image database
   const { uploadImage, deleteImage } = useImageManager();
+  const { formAction } = useContext(RepairFormDataContext);
+
+  //create thumb url from regular url using cloudinary url specification
   const createThumbUrl = useCreateThumbUrl();
 
+  //is image deleteable from cloudinary by checking url
   const [isDeletable, setIsDeletable] = useState(url.includes("http"));
+
+  //is image uploadable by checking image url to include buffer prefix
   const [isUploadable, setIsUploadable] = useState(url.includes("data:"));
 
-  //will hold <video> tag reference
+  //will hold <video> tag reference in dom to show video stream
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   //camera stream
@@ -47,19 +54,22 @@ export function EditImageCard({
 
   //image has been uploaded and have imageObj or null
   //after image is uploaded store details
+  //!maybe just update upload status state and handle if upload happend that way
   const [imageUploadedObj, setImageUploadedObj] = useState<null | ImageObjT>(
     imageData
   );
 
   //show status of image action
   const [imageUploadStatus, setImageUploadStatus] = useState<UploadStatus>(
-    isDeletable ? "SUCCESS" : "IDLE"
+    isDeletable ? UploadStatus.SUCCESS : UploadStatus.IDLE
   );
 
   //number to track percentage of image action progress
   const [uploadProgress, setUploadProgress] = useState(10);
 
   //new image to upload stored locally
+  //! maybe have a single state to keep image data and update upload status state to keep track of uploaded event
+  //! instead of storing 2 different states
   const [imageToUpload, setImageToUpload] = useState<File | string>(url);
 
   //image preview of file selected or image captured from camera
@@ -91,19 +101,23 @@ export function EditImageCard({
         return;
       }
 
+      console.log("url change");
+
+      formAction.updateImage({ ...imageData, imageUrl: urlText }, procedureId);
+
       //url changed of image either manually or file changed
       //todo have folder be added according to user organization in authcontext
-      setFormImageObj({
-        folder: "testFolder",
-        imageId: imageUploadedObj ? imageUploadedObj.imageId : urlText,
-        imageUrl: urlText,
-      });
+      // setFormImageObj({
+      //   folder: "testFolder",
+      //   imageId: imageUploadedObj ? imageUploadedObj.imageId : urlText,
+      //   imageUrl: urlText,
+      // });
     },
     300
   );
 
   const handleImageUpload = useDebouncedCallback(async (folder: string) => {
-    setImageUploadStatus("UPLOADING");
+    setImageUploadStatus(UploadStatus.UPLOADING);
     setUploadProgress(30);
 
     if (
@@ -132,22 +146,27 @@ export function EditImageCard({
         console.log("thumbUrl", thumbUrl);
 
         const imageObj: ImageObjT = {
+          _id: imageData._id,
           imageUrl: url,
           imageId: public_id,
           folder: uploadFolder,
           imageThumb: thumbUrl,
         };
+
+        //update form data in context
+        formAction.updateImage(new ImageObj(imageObj), procedureId);
+
         setUploadProgress(70);
-        setFormImageObj(imageObj);
+        // setFormImageObj(imageObj);
         setImageUploadedObj(imageObj);
         setUploadProgress(100);
-        setImageUploadStatus("SUCCESS");
+        setImageUploadStatus(UploadStatus.SUCCESS);
         setIsUploadable(false);
         setIsDeletable(true);
         return;
       } catch (error) {
         console.log("error uploading", error);
-        setImageUploadStatus("ERROR");
+        setImageUploadStatus(UploadStatus.ERROR);
         return;
       }
     }
@@ -175,6 +194,7 @@ export function EditImageCard({
         return;
       }
     } else {
+      formAction.removeImage(imageData._id, procedureId);
       if (onRemove) onRemove();
     }
   };
@@ -290,7 +310,7 @@ export function EditImageCard({
   return (
     <div
       key={uuidv4()}
-      className="">
+      className="relative">
       <h3>image id :{imageUploadedObj?.imageId}</h3>
       {/* delete x button */}
       <div

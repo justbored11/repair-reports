@@ -72,7 +72,7 @@ function updateSearchTags(state: Repair, payload: ChangeFormPayloadT) {
 
   state.searchTags = searchTags ? searchTags : state.searchTags;
 
-  return { ...state };
+  return { ...state } as Repair;
 }
 
 function addProcedure(state: Repair, payload: ChangeFormPayloadT) {
@@ -90,12 +90,15 @@ function addProcedure(state: Repair, payload: ChangeFormPayloadT) {
     return {
       ...state,
       procedureArr: [newProcedure, ...oldProcedures],
-    };
+    } as Repair;
   }
 
   //if new index is larger than old array add new instance to end of state
   if (procIndex > oldProcedures.length - 1) {
-    return { ...state, procedureArr: [...oldProcedures, newProcedure] };
+    return {
+      ...state,
+      procedureArr: [...oldProcedures, newProcedure],
+    } as Repair;
   }
 
   for (let i = 0; i < oldProcedures.length; i++) {
@@ -108,11 +111,11 @@ function addProcedure(state: Repair, payload: ChangeFormPayloadT) {
     updatedProcedures.push(oldProcedures[i]);
   }
 
-  return { ...state, procedureArr: updatedProcedures };
+  return { ...state, procedureArr: updatedProcedures } as Repair;
 }
 
 function updateField(state: Repair, payload: ChangeFormPayloadT) {
-  return { ...state, ...payload.formField };
+  return { ...state, ...payload.formField } as Repair;
 }
 
 function updateProcedures(state: Repair, payload: ChangeFormPayloadT) {
@@ -165,7 +168,7 @@ function updateImage(state: Repair, payload: ChangeFormPayloadT) {
   targetProc.imageObjs[imageIndexToUpdate] = newImageObj;
 
   // return state as Repair;// old working code
-  return { ...state }; //working code
+  return { ...state } as Repair; //working code
 
   // return { ...state, procedureArr: newProcedures } as RepairFormT;
 }
@@ -248,5 +251,5 @@ function removeProcedure(state: Repair, payload: ChangeFormPayloadT) {
 
   console.log("updatedProcedureArr", updatedProcedureArr);
   // return updatedProcedureArr;
-  return { ...state };
+  return { ...state } as Repair;
 }

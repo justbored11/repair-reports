@@ -1,5 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
-import useRepairFormState from "../../hooks/useRepairFormState";
+import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import AvailableOptions, {
   OptionT,
 } from "../AvailableOptions/AvailableOptions";
@@ -7,6 +6,8 @@ import AvailableOptionsMulti from "../AvailableOptions/AvailableOptionsMulti";
 import { Repair } from "../../classes/Repair";
 import EditProcedureList from "../ProcedureList/EditProcedureList";
 import ModalConfirm from "../Modals/ModalConfirm";
+import { RepairDataT } from "../../../types";
+import { RepairFormDataContext } from "../../context/RepairFormContext";
 
 export default function RepairEditForm({
   repair,
@@ -14,24 +15,37 @@ export default function RepairEditForm({
   enabled = true,
   submitType,
 }: {
-  repair?: Repair | null | undefined;
+  repair?: RepairDataT | undefined;
   onSubmit?: (repair: Repair) => Promise<void>;
   enabled?: boolean;
   submitType: string;
 }) {
-  // const navigate = useNavigate();
-  const { currentFormState, formDispatch } = useRepairFormState(repair);
-  // const { postRepair } = useRepairApi();
+  const { repairFormData, initializeRepairFormData, formAction } = useContext(
+    RepairFormDataContext
+  );
+
+  //have individual state
+  const [title, setTitle] = useState(repair ? repair.title : "new title here");
+  const [engineMake, setEngineMake] = useState(
+    repair ? repair.engineMake : "engine Make"
+  );
 
   const [submitAllowed, setSubmitAllowed] = useState(enabled);
+
+  useEffect(() => {
+    if (repair) {
+      //sync form data only
+      initializeRepairFormData(repair);
+    }
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // console.log("currentFormState", currentFormState);
     try {
       if (onSubmit) {
-        onSubmit(currentFormState);
+        console.log("repairFormData", repairFormData);
+        onSubmit(repairFormData);
       }
     } catch (error) {
       setSubmitAllowed(true);
@@ -41,16 +55,16 @@ export default function RepairEditForm({
 
   const availableGroups: OptionT[] = [
     {
-      label: `original: ${currentFormState.group}`,
-      value: currentFormState.group,
+      label: `original: ${repair?.group}`,
+      value: repair ? repair?.group : "group",
     },
     { label: "public", value: "public" },
   ];
 
   const availableBoardTypes: OptionT[] = [
     {
-      label: `original: ${currentFormState.boardType}`,
-      value: currentFormState.group,
+      label: `original: ${repair?.boardType}`,
+      value: repair?.boardType ? repair.boardType : "boardType",
     },
     { label: "Cat70 IK", value: "IK" },
     { label: "Cat40 CA", value: "CA" },
@@ -61,8 +75,8 @@ export default function RepairEditForm({
 
   const availableEngines: OptionT[] = [
     {
-      label: `original: ${currentFormState.engineMake}`,
-      value: currentFormState.engineMake,
+      label: `original: ${engineMake}`,
+      value: engineMake,
     },
     { label: "Caterpillar", value: "cat" },
     { label: "Cummins", value: "cummins" },
@@ -101,18 +115,15 @@ export default function RepairEditForm({
           <div className="flex-1 flex justify-start">
             <input
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                // console.log("e", e.target.value);
-
-                formDispatch({
-                  type: "UPDATE_FIELD",
-                  payload: { formField: { title: e.target.value } },
-                });
+                const title = e.target.value;
+                formAction.updateTitle(title);
+                setTitle(e.target.value);
               }}
               className="text-2xl w-full bg-white"
               id="title"
               name="title"
               type="text"
-              defaultValue={currentFormState.title}
+              defaultValue={title}
             />
           </div>
         </div>
@@ -122,10 +133,7 @@ export default function RepairEditForm({
             title="Visibility group"
             options={availableGroups}
             callback={(group: string) => {
-              formDispatch({
-                type: "UPDATE_FIELD",
-                payload: { formField: { group } },
-              });
+              console.log("changed group", group);
             }}
           />
         </div>
@@ -134,20 +142,15 @@ export default function RepairEditForm({
             title="Board Type"
             options={availableBoardTypes}
             callback={(boardType: string) => {
-              formDispatch({
-                type: "UPDATE_FIELD",
-                payload: { formField: { boardType } },
-              });
+              formAction.updateBoardType(boardType);
             }}
           />
         </div>
         <div>
           <AvailableOptions
             callback={(engineMake: string) => {
-              formDispatch({
-                type: "UPDATE_FIELD",
-                payload: { formField: { engineMake } },
-              });
+              formAction.updateEngineMake(engineMake);
+              setEngineMake(engineMake);
             }}
             title="Engine make"
             options={availableEngines}
@@ -156,13 +159,8 @@ export default function RepairEditForm({
         <div>
           <AvailableOptionsMulti
             callback={(searchTags: string[]) => {
-              formDispatch({
-                type: "UPDATE_SEARCH_TAGS",
-                payload: { searchTags },
-              });
+              console.log("no searchtag form action or state", searchTags);
             }}
-            // defaultValue={currentFormState.searchTags}
-            // defaultValue={}
             title="Search tags"
             options={availableTags}
           />
@@ -172,8 +170,7 @@ export default function RepairEditForm({
       <section>
         <h3 className="text-xl">Repair procedures</h3>
         <EditProcedureList
-          formDispatch={formDispatch}
-          procedureList={currentFormState.procedureArr}
+          procedureList={repair?.procedureArr ? repair.procedureArr : []}
         />
       </section>
       {/* submit section */}

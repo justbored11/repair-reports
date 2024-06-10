@@ -2,10 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../Layout";
 import LatestRepairsPage from "../pages/LatestRepairsPage";
 import ProfilePage from "../pages/ProfilePage";
-import RepairFormPage from "../pages/RepairFormPage";
+import RepairFormPage from "../pages/CreateRepairFormPage";
 import DashboardPage from "../pages/dashboard/DashboardPageContainer";
 import { RepairInfoPageContainer } from "../pages/RepairInfoPageContainer";
-import EditRepairPage from "../pages/EditRepairPage";
+import EditRepairPageV2 from "../pages/EditRepairPageV2";
 
 export const routes = createBrowserRouter([
   {
@@ -47,7 +47,7 @@ export const routes = createBrowserRouter([
     path: "/repair/edit/:id",
     element: (
       <Layout>
-        <EditRepairPage />
+        <EditRepairPageV2 />
       </Layout>
     ),
   },

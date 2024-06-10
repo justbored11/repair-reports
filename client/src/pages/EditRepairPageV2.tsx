@@ -5,7 +5,9 @@ import { Repair } from "../classes/Repair";
 import { useParams, useNavigate } from "react-router-dom";
 import { RepairDataT } from "../../types";
 
-export default function EditRepairPage() {
+import { RepairContextProvider } from "../context/RepairFormContext";
+
+export default function EditRepairPageV2() {
   const { id: repairId } = useParams();
   const { getRepairById, updateRepair } = useRepairApi();
   const [repair, setRepair] = useState<RepairDataT | null>(null);
@@ -36,7 +38,7 @@ export default function EditRepairPage() {
     getRepairById(repairId)
       .then((data) => {
         console.log("data", data);
-        setRepair(data);
+        setRepair(data as RepairDataT);
       })
       .catch((error) => {
         console.log("error getting repair for edit", error);
@@ -49,16 +51,18 @@ export default function EditRepairPage() {
   }
 
   return (
-    <section>
-      <h3>Edit Your Repair here</h3>
-      {repair && (
-        <RepairEditForm
-          onSubmit={putRepair}
-          repair={repair}
-          enabled={submitAllowed}
-          submitType="Update"
-        />
-      )}
-    </section>
+    <RepairContextProvider>
+      <section>
+        <h3>Edit Your Repair here V2</h3>
+        {repair && (
+          <RepairEditForm
+            onSubmit={putRepair}
+            repair={repair}
+            enabled={submitAllowed}
+            submitType="Update"
+          />
+        )}
+      </section>
+    </RepairContextProvider>
   );
 }
