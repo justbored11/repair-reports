@@ -152,16 +152,22 @@ export const RepairContextProvider = ({
       return false;
     });
 
-    const imagesArr = repairFormData.procedureArr[targetProcedure].imageObjs;
+    const targetProcedureData = repairFormData.procedureArr[targetProcedure];
+    const imageObjArr = targetProcedureData.imageObjs;
 
     const newImageObjs = addItem({
       pos: "end",
-      arr: imagesArr,
+      arr: imageObjArr,
       item,
     });
 
+    //updating older implementation for backward compatibility to EJS app
+    const imageStringsArr = newImageObjs.map((data) => data.imageUrl);
+
     setRepairFormData((state) => {
-      state.procedureArr[targetProcedure].imageObjs = newImageObjs;
+      const targetProc = state.procedureArr[targetProcedure];
+      targetProc.imageObjs = newImageObjs;
+      targetProc.images = imageStringsArr;
 
       return state;
     });
@@ -186,9 +192,14 @@ export const RepairContextProvider = ({
       return true;
     });
 
+    //updating older implementation for backward compatibility to EJS app
+    const imageStringsArr = newImageObjs.map((data) => data.imageUrl);
+
     //update form data state without causing rerender
     setRepairFormData((state) => {
-      state.procedureArr[targetProcedure].imageObjs = newImageObjs;
+      const targetProc = state.procedureArr[targetProcedure];
+      targetProc.imageObjs = newImageObjs;
+      targetProc.images = imageStringsArr;
 
       return state;
     });
@@ -206,21 +217,27 @@ export const RepairContextProvider = ({
     });
 
     //get images Data array from target procedure
-    const imagesArr = repairFormData.procedureArr[targetProcedure].imageObjs;
+    const targetProcedureData = repairFormData.procedureArr[targetProcedure];
+    const imageObjsArr = targetProcedureData.imageObjs;
 
     //replace target image data by id
-    const newImageObjs = imagesArr.map((imageData) => {
+    const newImageObjs = imageObjsArr.map((imageData) => {
       if (imageData._id == newImageData._id) {
         return newImageData;
       }
       return imageData;
     });
 
+    //updating older implementation for backward compatibility to EJS app
+    const imageStringsArr = newImageObjs.map((data) => data.imageUrl);
+
     console.log("newImageObjs", newImageObjs);
 
     //update form state
     setRepairFormData((state) => {
-      state.procedureArr[targetProcedure].imageObjs = newImageObjs;
+      const targetProc = state.procedureArr[targetProcedure];
+      targetProc.imageObjs = newImageObjs;
+      targetProc.images = imageStringsArr;
 
       return state;
     });

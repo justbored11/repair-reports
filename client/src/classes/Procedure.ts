@@ -3,7 +3,7 @@ import { ImageObjT, ProcedureT } from "../../types";
 import { ImageObj } from "./ImageObj";
 
 export class Procedure implements ProcedureT {
-  public images = [""];
+  public images: string[] = [];
   public imageObjs: ImageObj[] = [];
   public imagesIdArr: string[] = [];
   public instructions = "";
@@ -33,6 +33,7 @@ export class Procedure implements ProcedureT {
     }
   }
 
+  //accept ImageObjT type and create ImageObj instances
   intializeImageObjs(imageData: ImageObjT[]): ImageObj[] {
     return imageData.map((data) => {
       return new ImageObj(data);
