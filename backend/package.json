@@ -4,11 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "concurrently 'npm:devserver' 'npm:tailwind'",
+    "dev": "concurrently 'npm:devserver' 'npm:dev-tailwind'",
     "devserver": "nodemon server.js",
     "start": "npm run tailwind && node server.js",
     "test": "npx cypress run",
-    "tailwind": "npx tailwindcss -i ./public/stylesheets/main.css -o ./public/stylesheets/style.css --watch"
+    "tailwind": "npx tailwindcss -i ./public/stylesheets/main.css -o ./public/stylesheets/style.css",
+    "dev-tailwind": "npx tailwindcss -i ./public/stylesheets/main.css -o ./public/stylesheets/style.css --watch"
   },
   "author": "",
   "license": "ISC",
