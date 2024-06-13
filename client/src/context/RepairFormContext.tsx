@@ -8,6 +8,7 @@ import { ImageObj } from "../classes/ImageObj";
 export type formActionT = {
   addProcedureAfter: (id: string, item: Procedure) => void;
   addProcedureAtBegining: (item: Procedure) => void;
+  removeProcedure: (id: string) => void;
   updateInstructions: (id: string, text: string) => void;
   updateTitle: (title: string) => void;
   updateEngineMake: (title: string) => void;
@@ -23,6 +24,7 @@ export type RepairFormDataContextT = {
   initializeRepairFormData: (repair: RepairDataT) => void;
   formAction: {
     addProcedureAfter: (id: string, item: Procedure) => void;
+    removeProcedure: (id: string) => void;
     addProcedureAtBegining: (item: Procedure) => void;
     updateInstructions: (id: string, text: string) => void;
     updateTitle: (title: string) => void;
@@ -42,6 +44,7 @@ export const RepairFormDataContext = createContext<RepairFormDataContextT>({
   initializeRepairFormData: () => {},
   formAction: {
     addProcedureAfter: () => {},
+    removeProcedure: () => {},
     addProcedureAtBegining: () => {},
     updateInstructions: () => {},
     updateTitle: () => {},
@@ -82,6 +85,14 @@ export const RepairContextProvider = ({
     setRepairFormData((state) => {
       state.procedureArr = newArr;
 
+      return state;
+    });
+  }
+
+  function removeProcedure(id: string) {
+    //update procedures
+    setRepairFormData((state) => {
+      state.procedureArr = state.procedureArr.filter((proc) => proc._id != id);
       return state;
     });
   }
@@ -129,12 +140,14 @@ export const RepairContextProvider = ({
       return state;
     });
   }
+
   function updateGroup(value: string) {
     setRepairFormData((state) => {
       state.engineMake = value;
       return state;
     });
   }
+
   function updateBoardType(value: string) {
     setRepairFormData((state) => {
       state.engineMake = value;
@@ -142,7 +155,6 @@ export const RepairContextProvider = ({
     });
   }
 
-  //! not tested
   ///add image to procedure
   function addImage(item: ImageObj, procedureId: string) {
     const targetProcedure = repairFormData.procedureArr.findIndex((proc) => {
@@ -251,6 +263,7 @@ export const RepairContextProvider = ({
       updateBoardType,
       updateGroup,
       addProcedureAfter,
+      removeProcedure,
       addProcedureAtBegining,
       updateInstructions,
       updateTitle,

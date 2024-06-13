@@ -2,25 +2,29 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { EditImageCard } from "../ImageCard/EditImageCard";
 import { v4 as uuidv4 } from "uuid";
-import { ProcedureT } from "../../../types";
+import { ImageObjT, ProcedureT } from "../../../types";
 import { ImageObj } from "../../classes/ImageObj";
 import ModalConfirm from "../Modals/ModalConfirm";
 import { Procedure } from "../../classes/Procedure";
 import { RepairFormDataContext } from "../../context/RepairFormContext";
+import useImageManager from "../../hooks/useImageManager";
 
 type ImageCardListT = { _id: string; component: React.ReactNode };
 
 export default function EditProcedureCard({
   procedureData = new Procedure(),
   id = uuidv4(),
+  onRemove,
 }: {
   procedureData: ProcedureT;
   id?: string;
+  onRemove?: () => void;
 }) {
   const { formAction } = useContext(RepairFormDataContext);
   const { updateInstructions } = formAction;
   const { imageObjs } = procedureData; //TODO images on procedure
   const PROCEDURE_ID = procedureData._id ? procedureData._id : id;
+  const { deleteImage } = useImageManager();
 
   const [instructions, setInstructions] = useState(procedureData.instructions);
 
@@ -40,6 +44,42 @@ export default function EditProcedureCard({
     setImageCards(initialImageCardData);
   }, []);
 
+  async function handleDeleteImage(imageObj: ImageObjT) {
+    const procedureId = id;
+    //delete from database
+    await deleteImage({ imageId: imageObj.imageId });
+
+    //remove from formcontext
+    formAction.removeImage(imageObj._id, procedureId);
+
+    //remove from dom
+    setImageCards((state) => {
+      return state.filter((data) => {
+        if (data._id == imageObj._id) return false;
+
+        return true;
+      });
+    });
+  }
+
+  async function handleRemoveProcedure() {
+    const promises: Promise<void>[] = [];
+
+    //delete images from database promises
+    imageObjs.forEach((data) => {
+      //only delete if url is http and not data: buffer
+      if (data.imageUrl.includes("http")) {
+        promises.push(handleDeleteImage(data));
+      }
+    });
+
+    if (promises.length > 0) await Promise.allSettled(promises);
+
+    if (onRemove) {
+      onRemove();
+    }
+  }
+
   return (
     <div className="p-3 card relative border border-solid border-slate-700">
       {/* delete procedure button */}
@@ -52,7 +92,7 @@ export default function EditProcedureCard({
         <section className="flex justify-center">
           <div
             onClick={() => {
-              // handleRemoveProcedure();
+              handleRemoveProcedure();
             }}
             className="btn bg-yellow-600 hover:bg-red-600 hover:scale-125 w-40 text-black">
             Remove procedure
@@ -125,6 +165,7 @@ export default function EditProcedureCard({
     </div>
   );
 }
+
 // export default function EditProcedureCard({
 //   procedureData = new Procedure(),
 //   id = uuidv4(),
