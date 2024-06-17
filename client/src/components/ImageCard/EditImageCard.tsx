@@ -177,7 +177,10 @@ export function EditImageCard({
   //handle delete of image from database and state
   const handleImageDelete = async () => {
     // if image has been uploaded delete from database
+    // console.log("delete image");
+    // console.log("isDeletable", isDeletable);
 
+    //delete from database
     if (isDeletable && imageUploadedObj) {
       try {
         const deleteResponse = await deleteImage({
@@ -193,6 +196,7 @@ export function EditImageCard({
         // setImageUploadedObj(imageUploadedObj);
         return;
       }
+      // remove from form context only
     } else {
       formAction.removeImage(imageData._id, procedureId);
       if (onRemove) onRemove();

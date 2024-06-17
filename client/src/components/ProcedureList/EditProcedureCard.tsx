@@ -45,6 +45,8 @@ export default function EditProcedureCard({
   }, []);
 
   async function handleDeleteImage(imageObj: ImageObjT) {
+    // console.log("delete image");
+
     const procedureId = id;
     //delete from database
     await deleteImage({ imageId: imageObj.imageId });

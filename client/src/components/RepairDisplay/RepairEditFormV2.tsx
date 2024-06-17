@@ -8,6 +8,7 @@ import EditProcedureList from "../ProcedureList/EditProcedureList";
 import ModalConfirm from "../Modals/ModalConfirm";
 import { RepairDataT } from "../../../types";
 import { RepairFormDataContext } from "../../context/RepairFormContext";
+import { isValidForm } from "../../utils/isValidForm";
 
 export default function RepairEditForm({
   repair,
@@ -31,6 +32,7 @@ export default function RepairEditForm({
   );
 
   const [submitAllowed, setSubmitAllowed] = useState(enabled);
+  const [formError, setFormError] = useState<string[] | null>(null);
 
   useEffect(() => {
     if (repair) {
@@ -42,9 +44,33 @@ export default function RepairEditForm({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    setFormError(null); //reset error on submit
+
+    //validate formdata
+    const formStatus = isValidForm(repairFormData);
+
+    //if invalid set error for display
+    if (!formStatus.isValid) {
+      setFormError(formStatus.reason);
+    }
+
+    //pressed submit now disable to allow processing
+    setSubmitAllowed(false);
+
+    console.log("formStatus", formStatus);
+
+    //reenable submit after 3 seconds
+    new Promise<void>((resolve) => {
+      setTimeout(() => {
+        setSubmitAllowed(true);
+        resolve();
+      }, 3000);
+    });
+
     try {
-      if (onSubmit) {
-        console.log("repairFormData", repairFormData);
+      console.log("repairFormData", repairFormData);
+      if (onSubmit && formStatus.isValid) {
+        //! todo enable submit
         onSubmit(repairFormData);
       }
     } catch (error) {
@@ -107,6 +133,11 @@ export default function RepairEditForm({
     <form
       className="w-full bg-slate-300"
       onSubmit={handleSubmit}>
+      <div className="flex text-black justify-center">
+        {!formError && <div className=" bg-green-500 ">form ok</div>}
+        {formError && <div className="bg-red-600">Invalid form</div>}
+        <div>{formError}</div>
+      </div>
       <legend className=" gap-4 flex flex-col rounded-lg p-2 border-gray-600 w-full">
         <div className="flex flex-col w-full justify-around items-center align-middle ">
           <div className="flex-1 flex justify-end">
