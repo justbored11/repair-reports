@@ -66,7 +66,7 @@ export default function EditProcedureList({
             },
           });
 
-          ///sync componente to form context
+          ///sync component to form context
           formAction.addProcedureAtBegining(procedure);
         }}
         className="btn">
@@ -179,13 +179,23 @@ function createProcedureCard({
       key={id}
       className="">
       <EditProcedureCard
-        key={id}
+        // key={id}
         procedureData={procedure}
-        id={id ? id : uuidv4()}
+        id={id}
+        onRemove={() => {
+          setter((state) => {
+            const newStateList = state.filter((item) => item._id != id);
+
+            // return state;
+            return newStateList;
+          });
+        }}
       />
       <div
         onClick={() => {
           const newProc = new Procedure();
+
+          console.log("added: ", newProc._id);
 
           addProcedureAfter({
             id,
