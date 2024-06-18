@@ -8,7 +8,7 @@ import EditProcedureList from "../ProcedureList/EditProcedureList";
 import ModalConfirm from "../Modals/ModalConfirm";
 import { RepairDataT } from "../../../types";
 import { RepairFormDataContext } from "../../context/RepairFormContext";
-import { isValidForm } from "../../utils/isValidForm";
+import { isValidForm } from "../../hooks/utils/isValidForm";
 
 export default function RepairEditForm({
   repair,

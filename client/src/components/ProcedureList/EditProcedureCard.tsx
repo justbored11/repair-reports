@@ -67,21 +67,23 @@ export default function EditProcedureCard({
   }
 
   async function handleRemoveProcedure() {
-    const promises: Promise<void>[] = [];
+    if (confirm("delete procedure? ")) {
+      const promises: Promise<void>[] = [];
 
-    //delete images from database promises
-    imageObjs.forEach((data) => {
-      //only delete if url is http and not data: buffer
-      if (data.imageUrl.includes("http")) {
-        promises.push(handleDeleteImage(data));
+      //delete images from database promises
+      imageObjs.forEach((data) => {
+        //only delete if url is http and not data: buffer
+        if (data.imageUrl.includes("http")) {
+          promises.push(handleDeleteImage(data));
+        }
+      });
+
+      if (promises.length > 0) await Promise.allSettled(promises);
+
+      if (onRemove) {
+        console.log("remove id:", PROCEDURE_ID);
+        onRemove();
       }
-    });
-
-    if (promises.length > 0) await Promise.allSettled(promises);
-
-    if (onRemove) {
-      console.log("remove id:", PROCEDURE_ID);
-      onRemove();
     }
   }
 

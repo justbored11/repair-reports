@@ -1,5 +1,5 @@
-import { ImageObjT, ProcedureT } from "../../types";
-import { Repair } from "../classes/Repair";
+import { ImageObjT, ProcedureT } from "../../../types";
+import { Repair } from "../../classes/Repair";
 
 const reason: string[] = [];
 export class FormTestResult {
