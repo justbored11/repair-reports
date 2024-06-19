@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
-import { Repair } from "../../classes/Repair";
 import { RepairCard } from "../../components/RepairList/RepairCard";
 import { RepairEditControls } from "./RepairEditControls";
+import { RepairDataT } from "../../../types";
 type UsersRepairsProps = {
-  repairList: Repair[];
+  repairList: RepairDataT[];
 };
 
 export type ControlOption = {
@@ -51,30 +51,18 @@ function RepairsList({
   repairList,
 }: {
   controls: ControlOption[];
-  repairList: Repair[];
+  repairList: RepairDataT[];
 }) {
   //create react components
   const list = repairList.map((repairObj) => {
-    //find first procedure to get image, title and summary from
-    const procedure =
-      repairObj?.procedureArr.length > 0
-        ? repairObj?.procedureArr[0]
-        : undefined;
+    const title = repairObj.title;
+    const url = repairObj?.procedureArr[0]?.images[0]
+      ? repairObj?.procedureArr[0].images[0]
+      : "";
 
-    //find first imageobj in procedure
-    const imageObj =
-      procedure && procedure.imageObjs.length > 0
-        ? procedure.imageObjs[0]
-        : undefined;
-
-    //get url
-    const url = imageObj?.imageThumb ? imageObj?.imageThumb : undefined;
-
-    const title = repairObj?.title ? repairObj?.title : "no title";
-
-    const summary = procedure?.instructions
-      ? procedure?.instructions
-      : undefined;
+    const summary = repairObj?.procedureArr[0]?.instructions
+      ? repairObj?.procedureArr[0]?.instructions
+      : "";
 
     return (
       <li

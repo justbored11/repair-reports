@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { repairDataT } from "../../../types";
 import { RepairCard } from "./RepairCard";
 import { v4 as uuidv4 } from "uuid";
 import noImagePlaceholder from "../../assets/no-image.png";
+import { RepairDataT } from "../../../types";
 
 interface latestRepairsProps {
-  repairList: repairDataT[];
+  repairList: RepairDataT[];
 }
 
 export default function RepairList({
