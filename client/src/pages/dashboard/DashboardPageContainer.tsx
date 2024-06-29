@@ -43,7 +43,7 @@ export default function DashboardPageContainer(): React.ReactNode {
       <main className="w-5/6 bg-green-600 ">
         <UsersRepairs repairList={filteredList} />
         <section>
-          <PageTools
+          <PaganationControls
             onPageChange={(pageNumber: number) => {
               getUserRepairs(PAGE_LIMIT, pageNumber);
             }}
@@ -58,7 +58,7 @@ type pageToolsProps = {
   onPageChange: (pageNumber: number) => void;
 };
 
-function PageTools({ onPageChange = () => {} }: pageToolsProps) {
+function PaganationControls({ onPageChange = () => {} }: pageToolsProps) {
   const [page, setPage] = useState(0);
   return (
     <>
@@ -78,6 +78,7 @@ function PageTools({ onPageChange = () => {} }: pageToolsProps) {
             page {page}
           </div>
         )}
+        <div className="badge h-14">{page + 1}</div>
         <div
           onClick={() => {
             setPage((p) => {

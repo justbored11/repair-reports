@@ -15,13 +15,13 @@ export const RepairCard = ({
   const [previewImageUrl, setPreviewUrl] = useState(previewUrl);
 
   return (
-    <div className="w-full">
+    <div className="w-full h-[400px] p-2">
       <div
         data-test="entry"
-        className="card bg-base-100 shadow-xl image-full">
-        <figure className="">
+        className="card bg-base-100 shadow-xl image-full h-full">
+        <figure className="h-full">
           <img
-            className=""
+            className="w-full"
             src={previewImageUrl}
             onError={() => {
               setPreviewUrl(noImagePlaceholder);
