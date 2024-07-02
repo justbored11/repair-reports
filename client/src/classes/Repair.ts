@@ -1,5 +1,6 @@
 import { ProcedureT, RepairDataT } from "../../types";
 import { Procedure } from "./Procedure";
+import { v4 as uuidv4 } from "uuid";
 
 export class Repair {
   public searchTags: string[] = [];
@@ -8,6 +9,7 @@ export class Repair {
   public group = "public";
   public procedureArr: Procedure[] = [];
   public title = "New Repair";
+  public _id = uuidv4();
 
   constructor(repair: RepairDataT);
   constructor();
@@ -27,6 +29,7 @@ export class Repair {
         ? this.intializeProcedures(repair.procedureArr)
         : this.procedureArr;
       this.title = repair?.title ? repair.title : this.title;
+      this._id = repair?._id ? repair._id : this._id;
     }
   }
 

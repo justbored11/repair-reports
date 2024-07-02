@@ -15,7 +15,7 @@ export default function EditRepairPageV2() {
   const [submitAllowed, setSubmitAllowed] = useState(true);
   const navigate = useNavigate();
 
-  const putRepair = async (repair: Repair) => {
+  const handleUpdateRepair = async (repair: Repair) => {
     console.log("update currentFormState", repair);
     try {
       setSubmitAllowed(false);
@@ -53,10 +53,15 @@ export default function EditRepairPageV2() {
   return (
     <RepairContextProvider>
       <section>
-        <h3>Edit Your Repair here V2</h3>
+        <h3
+          onClick={() => {
+            console.log("repair", repair);
+          }}>
+          Edit Your Repair here V2
+        </h3>
         {repair && (
           <RepairEditForm
-            onSubmit={putRepair}
+            onSubmit={handleUpdateRepair}
             repair={repair}
             enabled={submitAllowed}
             submitType="Update"
