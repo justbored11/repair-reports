@@ -20,6 +20,7 @@ export interface ProcedureT {
 }
 
 export type RepairDataT = {
+  [key: string]: unknown;
   boardType: string;
   createdBy: string;
   engineMake: string;
