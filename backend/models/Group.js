@@ -38,10 +38,6 @@ const GroupSchema = new mongoose.Schema({
     type: [String],
     default: ["public"],
   },
-  inviteCodes: {
-    type: [String],
-    default: [],
-  },
 });
 
 module.exports = mongoose.model("Group", GroupSchema);
