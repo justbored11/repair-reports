@@ -5,9 +5,9 @@ const InviteSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  invitePhrase: {
+  //security for specific invite optional
+  invitePassword: {
     type: String,
-    required: true,
   },
   groupsId: {
     type: [String],
