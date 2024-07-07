@@ -3,6 +3,7 @@ const passport = require("passport");
 const Group = require("../../models/Group"); //user created groups
 const validator = require("validator");
 const User = require("../../models/User"); //new user gets put in user collection
+const Invite = require("../../models/Invite");
 
 exports.apiLogout = (req, res, next) => {
   req.logout((err) => {
@@ -88,8 +89,23 @@ exports.apiLogin = (req, res, next) => {
 
 exports.apiSignup = async (req, res, next) => {
   //checking to see if password ect match
-
   console.log(`api signup body`, req.body);
+
+  let foundInvite;
+  const { inviteCode, invitePassword } = req.body;
+
+  try {
+    foundInvite = await Invite.findOne({ inviteCode });
+
+    if (!foundInvite) {
+      res.status(404).send({ notFound: inviteCode });
+      return;
+    }
+  } catch (error) {
+    res.status(500).send({ error: "invite lookup failed" });
+    return;
+  }
+
   const validationErrors = validateInput(req);
 
   if (validationErrors.length) {
@@ -100,10 +116,12 @@ exports.apiSignup = async (req, res, next) => {
       reason: validationErrors,
     });
   }
+
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
   });
 
+  //create new user doc locally
   const user = new User({
     //new User is our user model, we grab username,email, password from request body of the form to create a new user
     username: req.body.username,
@@ -111,6 +129,7 @@ exports.apiSignup = async (req, res, next) => {
     password: req.body.password,
   });
 
+  //verify user email is unique and create user
   User.findOne(
     { $or: [{ email: req.body.email }, { username: req.body.username }] },
     async (err, existingUser) => {
@@ -119,34 +138,39 @@ exports.apiSignup = async (req, res, next) => {
       }
       if (existingUser) {
         req.flash("errors", ["email already in use"]);
-        return res.redirect("../signup");
+        return res.status(400).send({ error: "email invalid" });
       }
+
+      //send creation request to database
       const result = await user.save(async (err, createdUser) => {
         //save the new user model to create a new user in our users collection
         if (err) {
           return next(err);
         }
 
-        const foundGroup = await Group.findOne({
-          name: createdUser.username,
-        });
-        console.log(`found group`, foundGroup);
-        if (!foundGroup) {
-          console.log(`user created: `, createdUser);
-          ///no group found make one
-          const newGroup = await Group.create({
-            name: user.username,
-            members: [
-              {
-                userid: createdUser._id,
-                username: createdUser.username,
-                role: "3",
-              },
-            ],
-            createdBy: createdUser._id,
-          });
-          console.log("group made: ", newGroup);
-        }
+        //group created for user
+        // const foundGroup = await Group.findOne({
+        //   // name: createdUser.username,
+        //   createdBy: createdUser._id,
+        // });
+
+        // console.log(`found group`, foundGroup);
+        // if (!foundGroup) {
+        //   console.log(`user created: `, createdUser);
+        //   ///no group found make one
+        //   const newGroup = await Group.create({
+        //     name: user.username,
+        //     members: [
+        //       {
+        //         userid: createdUser._id,
+        //         username: createdUser.username,
+        //         role: "3",
+        //       },
+        //     ],
+        //     createdBy: createdUser._id,
+        //   });
+        //   console.log("group made: ", newGroup);
+        // }
 
         req.logIn(user, (err) => {
           if (err) {
@@ -170,8 +194,8 @@ function validateInput(req) {
     validationErrors.push("Please enter a valid email address.");
   if (!validator.isLength(req.body.password, { min: 8 }))
     validationErrors.push("password must be atleast 8 characters");
-  if (req.body.password !== req.body.confirmPassword)
-    validationErrors.push("Passwords do not match");
+  // if (req.body.password !== req.body.confirmPassword)
+  //   validationErrors.push("Passwords do not match");
 
   return validationErrors;
 }
