@@ -19,7 +19,17 @@ export type authContextT = {
   login: ((email: string, password: string) => Promise<void>) | null;
   logout: (() => Promise<void>) | null;
   signUp:
-    | ((email: string, password: string, username: string) => Promise<void>)
+    | (({
+        email,
+        password,
+        username,
+        inviteCode,
+      }: {
+        email: string;
+        password: string;
+        username: string;
+        inviteCode: string;
+      }) => Promise<void>)
     | null;
   unauthorizedError: () => void;
 };
@@ -82,11 +92,22 @@ export const AuthContextProvider = ({
     setIsAuth(false);
   };
 
-  const signUp = async (email: string, password: string, username: string) => {
+  const signUp = async ({
+    email,
+    username,
+    password,
+    inviteCode,
+  }: {
+    email: string;
+    password: string;
+    username: string;
+    inviteCode: string;
+  }) => {
     const response = await axios.post(`${API_URL}/api/signup`, {
       email,
       password,
       username,
+      inviteCode,
     });
     console.log("response", response.data);
   };

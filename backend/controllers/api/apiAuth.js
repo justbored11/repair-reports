@@ -98,7 +98,7 @@ exports.apiSignup = async (req, res, next) => {
     foundInvite = await Invite.findOne({ inviteCode });
 
     if (!foundInvite) {
-      res.status(404).send({ notFound: inviteCode });
+      res.status(404).send({ invalidInvite: inviteCode });
       return;
     }
   } catch (error) {

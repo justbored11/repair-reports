@@ -9,6 +9,7 @@ export default function LoginCard(): React.ReactNode {
     confirmEmail: "",
     password: "",
     confirmPassword: "",
+    inviteCode: "",
   });
 
   const [isLogin, setIsLogin] = useState(true);
@@ -20,9 +21,9 @@ export default function LoginCard(): React.ReactNode {
   // }, [formData]);
 
   return (
-    <div className="flex justify-center w-full">
-      <div className=" flex justify-center w-96">
-        <div className="bg-slate-500 modal-box p-2 h-full flex flex-col gap-3 w-full">
+    <div className="flex justify-center ">
+      <div className=" flex justify-center w-5/6">
+        <div className="bg-slate-500 p-1 h-full flex flex-col gap-1 w-full">
           <div
             onClick={() => {
               setIsLogin((state) => {
@@ -32,6 +33,7 @@ export default function LoginCard(): React.ReactNode {
                   confirmEmail: "",
                   password: "",
                   confirmPassword: "",
+                  inviteCode: "",
                 });
                 return !state;
               });
@@ -146,7 +148,28 @@ export default function LoginCard(): React.ReactNode {
                 />
               </label>
             )}
+
+            {/* invite code section */}
+            {!isLogin && (
+              <label className="max-w-xs flex flex-col">
+                <div className="label">
+                  <span className="label-text">Invite Code:</span>
+                </div>
+                <input
+                  onChange={(event) => {
+                    setFormData((state) => {
+                      return { ...state, inviteCode: event.target.value };
+                    });
+                  }}
+                  type="text"
+                  placeholder="Invite Code"
+                  className="input input-bordered w-full max-w-xs"
+                />
+              </label>
+            )}
           </div>
+
+          {/* Login button / signup button */}
           <div className="flex flex-row-reverse">
             <div
               onClick={() => {
@@ -155,7 +178,10 @@ export default function LoginCard(): React.ReactNode {
                   login!(formData.email, formData.password);
                 }
                 if (!isLogin) {
-                  signUp!(formData.email, formData.password, formData.username);
+                  if (signUp) {
+                    const { email, password, username, inviteCode } = formData;
+                    signUp({ email, password, username, inviteCode });
+                  }
                 }
               }}
               className={
