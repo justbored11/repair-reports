@@ -1,4 +1,6 @@
 const Invite = require("../../models/Invite");
+const Member = require("../../models/Member");
+const uuidv4 = require("uuid").v4;
 
 //get specific invite
 const getInvite = async (req, res) => {
@@ -59,19 +61,38 @@ createdBy:string
 
 */
 const postInvite = async (req, res) => {
-  const { inviteCode, groupsId } = req.body;
+  const { password, groups } = req.body;
   const userId = req.user.id;
   // const userId = "userid";
 
-  if (!inviteCode) {
-    res.status(404).send({ inviteCode, invitePhrase });
+  //no groups provided to create invite
+  if (!groups) {
+    res.status(404).send({ groups });
     return;
   }
 
-  //todo create the invite document
+  // const allowedGroups: [{ id: string, name: string }] = [];
+  let allowedGroups = [];
+  try {
+    allowedGroups = await verifyGroupMembership(groups, userId);
+
+    //not allowed to invite in any group
+    if (allowedGroups.length === 0) throw Error("User Not Allowed");
+  } catch (error) {
+    console.error("error.message", error.message);
+
+    res.status(401).send({
+      message: "failed to create invite",
+      groups,
+    });
+    return;
+  }
+
+  //todo create the invite document with random uuid with maybe 6 chars
+  //must be unique invite code
   const newInvite = new Invite({
-    inviteCode,
-    groupsId,
+    inviteCode: uuidv4().slice(0, 6),
+    groups: allowedGroups,
     createdBy: userId,
   });
 
@@ -81,8 +102,8 @@ const postInvite = async (req, res) => {
   } catch (error) {
     console.error(error.message);
     res.status(500).send({
-      message: "failed to get invite",
-      invite: { inviteCode },
+      message: "failed to create invite",
+      groups,
     });
   }
 };
@@ -90,8 +111,20 @@ const postInvite = async (req, res) => {
 //utility functions
 //pass in group ids to verify user is member with valid role
 //todo verify user has correct permissions to create invite
-function verifyGroupMembership(groupsId = []) {
-  if (groupsId.length == 0) return false;
+//TODO create an allowed group
+async function verifyGroupMembership(groupIds = [], userId) {
+  if (groupIds.length == 0) return [];
+
+  const allowed = await Member.find({
+    userId,
+    groupId: { $in: groupIds },
+  });
+
+  console.log("allowed", allowed);
+
+  return allowed.map((g) => {
+    return { id: g.groupId, name: g.groupName };
+  });
 }
 
 module.exports = { getInvite, getUsersInvites, postInvite };

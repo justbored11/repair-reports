@@ -1,66 +1,117 @@
-type InviteT = {
-  inviteCode: string;
-  invitePassword: string;
-  groupsId: string[];
-  createdAt: string;
-  status: string;
+// import useInviteManager from "../../hooks/useInviteManager";
+
+import { useState } from "react";
+import { Form } from "react-router-dom";
+import CreatableSelect from "react-select/creatable";
+
+export type GroupOptionT = {
+  id: string;
+  name: string;
 };
 
-type InviteToolPropsT = {
-  invites?: InviteT[];
-};
-
-const testInvites = [
-  {
-    inviteCode: "string",
-    invitePassword: "string",
-    groupsId: ["1234", "1234533"],
-    createdAt: "string",
-    status: "pending",
-  },
+//TODO remove test and use hook
+const TestAvailableGroups = [
+  { id: "66906fdfaf083055ee5677a1", name: "cata" },
+  { id: "12d3", name: "another group" },
+  { id: "1dfadf4533", name: "another group" },
+  { id: "12dfag33", name: "another group" },
+  { id: "122222533", name: "another group" },
+  { id: "99999533", name: "another group" },
+  { id: "100004533", name: "another group" },
+  { id: "13423543", name: "another group" },
 ];
 
+type InviteToolProps = {
+  availableGroups?: GroupOptionT[];
+  onPostInvite: (groupIds: string[], password?: string) => Promise<void>;
+};
+
 export default function InviteTool({
-  invites = testInvites,
-}: InviteToolPropsT) {
+  availableGroups = TestAvailableGroups,
+  onPostInvite,
+}: InviteToolProps) {
   return (
-    <section className="relative">
-      <div className="flex justify-between">
-        <span>Invite History</span>
-        <div className="btn btn-sm ">
-          <span>create invite +</span>
+    <section className="relative p-2 border rounded-lg border-blue-600">
+      <div>
+        <div>
+          <InviteForm
+            onSubmit={(groupIds: string[], password: string) => {
+              onPostInvite(groupIds, password);
+            }}
+            groupOptions={availableGroups}
+          />
         </div>
       </div>
-      <table className=" w-full">
-        <section className=""></section>
-
-        <tr>
-          <th>Status</th>
-          <th>Invite Code</th>
-          <th>Invite Password</th>
-          <th>Groups</th>
-        </tr>
-        {invites.map((inv) => {
-          return <InviteListing invite={inv} />;
-        })}
-      </table>
     </section>
   );
 }
 
-function InviteListing({ invite }: { invite: InviteT }) {
+type CreateInviteFormPropsT = {
+  groupOptions?: GroupOptionT[];
+  onSubmit: (groupIds: string[], password: string) => void;
+};
+
+function InviteForm({ groupOptions = [], onSubmit }: CreateInviteFormPropsT) {
+  const options = groupOptions.map((option) => {
+    return { label: option.name, value: option.id };
+  });
+
+  const [groupIds, setGroupIds] = useState<string[]>([]);
+  const [password] = useState("");
+
   return (
-    <tr>
-      <td className="text-center">{invite.status}</td>
-      <td className="text-center">{invite.inviteCode}</td>
-      <td className="text-center">{invite.invitePassword}</td>
-      <td className="text-center">
-        <ul>
-          {invite.groupsId.map((id) => (
-            <li>{id}</li>
-          ))}
-        </ul>
-      </td>
-    </tr>
+    <Form className="flex flex-wrap relative">
+      <div>
+        <label className="form-control w-full max-w-xs">
+          <div className="label">
+            <span className="label-text">Invite Password</span>
+            <span className="label-text-alt">Optional</span>
+          </div>
+          <input
+            type="text"
+            onChange={(event) => {
+              console.log("password", event.target.value);
+            }}
+            placeholder="Optional password"
+            className="input input-bordered w-full max-w-xs"
+          />
+        </label>
+      </div>
+
+      <div>
+        <label className="form-control w-full max-w-xs">
+          <div className="label">
+            <span className="label-text">Pick group</span>
+          </div>
+          <CreatableSelect
+            isMulti
+            className=" w-full"
+            // defaultValue={defaultValue ? defaultValue : options[0]}
+            isClearable
+            onChange={(options) => {
+              // if (callback) callback(options);
+              const groupIds = options.map((tagObj) => {
+                return tagObj.value;
+              });
+              // console.log("groupIds", groupIds);
+              setGroupIds(groupIds);
+
+              return;
+            }}
+            options={options}
+          />
+        </label>
+      </div>
+      <div className="btn btn-sm absolute right-0">
+        <div
+          onClick={() => {
+            if (onSubmit) {
+              onSubmit(groupIds, password);
+            }
+          }}>
+          create invite +
+        </div>
+      </div>
+    </Form>
   );
 }

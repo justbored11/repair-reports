@@ -23,6 +23,10 @@ const MemberSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  groupName: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Member", MemberSchema);
