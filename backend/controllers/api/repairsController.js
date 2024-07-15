@@ -1,5 +1,7 @@
 const Repair = require("../../models/Repair");
 
+const REPAIR_INDEX = process.env.search_index;
+
 const getRepairsforUser = async (req, res) => {
   const user = req.user;
   const { limit, page } = req.query;
@@ -179,7 +181,7 @@ const searchRepairs = async (req, res) => {
     const results = await Repair.aggregate([
       {
         $search: {
-          index: "repairs_search",
+          index: REPAIR_INDEX,
           text: {
             query: searchStr,
             //   path:["title","searchtags","procedureArr","instructions"],
@@ -225,4 +227,5 @@ module.exports = {
   getNewestRepairs,
   updateRepair,
   getRepairsforUser,
+  searchRepairs,
 };

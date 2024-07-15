@@ -11,6 +11,13 @@ interface latestRepairsProps {
 export default function RepairList({
   repairList,
 }: latestRepairsProps): React.ReactNode {
+  if (!repairList) {
+    return (
+      <li>
+        <h3>No repairs to display</h3>
+      </li>
+    );
+  }
   const repairs = repairList.map((data) => {
     return (
       <li
