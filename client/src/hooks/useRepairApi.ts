@@ -30,7 +30,7 @@ const useRepairApi = () => {
   const searchForRepair = async (phrase: string) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/repairs/search`,
+        `${API_URL}/api/repairs/search`,
         { searchPhrase: phrase },
         {
           withCredentials: true,
