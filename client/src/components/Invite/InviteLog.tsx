@@ -1,4 +1,6 @@
-type InviteT = {
+import { InviteListing } from "./InviteListing/InviteListing";
+
+export type InviteT = {
   inviteCode: string;
   invitePassword: string;
   groups: { id: string; name: string }[];
@@ -41,24 +43,5 @@ export default function InviteLog({ invites = testInvites }: InviteLogProps) {
         })}
       </table>
     </div>
-  );
-}
-
-function InviteListing({ invite }: { invite: InviteT }) {
-  return (
-    <tr>
-      <td className="text-center">{invite.status}</td>
-      <td className="text-center">{invite.inviteCode}</td>
-      <td className="text-center">{invite.invitePassword}</td>
-      <td className="text-center">
-        <ul>
-          {invite.groups.map((g) => (
-            <li key={g.id}>
-              {g.id}:{g.name}
-            </li>
-          ))}
-        </ul>
-      </td>
-    </tr>
   );
 }

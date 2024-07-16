@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "back-install": "cd ./backend/ && npm install",
     "client-install": "cd ./client/ && npm install",
     "build-client": "cd ./client/ && npm run build",

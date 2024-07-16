@@ -1,3 +1,5 @@
+import { it, expect, describe, test } from "vitest";
+
 const { getAggregate } = require("../getAggregate");
 const testPhrase = "ddec5 no inj";
 
