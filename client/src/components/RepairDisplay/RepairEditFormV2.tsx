@@ -154,7 +154,7 @@ export default function RepairEditForm({
               id="title"
               name="title"
               type="text"
-              defaultValue={title}
+              placeholder={title}
             />
           </div>
         </div>

@@ -2,6 +2,8 @@
 
 import CreatableSelect from "react-select/creatable";
 
+import { v4 as uuidv4 } from "uuid";
+
 export type OptionT = {
   value: string;
   label: string;
@@ -18,15 +20,21 @@ export default function AvailableOptionsMulti({
   callback?: (options: string[]) => void;
   // defaultValue?: OptionT[];
 }) {
+  const inputTitle = title ? title : "multi select";
+
+  const id = uuidv4().slice(0, 5);
+
   return (
-    <div className="flex flex-col w-full justify-around items-center align-middle">
+    <div
+      data-testid="available-options-multi"
+      className="flex flex-col justify-around items-center items-center">
       <div className="flex-1 flex w-11/12 justify-center">
         <span className="text-center">{title}</span>
       </div>
       <div className="flex-1 flex justify-center w-[300px]">
         <CreatableSelect
           isMulti
-          className=" w-full"
+          className="w-full"
           // defaultValue={defaultValue ? defaultValue : options[0]}
           isClearable
           onChange={(options) => {
@@ -43,6 +51,7 @@ export default function AvailableOptionsMulti({
           options={options}
         />
       </div>
+      <div className="flex-1 flex justify-center w-[300px]"></div>
     </div>
   );
 }
