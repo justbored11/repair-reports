@@ -7,6 +7,7 @@ export function CameraPreview({
 }) {
   return (
     <video
+      data-testid="camera-preview"
       className="h-full w-full"
       ref={videoRef}
       style={{ display: "block", maxWidth: "100%" }}

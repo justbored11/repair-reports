@@ -1,5 +1,5 @@
 import { expect, describe, test } from "vitest";
-import createThumbUrl from "../createThumbUrl";
+import createThumbUrl from "../../src/hooks/utils/createThumbUrl";
 
 const correctThumbUrl =
   "https://res.cloudinary.com/da6jwh1id/image/upload/c_thumb,w_200,g_face/v1715025448/no_folder/63629c7c159bbca8835346f0/hezxm0cjlg2xwofrlole.jpg";
