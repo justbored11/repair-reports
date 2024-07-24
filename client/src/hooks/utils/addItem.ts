@@ -16,13 +16,17 @@ function addItem<T extends ItemWithIdT>({
   arr,
   item,
 }: addItemInterface<T>) {
-  const newArr = [...arr];
+  const newArr = arr;
+
+  console.log("add item", item);
 
   if (pos == "begining") {
+    console.log("add at begin additem");
     return [item, ...newArr];
   }
 
   if (pos == "end") {
+    console.log("add at end additem");
     return [...newArr, item];
   }
 

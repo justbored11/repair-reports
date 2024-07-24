@@ -154,6 +154,10 @@ function addProcedureAfter({
     });
 
     console.log("newState", newState);
+
+    //testing if inside state setter change state
+    // if (formAction) formAction.addProcedureAfter(id, itemToAdd);
+
     return newState;
   });
 }
