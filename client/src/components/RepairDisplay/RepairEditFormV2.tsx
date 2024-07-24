@@ -130,9 +130,7 @@ export default function RepairEditForm({
   ];
 
   return (
-    <form
-      className="w-full bg-slate-300"
-      onSubmit={handleSubmit}>
+    <form className="w-full bg-slate-300" onSubmit={handleSubmit}>
       <div className="flex text-black justify-center">
         {!formError && <div className=" bg-green-500 ">form ok</div>}
         {formError && <div className="bg-red-600">Invalid form</div>}
@@ -209,10 +207,7 @@ export default function RepairEditForm({
         <ModalConfirm label={submitType ? submitType : "Create Repair"}>
           <div>
             <span>Please confirm: </span>
-            <button
-              type="submit"
-              className="btn"
-              disabled={!submitAllowed}>
+            <button type="submit" className="btn" disabled={!submitAllowed}>
               {submitType ? submitType : "Create Repair"}
             </button>
           </div>

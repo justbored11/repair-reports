@@ -30,6 +30,7 @@ function addItem<T extends ItemWithIdT>({
   let temp = [];
   const targetIndex = newArr.findIndex((element) => element?._id == id);
 
+  console.log("target index additem util", targetIndex);
   if (targetIndex == -1) {
     newArr.push(item);
 

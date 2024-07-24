@@ -129,7 +129,7 @@ export const AuthContextProvider = ({
 
   return (
     <AuthContext.Provider value={values}>
-      {!isAuth ? <LoginCard /> : <>{children}</>}
+      {false ? <LoginCard /> : <>{children}</>}
     </AuthContext.Provider>
   );
 };

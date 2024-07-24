@@ -69,7 +69,8 @@ export default function EditProcedureList({
           ///sync component to form context
           formAction.addProcedureAtBegining(procedure);
         }}
-        className="btn">
+        className="btn"
+      >
         Add new Procedure at begining
       </div>
       <ul className="w-full flex flex-col gap-2 overflow-hidden">
@@ -152,6 +153,7 @@ function addProcedureAfter({
       id,
     });
 
+    console.log("newState", newState);
     return newState;
   });
 }
@@ -175,9 +177,7 @@ function createProcedureCard({
   >;
 }) {
   return (
-    <li
-      key={id}
-      className="">
+    <li key={id} className="">
       <EditProcedureCard
         // key={id}
         procedureData={procedure}
@@ -213,7 +213,8 @@ function createProcedureCard({
 
           if (formAction) formAction.addProcedureAfter(id, newProc);
         }}
-        className="btn">
+        className="btn"
+      >
         Add new Procedure here
       </div>
     </li>

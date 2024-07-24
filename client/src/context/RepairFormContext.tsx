@@ -114,12 +114,14 @@ export const RepairContextProvider = ({
 
   ///add procedure after the id provided
   function addProcedureAfter(id: string, item: Procedure) {
+    //TODO using util to add item
     const newArr = addItem({
       id,
       pos: "after",
       arr: repairFormData.procedureArr,
       item,
     });
+
     setRepairFormData((state) => {
       state.procedureArr = newArr;
 

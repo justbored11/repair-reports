@@ -20,12 +20,12 @@ export default function EditProcedureCard({
   id?: string;
   onRemove?: () => void;
 }) {
-  console.log("myid is :", id);
+  // console.log("myid is :", id);
   const { formAction } = useContext(RepairFormDataContext);
   const { updateInstructions } = formAction;
   const { imageObjs } = procedureData; //TODO images on procedure
   const PROCEDURE_ID = procedureData._id ? procedureData._id : id;
-  console.log("PROCEDURE_ID", PROCEDURE_ID);
+  // console.log("PROCEDURE_ID", PROCEDURE_ID);
   const { deleteImage } = useImageManager();
 
   const [instructions, setInstructions] = useState(procedureData.instructions);
@@ -95,7 +95,8 @@ export default function EditProcedureCard({
         onClick={() => {
           handleRemoveProcedure();
         }}
-        className="btn bg-yellow-600 hover:bg-red-600 hover:scale-125 w-40 text-black">
+        className="btn bg-yellow-600 hover:bg-red-600 hover:scale-125 w-40 text-black"
+      >
         Remove procedure
       </div>
 
@@ -133,7 +134,8 @@ export default function EditProcedureCard({
                     return [...state, newItem];
                   });
                 }}
-                className="text-xl btn btn-active btn-accent hover:bg-green-300">
+                className="text-xl btn btn-active btn-accent hover:bg-green-300"
+              >
                 +
               </div>
             </div>
@@ -159,7 +161,8 @@ export default function EditProcedureCard({
           name=""
           id=""
           cols={30}
-          rows={10}></textarea>
+          rows={10}
+        ></textarea>
       </section>
     </div>
   );
@@ -176,9 +179,7 @@ function createEditImageCard({
   setter: React.Dispatch<React.SetStateAction<ImageCardListT[]>>;
 }) {
   return (
-    <li
-      className="w-full card md:w-1/3 bg-slate-700 p-2"
-      key={uuidv4()}>
+    <li className="w-full card md:w-1/3 bg-slate-700 p-2" key={uuidv4()}>
       <EditImageCard
         procedureId={procedureId}
         imageData={imageObj}
